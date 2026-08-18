@@ -1,0 +1,63 @@
+# Jingzao Image Forge
+
+> A Codex Skill for structured image prompt engineering. It converts image briefs, observed references, and local edit intent into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators.
+
+Canonical repository: https://github.com/papperrollinggery/jingzao-image-forge
+English documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.md
+Chinese documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.zh-CN.md
+Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/SKILL.md
+
+## Primary capabilities
+
+- create: create a new image prompt from a brief
+- reconstruct: describe observable reference-image attributes without claiming to recover a hidden prompt
+- edit: describe the smallest local change and explicit preservation constraints
+- restyle: change visual treatment while locking identity, pose, geometry, layout, and text
+- expand: extend a canvas while preserving original content and subject position
+- knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
+- artifact and material quality: control noise, grain, bloom, flare, oily or waxy surfaces, sharpening halos, particles, and focal-detail hierarchy
+- cross-platform compilation: OpenAI, FLUX, Midjourney, and generic targets
+
+## Core files
+
+- SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
+- references/visual-spec.md: visual_generation_spec schema and control semantics
+- references/prompt-compiler.md: platform-aware compilation behavior
+- references/quality-controls.md: artifact budgets, material-light controls, and clean-slate retry guidance
+- templates/visual-spec.json: reusable JSON template
+- scripts/validate_spec.py: standard-library specification validator
+- scripts/compile_prompt.py: standard-library prompt compiler
+- examples/atomic-cyber-live-action.json: synthetic validated edit example
+- tests/test_skill.py: deterministic regression tests
+- tests/evals.md: behavioral evaluation cases
+- assets/jingzao-image-forge-hero-en.png: English visual introduction page generated with Codex imagegen
+- assets/jingzao-image-forge-hero-zh.png: Chinese visual introduction page generated with Codex imagegen
+
+## Invocation
+
+$jingzao-image-forge <image brief, reference observation, or edit request>
+
+## Important boundaries
+
+- The Skill prepares specifications and prompts; it does not generate images by itself.
+- Coordinates are semantic anchors, not pixel-accurate masks.
+- Model world knowledge is a creative aid, not verification evidence.
+- Provider capabilities and parameters must be rechecked against current official documentation before they are changed or promised.
+- Generated images must be visually inspected before claiming quality, identity accuracy, or edit success.
+
+## Validation
+
+python3 scripts/validate_spec.py templates/visual-spec.json
+python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+python3 -m unittest discover -s tests -v
+
+Current deterministic baseline: 21 regression tests.
+Manual forward test: dark portrait with skin, fabric, brass, wood, and practical-light artifact controls; visually inspected, not committed.
+
+## Research foundations
+
+- https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
+- https://github.com/openai/plugins
+- https://github.com/anthropics/skills
+- https://github.com/wuyoscar/GPT-Image2-Skill
+- https://github.com/obra/superpowers

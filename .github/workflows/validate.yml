@@ -1,0 +1,38 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile Python sources
+        run: python3 -m py_compile scripts/validate_spec.py scripts/compile_prompt.py tests/test_skill.py
+
+      - name: Validate specifications
+        run: |
+          python3 scripts/validate_spec.py templates/visual-spec.json
+          python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+
+      - name: Run regression tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Validate platform compiler JSON
+        run: |
+          for platform in openai flux midjourney generic; do
+            python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform "$platform" > "/tmp/$platform.json"
+            python3 -m json.tool "/tmp/$platform.json" > /dev/null
+          done

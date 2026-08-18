@@ -1,0 +1,216 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "edit",
+  "intent": "Synthetic example of a surgical cinematic edit: fracture the moon while preserving the existing cyber-city live-action frame.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [
+    {
+      "id": "image-1",
+      "type": "image",
+      "role": "base_edit_source",
+      "description": "User-supplied source frame containing an intact moon in the upper-left sky. This packaged example does not include the actual image."
+    }
+  ],
+  "scene": {
+    "summary": "A grounded live-action night view of a dense near-future city beneath a large moon.",
+    "setting": "High-rise urban skyline with restrained cybernetic infrastructure and atmospheric haze.",
+    "time": "night",
+    "atmosphere": [
+      "thin high-altitude haze",
+      "subtle suspended particles",
+      "large-scale cinematic depth"
+    ],
+    "control": {"weight": 0.95, "lock": true, "variance": 0.0}
+  },
+  "subjects": [
+    {
+      "id": "moon",
+      "description": "The existing lunar disk, changed into a physically fractured celestial body with separated crustal plates and deep internal fissures.",
+      "count": 1,
+      "appearance": [
+        "recognizably lunar surface",
+        "credible rocky mass",
+        "irregular structural break lines",
+        "subtle cold internal light inside the deepest fissures"
+      ],
+      "action": "Breaking apart slowly without exploding outward.",
+      "pose": "Existing circular silhouette remains broadly readable.",
+      "gaze": "not applicable",
+      "position": {
+        "x_percent": 16.5,
+        "y_percent": 16.4,
+        "region": {
+          "x_percent": 7.0,
+          "y_percent": 5.0,
+          "width_percent": 19.0,
+          "height_percent": 23.0
+        },
+        "depth": "background sky"
+      },
+      "scale": "Preserve the apparent diameter of the original moon.",
+      "relationships": [
+        "Remain behind the skyline.",
+        "Do not overlap or displace buildings.",
+        "Match the existing haze and atmospheric perspective."
+      ],
+      "control": {"weight": 1.0, "lock": false, "variance": 0.12}
+    }
+  ],
+  "composition": {
+    "shot_size": "existing wide establishing shot",
+    "camera_angle": "preserve source camera angle",
+    "perspective": "preserve source perspective",
+    "focal_length_mm": null,
+    "framing": "Preserve every crop boundary and the moon's center position.",
+    "negative_space": "Preserve the existing sky around the moon.",
+    "depth_layers": [
+      "foreground source elements unchanged",
+      "midground skyline unchanged",
+      "background moon edited in place"
+    ],
+    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+  },
+  "lighting": {
+    "summary": "Integrate the fracture into the source exposure without relighting the city.",
+    "key": "preserve source moonlight direction",
+    "fill": "preserve source ambient fill",
+    "rim": "no new rim light on the skyline",
+    "direction": "unchanged",
+    "contrast": "unchanged outside the lunar disk",
+    "color_temperature": "preserve source balance",
+    "practicals": ["existing city lights unchanged"],
+    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+  },
+  "materials": [
+    {
+      "target": "moon",
+      "description": "Dry cratered rock with massive crustal slabs, powdery regolith edges, deep shadowed gaps, and physically credible debris scale.",
+      "physical_properties": [
+        "non-metallic rock",
+        "high micro-roughness",
+        "no glassy or plastic surface",
+        "subtle particulate shedding"
+      ],
+      "control": {"weight": 0.95, "lock": false, "variance": 0.12}
+    }
+  ],
+  "color": {
+    "palette": [
+      "source night palette",
+      "neutral lunar gray",
+      "restrained cold blue-white fissure light"
+    ],
+    "grade": "Preserve the source grade.",
+    "contrast": "No global contrast change.",
+    "saturation": "No global saturation change.",
+    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+  },
+  "optics": {
+    "depth_of_field": "Match source focus behavior.",
+    "focus_target": "unchanged",
+    "motion_blur": "No added camera blur; minimal slow debris motion only.",
+    "lens_character": "Match source lens and atmospheric response.",
+    "artifacts": ["retain source grain", "retain source halation if present"],
+    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+  },
+  "style": {
+    "medium": "live-action cinematic photograph",
+    "realism": "photorealistic",
+    "visual_traits": [
+      "large-scale physical realism",
+      "restrained science-fiction production design",
+      "natural atmospheric integration",
+      "credible VFX compositing"
+    ],
+    "era": "near future",
+    "references": [],
+    "excluded_traits": [
+      "painterly illustration",
+      "plastic CGI sheen",
+      "fantasy crystal moon",
+      "oversharpened AI texture"
+    ],
+    "control": {"weight": 0.95, "lock": true, "variance": 0.0}
+  },
+  "text_elements": [],
+  "spatial_edits": [
+    {
+      "target": "moon",
+      "point": {"x_percent": 16.5, "y_percent": 16.4},
+      "region": {
+        "x_percent": 7.0,
+        "y_percent": 5.0,
+        "width_percent": 19.0,
+        "height_percent": 23.0
+      },
+      "instruction": "Transform only the intact lunar disk into a physically fractured moon. Preserve its center, apparent diameter, broad silhouette, atmospheric depth, and surrounding sky. The moon is splitting into a few massive rocky plates with deep irregular fissures; it is not a fiery explosion.",
+      "preserve_surroundings": true,
+      "control": {"weight": 1.0, "lock": false, "variance": 0.12}
+    }
+  ],
+  "constraints": {
+    "must_preserve": [
+      "original camera angle and crop",
+      "all skyline geometry and building placement",
+      "all foreground and midground content",
+      "moon center at x 16.5 percent and y 16.4 percent",
+      "moon's apparent diameter",
+      "source exposure, color grade, haze, grain, and lens response",
+      "all pixels outside the approximate lunar edit region as closely as the editor permits"
+    ],
+    "must_change": [
+      "only the intact lunar disk becomes physically fractured"
+    ],
+    "exclude": [
+      "planet-wide explosion",
+      "fireball",
+      "large outward shockwave",
+      "new spacecraft",
+      "new text",
+      "logo",
+      "watermark",
+      "global relighting",
+      "city redesign"
+    ]
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": [
+      "lunar fracture geometry",
+      "atmospheric integration",
+      "edge continuity around the edit"
+    ],
+    "artifact_budget": "source_matched",
+    "quality_controls": [
+      "preserve only source-motivated grain, halation, bloom, and optical artifacts"
+    ]
+  },
+  "platform_options": {
+    "openai": {
+      "model": "gpt-image-2",
+      "quality": "high",
+      "size": "1536x864"
+    },
+    "flux": {
+      "model_family": "FLUX.2",
+      "prompt_format": "natural_language",
+      "prompt_upsampling": false
+    },
+    "midjourney": {
+      "aspect_ratio": "16:9",
+      "stylize": 50,
+      "chaos": 0,
+      "quality": 1,
+      "raw": true,
+      "seed": null,
+      "version": null,
+      "style_reference": [],
+      "style_weight": 100
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Describe the intended image and its use.",
+  "platform": "auto",
+  "language": "en",
+  "canvas": {
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [],
+  "knowledge_anchors": [],
+  "scene": {
+    "summary": "Describe the overall scene.",
+    "setting": "Describe the environment.",
+    "time": "Describe time or period when relevant.",
+    "atmosphere": [],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.25}
+  },
+  "subjects": [
+    {
+      "id": "subject-1",
+      "description": "Describe the primary subject.",
+      "count": 1,
+      "appearance": [],
+      "action": "Describe the action.",
+      "pose": "Describe the pose when relevant.",
+      "gaze": "Describe gaze when relevant.",
+      "position": {
+        "x_percent": 50.0,
+        "y_percent": 50.0,
+        "depth": "midground"
+      },
+      "scale": "Describe relative scale.",
+      "relationships": [],
+      "control": {"weight": 1.0, "lock": false, "variance": 0.15}
+    }
+  ],
+  "composition": {
+    "shot_size": "wide shot",
+    "camera_angle": "eye level",
+    "perspective": "natural perspective",
+    "focal_length_mm": null,
+    "framing": "Describe the visual hierarchy and crop.",
+    "negative_space": "Describe intentional negative space.",
+    "depth_layers": [],
+    "control": {"weight": 0.95, "lock": false, "variance": 0.1}
+  },
+  "lighting": {
+    "summary": "Describe the lighting system.",
+    "key": "",
+    "fill": "",
+    "rim": "",
+    "direction": "",
+    "contrast": "",
+    "color_temperature": "",
+    "practicals": [],
+    "control": {"weight": 0.85, "lock": false, "variance": 0.2}
+  },
+  "materials": [],
+  "color": {
+    "palette": [],
+    "grade": "",
+    "contrast": "",
+    "saturation": "",
+    "control": {"weight": 0.8, "lock": false, "variance": 0.2}
+  },
+  "optics": {
+    "depth_of_field": "",
+    "focus_target": "",
+    "motion_blur": "",
+    "lens_character": "",
+    "artifacts": [],
+    "control": {"weight": 0.75, "lock": false, "variance": 0.25}
+  },
+  "style": {
+    "medium": "Describe the requested visual medium without changing it implicitly.",
+    "realism": "Describe the requested realism or stylization.",
+    "visual_traits": [],
+    "era": "",
+    "references": [],
+    "excluded_traits": [],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.2}
+  },
+  "text_elements": [],
+  "spatial_edits": [],
+  "constraints": {
+    "must_preserve": [],
+    "must_change": [],
+    "exclude": []
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": [],
+    "artifact_budget": "balanced",
+    "quality_controls": []
+  },
+  "platform_options": {
+    "openai": {
+      "model": "gpt-image-2",
+      "quality": "medium",
+      "size": "1536x864"
+    },
+    "flux": {
+      "model_family": "FLUX.2",
+      "prompt_format": "natural_language",
+      "prompt_upsampling": false
+    },
+    "midjourney": {
+      "aspect_ratio": "16:9",
+      "stylize": 100,
+      "chaos": 0,
+      "quality": 1,
+      "raw": true,
+      "seed": null,
+      "version": null,
+      "style_reference": [],
+      "style_weight": 100
+    }
+  }
+}
