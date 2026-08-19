@@ -12,6 +12,29 @@
 
 它适合需要稳定控制构图、命名实体、人物关系、精确文字、空间修改、材质、灯光、风格以及保留约束的图片工作流。
 
+## 实际生成案例
+
+以下均为 2026-08-19 使用内置 ImageGen 完成并经过实际视觉检查的 forward test。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><strong>电影剧情帧</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="渡轮码头长椅上两个人物关系疏离的电影剧情镜头"><br><sub>人物调度、分离眼线、前景遮挡、克制实景光，以及未完成的剧情瞬间；避免角色并排摆拍成海报。<a href="examples/narrative-film-frame.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>因果型中国玄幻奇观</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="单个人物抵抗山岳级法阵的中国玄幻巨物动作画面"><br><sub>通过人景比例、近景压迫、受力路径、接触、阻力、材质破裂与环境反馈证明尺度。<a href="examples/causal-fantasy-effect.json">查看规格</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>一键九宫格分镜</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="人物空间道具连续的九格手绘电影分镜板"><br><sub>真正的九格 <code>sheet_direct</code> 整板；人物、码头空间、指南针状态、镜头推进和手绘质感保持一致。<a href="examples/styleboard-3x3.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>暗场人物与材质写实</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="单一工作灯下制作黄铜零件的暗场环境人物镜头"><br><sub>自然皮肤、靛蓝布料、旧木材、拉丝黄铜、选择性微纹理和干净暗部；没有全局油亮或无来源光斑。</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>无虚构文字的触感产品</strong><br><img src="assets/gallery/tactile-product-blank-label.jpg" width="100%" alt="带空白墨绿色标签和折纸植物布景的高质感茉莉茶罐产品图"><br><sub>一次最小 no-text 修复保留了产品几何、纸艺触感、铜色响应、色彩和景深，同时消除虚构包装文案。<a href="examples/tactile-stop-motion-product.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>石墨铜建筑跨题材迁移</strong><br><img src="assets/gallery/graphite-copper-architecture.jpg" width="100%" alt="夯土铸造玻璃和铜光构成的极简展览建筑空间"><br><sub>把图形/编辑风格胶囊迁移到建筑空间，没有复制原主体、文字、网格或精确版式坐标。<a href="examples/architecture-exhibition.json">查看规格</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>绯夜胶片拼贴：爵士</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的爵士歌手竖版肖像"><br><sub>极近人物主层、微型叙事记忆、深黑场、红蓝色彩归属、不均匀旧印刷和受控双重曝光。</sub></td>
+    <td width="50%" valign="top"><strong>绯夜胶片拼贴：科幻</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的沙漠科幻信使竖版肖像"><br><sub>同一胶囊换到完全不同的人物和世界，未带回原人物、服装、文案、签名、水印或精确版式。<a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">查看胶囊</a></sub></td>
+  </tr>
+</table>
+
 ## 为什么使用镜造？
 
 - **统一视觉事实源：** 场景、人物、镜头、灯光、材质、文字、修改、保留项和排除项集中维护。

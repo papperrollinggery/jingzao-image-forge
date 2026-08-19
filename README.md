@@ -12,6 +12,29 @@ Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [fea
 
 It is designed for work where composition, named entities, subject relationships, exact text, spatial edits, materials, lighting, style, or preservation constraints must survive multiple prompt iterations.
 
+## Selected Generated Cases
+
+These are actual forward-test outputs generated with the built-in ImageGen and visually inspected on 2026-08-19. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><strong>Narrative film frame</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="Relationship-driven cinematic film frame of two people separated on a ferry-terminal bench"><br><sub>Relationship staging, eyeline separation, foreground occlusion, restrained practical light, and an incomplete story moment instead of poster posing. <a href="examples/narrative-film-frame.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Causal Chinese-fantasy spectacle</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="Monumental Chinese fantasy action scene with one cultivator resisting a mountain-sized formation"><br><sub>Scale proven through human/environment ratio, near-frame occlusion, force path, contact, resistance, material fracture, and environmental response. <a href="examples/causal-fantasy-effect.json">Spec</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>One-call 3×3 storyboard</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="Nine-panel hand-drawn cinematic storyboard with stable characters, geography, prop and reading order"><br><sub>A true nine-cell <code>sheet_direct</code> board with consistent characters, terminal geography, compass state, shot progression, and hand-drawn finish. <a href="examples/styleboard-3x3.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Material-realism portrait</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="Low-key environmental portrait of a brass craftsperson under one practical workshop lamp"><br><sub>Natural skin, indigo cloth, worn wood, brushed brass, selective microtexture, clean dark values, and source-motivated highlights without oily gloss or random light spots.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Blank-label tactile product</strong><br><img src="assets/gallery/tactile-product-blank-label.jpg" width="100%" alt="Premium tactile jasmine tea tin with a blank green label and folded-paper botanical set"><br><sub>A targeted no-text retry preserved product geometry, paper tactility, copper response, palette, and depth while removing invented packaging copy. <a href="examples/tactile-stop-motion-product.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Graphite/copper architecture transfer</strong><br><img src="assets/gallery/graphite-copper-architecture.jpg" width="100%" alt="Minimal rammed-earth and cast-glass exhibition pavilion with graphite and copper visual hierarchy"><br><sub>A learned capsule transferred from graphic/editorial material into architectural space without copying source subject, text, grid, or layout coordinates. <a href="examples/architecture-exhibition.json">Spec</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Crimson Nocturne — jazz</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a jazz singer on an empty stage"><br><sub>Dominant portrait, miniature narrative memory, deep-black field, red/cyan ownership, uneven print texture, and controlled double exposure.</sub></td>
+    <td width="50%" valign="top"><strong>Crimson Nocturne — science fiction</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a desert science-fiction courier and orbital station"><br><sub>The same capsule survives a different character and world without transferring the source faces, costume, wording, signature, watermark, or exact layout. <a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">Capsule</a></sub></td>
+  </tr>
+</table>
+
 ## Why Jingzao Image Forge?
 
 Image prompts often fail for reasons that are hard to debug: a named character is diluted into generic traits, cinematic language silently changes the rendering medium, an edit drifts outside its target, or platform-specific controls are invented. Jingzao keeps the visual intent separate from provider syntax so the source specification remains inspectable and reusable.

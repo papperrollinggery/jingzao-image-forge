@@ -72,6 +72,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - assets/jingzao-image-forge-intro-zh-v3.png: current landscape workflow and capability introduction page
 - assets/jingzao-image-forge-recommendation-zh-v3.png: current vertical feature recommendation poster
 - assets/jingzao-image-forge-wechat-card-zh-v3.png: current concise WeChat group recommendation card
+- assets/gallery/: eight web-optimized, visually inspected forward-test outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, and two cross-subject style-capsule transfers
 
 ## Invocation
 
