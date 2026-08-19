@@ -26,7 +26,15 @@ Use a stable order so prompts remain debuggable:
 16. exclusions or provider-native negative controls;
 17. generation parameters, kept outside prose when the provider supports them.
 
-Compile locked, high-weight fields first and repeat critical invariants in the edit section. Do not translate `control.weight`, `lock`, or `variance` into provider parameters unless a documented mapping truly exists.
+Derive priority from the operation mode, visible event, reference roles, exact text, and `must_preserve` / `must_change`. Legacy `control.weight`, `lock`, and `variance` remain accepted for compatibility but are ignored; never translate them into provider parameters.
+
+## Prompt Normalization and Budget
+
+The maintained specification may stay detailed, but the disposable compiled prompt is normalized per provider. When section content exceeds the review target, compact only lower-priority route, finishing, material-transport, optics, and secondary-style clauses. Never prune actual reference requirements, exact text, visible events, relationships, subject identity/action, camera/viewer geometry, edits, preserve/change invariants, or a causal effect's owner/contact/cost/response/residue chain.
+
+Canonical ownership prevents repetition: when a full `color_pipeline` exists, `color` contributes palette ownership rather than a second grade/contrast/saturation system. `lighting` continues to own physical sources and direction; the color pipeline owns exposure, tone, white balance, display, and film finishing. The compiler removes known template placeholders, emits `prompt_metrics`, and reports every normalized section. `scripts/prompt_lint.py` provides deterministic fixture ceilings and leakage checks for CI; generated-image quality remains a separate manual forward test.
+
+The compiler also emits `prompt_review`. `blocked` marks conversation-dependent residue outside exact visible copy and cannot be approved through. `review_required` marks length or reference complexity and must be reviewed before model execution; after confirming current-source cleanliness and style-core integrity, recompile with `--approve-review`. This flag never overrides `blocked` contamination. Four or more required references trigger review to verify necessity and prevent attachment count from becoming a simultaneous-visibility requirement. Use [Prompt Hygiene Without Style Flattening](prompt-hygiene.md): preserve medium, aesthetic, palette, material, camera, and intentional distortion while removing invented context, negative residue, repeated mechanisms, and conflicting anchors.
 
 ## OpenAI GPT Image
 
@@ -42,7 +50,7 @@ When the built-in Responses image-generation tool returns `revised_prompt`, insp
 
 For reference-backed or hybrid identity work, label every image by index and role. GPT Image 2 processes image inputs at high fidelity automatically; do not invent or emit an `input_fidelity` control for this model. World knowledge and prompt rewriting can improve creation, but neither proves canonical accuracy.
 
-When an input declares `must_attach: true`, the compiler emits it in the top-level `attachments` manifest and marks the prompt input line as requiring the actual image. Executors must forward the real files/images to the generation or edit call; descriptions are not replacements. The top-level `reference_handoff` explains the built-in ImageGen attachment mechanism. This Skill does not route to post-generation compositing.
+When an input declares `must_attach: true`, the compiler emits it in the top-level `attachments` manifest and marks the prompt input line as requiring the actual image. Executors must forward the real files/images to the generation or edit call; descriptions are not replacements. The top-level `imagegen_call_plan` records the expected Codex mechanism, input IDs, count, and dated capability limit; execution is reference-verified only after a matching receipt. This Skill does not route to post-generation compositing.
 
 Quality controls should be short and positive: material-specific surface response, controlled highlights, natural microcontrast, selective focal detail, and only source- or scene-motivated grain, bloom, flare, gloss, and particles. Official OpenAI prompting examples favor real texture, natural color balance, and limited retouching, and recommend iterative refinement over overloaded prompts.
 
@@ -133,6 +141,8 @@ Ordinary prose is neutralized before Midjourney flags are appended: user text co
 
 Style References transfer overall visual characteristics such as color, medium, texture, and lighting; they are not identity or object-copy controls. Keep text prompts focused on desired content when a Style Reference is present.
 
+The compiler also emits an execution route rather than pretending every task is plain `/imagine`: ordinary image prompts influence content/composition, Style Reference handles appearance, Omni Reference handles one V7 person/object/vehicle reference, and edit/restyle/expand require the Midjourney Editor. These routes are execution guidance, not web automation, and must be rechecked against current Midjourney documentation.
+
 Coordinate-only local editing is approximate in a prompt. Compile an anchor such as `(16.5%, 16.4%)` into a semantic placement description and warn that surgical edits require an editor region, mask, or platform UI capability.
 
 Official sources:
@@ -140,6 +150,8 @@ Official sources:
 - https://docs.midjourney.com/docs/prompts
 - https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List
 - https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference
+- https://docs.midjourney.com/hc/en-us/articles/36285124473997-Omni-Reference
+- https://docs.midjourney.com/hc/en-us/articles/32764383466893-Editor
 
 ## Generic Output
 
@@ -164,9 +176,10 @@ Compile a validated spec:
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform openai
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform flux --format text
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform midjourney
+python3 scripts/compile_prompt.py examples/causal-fantasy-effect.json --platform openai --approve-review
 python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json \
   --style-capsule examples/style-capsule-graphite-copper.json \
   --platform openai
 ```
 
-The JSON output contains `platform`, `prompt`, `negative_prompt`, `parameters`, `warnings`, `attachments`, `reference_handoff`, and `source_spec_version`.
+The JSON output contains `platform`, `prompt`, `prompt_metrics`, `prompt_review`, `negative_prompt`, `parameters`, `warnings`, `attachments`, `reference_handoff`, `imagegen_call_plan`, and `source_spec_version`. Context-residue review scans structured source fields before provider serialization and excludes only `text_elements.content`; this avoids provider escaping errors and does not create a second copy source. Midjourney output additionally carries `execution_route`.

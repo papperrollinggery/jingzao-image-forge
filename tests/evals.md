@@ -235,7 +235,7 @@ Pass criteria:
 - Compiles the target scenario before the capsule and says the target specification remains authoritative.
 - Both images preserve recognizable palette/material/hierarchy mechanisms while using different subjects, ratios, spaces, and production methods.
 - Source content does not reappear unless independently requested.
-- Requires two visually inspected transfer tests and review notes before `validated` or `adopted` status.
+- Requires two visually inspected transfer tests, different-scenario evidence records, and review notes before `validated` or `adopted` status.
 - Creates a draft candidate automatically when requested, but does not persist private images or publish/adopt a capsule without user authorization.
 
 ## 21. Professional Film Color Pipeline
@@ -296,7 +296,47 @@ Pass criteria:
 
 - Inspects every actual image and records its source, ordinary-language role, and `must_attach` state.
 - Compiler output contains an attachment manifest; actual ImageGen tool arguments include every required image.
+- Codex-target preflight rejects more than five required images, mixed local/conversation mechanisms, unresolved remote/platform assets, and an unconfirmed recent conversation-image window.
+- Every manifest case with `must_attach > 0` has a sanitized receipt matching expected image IDs, order, count, mechanism, hashed tool call, and repository-relative output reference.
 - Never replaces an available image with only a prose description.
 - Uses the smallest sufficient multi-image set and states what each image contributes without adding a complex policy layer.
 - Visually checks character identity, wardrobe mark, product form, logo shape/placement/spelling/color, and scene use after generation.
 - If reference fidelity fails, retries or uses the model's own image-edit path; it does not add a post-generation compositing workflow.
+
+## 26. Prompt Normalization and Static Quality Gate
+
+Scenario: Compile the full causal-fantasy, narrative-film, product, and Midjourney fixtures after a schema or compiler change.
+
+Pass criteria:
+
+- Template `Describe...` placeholders and deprecated internal controls never reach prompt prose.
+- Lower-priority finishing and render detail may be compacted, but references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, and NPR constraints remain.
+- `prompt_metrics` are emitted and canonical fixture ceilings do not regress without a reviewed forward test.
+- `prompt_review` is `blocked` for context residue outside exact visible copy and cannot be approved through. Length/reference complexity becomes `review_required`; an explicit review may approve it without auto-truncation, and the active style core remains protected.
+- A complete color pipeline owns grade/contrast/saturation while `color` remains palette-focused; physical lighting is not deleted.
+- Midjourney uses stronger compression and exposes an execution route instead of pretending edit/expand are ordinary imagine prompts.
+
+## 27. Reconstruct / Restyle / Expand Contracts
+
+Scenario A: reconstruct an attached image. Scenario B: restyle one attached image without changing geometry. Scenario C: expand an attached image for a new canvas.
+
+Pass criteria:
+
+- Reconstruct includes a target, directly observed facts, clearly marked inference, and explicit unknowns; it makes no hidden-prompt or software claim.
+- Restyle requires non-empty preserve and change lists; only the named treatment changes.
+- Expand requires non-empty preserve and change lists; original content, subject relative position/scale, perspective, exposure, and source-boundary continuity remain.
+- Each mode has a validated canonical example and a visually reviewed independent forward test before a production-quality claim.
+
+## 28. Creative Validity and Hand-Object Physics
+
+Scenario A: a test author has five unrelated reference roles but no real delivery brief. Scenario B: a real brief requires a person to hold or receive a cylindrical product while moving.
+
+Pass criteria:
+
+- The test does not invent a story, location, interaction, or finished showcase merely to make all five references visible. Attachment delivery is tested as plumbing; creative quality is tested with a separate coherent brief.
+- Attachment receipt success is reported separately from creative and visual quality; correct delivery alone cannot produce a public-gallery PASS.
+- Delivery context, visible purpose, and viewer conclusion are grounded in the brief or project facts; every admitted reference role supports that purpose.
+- Product use or exchange has a plausible action phase and affordance rather than a decorative or unexplained gesture.
+- Finger wrap or palm support, wrist alignment, center of mass, load path, counterforce, contact/occlusion, and body balance agree.
+- Ambiguous pinching, floating, duplicated, contested, or anatomically impossible hand-object contact fails the visual gate.
+- If the premise itself is meaningless, redesign the scenario rather than retrying surface polish.

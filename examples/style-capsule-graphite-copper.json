@@ -71,6 +71,22 @@
       "Create a premium tea-tin launch image using the capsule while preserving the new product identity and a square product-tabletop layout.",
       "Create an architecture exhibition announcement using the capsule while preserving a wide spatial image, new copy hierarchy, and no product-tabletop composition."
     ],
-    "notes": "Visually reviewed two ImageGen forward tests on 2026-08-19. The square tea product preserved graphite field ownership, restrained copper accents, matte paper tactility, clean hierarchy, and negative space without importing source text, identity, portal imagery, storyboard panels, or layout coordinates. The wide architecture pavilion preserved graphite/copper hierarchy, dry material separation, selective glass, and one warm circulation path while adapting to architectural scale, 16:9 perspective, and visitor flow without becoming a product still or infographic."
+    "notes": "Visually reviewed two ImageGen forward tests on 2026-08-19. The square tea product preserved graphite field ownership, restrained copper accents, matte paper tactility, clean hierarchy, and negative space without importing source text, identity, portal imagery, storyboard panels, or layout coordinates. The wide architecture pavilion preserved graphite/copper hierarchy, dry material separation, selective glass, and one warm circulation path while adapting to architectural scale, 16:9 perspective, and visitor flow without becoming a product still or infographic.",
+    "evidence": [
+      {
+        "case_id": "graphite-copper-product",
+        "prompt_index": 0,
+        "scenario": "product",
+        "evidence_ref": "tests/forward-test-manifest.json#graphite-copper-product",
+        "review": "passed visual review"
+      },
+      {
+        "case_id": "graphite-copper-architecture",
+        "prompt_index": 1,
+        "scenario": "architecture",
+        "evidence_ref": "tests/forward-test-manifest.json#graphite-copper-architecture",
+        "review": "passed visual review"
+      }
+    ]
   }
 }

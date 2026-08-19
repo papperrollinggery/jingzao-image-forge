@@ -80,7 +80,6 @@
     "exclude": ["text", "captions", "shot numbers", "speech bubbles", "logos", "watermarks", "color", "photo collage", "poster layout"]
   },
   "render": {
-    "quality": "high",
     "detail_priority": ["readable shot function", "consistent identity", "clear hands and compass", "filmable geography"],
     "artifact_budget": "strict",
     "quality_controls": ["black-and-white pencil and marker storyboard", "controlled gray wash", "clear silhouettes", "no style drift"]

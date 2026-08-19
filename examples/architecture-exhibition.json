@@ -32,8 +32,7 @@
     "summary": "A low pavilion of rammed earth, darkened timber, and translucent recycled glass forms a walkable sequence of thresholds.",
     "setting": "large neutral gallery with one pavilion, a shallow reflecting strip, and two distant visitors",
     "time": "late afternoon indoor daylight",
-    "atmosphere": ["quiet", "precise", "contemplative"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.18}
+    "atmosphere": ["quiet", "precise", "contemplative"]
   },
   "subjects": [
     {
@@ -46,8 +45,7 @@
       "gaze": "not applicable",
       "position": {"x_percent": 48.0, "y_percent": 52.0, "depth": "midground"},
       "scale": "visitors establish full human scale without becoming portrait subjects",
-      "relationships": ["reflecting strip follows the circulation edge", "visitors remain separated by one threshold"],
-      "control": {"weight": 1.0, "lock": false, "variance": 0.08}
+      "relationships": ["reflecting strip follows the circulation edge", "visitors remain separated by one threshold"]
     }
   ],
   "composition": {
@@ -57,8 +55,7 @@
     "focal_length_mm": 32,
     "framing": "pavilion spans the lower two thirds; circulation enters from left foreground; upper-right wall remains copy-safe",
     "negative_space": "quiet upper-right gallery wall",
-    "depth_layers": ["dark floor edge and reflecting strip", "pavilion and visitors", "neutral gallery shell"],
-    "control": {"weight": 0.95, "lock": false, "variance": 0.08}
+    "depth_layers": ["dark floor edge and reflecting strip", "pavilion and visitors", "neutral gallery shell"]
   },
   "lighting": {
     "summary": "large overhead daylight washes the gallery while one narrow warm threshold reveals material depth",
@@ -68,8 +65,7 @@
     "direction": "top left with a narrow warm vertical counterpoint",
     "contrast": "controlled material separation without theatrical black crush",
     "color_temperature": "cool-neutral gallery daylight and one warm threshold",
-    "practicals": ["concealed warm source inside the narrow threshold"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+    "practicals": ["concealed warm source inside the narrow threshold"]
   },
   "materials": [
     {
@@ -90,8 +86,7 @@
     "palette": ["graphite floor", "warm earth", "charred timber", "smoky recycled glass", "small warm threshold"],
     "grade": "restrained architectural editorial",
     "contrast": "material-led",
-    "saturation": "low",
-    "control": {"weight": 0.85, "lock": false, "variance": 0.12}
+    "saturation": "low"
   },
   "style": {
     "medium": "photoreal architectural visualization with editorial restraint",
@@ -99,8 +94,7 @@
     "visual_traits": ["material honesty", "human scale", "quiet graphic hierarchy", "copy-safe negative space"],
     "era": "contemporary",
     "references": [],
-    "excluded_traits": ["glossy luxury retail", "empty parametric spectacle", "floating UI"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+    "excluded_traits": ["glossy luxury retail", "empty parametric spectacle", "floating UI"]
   },
   "render_pipeline": {
     "domain": "real_time",
@@ -134,7 +128,6 @@
     "exclude": ["logos", "watermarks", "retail products", "crowds", "floating interface graphics"]
   },
   "render": {
-    "quality": "high",
     "detail_priority": ["material junctions", "threshold depth", "visitor scale", "floor contact"],
     "artifact_budget": "strict",
     "quality_controls": ["clean gradients and restrained reflections preserve dry mineral surfaces"]

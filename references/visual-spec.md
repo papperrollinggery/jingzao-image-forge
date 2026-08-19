@@ -23,6 +23,7 @@ Optional sections add precision only when relevant:
 - `language`: content-language metadata (`en`, `zh`, or `zh-CN`) preserved in compiler output; it does not translate supplied content automatically.
 - `knowledge_anchors`: exact named entities that a capable generation model may recognize from existing world knowledge or supplied references.
 - `creative_routing`: primary scenario, genre family, aesthetic family, capture/render method, scene archetypes, audience effect, delivery context, and anti-drift rules.
+- `reference_analysis`: reconstruct-only target plus directly observed facts, clearly marked inference, and explicit unknowns.
 - `direction`: deliverable, treatment, spectacle scale, camera freedom, genre, world rule, and visual goal.
 - `cinematic`: narrative-frame contract, shot function, viewer position, frozen moment, and posterization guard.
 - `scene`: environment, time, atmosphere, and overall summary.
@@ -36,18 +37,18 @@ Optional sections add precision only when relevant:
 - `materials`: target-specific surface and physical properties.
 - `color`: palette and grade.
 - `optics`: focus, depth of field, lens character, motion blur, and optical artifacts.
-- `style`: medium, realism level, visual traits, era, and non-conflicting references.
+- `style`: medium, realism level, visual traits, era, and optional text-only style anchors. Actual image references always belong in `inputs`; file paths or URLs in `style.references` are not attachments.
 - `style_learning`: observed style mechanisms, inference/unknown separation, transfer boundaries, and validation prompts for `learn_style`.
 - `text_elements`: literal visible text and typography constraints.
 - `spatial_edits`: local edit targets, anchors, regions, and preservation behavior.
 - `effects`: optional causal VFX cards for supernatural, giant-scale, destruction, transformation, energy, or environmental effects.
 - `styleboard`: reference assignments, continuity locks, presentation finish, frame cards, and board assembly.
-- `render`: quality intent, detail priorities, artifact budget, and optional quality controls.
+- `render`: detail priorities, artifact budget, and optional visible quality controls. Provider compute quality belongs only in `platform_options`.
 - `platform_options`: syntax and generation controls for a named platform.
 
-## Control Semantics
+## Deprecated Control Annotations
 
-Any major object may contain:
+Older 1.0 specifications may contain:
 
 ```json
 {
@@ -59,11 +60,7 @@ Any major object may contain:
 }
 ```
 
-- `weight`: relative importance from `0.0` to `1.0`.
-- `lock`: whether the attribute is an invariant.
-- `variance`: allowed creative freedom from `0.0` to `1.0`.
-
-If `lock` is `true`, set `variance` to `0.0`. These fields are optional planning/review annotations. The validator checks them, but the compiler deliberately does not turn them into prompt prose, repetition, or provider parameters. They are not equivalent to Midjourney weights, CFG, denoise strength, masks, or any provider-specific control.
+The validator still accepts and consistency-checks these fields for backward compatibility, but new templates and examples omit them. The compiler ignores them. Express real priority through the mode, actual reference roles, exact text, semantic sections, and `must_preserve` / `must_change`; never map these legacy values to Midjourney weights, CFG, denoise strength, masks, or provider parameters.
 
 ## Canvas Profiles
 
@@ -77,6 +74,8 @@ If `lock` is `true`, set `variance` to `0.0`. These fields are optional planning
 - `custom`: any validated positive ratio.
 
 The profile does not override an explicit user ratio or the source image in an edit, restyle, or expansion.
+
+`canvas` is the visual geometry source of truth. Provider `size` or aspect-ratio overrides are optional; when supplied, they must agree with canvas dimensions/ratio or validation fails.
 
 ## Knowledge Anchors
 
@@ -417,8 +416,7 @@ For a local edit, include:
 {
   "target": "moon",
   "instruction": "Transform only the intact lunar disk into a physically fractured moon.",
-  "preserve_surroundings": true,
-  "control": {"weight": 1.0, "lock": false, "variance": 0.12}
+  "preserve_surroundings": true
 }
 ```
 
@@ -430,7 +428,7 @@ Define `intent`, `canvas`, scene or subject content, and meaningful constraints.
 
 ### Reconstruct
 
-Provide at least one image input. Split findings into directly observable attributes, plausible but unverified production inferences, and unknown details that should not be invented. The deliverable is a functional reconstruction prompt, not a claim to recover the original hidden prompt.
+Provide at least one image input plus `reference_analysis.target`, non-empty `observed`, optional `inferred`, and non-empty `unknowns`. The deliverable is a functional reconstruction prompt, not a claim to recover the original hidden prompt or software pipeline. See `examples/reconstruct-architecture-reference.json`.
 
 ### Edit
 
@@ -438,15 +436,15 @@ Provide a base image input and at least one `spatial_edits` item or `must_change
 
 ### Restyle
 
-Provide a base image and a style target. Put geometry, subject identity, pose, layout, and literal text in `must_preserve`; put visual treatment in `must_change`.
+Provide a base image and a style target. Put geometry, subject identity, pose, layout, and literal text in non-empty `must_preserve`; put only the named visual treatment in non-empty `must_change`. See `examples/restyle-risograph-editorial.json`.
 
 ### Expand
 
-Provide the base image, new canvas, extension direction, and continuity rules. Preserve the original image content and subject placement unless the user explicitly requests reframing. Describe how background, lighting, texture, perspective, and depth continue into new space.
+Provide the base image, new canvas, extension direction, and continuity rules. `must_preserve` and `must_change` are both required. Preserve original content, subject relative position/scale, perspective, exposure, and source-boundary continuity unless the user explicitly requests reframing. See `examples/expand-roadside-outpaint.json`.
 
 ### Learn Style
 
-Provide at least one actual image input and a complete `style_learning` record. Separate observed mechanisms, inferred traits, and unknowns. Export only reusable visual rules; do not embed source images or transfer source identity, exact text, logos, signatures, protected designs, or exact layout coordinates. Validate on two different subjects or scenarios before adoption.
+Provide at least one actual image input and a complete `style_learning` record. Separate observed mechanisms, inferred traits, and unknowns. Export only reusable visual rules; do not embed source images or transfer source identity, exact text, logos, signatures, protected designs, or exact layout coordinates. Validated/adopted records require two different scenarios plus non-image evidence bindings to the forward-test manifest.
 
 ### Styleboard
 
@@ -476,7 +474,6 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 ```json
 {
   "render": {
-    "quality": "high",
     "detail_priority": ["primary subject", "hero material"],
     "artifact_budget": "balanced",
     "quality_controls": [
@@ -530,5 +527,5 @@ If the relation is essential, repeat it in `constraints.must_preserve`.
 - Causal effects have an owner, path, operation, response, and residue.
 - Styleboard references have one primary role; frame cards and continuity locks are explicit.
 - Artifact controls preserve intentional medium traits while suppressing unmotivated noise, light spots, uniform gloss, and equal-detail rendering.
-- Internal controls are not misrepresented as provider-native controls.
+- Deprecated internal controls are absent from new specs and are never misrepresented as provider-native controls.
 - Unobserved reconstruction details are labeled as inference or unknown.

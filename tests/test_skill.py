@@ -7,6 +7,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -28,6 +29,8 @@ capsule_validator = _load_module("capsule_validator", SCRIPTS / "validate_style_
 capsule_creator = _load_module("capsule_creator", SCRIPTS / "create_style_capsule.py")
 reference_delivery = _load_module("reference_delivery", SCRIPTS / "reference_delivery.py")
 compiler = _load_module("compiler", SCRIPTS / "compile_prompt.py")
+prompt_lint = _load_module("prompt_lint", SCRIPTS / "prompt_lint.py")
+forward_test_validator = _load_module("forward_test_validator", SCRIPTS / "validate_forward_tests.py")
 
 
 def load_json(path: Path):
@@ -189,6 +192,16 @@ class ValidationTests(unittest.TestCase):
         spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
         self.assertEqual([], validator.validate_spec(spec))
 
+    def test_reconstruct_restyle_expand_examples_are_valid(self):
+        for name in (
+            "reconstruct-architecture-reference.json",
+            "restyle-risograph-editorial.json",
+            "expand-roadside-outpaint.json",
+        ):
+            with self.subTest(name=name):
+                spec = load_json(ROOT / "examples" / name)
+                self.assertEqual([], validator.validate_spec(spec))
+
     def test_style_capsule_example_is_valid(self):
         capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
         self.assertEqual([], capsule_validator.validate_style_capsule(capsule))
@@ -201,6 +214,118 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual("adopted", capsule["status"])
         self.assertTrue(capsule["adoption_approved"])
         self.assertFalse(capsule["source_summary"]["raw_images_stored"])
+
+    def test_validated_capsule_requires_two_scenario_evidence_records(self):
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["validation"]["evidence"] = capsule["validation"]["evidence"][:1]
+        errors = capsule_validator.validate_style_capsule(capsule)
+        self.assertTrue(any("two different scenario evidence" in item for item in errors))
+
+    def test_forward_test_manifest_is_current_and_traceable(self):
+        manifest = load_json(ROOT / "tests" / "forward-test-manifest.json")
+        self.assertEqual([], forward_test_validator.validate_forward_test_manifest(manifest, ROOT))
+
+    def test_forward_test_manifest_rejects_output_hash_drift(self):
+        manifest = load_json(ROOT / "tests" / "forward-test-manifest.json")
+        manifest["cases"][0]["output_sha256"] = "0" * 64
+        errors = forward_test_validator.validate_forward_test_manifest(manifest, ROOT)
+        self.assertTrue(any("output_sha256" in item for item in errors))
+
+    def test_forward_test_manifest_requires_receipt_for_attached_inputs(self):
+        manifest = load_json(ROOT / "tests" / "forward-test-manifest.json")
+        restyle = next(case for case in manifest["cases"] if case["case_id"] == "restyle-risograph-service-station")
+        restyle.pop("execution_receipt")
+        errors = forward_test_validator.validate_forward_test_manifest(manifest, ROOT)
+        self.assertTrue(any("required for 1 must_attach" in item for item in errors))
+
+    def test_forward_test_manifest_rejects_sensitive_public_receipt_fields(self):
+        receipt = {
+            "receipt_version": "1.0",
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": ["product"],
+            "sent_count": 1,
+            "tool_call_id_sha256": "0" * 64,
+            "output_ref": "assets/gallery/output.jpg",
+            "source_path": "/Users/example/private.png",
+        }
+        errors = forward_test_validator._validate_public_receipt(receipt, "$.receipt", ROOT)
+        self.assertTrue(any("unsupported or sensitive public keys" in item for item in errors))
+
+    def test_public_receipt_rejects_traversal_nested_values_and_bad_hashes(self):
+        receipt = {
+            "receipt_version": "2.0",
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": ["product"],
+            "sent_count": 1,
+            "tool_call_id_sha256": "not-a-hash",
+            "output_ref": "../outside.jpg",
+            "raw_output_sha256": "bad",
+            "review": {"token": "/tmp/private"},
+        }
+        errors = forward_test_validator._validate_public_receipt(receipt, "$.receipt", ROOT)
+        for marker in (
+            "receipt_version",
+            "tool_call_id_sha256",
+            "parent traversal",
+            "raw_output_sha256",
+            "nested public receipt values",
+        ):
+            self.assertTrue(any(marker in item for item in errors), marker)
+
+    def test_public_receipt_rejects_generic_uris_and_runtime_paths(self):
+        receipt = {
+            "receipt_version": "1.0",
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": [r"C:\\private\\asset.png"],
+            "sent_count": 1,
+            "tool_call_id_sha256": "a" * 64,
+            "output_ref": "assets/gallery/output.jpg",
+            "execution_prompt_note": "file://localhost/private/var/tmp/prompt.txt",
+            "review": "s3://private-bucket/result",
+        }
+        errors = forward_test_validator._validate_public_receipt(receipt, "$.receipt", ROOT)
+        self.assertGreaterEqual(sum("local/runtime identifier or URI" in item for item in errors), 3)
+
+    def test_public_receipt_rejects_embedded_backslashes_and_punctuated_absolute_paths(self):
+        receipt = {
+            "receipt_version": "1.0",
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": [r"private\asset.png"],
+            "sent_count": 1,
+            "tool_call_id_sha256": "a" * 64,
+            "output_ref": "assets/gallery/output.jpg",
+            "execution_prompt_note": r"copied from \\server\share\asset.png",
+            "review": "path:/srv/team/asset.png",
+        }
+        errors = forward_test_validator._validate_public_receipt(receipt, "$.receipt", ROOT)
+        self.assertGreaterEqual(sum("local/runtime identifier or URI" in item for item in errors), 3)
+
+    def test_manifest_rejects_absolute_non_image_output(self):
+        manifest = load_json(ROOT / "tests" / "forward-test-manifest.json")
+        manifest["cases"][0]["output"] = str(ROOT / "README.md")
+        manifest["cases"][0]["output_sha256"] = "0" * 64
+        errors = forward_test_validator.validate_forward_test_manifest(manifest, ROOT)
+        self.assertTrue(any("repository-relative" in item for item in errors))
+
+    def test_manifest_rejects_unknown_fields_and_boolean_prompt_index(self):
+        manifest = load_json(ROOT / "tests" / "forward-test-manifest.json")
+        manifest["private_token"] = "secret"
+        manifest["cases"][0]["runtime_path"] = "/private/var/output.jpg"
+        capsule_case = next(case for case in manifest["cases"] if case["prompt_source"]["type"] == "capsule_validation_prompt")
+        capsule_case["prompt_source"]["prompt_index"] = True
+        capsule_case["prompt_source"]["session_id"] = "session-private"
+        errors = forward_test_validator.validate_forward_test_manifest(manifest, ROOT)
+        for marker in ("unknown fields", "prompt_index", "local/runtime identifier or URI"):
+            self.assertTrue(any(marker in item for item in errors), marker)
+
+    def test_public_path_resolver_rejects_symlink_escape(self):
+        with tempfile.TemporaryDirectory() as root_dir, tempfile.TemporaryDirectory() as outside_dir:
+            public_root = Path(root_dir)
+            outside = Path(outside_dir) / "outside.jpg"
+            outside.write_bytes(b"outside")
+            (public_root / "link.jpg").symlink_to(outside)
+            with self.assertRaisesRegex(ValueError, "escapes repository root"):
+                forward_test_validator._resolve(public_root, "link.jpg")
 
     def test_adopted_crimson_nocturne_capsule_compiles_with_transfer_boundaries(self):
         spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
@@ -260,7 +385,7 @@ class ValidationTests(unittest.TestCase):
                 self.assertTrue(any(f"creative_routing.{field}" in item for item in errors))
 
     def test_creative_routing_limits_scene_archetypes(self):
-        spec = copy.deepcopy(self.template)
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
         spec["creative_routing"]["scene_archetypes"] = ["one", "two", "three", "four"]
         errors = validator.validate_spec(spec)
         self.assertTrue(any("at most three" in item for item in errors))
@@ -345,10 +470,17 @@ class ValidationTests(unittest.TestCase):
             self.assertTrue(any(field in item and "unknown field" in item for item in errors))
 
     def test_openai_flexible_size_constraints_are_validated(self):
-        valid_sizes = ("auto", "1024x1024", "1536x864", "1792x768", "3840x2160")
-        for value in valid_sizes:
+        valid_sizes = {
+            "auto": self.template["canvas"],
+            "1024x1024": {"profile": "square", "aspect_ratio": "1:1", "dimensions": {"width": 1024, "height": 1024}},
+            "1536x864": {"profile": "standard_widescreen", "aspect_ratio": "16:9", "dimensions": {"width": 1536, "height": 864}},
+            "1792x768": {"profile": "cinematic_ultrawide", "aspect_ratio": "21:9", "dimensions": {"width": 1792, "height": 768}},
+            "3840x2160": {"profile": "standard_widescreen", "aspect_ratio": "16:9", "dimensions": {"width": 3840, "height": 2160}},
+        }
+        for value, canvas in valid_sizes.items():
             with self.subTest(valid=value):
                 spec = copy.deepcopy(self.template)
+                spec["canvas"] = copy.deepcopy(canvas)
                 spec["platform_options"]["openai"]["size"] = value
                 self.assertEqual([], validator.validate_spec(spec))
         invalid_sizes = ("858x1834", "3856x1024", "2048x512", "640x640", "not-a-size")
@@ -514,6 +646,92 @@ class ValidationTests(unittest.TestCase):
         self.assertTrue(result["valid"])
         self.assertEqual(["image-1", "image-2"], result["runtime_required"])
 
+    def test_codex_imagegen_reference_limit_and_mechanism_are_fail_closed(self):
+        spec = copy.deepcopy(self.template)
+        spec["inputs"] = [
+            {
+                "id": f"image-{index}",
+                "type": "image",
+                "role": "reference",
+                "description": "required local reference",
+                "source_kind": "local_path",
+                "source_ref": "../assets/jingzao-image-forge-hero-en.png",
+                "must_attach": True,
+            }
+            for index in range(1, 6)
+        ]
+        ready = reference_delivery.build_imagegen_call_plan(spec)
+        self.assertEqual("ready", ready["status"])
+        self.assertEqual("referenced_image_paths", ready["mechanism"])
+        spec["inputs"].append(copy.deepcopy(spec["inputs"][-1]))
+        spec["inputs"][-1]["id"] = "image-6"
+        blocked = reference_delivery.build_imagegen_call_plan(spec)
+        self.assertEqual("blocked", blocked["status"])
+        self.assertTrue(any("at most 5" in error for error in blocked["errors"]))
+
+    def test_codex_imagegen_rejects_mixed_attachment_mechanisms(self):
+        spec = copy.deepcopy(self.template)
+        spec["inputs"] = [
+            self._attached_image("identity", "conversation identity"),
+            {
+                "id": "local-product",
+                "type": "image",
+                "role": "product",
+                "description": "local product",
+                "source_kind": "local_path",
+                "source_ref": "../assets/jingzao-image-forge-hero-en.png",
+                "must_attach": True,
+            },
+        ]
+        plan = reference_delivery.build_imagegen_call_plan(spec, conversation_window_confirmed=True)
+        self.assertEqual("blocked", plan["status"])
+        self.assertTrue(any("cannot combine" in error for error in plan["errors"]))
+
+    def test_conversation_image_window_requires_execution_time_confirmation(self):
+        spec = make_styleboard_spec()
+        blocked = reference_delivery.build_imagegen_call_plan(spec)
+        self.assertEqual("blocked", blocked["status"])
+        ready = reference_delivery.build_imagegen_call_plan(spec, conversation_window_confirmed=True)
+        self.assertEqual("ready", ready["status"])
+        self.assertEqual("num_last_images_to_include", ready["mechanism"])
+        self.assertEqual(1, ready["argument"])
+
+    def test_execution_receipt_must_match_call_plan(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        plan = reference_delivery.build_imagegen_call_plan(spec)
+        receipt = {
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": ["style-reference"],
+            "sent_count": 1,
+            "tool_call_id": "call-1",
+            "output_ref": "output.png",
+        }
+        self.assertEqual([], reference_delivery.validate_execution_receipt(plan, receipt))
+        receipt["sent_input_ids"] = []
+        self.assertTrue(reference_delivery.validate_execution_receipt(plan, receipt))
+
+    def test_hashed_tool_call_identifier_is_valid_receipt_evidence(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        plan = reference_delivery.build_imagegen_call_plan(spec)
+        receipt = {
+            "mechanism": "referenced_image_paths",
+            "sent_input_ids": ["style-reference"],
+            "sent_count": 1,
+            "tool_call_id_sha256": "a" * 64,
+            "output_ref": "assets/gallery/output.jpg",
+        }
+        self.assertEqual([], reference_delivery.validate_execution_receipt(plan, receipt))
+
+    def test_attachment_image_index_counts_images_only(self):
+        spec = copy.deepcopy(self.template)
+        spec["inputs"] = [
+            {"id": "note", "type": "text", "role": "note", "description": "not an image"},
+            self._attached_image("identity", "first image"),
+            {**self._attached_image("wardrobe", "second image"), "id": "second-image"},
+        ]
+        manifest = reference_delivery.build_attachment_manifest(spec)
+        self.assertEqual([1, 2], [item["image_index"] for item in manifest])
+
     def test_region_cannot_escape_canvas(self):
         spec = copy.deepcopy(self.example)
         spec["spatial_edits"][0]["region"]["x_percent"] = 90.0
@@ -522,8 +740,7 @@ class ValidationTests(unittest.TestCase):
 
     def test_locked_control_requires_zero_variance(self):
         spec = copy.deepcopy(self.template)
-        spec["composition"]["control"]["lock"] = True
-        spec["composition"]["control"]["variance"] = 0.2
+        spec["composition"]["control"] = {"weight": 1.0, "lock": True, "variance": 0.2}
         errors = validator.validate_spec(spec)
         self.assertTrue(any("lock=true requires variance=0" in item for item in errors))
 
@@ -547,6 +764,14 @@ class ValidationTests(unittest.TestCase):
                 spec["platform_options"]["midjourney"][key] = value
                 errors = validator.validate_spec(spec)
                 self.assertTrue(any(f"midjourney.{key}" in item for item in errors))
+
+    def test_canvas_and_provider_geometry_must_agree(self):
+        spec = copy.deepcopy(self.template)
+        spec["platform_options"]["openai"]["size"] = "1024x1024"
+        self.assertTrue(any("must match canvas.dimensions" in item for item in validator.validate_spec(spec)))
+        spec = copy.deepcopy(self.template)
+        spec["platform_options"]["midjourney"]["aspect_ratio"] = "1:1"
+        self.assertTrue(any("must match canvas.aspect_ratio" in item for item in validator.validate_spec(spec)))
 
     def test_midjourney_style_reference_items_are_validated(self):
         invalid_items = [123, "", {"bad": True}, {"url": ""}, {"url": "https://example.com/a.png", "weight": 0}]
@@ -586,6 +811,12 @@ class ValidationTests(unittest.TestCase):
         spec["render"]["artifact_budget"] = "maximum-clean-magic"
         errors = validator.validate_spec(spec)
         self.assertTrue(any("render.artifact_budget" in item for item in errors))
+
+    def test_provider_quality_is_rejected_inside_visual_render_layer(self):
+        spec = copy.deepcopy(self.template)
+        spec["render"]["quality"] = "high"
+        errors = validator.validate_spec(spec)
+        self.assertIn("$.render.quality: unknown field", errors)
 
     def test_legacy_material_properties_field_is_rejected(self):
         spec = copy.deepcopy(self.template)
@@ -710,7 +941,20 @@ class ValidationTests(unittest.TestCase):
         spec = copy.deepcopy(self.template)
         spec["mode"] = "reconstruct"
         spec["inputs"] = [self._attached_image("observed_reference", "Actual reference image.")]
+        spec["reference_analysis"] = {
+            "target": "reconstruct the observable image without claiming hidden-prompt recovery",
+            "observed": ["one subject", "eye-level camera", "matte material"],
+            "inferred": ["possible studio key light"],
+            "unknowns": ["original lens", "original software", "hidden prompt"],
+        }
         self.assertEqual([], validator.validate_spec(spec))
+
+    def test_reconstruct_requires_observed_and_unknown_analysis(self):
+        spec = copy.deepcopy(self.template)
+        spec["mode"] = "reconstruct"
+        spec["inputs"] = [self._attached_image("observed_reference", "Actual reference image.")]
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("reference_analysis" in item for item in errors))
 
     def test_restyle_mode_requires_and_accepts_preservation_contract(self):
         spec = copy.deepcopy(self.template)
@@ -727,6 +971,16 @@ class ValidationTests(unittest.TestCase):
         spec["constraints"]["must_preserve"] = ["original content", "subject scale", "relative position"]
         spec["constraints"]["must_change"] = ["extend both sides"]
         self.assertEqual([], validator.validate_spec(spec))
+
+    def test_restyle_and_expand_require_explicit_change(self):
+        for mode in ("restyle", "expand"):
+            with self.subTest(mode=mode):
+                spec = copy.deepcopy(self.template)
+                spec["mode"] = mode
+                spec["inputs"] = [self._attached_image("base_image", f"Image to {mode}.")]
+                spec["constraints"]["must_preserve"] = ["identity", "geometry"]
+                errors = validator.validate_spec(spec)
+                self.assertTrue(any("must_change" in item for item in errors))
 
     def test_edit_mode_accepts_must_change_without_spatial_edit(self):
         spec = copy.deepcopy(self.template)
@@ -826,6 +1080,7 @@ class CompilerTests(unittest.TestCase):
 
     def test_openai_compiler_frontloads_world_knowledge_anchor(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "Create the named animated character in one new scene."
         name = "Known canonical animated character, specified incarnation"
         spec["knowledge_anchors"] = [
             {
@@ -886,7 +1141,7 @@ class CompilerTests(unittest.TestCase):
     def test_narrative_compiler_frontloads_story_camera_and_staging(self):
         result = compiler.compile_spec(make_narrative_spec(), "openai")
         prompt = result["prompt"]
-        self.assertLess(prompt.index("Cinematic shot contract:"), prompt.index("Scene:"))
+        self.assertLess(prompt.index("Cinematic shot contract:"), prompt.index("Subjects:"))
         self.assertIn("camera motivation", prompt)
         self.assertIn("40mm lens intent", prompt)
         self.assertIn("avoid poster-style simultaneous showcase", prompt)
@@ -936,6 +1191,156 @@ class CompilerTests(unittest.TestCase):
         result = compiler.compile_spec(spec, "openai")
         self.assertNotIn("scenario profile: auto", result["prompt"])
         self.assertNotIn("primary aesthetic: auto", result["prompt"])
+
+    def test_template_placeholders_do_not_reach_compiled_prompt(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertNotIn("Describe the", result["prompt"])
+
+    def test_prompt_normalization_reduces_causal_fixture_without_losing_critical_chain(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertLess(result["prompt_metrics"]["characters"], 11000)
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        for required in (
+            "one adult cultivator",
+            "owner/source",
+            "operation/contact",
+            "resistance/cost",
+            "response:",
+            "decay/residue",
+            "24mm lens intent",
+        ):
+            self.assertIn(required, result["prompt"])
+        self.assertTrue(any("Prompt normalization compacted" in item for item in result["warnings"]))
+
+    def test_prompt_normalization_preserves_style_tension_fields(self):
+        cases = (
+            ROOT / "examples" / "causal-fantasy-effect.json",
+            ROOT / "tests" / "forward-specs" / "cg-fashion-rain-platform.json",
+        )
+        for path in cases:
+            with self.subTest(path=path.name):
+                result = compiler.compile_spec(load_json(path), "openai", review_approved=True)
+                for marker in (
+                    "style authority:",
+                    "adaptation rule:",
+                    "tone locks:",
+                    "forbidden drift:",
+                    "depth transition:",
+                    "parallax logic:",
+                    "motion evidence:",
+                    "readability guard:",
+                ):
+                    self.assertIn(marker, result["prompt"])
+        causal = compiler.compile_spec(load_json(cases[0]), "openai", review_approved=True)["prompt"]
+        for marker in ("grain:", "halation:", "NPR strategy:", "forbidden render artifacts:"):
+            self.assertIn(marker, causal)
+
+    def test_protected_fields_preserve_semicolon_continuations(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        spec["intent"] += " " + "current-style-density " * 500
+        spec["creative_routing"]["adaptation_rule"] = "KEEP_ADAPT_A; KEEP_ADAPT_B"
+        spec["spatial_dynamics"]["depth_transition"] = "KEEP_DEPTH_A; KEEP_DEPTH_B"
+        spec["color_pipeline"]["film_emulation"]["grain"] = "KEEP_GRAIN_A; KEEP_GRAIN_B"
+        spec["render_pipeline"]["npr_strategy"] = "KEEP_NPR_A; KEEP_NPR_B"
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform, review_approved=True)
+                self.assertTrue(any("Prompt normalization compacted" in item for item in result["warnings"]))
+                prompt = result["prompt"]
+                for marker in ("KEEP_ADAPT_B", "KEEP_DEPTH_B", "KEEP_GRAIN_B", "KEEP_NPR_B"):
+                    self.assertIn(marker, prompt)
+
+    def test_prompt_lint_blocks_placeholder_and_fixture_regression(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual([], prompt_lint.lint_compiled_result(result, max_words=1200))
+        bad = copy.deepcopy(result)
+        bad["prompt"] = "Describe the scene with control.weight; keep it different from the previous version"
+        bad["prompt_metrics"] = {"words": 1300}
+        errors = prompt_lint.lint_compiled_result(bad, max_words=1200)
+        self.assertGreaterEqual(len(errors), 3)
+
+    def test_prompt_review_requires_semantic_audit_above_target(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = " ".join(["distinct-current-fact"] * 1400)
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertTrue(result["prompt_review"]["reasons"])
+        self.assertEqual("review_required", result["imagegen_call_plan"]["status"])
+        self.assertTrue(prompt_lint.lint_compiled_result(result))
+        approved = compiler.compile_spec(spec, "openai", review_approved=True)
+        self.assertEqual("approved", approved["prompt_review"]["status"])
+        self.assertEqual("ready", approved["imagegen_call_plan"]["status"])
+        self.assertEqual([], prompt_lint.lint_compiled_result(approved))
+
+    def test_high_reference_count_requires_review_without_dropping_inputs(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["inputs"] = [
+            {
+                "id": f"reference-{index}",
+                "type": "image",
+                "role": f"role {index}",
+                "description": f"current reference {index}",
+                "source_kind": "conversation_image",
+                "source_ref": f"Image {index}",
+                "must_attach": True,
+            }
+            for index in range(1, 5)
+        ]
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual(4, result["prompt_review"]["required_reference_count"])
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertEqual("blocked", result["imagegen_call_plan"]["status"])
+        self.assertTrue(any("High reference-role count" in item for item in result["warnings"]))
+
+    def test_context_residue_blocks_execution_but_exact_copy_is_exempt(self):
+        contaminated = load_json(ROOT / "templates" / "visual-spec.json")
+        contaminated["intent"] = "Continue to keep the same as the previous version"
+        literal = load_json(ROOT / "templates" / "visual-spec.json")
+        literal["text_elements"] = [
+            {
+                "content": "继续保持上一版",
+                "case_sensitive": True,
+                "placement": "center",
+                "typography": "bold sans serif",
+                "color": "white",
+            }
+        ]
+        literal["platform_options"]["flux"]["prompt_format"] = "json"
+        same_form_prose = copy.deepcopy(literal)
+        same_form_prose["intent"] = 'Render "继续保持上一版" exactly, same as the previous version'
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform, case="contaminated"):
+                result = compiler.compile_spec(contaminated, platform, review_approved=True)
+                self.assertEqual("blocked", result["prompt_review"]["status"])
+                self.assertEqual("blocked", result["imagegen_call_plan"]["status"])
+                self.assertTrue(prompt_lint.lint_compiled_result(result))
+            with self.subTest(platform=platform, case="literal"):
+                literal_result = compiler.compile_spec(literal, platform)
+                self.assertEqual("ready", literal_result["prompt_review"]["status"])
+                self.assertEqual([], prompt_lint.lint_compiled_result(literal_result))
+            with self.subTest(platform=platform, case="same_form_prose"):
+                mixed_result = compiler.compile_spec(same_form_prose, platform, review_approved=True)
+                self.assertEqual("blocked", mixed_result["prompt_review"]["status"])
+
+    def test_style_capsule_identity_is_in_context_residue_review(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["name"] = "Same as the previous version"
+        result = compiler.compile_spec(spec, "openai", capsule, review_approved=True)
+        self.assertEqual("blocked", result["prompt_review"]["status"])
+
+    def test_midjourney_execution_route_matches_mode_and_reference_role(self):
+        edit = compiler.compile_spec(self.example, "midjourney")
+        self.assertEqual("editor_required", edit["execution_route"])
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["platform_options"]["midjourney"]["style_reference"] = ["https://example.com/style.png"]
+        result = compiler.compile_spec(spec, "midjourney")
+        self.assertEqual("style_reference", result["execution_route"])
 
     def test_platform_options_null_compiles_every_platform(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
@@ -1031,8 +1436,9 @@ class CompilerTests(unittest.TestCase):
                 result = compiler.compile_spec(spec, platform)
                 self.assertIn("film_emulation", result["prompt"])
                 self.assertIn("highlight rolloff", result["prompt"])
-                self.assertIn("fine irregular grain", result["prompt"])
-                self.assertIn("global teal-orange", result["prompt"])
+                if platform != "midjourney":
+                    self.assertIn("fine irregular grain", result["prompt"])
+                    self.assertIn("global teal-orange", result["prompt"])
 
     def test_render_pipeline_and_spatial_dynamics_compile_for_every_platform(self):
         spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")

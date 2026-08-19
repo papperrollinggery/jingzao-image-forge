@@ -1,0 +1,57 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "reconstruct",
+  "intent": "Reconstruct the observable architecture, camera, material relationships, and spatial hierarchy without claiming to recover the original prompt or production software.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "standard_widescreen",
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [
+    {
+      "id": "architecture-source",
+      "type": "image",
+      "role": "observed_reference",
+      "description": "Actual architecture reference whose visible geometry, view, materials, and light relationships define the reconstruction target.",
+      "source_kind": "local_path",
+      "source_ref": "../assets/gallery/graphite-copper-architecture.jpg",
+      "must_attach": true
+    }
+  ],
+  "reference_analysis": {
+    "target": "observable architecture reconstruction",
+    "observed": [
+      "one low pavilion with offset rammed-earth walls",
+      "one dark vertical timber plane",
+      "one translucent glass wall beside a shallow reflecting strip",
+      "standing eye-level two-point perspective",
+      "two small visitors establish human scale"
+    ],
+    "inferred": [
+      "a broad overhead source likely creates the soft gallery daylight",
+      "the narrow warm line appears to be an integrated threshold light"
+    ],
+    "unknowns": [
+      "original camera and lens model",
+      "original rendering software",
+      "hidden prompt or node graph",
+      "construction system beyond visible evidence"
+    ]
+  },
+  "constraints": {
+    "must_preserve": [
+      "observable massing and opening relationships",
+      "camera height and perspective",
+      "rammed earth, dark timber, translucent glass, and reflecting strip hierarchy"
+    ],
+    "must_change": [],
+    "exclude": ["invented labels", "new buildings", "hidden-prompt claims", "software certainty", "watermark"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {"stylize": 50, "chaos": 0, "quality": 1, "raw": true, "style_reference": [], "style_weight": 100}
+  }
+}

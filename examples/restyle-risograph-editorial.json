@@ -1,0 +1,51 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "restyle",
+  "intent": "Restyle the attached contemporary ferry-terminal frame as a rough two-ink risograph editorial reproduction while preserving the exact people, pose, camera, crop, geography, object placement, and existing text.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "cinematic_ultrawide",
+    "aspect_ratio": "21:9",
+    "dimensions": {"width": 1792, "height": 768}
+  },
+  "inputs": [
+    {
+      "id": "base-frame",
+      "type": "image",
+      "role": "base_image",
+      "description": "Actual base image; it owns identity, pose, camera, crop, station geometry, compass position, and any visible text.",
+      "source_kind": "local_path",
+      "source_ref": "../assets/gallery/narrative-film-frame-ferry.jpg",
+      "must_attach": true
+    }
+  ],
+  "style": {
+    "medium": "two-ink risograph editorial reproduction on fibrous newsprint",
+    "realism": "recognizable source photography translated through limited-ink print behavior",
+    "visual_traits": ["coarse halftone", "slight registration drift", "paper fiber", "deep charcoal and oxidized orange inks"],
+    "era": "contemporary editorial print",
+    "references": [],
+    "excluded_traits": ["new poster layout", "fake headline", "glossy digital polish", "smooth gradient airbrush"]
+  },
+  "constraints": {
+    "must_preserve": [
+      "both identities and expressions",
+      "pose, eyelines, hands, and compass",
+      "camera, crop, bench, railing, ramp, and river geography",
+      "all existing text exactly if any"
+    ],
+    "must_change": ["only the image-making treatment becomes two-ink risograph on newsprint"],
+    "exclude": ["new text", "new logo", "new object", "changed composition", "watermark"]
+  },
+  "render": {
+    "detail_priority": ["identity", "hands and compass", "source composition", "print texture"],
+    "artifact_budget": "source_matched",
+    "quality_controls": ["registration drift remains subtle and does not double facial features"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {"stylize": 50, "chaos": 0, "quality": 1, "raw": true, "style_reference": [], "style_weight": 100}
+  }
+}

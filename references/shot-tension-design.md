@@ -27,6 +27,15 @@ exaggeration budget -> distortion strategy -> motion evidence -> readability gua
 - Motion evidence may include cloth lag, hair follow-through, debris origin, water displacement, body compression, grip change, foot contact, and directional blur on the moving part only.
 - A strong battle image shows geography and consequence, not only a heroic pose and particles.
 
+For hand-object or body-object action, define the object's affordance and physical load before styling the pose:
+
+- which surface is grasped, supported, pushed, pulled, worn, or received;
+- which hand or body part bears weight and where the counterforce travels;
+- whether finger wrap, palm support, wrist alignment, center of mass, body balance, contact shadow, and occlusion agree;
+- which single phase is frozen: approach, first contact, weight transfer, release, or completed hold.
+
+If the action would be awkward, unsafe, or purposeless with a real object of that size and weight, redesign it. Do not accept an interaction only because all requested objects are present.
+
 ## Depth Roles
 
 - Foreground: proves viewer position, scale, speed, danger, concealment, or parallax.
@@ -70,5 +79,6 @@ Every distortion needs a viewer effect and a protected anchor. Distortion that m
 - Camera/lens/distortion serve the dominant read.
 - Exaggeration has a declared budget.
 - Motion evidence has a physical origin.
+- Object handling has a readable affordance, load path, grip/support, contact, body balance, and action phase.
 - The image retains one quiet or stable region so visual richness remains readable.
 - Explicit user style, reference, capsule, color pipeline, and medium remain authoritative when the scenario changes.

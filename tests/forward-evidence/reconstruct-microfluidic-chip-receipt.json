@@ -1,0 +1,10 @@
+{
+  "receipt_version": "1.0",
+  "mechanism": "referenced_image_paths",
+  "sent_input_ids": ["microfluidic-source"],
+  "sent_count": 1,
+  "tool_call_id_sha256": "832ce67a81df9bbccf16ddecf9c175d1547b2cd8c7f5e74a6a98ce6674c5bb62",
+  "output_ref": "assets/gallery/reconstruct-microfluidic-chip.jpg",
+  "actual_output_dimensions": "1536x1024",
+  "review": "The attached reference remained the authority for one chip, three straight channels, six circular terminals, three metal clips, oblique camera, and cool-neutral light."
+}

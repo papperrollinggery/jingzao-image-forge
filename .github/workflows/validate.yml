@@ -20,7 +20,12 @@ jobs:
           python-version: "3.10"
 
       - name: Compile Python sources
-        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py tests/test_skill.py
+        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py
+
+      - name: Lint Python sources
+        run: |
+          python3 -m pip install ruff==0.16.3
+          ruff check scripts tests
 
       - name: Validate specifications
         run: |
@@ -32,9 +37,16 @@ jobs:
           python3 scripts/validate_spec.py examples/tactile-stop-motion-product.json
           python3 scripts/validate_spec.py examples/architecture-exhibition.json
           python3 scripts/validate_spec.py examples/causal-fantasy-effect.json
+          python3 scripts/validate_spec.py examples/reconstruct-architecture-reference.json
+          python3 scripts/validate_spec.py examples/restyle-risograph-editorial.json
+          python3 scripts/validate_spec.py examples/expand-roadside-outpaint.json
+          for spec in tests/forward-specs/*.json; do
+            python3 scripts/validate_spec.py "$spec"
+          done
           python3 scripts/validate_style_capsule.py templates/style-capsule.json
           python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
           python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
+          python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
           python3 scripts/create_style_capsule.py examples/style-learning-graphite-copper.json --output /tmp/style-capsule.json
           cmp /tmp/style-capsule.json examples/style-capsule-graphite-copper.json
           python3 scripts/reference_delivery.py examples/style-learning-graphite-copper.json > /tmp/reference-local.json
@@ -43,9 +55,22 @@ jobs:
           python3 -m json.tool /tmp/reference-conversation.json > /dev/null
           python3 scripts/reference_delivery.py examples/atomic-cyber-live-action.json > /tmp/reference-runtime-asset.json
           python3 -m json.tool /tmp/reference-runtime-asset.json > /dev/null
+          python3 scripts/reference_delivery.py examples/style-learning-graphite-copper.json --target codex_imagegen > /tmp/reference-codex-local.json
+          python3 scripts/reference_delivery.py examples/styleboard-3x3.json --target codex_imagegen --confirm-conversation-window > /tmp/reference-codex-conversation.json
+          if python3 scripts/reference_delivery.py examples/atomic-cyber-live-action.json --target codex_imagegen > /tmp/reference-codex-unresolved.json; then
+            echo "Expected unresolved platform asset to fail Codex ImageGen preflight" >&2
+            exit 1
+          fi
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Lint canonical compiled prompts
+        run: |
+          python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
+          python3 scripts/prompt_lint.py examples/narrative-film-frame.json --platform openai --max-words 1200
+          python3 scripts/prompt_lint.py examples/tactile-stop-motion-product.json --platform openai --max-words 1100
+          python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform midjourney --approve-review --max-words 1400
 
       - name: Validate platform compiler JSON
         run: |
@@ -63,6 +88,10 @@ jobs:
           done
           python3 scripts/compile_prompt.py examples/causal-fantasy-effect.json --platform openai > /tmp/causal-openai.json
           python3 -m json.tool /tmp/causal-openai.json > /dev/null
+          for spec in reconstruct-architecture-reference restyle-risograph-editorial expand-roadside-outpaint; do
+            python3 scripts/compile_prompt.py "examples/$spec.json" --platform openai > "/tmp/$spec-openai.json"
+            python3 -m json.tool "/tmp/$spec-openai.json" > /dev/null
+          done
           for platform in openai flux midjourney generic; do
             python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json --style-capsule examples/style-capsule-graphite-copper.json --platform "$platform" > "/tmp/tactile-$platform.json"
             python3 -m json.tool "/tmp/tactile-$platform.json" > /dev/null

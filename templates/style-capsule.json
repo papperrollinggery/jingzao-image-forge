@@ -27,6 +27,7 @@
   "forbidden_transfer": ["Do not transfer source identity, exact text, logos, protected marks, or layout coordinates."],
   "validation": {
     "prompts": [],
-    "notes": ""
+    "notes": "",
+    "evidence": []
   }
 }

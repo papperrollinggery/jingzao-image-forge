@@ -75,6 +75,10 @@
       "Transfer the style to an original contemporary jazz singer backstage after a failed performance, with no martial-arts content and no text.",
       "Transfer the style to an original desert science-fiction courier remembering a lost orbital station, with a new silhouette layer and no source content."
     ],
-    "notes": "Forward-tested on 2026-08-19 with two unrelated subjects using the same image generator. The jazz singer result preserved the dominant crimson portrait, cyan miniature story layer, deep black field, analog print texture, and double-exposure hierarchy without martial-arts content or copied text. The science-fiction courier result preserved the same transferable mechanisms while changing character, wardrobe, setting, and secondary narrative layer; no source face, costume, wording, signature, or watermark was reproduced. These are visual checks, not guarantees of exact repeatability."
+    "notes": "Forward-tested on 2026-08-19 with two unrelated subjects using the same image generator. The jazz singer result preserved the dominant crimson portrait, cyan miniature story layer, deep black field, analog print texture, and double-exposure hierarchy without martial-arts content or copied text. The science-fiction courier result preserved the same transferable mechanisms while changing character, wardrobe, setting, and secondary narrative layer; no source face, costume, wording, signature, or watermark was reproduced. These are visual checks, not guarantees of exact repeatability.",
+    "evidence": [
+      {"case_id": "crimson-nocturne-jazz", "prompt_index": 0, "scenario": "contemporary jazz", "evidence_ref": "tests/forward-test-manifest.json#crimson-nocturne-jazz", "review": "passed visual review"},
+      {"case_id": "crimson-nocturne-sci-fi", "prompt_index": 1, "scenario": "desert science fiction", "evidence_ref": "tests/forward-test-manifest.json#crimson-nocturne-sci-fi", "review": "passed visual review"}
+    ]
   }
 }

@@ -1,0 +1,82 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "restyle",
+  "intent": "Restyle the attached 4:3 service-station photograph as a rough two-ink newsprint risograph editorial reproduction while changing only the image-making medium.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "custom",
+    "aspect_ratio": "4:3",
+    "dimensions": {
+      "width": 1448,
+      "height": 1086
+    }
+  },
+  "inputs": [
+    {
+      "id": "base-service-station",
+      "type": "image",
+      "role": "base_image",
+      "description": "The actual base photograph. It owns rider identity, helmet and clothing, pose, hands, motorcycle form, camera, crop, road and station geometry, object placement, exposure structure, and every original visible text mark if any.",
+      "source_kind": "local_path",
+      "source_ref": "../fixtures/service-station-source.jpg",
+      "must_attach": true
+    }
+  ],
+  "style": {
+    "medium": "rough two-ink risograph editorial reproduction on fibrous uncoated newsprint",
+    "realism": "the exact source photograph remains recognizable through limited-ink print behavior",
+    "visual_traits": [
+      "deep charcoal ink and muted rust-red ink only",
+      "coarse halftone screens",
+      "subtle registration drift",
+      "visible newsprint fibers",
+      "flat editorial reproduction rather than glossy digital illustration"
+    ],
+    "era": "contemporary independent editorial newsprint",
+    "references": [],
+    "excluded_traits": [
+      "new poster layout",
+      "fake headline or caption",
+      "glossy digital polish",
+      "smooth airbrushed gradient",
+      "oily sheen"
+    ]
+  },
+  "constraints": {
+    "must_preserve": [
+      "the rider identity, helmet, clothing, expression visibility, pose, gaze, hands, and exact relationship to the motorcycle",
+      "the exact motorcycle identity, geometry, orientation, and placement",
+      "the exact camera viewpoint, 4:3 crop, subject scale, and off-center composition",
+      "the exact old canopy, pumps, building, road, wet ground, horizon, station geometry, vanishing points, and all object positions",
+      "all original visible text exactly if any; where the source has no legible text, introduce none"
+    ],
+    "must_change": [
+      "only the image-making treatment becomes a rough two-ink charcoal-and-rust risograph reproduction on fibrous newsprint"
+    ],
+    "exclude": [
+      "new person, vehicle, motorcycle, prop, architecture, sign, logo, letter, number, headline, caption, border, or layout graphic",
+      "changed identity, pose, motorcycle, camera, crop, subject position, station geometry, or road perspective",
+      "photorealistic wet gloss, oily sheen, excessive bloom, synthetic CGI polish, or post-generation compositing"
+    ]
+  },
+  "render": {
+    "detail_priority": [
+      "identity and pose",
+      "motorcycle geometry",
+      "source composition and crop",
+      "station and road geometry",
+      "two-ink halftone and paper texture"
+    ],
+    "artifact_budget": "source_matched",
+    "quality_controls": [
+      "registration drift stays subtle and never doubles the face, hands, motorcycle edges, canopy supports, or road lines"
+    ]
+  },
+  "platform_options": {
+    "openai": {
+      "model": "gpt-image-2",
+      "quality": "medium"
+    }
+  }
+}

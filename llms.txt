@@ -13,7 +13,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - reconstruct: describe observable reference-image attributes without claiming to recover a hidden prompt
 - edit: describe the smallest local change and explicit preservation constraints
 - restyle: change visual treatment while locking identity, pose, geometry, layout, and text
-- expand: extend a canvas while preserving original content and subject position
+- expand: attempt canvas extension under a preservation contract; strict position/scale/ratio retention requires visual review and may fail
 - learn_style: inspect actual reference images, separate observed/inferred/unknown traits, and export a source-image-free capsule with required transfer boundaries and advisory content-risk warnings
 - styleboard: assign reference roles, build per-frame cards, and choose direct-sheet, independent-frame, or hybrid generation for triptych and 3x3 boards
 - creative routing: choose one primary scenario, genre family, aesthetic family, capture/render method, and up to three scene archetypes across 20+ use cases
@@ -21,7 +21,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - style authority and spatial tension: preserve explicit tone locks across scenarios; design dominant read, action/counterforce, foreground-midground-background roles, exaggeration, distortion, parallax, and motion evidence
 - professional color pipeline: exposure, tone scale, black/white points, highlight rolloff, color separation, skin protection, film/print character, grain, halation, bloom, and shot matching
 - professional render pipeline: Blender/Unreal/production-renderer appearance references, path/ray tracing, global illumination, PBR/NPR materials, volume, sampling, and visible pass separation inside one generated image
-- direct multi-image delivery: emit actual supplied images as attachments and require ImageGen generation/edit calls to receive them; never replace available references with prose-only summaries and never add post-generation compositing
+- verified multi-image delivery: emit actual supplied images, a target-aware Codex ImageGen call plan, fail-closed capability checks, and an expected-vs-sent execution receipt; never replace references with prose-only summaries or add post-generation compositing
 - knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
 - artifact and material quality: control noise, grain, bloom, flare, oily or waxy surfaces, sharpening halos, particles, and focal-detail hierarchy
 - automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
@@ -34,6 +34,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
 - references/visual-spec.md: visual_generation_spec schema and control semantics
 - references/prompt-compiler.md: platform-aware compilation behavior
+- references/prompt-hygiene.md: source tracing, semantic ownership, contamination cleanup, feasibility, and style-preserving prompt review
 - references/quality-controls.md: artifact budgets, material-light controls, and clean-slate retry guidance
 - references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
 - references/direction-profiles.md: grounded, heightened, graphic, giant-scale, and Chinese-fantasy routing
@@ -43,6 +44,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - references/color-pipeline.md: professional grading, display intent, film finishing, grain, halation, tone scale, and sequence continuity
 - references/render-pipeline.md: Blender/Unreal/renderer vocabulary, light transport, GI, PBR materials, sampling, passes, and artifacts
 - references/reference-delivery.md: minimal actual-image source/role/must-attach records, ImageGen handoff, preflight, and no-compositing boundary
+- references/reference-modes.md: reconstruct observed/inferred/unknown contract, restyle invariants, expand boundary continuity, and provider routing
 - references/style-learning.md: reference-image observation, source-image-free capsule export, content-risk review, cross-subject tests, and adoption gates
 - references/style-capsules.md: reviewed built-in capsule registry, transfer boundaries, evidence, and usage
 - references/style-capsules/crimson-nocturne-wuxia-montage.json: adopted vertical crimson/cyan analog photomontage capsule learned from three user references without storing raw images
@@ -51,7 +53,9 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - templates/style-capsule.json: reusable source-image-free learned-style template
 - scripts/validate_spec.py: standard-library specification validator
 - scripts/validate_style_capsule.py: standard-library learned-style capsule validator
-- scripts/reference_delivery.py: standard-library actual-image attachment manifest and local-path preflight
+- scripts/reference_delivery.py: standard-library attachment manifest, Codex ImageGen capability preflight, call plan, and execution receipt verification
+- scripts/prompt_lint.py: deterministic compiled-prompt leakage and fixture-ceiling checks
+- scripts/validate_forward_tests.py: validates forward-test evidence paths and prompt hashes without pixel regression
 - scripts/create_style_capsule.py: deterministic source-image-free capsule exporter with advisory content-risk warnings
 - scripts/compile_prompt.py: standard-library prompt compiler
 - examples/atomic-cyber-live-action.json: synthetic validated edit example
@@ -62,17 +66,21 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - examples/tactile-stop-motion-product.json: validated handcrafted product scenario
 - examples/architecture-exhibition.json: validated architectural-spatial scenario
 - examples/causal-fantasy-effect.json: validated battle-tension, causal VFX, professional color, advanced materials, and Blender Cycles appearance-reference example
+- examples/reconstruct-architecture-reference.json: reconstruct contract with observed/inferred/unknown separation
+- examples/restyle-risograph-editorial.json: restyle contract with locked source geometry and one treatment change
+- examples/expand-roadside-outpaint.json: expand contract with source-bound continuity and crop-safe new edges
 - tests/test_skill.py: deterministic regression tests
 - tests/evals.md: behavioral evaluation cases
 - tests/benchmark-results.md: same-model qualitative prompt-strategy benchmark and evidence-backed conclusions
+- tests/forward-test-manifest.json: traceable prompt hashes, approved outputs, scenarios, and visual review records
 - assets/jingzao-image-forge-hero-en.png: English visual introduction page generated with Codex imagegen
 - assets/jingzao-image-forge-hero-zh.png: Chinese visual introduction page generated with Codex imagegen
 - assets/jingzao-image-forge-group-card-zh.png: concise Chinese community recommendation card
 - assets/jingzao-image-forge-group-card-zh-v2.png: information-rich Chinese workflow, capabilities, and use-case recommendation card
-- assets/jingzao-image-forge-intro-zh-v3.png: current landscape workflow and capability introduction page
+- assets/jingzao-image-forge-intro-zh-v4.png: current landscape workflow page showing reference preflight, call planning, ImageGen, receipt, and visual review
 - assets/jingzao-image-forge-recommendation-zh-v3.png: current vertical feature recommendation poster
 - assets/jingzao-image-forge-wechat-card-zh-v3.png: current concise WeChat group recommendation card
-- assets/gallery/: eight web-optimized, visually inspected forward-test outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, and two cross-subject style-capsule transfers
+- assets/gallery/: twelve web-optimized, visually inspected outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, restyle, reconstruction, CG fashion, and cross-subject style-capsule transfers; ten are manifest-bound and two are explicitly manual-review-only
 
 ## Invocation
 
@@ -94,13 +102,13 @@ python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
+python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
+uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 111 regression tests.
-Manual forward test: dark portrait with skin, fabric, brass, wood, and practical-light artifact controls; visually inspected, not committed.
-Direction forward tests: relationship-driven narrative film frame, monumental Chinese-fantasy causal spectacle, and one-call 3x3 hand-drawn sheet; visually inspected, not committed.
-Style-learning forward tests: one graphite/copper capsule transferred to a square tactile tea product and a wide architecture pavilion without copying source text, identity, portal imagery, storyboard panels, or layout coordinates; visually inspected, not committed.
-Adopted capsule forward tests: Crimson Nocturne Wuxia Print Montage transferred to a contemporary jazz singer and a desert science-fiction courier without copying source people, costume, text, signature, watermark, or layout; visually inspected, not committed.
+Current deterministic baseline: 143 regression tests covering schema, compilation, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, full-value style-protected normalization, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Manifest-bound outputs and two explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations
 
@@ -111,6 +119,8 @@ Adopted capsule forward tests: Crimson Nocturne Wuxia Print Montage transferred 
 - https://github.com/obra/superpowers
 - https://openai.com/academy/image-generation/
 - https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference
+- https://docs.midjourney.com/hc/en-us/articles/36285124473997-Omni-Reference
+- https://docs.midjourney.com/hc/en-us/articles/32764383466893-Editor
 - https://www.unrealengine.com/explainers/virtual-production/what-is-virtual-production
 - https://renderman.pixar.com/stories/cinematography-with-soul
 - https://www.sidefx.com/products/houdini/world-building/

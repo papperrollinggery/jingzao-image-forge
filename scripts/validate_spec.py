@@ -407,6 +407,7 @@ def validate_spec(spec: Any) -> list[str]:
             "inputs",
             "knowledge_anchors",
             "creative_routing",
+            "reference_analysis",
             "style_learning",
             "direction",
             "cinematic",
@@ -691,6 +692,7 @@ def validate_spec(spec: Any) -> list[str]:
                     "transfer_rules",
                     "forbidden_transfer",
                     "validation_prompts",
+                    "validation_evidence",
                     "verification_notes",
                     "control",
                 },
@@ -771,7 +773,31 @@ def validate_spec(spec: Any) -> list[str]:
                 if isinstance(value, list) and not value:
                     errors.append(f"$.style_learning.{key}: expected at least one rule")
             validation_prompts = style_learning.get("validation_prompts", [])
+            validation_evidence = style_learning.get("validation_evidence", [])
             verification_notes = style_learning.get("verification_notes", "")
+            if not isinstance(validation_evidence, list):
+                errors.append("$.style_learning.validation_evidence: expected a list")
+                validation_evidence = []
+            evidence_scenarios: set[str] = set()
+            for index, item in enumerate(validation_evidence):
+                path = f"$.style_learning.validation_evidence[{index}]"
+                if not isinstance(item, dict):
+                    errors.append(f"{path}: expected an object")
+                    continue
+                _validate_known_keys(
+                    item,
+                    {"case_id", "prompt_index", "scenario", "evidence_ref", "review"},
+                    path,
+                    errors,
+                )
+                for key in ("case_id", "scenario", "evidence_ref", "review"):
+                    _require_string(item.get(key), f"{path}.{key}", errors)
+                prompt_index = item.get("prompt_index")
+                if not isinstance(prompt_index, int) or isinstance(prompt_index, bool) or prompt_index < 0:
+                    errors.append(f"{path}.prompt_index: expected a non-negative integer")
+                scenario = item.get("scenario")
+                if isinstance(scenario, str) and scenario.strip():
+                    evidence_scenarios.add(scenario.strip())
             if _is_allowed(learning_status, {"validated", "adopted"}):
                 if not isinstance(validation_prompts, list) or len(validation_prompts) < 2:
                     errors.append(
@@ -781,6 +807,29 @@ def validate_spec(spec: Any) -> list[str]:
                     errors.append(
                         "$.style_learning.verification_notes: validated or adopted styles require visual review notes"
                     )
+                if len(validation_evidence) < 2 or len(evidence_scenarios) < 2:
+                    errors.append(
+                        "$.style_learning.validation_evidence: validated or adopted styles require two scenario evidence records"
+                    )
+
+    reference_analysis = spec.get("reference_analysis")
+    if reference_analysis is not None:
+        if not isinstance(reference_analysis, dict):
+            errors.append("$.reference_analysis: expected an object")
+        else:
+            _validate_known_keys(
+                reference_analysis,
+                {"target", "observed", "inferred", "unknowns"},
+                "$.reference_analysis",
+                errors,
+            )
+            _require_string(reference_analysis.get("target"), "$.reference_analysis.target", errors)
+            for key in ("observed", "inferred", "unknowns"):
+                _validate_string_list(reference_analysis.get(key, []), f"$.reference_analysis.{key}", errors)
+            if not reference_analysis.get("observed"):
+                errors.append("$.reference_analysis.observed: reconstruct requires directly observed facts")
+            if not reference_analysis.get("unknowns"):
+                errors.append("$.reference_analysis.unknowns: reconstruct requires explicit unknowns")
 
     direction = spec.get("direction")
     direction_deliverable = "auto"
@@ -1249,6 +1298,12 @@ def validate_spec(spec: Any) -> list[str]:
             errors.append("$.constraints.must_preserve: edit mode requires explicit invariants")
     if _is_allowed(mode, {"restyle", "expand"}) and isinstance(constraints, dict) and not constraints.get("must_preserve"):
         errors.append(f"$.constraints.must_preserve: mode={mode!r} requires explicit invariants")
+    if _is_allowed(mode, {"restyle", "expand"}) and isinstance(constraints, dict) and not constraints.get("must_change"):
+        errors.append(f"$.constraints.must_change: mode={mode!r} requires an explicit requested change")
+    if mode == "reconstruct" and not isinstance(reference_analysis, dict):
+        errors.append("$.reference_analysis: mode=\"reconstruct\" requires observed/inferred/unknown analysis")
+    if reference_analysis is not None and mode != "reconstruct":
+        errors.append("$.reference_analysis: allowed only when mode=\"reconstruct\"")
     if mode == "styleboard" and not isinstance(styleboard, dict):
         errors.append("$.styleboard: mode=\"styleboard\" requires a styleboard object")
     if styleboard is not None and mode != "styleboard":
@@ -1712,18 +1767,39 @@ def validate_spec(spec: Any) -> list[str]:
         else:
             _validate_known_keys(
                 render,
-                {"quality", "detail_priority", "artifact_budget", "quality_controls", "control"},
+                {"detail_priority", "artifact_budget", "quality_controls", "control"},
                 "$.render",
                 errors,
             )
-            _validate_optional_string_fields(render, ("quality",), "$.render", errors)
             _validate_string_list(render.get("detail_priority", []), "$.render.detail_priority", errors)
             artifact_budget = render.get("artifact_budget")
             if artifact_budget is not None and not _is_allowed(artifact_budget, ARTIFACT_BUDGETS):
                 errors.append(f"$.render.artifact_budget: expected one of {sorted(ARTIFACT_BUDGETS)}")
             _validate_string_list(render.get("quality_controls", []), "$.render.quality_controls", errors)
 
-    _validate_platform_options(spec.get("platform_options"), errors)
+    platform_options = spec.get("platform_options")
+    _validate_platform_options(platform_options, errors)
+    if isinstance(canvas, dict) and isinstance(platform_options, dict):
+        dimensions = canvas.get("dimensions") if isinstance(canvas.get("dimensions"), dict) else {}
+        openai = platform_options.get("openai") if isinstance(platform_options.get("openai"), dict) else {}
+        size = openai.get("size")
+        if isinstance(size, str) and re.fullmatch(r"\d+x\d+", size):
+            width, height = (int(item) for item in size.split("x", 1))
+            if dimensions.get("width") != width or dimensions.get("height") != height:
+                errors.append("$.platform_options.openai.size: must match canvas.dimensions when both are supplied")
+        midjourney = (
+            platform_options.get("midjourney")
+            if isinstance(platform_options.get("midjourney"), dict)
+            else {}
+        )
+        mid_ratio = midjourney.get("aspect_ratio")
+        mid_match = ASPECT_RATIO_RE.match(mid_ratio) if isinstance(mid_ratio, str) else None
+        if mid_match is not None and canvas_ratio_value is not None:
+            mid_ratio_value = float(mid_match.group(1)) / float(mid_match.group(2))
+            if abs(mid_ratio_value - canvas_ratio_value) > 1e-6:
+                errors.append(
+                    "$.platform_options.midjourney.aspect_ratio: must match canvas.aspect_ratio when both are supplied"
+                )
     _walk_controls(spec, "$", errors)
     return errors
 

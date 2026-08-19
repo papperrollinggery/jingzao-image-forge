@@ -4,9 +4,11 @@
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
 
-![Jingzao Image Forge: visual brief and real references through creative routing, camera, color, materials, visual_generation_spec, platform prompts, and validation](assets/jingzao-image-forge-intro-zh-v3.png)
+![Jingzao Image Forge: real references through visual_generation_spec, attachment preflight, call planning, ImageGen, receipt, and visual review](assets/jingzao-image-forge-intro-zh-v4.png)
 
 Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [feature recommendation poster](assets/jingzao-image-forge-recommendation-zh-v3.png) · [WeChat group card](assets/jingzao-image-forge-wechat-card-zh-v3.png) · [previous card](assets/jingzao-image-forge-group-card-zh-v2.png)
+
+Featured evidence: [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [dynamic CG spec](tests/forward-specs/cg-fashion-rain-platform.json) · [3×3 storyboard spec (manual visual review)](examples/styleboard-3x3.json)
 
 **Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured image prompt engineering, reference-image style learning, cinematic shot design, art direction, product, fashion, architecture, illustration, animation, documentary, experimental media, spectacle, Chinese-fantasy VFX, and storyboards. It turns briefs, observed references, local edits, learned styles, and multi-frame plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator.
 
@@ -14,24 +16,32 @@ It is designed for work where composition, named entities, subject relationships
 
 ## Selected Generated Cases
 
-These are actual forward-test outputs generated with the built-in ImageGen and visually inspected on 2026-08-19. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
+These are actual outputs generated with the built-in ImageGen and visually inspected on 2026-08-19. Ten are hash/receipt-bound in the forward-test manifest; the storyboard and material-realism images are retained as manual visual-review examples because their original execution receipt or prompt record was not retained. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
 
 <table>
   <tr>
-    <td width="50%" valign="top"><strong>Narrative film frame</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="Relationship-driven cinematic film frame of two people separated on a ferry-terminal bench"><br><sub>Relationship staging, eyeline separation, foreground occlusion, restrained practical light, and an incomplete story moment instead of poster posing. <a href="examples/narrative-film-frame.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Crimson Nocturne — jazz</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a jazz singer on an empty stage"><br><sub>Dominant portrait, miniature narrative memory, deep-black field, red/cyan ownership, uneven print texture, and controlled double exposure.</sub></td>
     <td width="50%" valign="top"><strong>Causal Chinese-fantasy spectacle</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="Monumental Chinese fantasy action scene with one cultivator resisting a mountain-sized formation"><br><sub>Scale proven through human/environment ratio, near-frame occlusion, force path, contact, resistance, material fracture, and environmental response. <a href="examples/causal-fantasy-effect.json">Spec</a></sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><strong>One-call 3×3 storyboard</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="Nine-panel hand-drawn cinematic storyboard with stable characters, geography, prop and reading order"><br><sub>A true nine-cell <code>sheet_direct</code> board with consistent characters, terminal geography, compass state, shot progression, and hand-drawn finish. <a href="examples/styleboard-3x3.json">Spec</a></sub></td>
-    <td width="50%" valign="top"><strong>Material-realism portrait</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="Low-key environmental portrait of a brass craftsperson under one practical workshop lamp"><br><sub>Natural skin, indigo cloth, worn wood, brushed brass, selective microtexture, clean dark values, and source-motivated highlights without oily gloss or random light spots.</sub></td>
+    <td width="50%" valign="top"><strong>One-call 3×3 storyboard</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="Nine-panel hand-drawn cinematic storyboard with stable characters, geography, prop and reading order"><br><sub>Manual visual review: nine readable cells, stable geography and hand-drawn finish; the original reference-delivery receipt was not retained, so this is not manifest-bound evidence. <a href="examples/styleboard-3x3.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Dynamic CG-fashion frame</strong><br><img src="assets/gallery/cg-fashion-rain-platform.jpg" width="100%" alt="Dynamic fashion movement on a rain-wet rail platform with transparent technical fabric"><br><sub>Action phase, cloth drag, wet roughness, train motion axis, contact, depth layers, and motivated light read clearly without claiming that Unreal, Blender, or Lumen actually ran. <a href="tests/forward-specs/cg-fashion-rain-platform.json">Spec</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Narrative film frame</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="Relationship-driven cinematic film frame of two people separated on a ferry-terminal bench"><br><sub>Relationship staging, eyeline separation, foreground occlusion, restrained practical light, and an incomplete story moment instead of poster posing. <a href="examples/narrative-film-frame.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Crimson Nocturne — science fiction</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a desert science-fiction courier and orbital station"><br><sub>The same capsule survives a different character and world without transferring the source faces, costume, wording, signature, watermark, or exact layout. <a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">Capsule</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Graphite/copper product transfer</strong><br><img src="assets/gallery/graphite-copper-product.jpg" width="100%" alt="Tactile tea tin translated into a graphite and restrained copper material hierarchy"><br><sub>The same evidence-bound capsule works on a compact product image while preserving a blank label, clean silhouette, matte paper, and selective copper response.</sub></td>
+    <td width="50%" valign="top"><strong>Source-preserving risograph restyle</strong><br><img src="assets/gallery/risograph-service-station.jpg" width="100%" alt="Motorcyclist at a roadside service station restyled as two-ink newsprint risograph"><br><sub>The actual source image reached ImageGen; person, motorcycle, camera, 4:3 crop, and station geometry stayed aligned while only the medium changed. <a href="tests/forward-specs/restyle-risograph-service-station.json">Spec</a></sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top"><strong>Blank-label tactile product</strong><br><img src="assets/gallery/tactile-product-blank-label.jpg" width="100%" alt="Premium tactile jasmine tea tin with a blank green label and folded-paper botanical set"><br><sub>A targeted no-text retry preserved product geometry, paper tactility, copper response, palette, and depth while removing invented packaging copy. <a href="examples/tactile-stop-motion-product.json">Spec</a></sub></td>
     <td width="50%" valign="top"><strong>Graphite/copper architecture transfer</strong><br><img src="assets/gallery/graphite-copper-architecture.jpg" width="100%" alt="Minimal rammed-earth and cast-glass exhibition pavilion with graphite and copper visual hierarchy"><br><sub>A learned capsule transferred from graphic/editorial material into architectural space without copying source subject, text, grid, or layout coordinates. <a href="examples/architecture-exhibition.json">Spec</a></sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><strong>Crimson Nocturne — jazz</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a jazz singer on an empty stage"><br><sub>Dominant portrait, miniature narrative memory, deep-black field, red/cyan ownership, uneven print texture, and controlled double exposure.</sub></td>
-    <td width="50%" valign="top"><strong>Crimson Nocturne — science fiction</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a desert science-fiction courier and orbital station"><br><sub>The same capsule survives a different character and world without transferring the source faces, costume, wording, signature, watermark, or exact layout. <a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">Capsule</a></sub></td>
+    <td width="50%" valign="top"><strong>Material-realism portrait</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="Low-key environmental portrait of a brass craftsperson under one practical workshop lamp"><br><sub>Manual visual review only: natural skin, indigo cloth, worn wood, brushed brass, selective microtexture, and clean dark values; the original prompt record was not retained, so this is not manifest-bound evidence.</sub></td>
+    <td width="50%" valign="top"><strong>Scientific reference reconstruction</strong><br><img src="assets/gallery/reconstruct-microfluidic-chip.jpg" width="100%" alt="Reconstructed transparent microfluidic chip with three channels and three metal clamps"><br><sub>Observed geometry, counts, materials, camera, and light were separated from inference and unknowns; the actual source and receipt are evidence-bound. <a href="tests/forward-specs/reconstruct-microfluidic-chip.json">Spec</a></sub></td>
   </tr>
 </table>
 
@@ -47,13 +57,15 @@ Image prompts often fail for reasons that are hard to debug: a named character i
 - **Route 20+ scenario profiles:** story, portrait, performance, action, campaign, brand, product, fashion, food, architecture, environment, vehicle, creature, history, science, infographic, interface, game, event, social, and experimental work.
 - **Select coherent style systems:** cinematic naturalism, noir, expressionism, surreal dream, romantic sublime, modernist graphic, retro analog, luxury editorial, handcrafted, painterly, animation, documentary, speculative, minimal, archival, or mixed media.
 - **Learn reusable styles from images:** convert observed reference pixels into source-image-free, testable `style_capsule` files with explicit transfer boundaries and advisory warnings for quoted copy, brand/signature terms, or coordinates.
-- **Deliver actual references to ImageGen:** supplied character, wardrobe, product, logo, prop, scene, camera, or style images are emitted as required attachments; prose descriptions cannot silently replace them.
+- **Verify actual reference delivery:** supplied character, wardrobe, product, logo, prop, scene, camera, or style images produce a target-aware ImageGen call plan; reference-backed execution requires a matching sent-input receipt, so prose descriptions cannot silently replace them.
+- **Separate plumbing from creative quality:** attachment success never substitutes for purpose, product use, interaction physics, anatomy, body balance, or a clear viewer conclusion.
+- **Clean prompts without flattening style:** source tracing and a semantic ledger remove old-failure residue, negative association leakage, repeated mechanisms, and conflicting anchors while protecting medium, aesthetic, palette, material, camera, and intentional exaggeration.
 - **Design visual tension and beautiful shots:** control dominant read, action/counterforce, foreground-midground-background roles, exaggeration, lens projection, distortion, parallax, crop pressure, and motion evidence.
 - **Build professional color pipelines:** exposure, tone curves, black/white points, highlight rolloff, color separation, skin protection, film grain, halation, bloom, and shot matching.
 - **Describe professional CG rendering:** Blender Cycles, Unreal Engine 5/Lumen, path tracing, ray tracing, global illumination, PBR/NPR materials, volumes, sampling, denoise, and visible pass separation inside one generated image.
 - **Direct camera and relationships:** bind blocking, eyelines, axis, viewer position, shot size, camera height, camera distance, focal length, focus, and motivated light to one viewer task.
 - **Build reference-led styleboards:** role-scoped references, independent frame cards, 3×3 assembly, and line-art, hand-drawn, or cinematic-frame finishes.
-- **Compile without fake controls:** optional internal `weight`, `lock`, and `variance` annotations are validated for planning/review but deliberately have no prompt or provider-parameter effect.
+- **Compile without fake controls:** legacy `weight`, `lock`, and `variance` annotations remain accepted for compatibility but are deprecated, omitted from new examples, ignored by compilation, and never mapped to provider controls.
 - **Improve from real usage:** evidence-backed problems can become optimization proposals, but the Skill changes only after user approval and regression testing.
 
 ## Supported Workflows
@@ -64,7 +76,7 @@ Image prompts often fail for reasons that are hard to debug: a named character i
 | `reconstruct` | Observable style and composition analysis from an actual supplied image |
 | `edit` | Minimal local changes with explicit preservation constraints |
 | `restyle` | Change visual treatment while locking identity, pose, geometry, layout, and text |
-| `expand` | Extend a canvas while preserving subject position, perspective, light, and continuity |
+| `expand` | Extend a canvas under a preservation contract; strict position/scale/ratio retention remains visually verified and may fail in extreme outpainting |
 | `learn_style` | Inspect reference images, extract transferable visual rules, and validate a reusable style capsule |
 | `styleboard` | Translate identity, wardrobe, scene, camera, and style references into consistent multi-frame boards |
 
@@ -160,14 +172,15 @@ For simple requests, Jingzao can return a concise prompt. For exact layouts, mul
 
 ## Actual Multi-Image References Reach the Model
 
-When the user supplies real assets, Jingzao records only the minimal handoff fields: source, role, and whether the image must be attached. The compiler returns an `attachments` manifest and a `reference_handoff` contract. Built-in ImageGen receives local files through `referenced_image_paths` or conversation images through the smallest necessary `num_last_images_to_include`; it must never receive only a textual restatement of an available image.
+When the user supplies real assets, Jingzao records only source, role, and `must_attach`. The compiler returns `attachments`, `reference_handoff`, and a target-aware `imagegen_call_plan`. Built-in ImageGen is fail-closed above five required images, on mixed local/conversation mechanisms, unresolved remote/platform assets, or an unconfirmed recent conversation-image window. After the tool call, a receipt must match expected input IDs/count/mechanism before the result is called reference-backed.
 
 This applies to character identity, clothing marks, products, packaging, logos, props, locations, compositions, and style references. GPT Image 2 accepts one or more reference images and processes every image input at high fidelity automatically. Logo/product/character fidelity is still visually verified; failures are retried or routed through the model's image-edit workflow. Jingzao does not perform post-generation compositing.
 
 The validator rejects `reconstruct`, `edit`, `restyle`, `expand`, or `learn_style` specifications that lack at least one required attached image. The synthetic atomic edit example therefore contains a runtime asset placeholder that must be replaced with the actual source image before execution.
 
 ```bash
-python3 scripts/reference_delivery.py path/to/spec.json
+python3 scripts/reference_delivery.py path/to/spec.json --target codex_imagegen
+python3 scripts/reference_delivery.py path/to/spec.json --target codex_imagegen --receipt path/to/receipt.json
 ```
 
 See [Direct Multi-Image Reference Delivery](references/reference-delivery.md).
@@ -235,7 +248,7 @@ Jingzao supports three execution strategies: `sheet_direct` for fastest one-call
 
 `learn_style` inspects actual supplied images and records directly observed mechanisms separately from plausible inference and unknown production details. The result can be exported as a reusable `style_capsule` containing medium behavior, palette ownership, line/shape, texture/material, lighting, composition, typography, optics/rendering, transfer rules, and forbidden transfer.
 
-This is not model fine-tuning. The exporter strips input records, stores no raw source pixels, requires explicit forbidden-transfer rules, and warns when visual-rule text appears to contain quoted copy, brand/signature terms, or coordinates. These checks are advisory, so human review still owns identity, protected-character, brand, copy, signature, and layout exclusion. `validated` and `adopted` status require two cross-subject forward tests and visual review notes. Durable installation or public inclusion requires explicit approval.
+This is not model fine-tuning. The exporter strips input records, stores no raw source pixels, requires explicit forbidden-transfer rules, and warns when visual-rule text appears to contain quoted copy, brand/signature terms, or coordinates. These checks are advisory, so human review still owns identity, protected-character, brand, copy, signature, and layout exclusion. `validated` and `adopted` status require two different scenarios, visual review notes, and non-image evidence bindings to the forward-test manifest. Durable installation or public inclusion requires explicit approval.
 
 ```bash
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
@@ -341,21 +354,30 @@ The quality layer separates material roughness, highlight behavior, texture scal
 ## Validation
 
 ```bash
-python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py tests/test_skill.py
+python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/reference_delivery.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py
+uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
 python3 -m unittest discover -s tests -v
 ```
 
-Current local baseline: **111 regression tests** covering all seven modes, seven validated visual-spec examples, two validated/adopted style capsules, creative routing and tone authority, professional color/film finishing, render pipelines, spatial tension, lens distortion, advanced material response, causal VFX, mandatory base-image handoff for reference-led modes, validated Midjourney style references, explicit rejection of post-generation compositing controls, source-image-free capsule export and content-risk warnings, four-platform compilation, malformed-input safety, unknown-field detection, finite numerics, CLI error contracts, styleboards, edits, knowledge anchors, and artifact control.
+Current local baseline: **143 deterministic regression tests** covering schema and compilation structure for all seven modes, ten validated visual-spec examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, full-value style-protected normalization, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
 
-Manual forward test: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and visually inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The test image is intentionally not committed to this repository.
+Manual visual review: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The output remains in the gallery, but its original prompt record was not retained and it is not manifest-bound evidence.
 
-Additional direction forward tests passed: a relationship-driven ferry-terminal frame read as a motivated film still rather than a poster; a monumental Chinese-fantasy shot proved scale through architecture, water pressure, occlusion, and one causal formation effect; and a one-call `sheet_direct` 3×3 hand-drawn storyboard produced nine readable 16:9 cells with stable characters, geography, prop state, and reading order. These test images are not committed.
+Additional direction tests passed visually: a relationship-driven ferry-terminal frame read as a motivated film still rather than a poster; a monumental Chinese-fantasy shot proved scale through architecture, water pressure, occlusion, and one causal formation effect; and a one-call `sheet_direct` 3×3 hand-drawn storyboard produced nine readable cells. The first two are manifest-bound; the storyboard's original reference-delivery receipt was not retained and is labeled manual review only.
 
-Style-learning forward tests also passed: one learned graphite/copper capsule transferred to a square tactile tea product and a wide architecture pavilion. Both retained palette ownership, material hierarchy, clean shadows, restrained copper accents, and readable negative space while changing subject, ratio, scene, and production method. Neither reproduced the source title, identity, portal image, storyboard grid, or layout coordinates. Test images remain under ignored `output/` and are not committed.
+Style-learning forward tests also passed: one learned graphite/copper capsule transferred to a square tactile tea product and a wide architecture pavilion. Both retained palette ownership, material hierarchy, clean shadows, restrained copper accents, and readable negative space while changing subject, ratio, scene, and production method. Neither reproduced the source title, identity, portal image, storyboard grid, or layout coordinates. Approved outputs are committed and evidence-bound; other candidates remain ignored.
 
-The adopted **Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴** capsule was learned from three user-supplied references without storing the raw images. It then passed two unrelated-subject forward tests—a contemporary jazz singer and a desert science-fiction courier—while retaining the crimson/cyan palette ownership, dominant-portrait versus miniature-story hierarchy, controlled double exposure, and uneven analog print behavior without copying source faces, costume, wording, signature, watermark, or exact layout. See [Built-in Style Capsules](references/style-capsules.md). The source images and forward-test outputs are not committed.
+The new independent mode tests stayed strict: `restyle`, scientific `reconstruct`, and dynamic CG creation passed and entered the gallery. The `expand` test remained continuous but failed to preserve target ratio, lateral anchor, and frame-height ratio together, so it is documented as a current limitation and excluded. A five-reference stress test proved delivery of all five files but failed creative-purpose and hand-object interaction review; it was also excluded. Attachment plumbing and image quality are separate gates.
+
+After field-protection normalization, the current causal-fantasy and CG-fashion compiler projections are 1,444 and 2,218 words. Both remain `review_required`: the budget is a review trigger, not a model-optimal length claim or auto-truncation rule. Their existing images are visual evidence; CG was not regenerated after the protection change.
+
+A controlled handoff study then isolated the upstream prompt problem. Keeping the same five references and action but replacing a 2,253-word cross-section prompt with one short current-frame instruction removed the unsupported side-pinch; changing the action to a purposeful stationary checkout exchange improved meaning and balance; retaining only the three necessary references produced the cleanest interaction. Because each condition has one generated sample, the study supports direction rather than a universal probability claim. The implemented fix is semantic ownership and contamination review—not blanket realism or indiscriminate prompt shortening. See [Prompt Hygiene Without Style Flattening](references/prompt-hygiene.md).
+
+The adopted **Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴** capsule was learned from three user-supplied references without storing the raw images. It then passed two unrelated-subject forward tests—a contemporary jazz singer and a desert science-fiction courier—while retaining the crimson/cyan palette ownership, dominant-portrait versus miniature-story hierarchy, controlled double exposure, and uneven analog print behavior without copying source faces, costume, wording, signature, watermark, or exact layout. See [Built-in Style Capsules](references/style-capsules.md). Raw source images remain private; approved transformed outputs are public evidence.
 
 The same-model quality benchmark compares a simple brief, a specialist cinematic/product route, and Jingzao on action and product tasks. It records visible strengths, regressions, and the text-invention retry rather than claiming a universal winner. See [Benchmark Results](tests/benchmark-results.md).
 

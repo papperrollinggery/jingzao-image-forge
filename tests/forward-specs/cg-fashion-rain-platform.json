@@ -1,0 +1,286 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create a physically coherent, text-free professional CG fashion-film frame on a rain-soaked elevated walkway: one model is caught mid-turn while translucent technical fabric visibly lags through inertia, and one distant train carries a single consistent left-to-right motion direction. The frame must read as unfolding action, not a standing poster.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "custom",
+    "aspect_ratio": "3:2",
+    "dimensions": {"width": 1536, "height": 1024}
+  },
+  "inputs": [],
+  "creative_routing": {
+    "scenario_profile": "fashion_beauty",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "luxury_editorial",
+    "capture_or_render_method": "photoreal_cg",
+    "scene_archetypes": ["street/urban layer", "stage/performance"],
+    "audience_effect": "feel the exact instant of directional change through body weight, fabric drag, rain, and the passing train",
+    "delivery_context": "independent professional CG fashion motion test",
+    "design_priority": "action readability, translucent-fabric behavior, wet-material separation, and layered depth",
+    "cultural_context": "contemporary unbranded technical fashion without invented symbols or copy",
+    "secondary_influence": "documentary observational camera placement",
+    "mix_rule": "luxury editorial controls garment hierarchy and restraint; documentary observation controls the non-heroic camera position and partial environmental occlusion",
+    "style_authority": "user_brief",
+    "adaptation_rule": "preserve physical motion, restrained color, and material truth over promotional posing",
+    "tone_locks": ["rain-night graphite palette", "one model in active turn", "single left-to-right train vector", "physically explained light"],
+    "forbidden_drift": ["standing poster pose", "game HUD", "random neon", "oily plastic skin", "uniform wet gloss"]
+  },
+  "direction": {
+    "deliverable": "narrative_film_frame",
+    "treatment": "grounded_cinematic",
+    "spectacle_scale": "dramatic",
+    "camera_freedom": "physical",
+    "genre": "contemporary fashion motion film rendered as photoreal CG",
+    "world_rule": "rain, gravity, foot contact, garment inertia, train motion, reflections, and indirect light remain physically causal",
+    "visual_goal": "place the viewer beside the moving model at the turning instant, with garment lag and train direction readable before styling detail"
+  },
+  "cinematic": {
+    "profile": "narrative_film_frame",
+    "shot_function": "follow",
+    "visible_event": "the model abruptly changes direction while the outer translucent garment continues along the prior path for one beat",
+    "relationship_pressure": "the model's grounded body turn opposes the garment's inertial drag while the distant train continues left-to-right",
+    "viewer_task": "read the planted foot, torso rotation, trailing fabric, rain response, and one-way train motion as the same captured instant",
+    "viewer_position": "under the walkway canopy, just behind a foreground guardrail at waist height and offset from the model's path",
+    "frozen_moment": "the leading foot has planted and the torso has rotated, but the translucent coat panel is still sweeping behind",
+    "withheld_information": "the model's destination and the train's origin remain offscreen",
+    "posterization_guard": true
+  },
+  "scene": {
+    "summary": "rainy night on an elevated pedestrian walkway running parallel to an urban rail line",
+    "setting": "utilitarian covered high walkway with wet textured deck, restrained metal guardrails, structural columns, and one distant passing train",
+    "time": "night during steady rain",
+    "atmosphere": ["clear enough to read depth", "fine directional rain near practical light", "no decorative fog or particles"]
+  },
+  "subjects": [
+    {
+      "id": "turning-model",
+      "description": "one contemporary fashion model wearing an unbranded graphite base outfit and a translucent technical outer layer",
+      "count": 1,
+      "appearance": ["natural human anatomy", "rain-darkened hair with directional follow-through", "natural matte skin", "unbranded technical tailoring"],
+      "action": "rapidly changes direction mid-stride; the planted leading foot grips the wet deck while the torso and head have begun the turn",
+      "pose": "asymmetric active turn with bent supporting knee, rotated torso, one arm following balance, and no front-facing fashion stance",
+      "gaze": "looks into the new direction of travel rather than at the camera",
+      "position": {"x_percent": 47.0, "y_percent": 55.0, "depth": "midground"},
+      "scale": "full body readable with the environment occupying more than half the frame",
+      "relationships": [
+        "translucent outer fabric remains attached at shoulders and waist while its free panels lag behind the turn",
+        "the planted shoe makes visible contact with the wet deck",
+        "the train remains behind the model on a separate parallel track"
+      ]
+    }
+  ],
+  "staging": {
+    "primary_relationship": "body rotation changes direction while garment inertia briefly preserves the prior direction",
+    "subject_positions": ["model in the central-left midground", "passing train in the distant right-to-left-spanning background", "wet guardrail edge in the lower foreground"],
+    "eyeline_logic": "model looks toward the new offscreen path, never at the viewer",
+    "screen_direction": "train and every train-related blur move only from left to right",
+    "axis": "walkway and rail line remain parallel and spatially readable",
+    "occlusion": "a restrained foreground rail edge partially frames the lower body without hiding foot contact",
+    "attention_path": "planted shoe contact -> torso rotation -> translucent fabric arc -> left-to-right train streak -> open offscreen destination"
+  },
+  "spatial_dynamics": {
+    "dominant_read": "the model's sudden turn pulls against the translucent garment's delayed sweep",
+    "secondary_read": "the distant train carries one clean left-to-right vector through the rainy background",
+    "beauty_mechanism": "a clear turning silhouette against one quiet dark structural bay, with fabric transmission separated from matte skin and wet deck",
+    "tension_source": "grounded foot friction and body rotation oppose the fabric's inertia and rain drag",
+    "exaggeration_budget": "strong",
+    "distortion_strategy": "motion",
+    "realism_anchor": "anatomically credible body weight, planted-foot compression, garment attachment points, gravity, wet contact, and parallel track geometry",
+    "action_vector": "model rotates into a new offscreen direction while the free fabric arcs through the previous direction",
+    "counterforce": "shoe friction, body mass, garment attachment, gravity, and rain resistance",
+    "foreground_role": "wet rail edge and close rain prove viewer position and parallax",
+    "midground_role": "model, planted foot, torso rotation, and translucent fabric own the action",
+    "background_role": "train and repeated walkway columns prove one-way speed, depth, and urban scale",
+    "depth_transition": "foreground wet rail leads to shoe contact, rises through the turning body and fabric arc, then releases into the train direction",
+    "parallax_logic": "near rail and model remain comparatively crisp while the farther train translates consistently left-to-right",
+    "motion_evidence": ["fabric lag from fixed attachment points", "hair follow-through", "supporting-knee compression", "wet sole contact", "left-to-right train-window streaks only", "rain disturbed near moving fabric"],
+    "readability_guard": "keep face, hands, limbs, planted foot, garment attachment, and train geometry coherent; motion blur belongs only to trailing fabric edges, train, and fine rain"
+  },
+  "composition": {
+    "shot_size": "wide full-body environmental action frame",
+    "camera_angle": "waist-height three-quarter side view",
+    "perspective": "moderately wide natural perspective with strong depth but no body stretching",
+    "focal_length_mm": 40,
+    "camera_motivation": "the viewer stands under the same canopy behind a foreground rail, close enough to read foot contact and fabric inertia while the parallel train remains visible",
+    "camera_height": "approximately waist height at 1.1 meters, aligned with the body's center of rotation",
+    "camera_distance": "about five meters from the model so the full body, fabric arc, walkway geography, and train can coexist",
+    "lens_rationale": "40mm preserves credible human proportions while retaining enough environmental depth and lateral train movement",
+    "framing": "one model occupies less than half the frame; walkway rails and columns create depth; train remains distant and lateral",
+    "negative_space": "one calm dark structural bay behind the turning silhouette and open space ahead of the new gaze direction",
+    "camera_pitch": "nearly level with a slight downward view to retain shoe contact",
+    "camera_yaw": "three-quarter across the walkway toward the parallel track",
+    "camera_roll": "level",
+    "lens_projection": "rectilinear",
+    "perspective_distortion": "restrained near-far separation without limb stretch",
+    "edge_behavior": "rail edges remain straight; face and limbs stay away from stretched corners",
+    "crop_pressure": "all limbs, planted foot, and main fabric arc remain inside frame; distant train may continue off both horizontal edges",
+    "camera_state": "brief tracking hold captured at the turn",
+    "action_readability": "full body, planted foot, torso rotation, fabric lag, and train vector readable at thumbnail size",
+    "depth_layers": ["wet rail edge and near rain", "turning model and garment contact", "parallel structure and left-to-right train"]
+  },
+  "lighting": {
+    "summary": "physically motivated rain-night lighting from broad cool-white canopy panels and soft warm-neutral train windows",
+    "motivation": "the walkway's broad canopy panels are the primary real source; wet deck bounce and distant train windows provide physically plausible secondary light",
+    "narrative_function": "reveal the fabric's delayed translucent sweep, grounded shoe contact, and wet material separation while leaving one dark bay quiet",
+    "key": "one broad overhead canopy panel shapes the model and reveals the translucent garment without creating a decorative rim",
+    "fill": "multi-bounce cool-gray indirect light from wet deck and metal structure keeps shadow detail readable",
+    "rim": "only source-consistent edge light where the wet translucent fabric crosses the canopy panel",
+    "direction": "top-side canopy light with low background train-window contribution",
+    "contrast": "medium-high night contrast with an open shadow floor",
+    "color_temperature": "cool neutral main light; small warm-neutral train windows only",
+    "practicals": ["large diffused canopy panels", "distant train windows"]
+  },
+  "color_pipeline": {
+    "intent": "cinematic_color",
+    "color_science": "scene-referred wide-gamut intent with hue-preserving highlight compression",
+    "display_target": "SDR Rec.709",
+    "exposure_strategy": "protect wet specular texture and translucent fabric while keeping face, hands, and shoe contact readable",
+    "tonal_curve": "medium-density midtones, deep but open graphite blacks, soft highlight shoulder",
+    "black_point": "dense neutral black without crushing garment folds or rail separation",
+    "white_point": "canopy panels may approach white while skin, fabric, train windows, and wet deck retain texture",
+    "highlight_rolloff": "long natural rolloff on rain, skin, polymer fabric, metal, and wet concrete",
+    "shadow_floor": "cool-neutral readable floor without cyan contamination",
+    "midtone_density": "firm enough to separate translucent garment from dark structure",
+    "white_balance": "cool-neutral canopy illumination with a small warm-neutral train-window accent",
+    "color_separation": "skin, graphite fabric, clear polymer, wet concrete, painted metal, and train windows remain distinct",
+    "shadow_bias": "neutral graphite",
+    "midtone_bias": "slightly cool slate",
+    "highlight_bias": "neutral white with a restrained warm train accent",
+    "skin_tone_policy": "natural hue and luminance; rain beads stay localized rather than oily",
+    "saturation_policy": "restrained globally; no saturated neon color",
+    "gamut_policy": "compress train-window and canopy peaks without hue skews",
+    "film_emulation": {
+      "negative_or_reversal_character": "clean digital cinematic latitude",
+      "print_or_display_character": "restrained density and soft shoulder",
+      "grain": "none beyond subtle physically plausible render texture",
+      "halation": "none",
+      "bloom": "minimal and only at sufficiently bright canopy or train windows",
+      "gate_weave": "none",
+      "vignette": "subtle optical falloff only"
+    },
+    "shot_matching": "single-frame test; lock neutral black floor and restrained saturation",
+    "continuity_locks": ["natural skin hue", "graphite shadow floor", "neutral canopy white", "small warm train accent"],
+    "forbidden_casts": ["global teal-orange", "blue-purple cyberpunk wash", "magenta neon", "yellow oily skin"]
+  },
+  "render_pipeline": {
+    "domain": "real_time",
+    "engine_reference": "Unreal Engine 5",
+    "engine_reference_scope": "appearance_reference",
+    "lighting_transport": "physically based direct light plus dynamic diffuse and indirect specular transport",
+    "global_illumination": "Lumen-like multi-bounce diffuse interreflection from broad canopy panels, wet deck, rails, and train windows",
+    "ray_tracing": "roughness-aware reflections with stable wet-surface response and no screen-space disappearance",
+    "reflection_model": "material-specific reflection width; puddles are sharper than damp concrete and dry-painted metal",
+    "shadow_model": "soft canopy shadows plus precise shoe, garment, rail, and clip-like contact visibility",
+    "ambient_occlusion": "local only at real shoe/deck, garment/body, rail/deck, and structural contacts",
+    "volumetrics": "clear rainy air; only fine rain becomes visible near named practical lights",
+    "material_workflow": "principled metallic-roughness PBR with thin translucent textile treatment",
+    "subsurface_scattering": "restrained physically plausible skin only",
+    "transmission_refraction": "thin technical fabric transmits and scatters light without becoming glass or glowing plastic",
+    "caustics": "not emphasized",
+    "displacement_normal": "scale-correct concrete texture, fabric weave, and fine wetness normals only where camera-readable",
+    "texture_scale": "microtexture scale follows camera distance; strongest detail stays on face, fabric, planted shoe, and wet contact zone",
+    "sampling_denoise": "stable detail-preserving render with clean rain and fabric edges, no temporal shimmer or smeared hair",
+    "render_passes": ["diffuse", "specular", "transmission", "depth", "motion vector"],
+    "performance_fidelity_tradeoff": "final still prioritizes material and motion fidelity while retaining plausible real-time cinematic behavior",
+    "npr_strategy": "",
+    "forbidden_artifacts": ["temporal reflection noise", "screen-space loss", "over-dark AO", "plastic uniform roughness", "light leaks", "fireflies", "denoise smear"]
+  },
+  "materials": [
+    {
+      "target": "translucent technical outer garment",
+      "description": "thin layered technical textile with visible attachment points, wet weight, fabric drag, and selective transparency",
+      "physical_properties": ["dielectric textile", "thin transmission", "gravity-driven folds", "rain-dependent roughness"],
+      "microstructure": "fine woven or ripstop structure visible only on focal folds",
+      "roughness": "mostly matte-damp with narrower highlights only on saturated wet ridges",
+      "specular_response": "soft localized wet highlights rather than global plastic gloss",
+      "transmission": "background structure remains partially visible through one fabric layer and less visible through overlaps",
+      "subsurface_behavior": "none beyond thin-fabric light scatter",
+      "anisotropy": "subtle along tensioned fibers",
+      "wear_patina": "clean contemporary garment with no invented branding",
+      "contact_deformation": "fabric compresses at shoulders, waist, and arm contact; free panels lag behind the turn"
+    },
+    {
+      "target": "human skin and wet hair",
+      "description": "natural skin planes and rain-darkened hair under cool canopy light",
+      "physical_properties": ["restrained skin subsurface response", "localized rain beads", "strand-grouped wet hair"],
+      "microstructure": "subtle pores only at readable scale",
+      "roughness": "matte base with soft localized water highlights",
+      "specular_response": "controlled facial highlights, never oily or waxy",
+      "subsurface_behavior": "natural low-intensity skin scattering",
+      "contact_deformation": "credible facial, hand, knee, and shoe anatomy during motion"
+    },
+    {
+      "target": "wet walkway deck, rails, and train",
+      "description": "wet textured deck with strict wet/dry boundaries, painted metal rails, and a distant moving train",
+      "physical_properties": ["rough concrete", "painted metal", "shallow water films", "roughness-correct reflections"],
+      "microstructure": "deck texture stays scale-correct and directional water trails follow gravity and traffic",
+      "roughness": "puddles low, damp deck medium, dry sheltered bands high, painted rails medium-high",
+      "specular_response": "broad canopy reflections break according to wetness; train windows remain soft and distant",
+      "wear_patina": "subtle plausible walkway wear only at traffic and contact zones",
+      "contact_deformation": "shoe sole compresses against the wet deck with a readable contact shadow"
+    }
+  ],
+  "color": {
+    "palette": ["graphite", "slate gray", "cool neutral white", "desaturated blue-gray", "small warm-neutral train-window accent"],
+    "grade": "color pipeline owns the grade",
+    "contrast": "color pipeline owns contrast",
+    "saturation": "color pipeline owns saturation"
+  },
+  "optics": {
+    "depth_of_field": "moderate depth separation; model and shoe contact sharp, distant train slightly softer but direction readable",
+    "focus_target": "turning model from face through torso to planted foot and garment attachment",
+    "motion_blur": "directional only on trailing fabric edges, fine rain, and left-to-right train; face, hands, limbs, and planted foot remain coherent",
+    "lens_character": "clean 40mm rectilinear cinematic lens with restrained edge falloff",
+    "artifacts": ["minimal source-motivated bloom only at bright canopy or train-window edges"]
+  },
+  "style": {
+    "medium": "professional photoreal CG fashion-film frame; Unreal Engine 5 is an appearance reference only, not a claim of actual engine execution",
+    "realism": "physically plausible body, cloth, rain, material transport, contact, and camera behavior",
+    "visual_traits": ["luxury editorial restraint", "dynamic but readable turn", "layered urban depth", "material-specific wetness", "controlled real-time cinematic finish"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["standing lookbook poster", "game splash screen", "cyberpunk neon", "plastic mannequin skin"]
+  },
+  "text_elements": [],
+  "constraints": {
+    "must_preserve": [
+      "exactly one model in an active rapid turn, not a standing pose",
+      "translucent technical fabric remains physically attached and visibly lags behind the body rotation",
+      "one distant train and every train-related motion cue move consistently from left to right",
+      "credible planted-foot contact, body weight, rain response, and material-specific wetness",
+      "foreground rail/rain, midground model, and background train each have a distinct depth role",
+      "restrained graphite and slate palette with only a small warm-neutral train-window accent",
+      "absence of text, logos, HUD, game interface, watermark, random neon, and decorative particles"
+    ],
+    "must_change": [],
+    "exclude": [
+      "front-facing standing fashion poster",
+      "static symmetrical hero pose",
+      "game HUD or interface",
+      "random neon signs or saturated cyberpunk color",
+      "multiple trains or conflicting train directions",
+      "global motion blur",
+      "floating fabric detached from the body",
+      "oily or plastic skin",
+      "uniform wet gloss across all materials",
+      "extra models or crowds",
+      "text, labels, logos, branding, or watermark"
+    ]
+  },
+  "render": {
+    "detail_priority": ["turning anatomy and planted-foot contact", "translucent garment attachment and drag", "material-specific rain and wetness", "single-direction train motion"],
+    "artifact_budget": "balanced",
+    "quality_controls": [
+      "face, hands, limbs, planted foot, and fabric attachment remain anatomically and mechanically coherent",
+      "skin stays matte-natural while textile, metal, concrete, and water retain distinct roughness",
+      "motion blur stays directional and local; the frame retains one quiet dark structural bay"
+    ]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {"stylize": 50, "chaos": 0, "quality": 1, "raw": true, "style_reference": [], "style_weight": 100}
+  }
+}

@@ -36,8 +36,7 @@
     "summary": "Describe the overall scene.",
     "setting": "Describe the environment.",
     "time": "Describe time or period when relevant.",
-    "atmosphere": [],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.25}
+    "atmosphere": []
   },
   "subjects": [
     {
@@ -54,8 +53,7 @@
         "depth": "midground"
       },
       "scale": "Describe relative scale.",
-      "relationships": [],
-      "control": {"weight": 1.0, "lock": false, "variance": 0.15}
+      "relationships": []
     }
   ],
   "spatial_dynamics": {
@@ -74,8 +72,7 @@
     "depth_transition": "",
     "parallax_logic": "",
     "motion_evidence": [],
-    "readability_guard": "",
-    "control": {"weight": 0.9, "lock": false, "variance": 0.15}
+    "readability_guard": ""
   },
   "composition": {
     "shot_size": "wide shot",
@@ -93,8 +90,7 @@
     "crop_pressure": "",
     "camera_state": "",
     "action_readability": "",
-    "depth_layers": [],
-    "control": {"weight": 0.95, "lock": false, "variance": 0.1}
+    "depth_layers": []
   },
   "lighting": {
     "summary": "Describe the lighting system.",
@@ -104,8 +100,7 @@
     "direction": "",
     "contrast": "",
     "color_temperature": "",
-    "practicals": [],
-    "control": {"weight": 0.85, "lock": false, "variance": 0.2}
+    "practicals": []
   },
   "color_pipeline": {
     "intent": "auto",
@@ -138,8 +133,7 @@
     },
     "shot_matching": "",
     "continuity_locks": [],
-    "forbidden_casts": [],
-    "control": {"weight": 0.8, "lock": false, "variance": 0.15}
+    "forbidden_casts": []
   },
   "render_pipeline": {
     "domain": "auto",
@@ -163,24 +157,21 @@
     "render_passes": [],
     "performance_fidelity_tradeoff": "",
     "npr_strategy": "",
-    "forbidden_artifacts": [],
-    "control": {"weight": 0.8, "lock": false, "variance": 0.2}
+    "forbidden_artifacts": []
   },
   "materials": [],
   "color": {
     "palette": [],
     "grade": "",
     "contrast": "",
-    "saturation": "",
-    "control": {"weight": 0.8, "lock": false, "variance": 0.2}
+    "saturation": ""
   },
   "optics": {
     "depth_of_field": "",
     "focus_target": "",
     "motion_blur": "",
     "lens_character": "",
-    "artifacts": [],
-    "control": {"weight": 0.75, "lock": false, "variance": 0.25}
+    "artifacts": []
   },
   "style": {
     "medium": "Describe the requested visual medium without changing it implicitly.",
@@ -188,8 +179,7 @@
     "visual_traits": [],
     "era": "",
     "references": [],
-    "excluded_traits": [],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.2}
+    "excluded_traits": []
   },
   "text_elements": [],
   "spatial_edits": [],
@@ -199,7 +189,6 @@
     "exclude": []
   },
   "render": {
-    "quality": "high",
     "detail_priority": [],
     "artifact_budget": "balanced",
     "quality_controls": []
@@ -207,8 +196,7 @@
   "platform_options": {
     "openai": {
       "model": "gpt-image-2",
-      "quality": "medium",
-      "size": "1536x864"
+      "quality": "medium"
     },
     "flux": {
       "model_family": "FLUX.2",
@@ -216,7 +204,6 @@
       "prompt_upsampling": false
     },
     "midjourney": {
-      "aspect_ratio": "16:9",
       "stylize": 100,
       "chaos": 0,
       "quality": 1,

@@ -32,8 +32,7 @@
     "summary": "A single jasmine-tea tin rests inside a minimal folded-paper garden.",
     "setting": "small studio tabletop with layered paper leaves and one low paper plinth",
     "time": "timeless studio setting",
-    "atmosphere": ["calm", "precise", "tactile"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.2}
+    "atmosphere": ["calm", "precise", "tactile"]
   },
   "subjects": [
     {
@@ -46,8 +45,7 @@
       "gaze": "not applicable",
       "position": {"x_percent": 50.0, "y_percent": 52.0, "depth": "midground"},
       "scale": "occupies about forty percent of frame height",
-      "relationships": ["paper leaves frame the tin without touching the label"],
-      "control": {"weight": 1.0, "lock": false, "variance": 0.08}
+      "relationships": ["paper leaves frame the tin without touching the label"]
     }
   ],
   "spatial_dynamics": {
@@ -75,8 +73,7 @@
     "focal_length_mm": 70,
     "framing": "single centered hero with asymmetrical paper leaves and generous upper-right negative space",
     "negative_space": "clean upper-right field for optional external copy",
-    "depth_layers": ["soft paper leaf foreground", "tea tin and plinth", "matte graphite backdrop"],
-    "control": {"weight": 0.95, "lock": false, "variance": 0.1}
+    "depth_layers": ["soft paper leaf foreground", "tea tin and plinth", "matte graphite backdrop"]
   },
   "lighting": {
     "summary": "one large soft key and a restrained warm edge reflection",
@@ -86,8 +83,7 @@
     "direction": "upper left to lower right",
     "contrast": "soft product contrast with contained highlights",
     "color_temperature": "neutral key with a subtle warm edge",
-    "practicals": [],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+    "practicals": []
   },
   "materials": [
     {
@@ -108,8 +104,7 @@
     "palette": ["graphite black", "matte ivory", "deep tea green", "small warm copper accent"],
     "grade": "restrained editorial neutrals",
     "contrast": "deep but readable",
-    "saturation": "low to moderate",
-    "control": {"weight": 0.85, "lock": false, "variance": 0.15}
+    "saturation": "low to moderate"
   },
   "style": {
     "medium": "physical stop-motion product set rendered as a polished still photograph",
@@ -117,8 +112,7 @@
     "visual_traits": ["visible paper construction", "precise editorial hierarchy", "selective material detail"],
     "era": "contemporary",
     "references": [],
-    "excluded_traits": ["plastic CGI sheen", "rustic clutter", "global gloss"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.15}
+    "excluded_traits": ["plastic CGI sheen", "rustic clutter", "global gloss"]
   },
   "render_pipeline": {
     "domain": "path_traced",
@@ -152,7 +146,6 @@
     "exclude": ["people", "logos", "watermarks", "extra packages", "new text", "fake calligraphy"]
   },
   "render": {
-    "quality": "high",
     "detail_priority": ["tea-tin silhouette", "label paper", "contact shadow"],
     "artifact_budget": "strict",
     "quality_controls": ["matte surfaces retain fine texture without sharpening halos"]

@@ -13,6 +13,7 @@ from typing import Any
 try:
     from reference_delivery import (
         build_attachment_manifest,
+        build_imagegen_call_plan,
         build_reference_handoff,
         reference_delivery_warnings,
     )
@@ -24,6 +25,7 @@ try:
 except ModuleNotFoundError:  # Support `python -m scripts.compile_prompt` from the repository root.
     from scripts.reference_delivery import (
         build_attachment_manifest,
+        build_imagegen_call_plan,
         build_reference_handoff,
         reference_delivery_warnings,
     )
@@ -35,6 +37,33 @@ except ModuleNotFoundError:  # Support `python -m scripts.compile_prompt` from t
 
 
 SUPPORTED_PLATFORMS = {"openai", "flux", "midjourney", "generic"}
+PROMPT_TARGET_WORDS = {"openai": 1300, "flux": 1000, "midjourney": 500, "generic": 1600}
+CONTEXT_RESIDUE_MARKERS = (
+    "same as the previous version",
+    "different from the previous version",
+    "continue to keep",
+    "the image above",
+    "上一版",
+    "之前那版",
+    "上一个画面",
+    "继续保持",
+)
+TEMPLATE_PLACEHOLDERS = {
+    "Describe the intended image and its use.",
+    "Describe the overall scene.",
+    "Describe the environment.",
+    "Describe time or period when relevant.",
+    "Describe the primary subject.",
+    "Describe the action.",
+    "Describe the pose when relevant.",
+    "Describe gaze when relevant.",
+    "Describe relative scale.",
+    "Describe the visual hierarchy and crop.",
+    "Describe intentional negative space.",
+    "Describe the lighting system.",
+    "Describe the requested visual medium without changing it implicitly.",
+    "Describe the requested realism or stylization.",
+}
 ARTIFACT_PRESETS = {
     "strict": (
         "clean low-noise tonal fields and gradients; contained highlights with smooth rolloff; "
@@ -57,7 +86,8 @@ ARTIFACT_PRESETS = {
 
 
 def _text(value: Any) -> str:
-    return value.strip() if isinstance(value, str) else ""
+    text = value.strip() if isinstance(value, str) else ""
+    return "" if text in TEMPLATE_PLACEHOLDERS else text
 
 
 def _explicit(value: Any) -> str:
@@ -73,6 +103,72 @@ def _items(value: Any) -> list[str]:
 
 def _join(parts: Iterable[str], separator: str = "; ") -> str:
     return separator.join(part for part in parts if part)
+
+
+def _limit_clauses(value: str, limit: int, protected_clauses: tuple[str, ...] = ()) -> str:
+    protected_map: dict[str, str] = {}
+    protected_value = value
+    for index, clause in enumerate(sorted((item for item in protected_clauses if item), key=len, reverse=True)):
+        marker = f"__JINGZAO_PROTECTED_{index}__"
+        if clause in protected_value:
+            protected_value = protected_value.replace(clause, marker, 1)
+            protected_map[marker] = clause
+    clauses = [item.strip() for item in protected_value.split(";") if item.strip()]
+    if len(clauses) <= limit:
+        selected = clauses
+    else:
+        protected_indexes = {index for index, clause in enumerate(clauses) if clause in protected_map}
+        kept_indexes = set(range(min(limit, len(clauses)))).union(protected_indexes)
+        selected = [clause for index, clause in enumerate(clauses) if index in kept_indexes]
+    return "; ".join(protected_map.get(clause, clause) for clause in selected)
+
+
+def _reviewable_source_strings(value: Any, path: tuple[str | int, ...] = ()) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list):
+        result: list[str] = []
+        for index, item in enumerate(value):
+            result.extend(_reviewable_source_strings(item, (*path, index)))
+        return result
+    if isinstance(value, dict):
+        result = []
+        for key, item in value.items():
+            next_path = (*path, key)
+            if len(next_path) >= 3 and next_path[0] == "text_elements" and next_path[-1] == "content":
+                continue
+            result.extend(_reviewable_source_strings(item, next_path))
+        return result
+    return []
+
+
+def context_residue_hits_from_sources(
+    spec: dict[str, Any],
+    style_capsule: dict[str, Any] | None = None,
+) -> list[str]:
+    review_strings = _reviewable_source_strings(spec)
+    if isinstance(style_capsule, dict):
+        review_strings.extend(
+            _reviewable_source_strings(
+                {
+                    "id": style_capsule.get("id"),
+                    "name": style_capsule.get("name"),
+                    "visual_rules": style_capsule.get("visual_rules"),
+                    "transfer_rules": style_capsule.get("transfer_rules"),
+                    "forbidden_transfer": style_capsule.get("forbidden_transfer"),
+                }
+            )
+        )
+    scan = "\n".join(review_strings).lower()
+    return [marker for marker in CONTEXT_RESIDUE_MARKERS if marker.lower() in scan]
+
+
+def _prompt_metrics(prompt: str) -> dict[str, int]:
+    return {
+        "characters": len(prompt),
+        "words": len(prompt.split()),
+        "lines": prompt.count("\n") + 1 if prompt else 0,
+    }
 
 
 def _platform_options(spec: dict[str, Any], key: str) -> dict[str, Any]:
@@ -251,6 +347,21 @@ def _style_learning_line(spec: dict[str, Any]) -> str:
             f"forbidden transfer: {', '.join(_items(section.get('forbidden_transfer')))}"
             if _items(section.get("forbidden_transfer"))
             else "",
+        ]
+    )
+
+
+def _reference_analysis_line(spec: dict[str, Any]) -> str:
+    section = spec.get("reference_analysis") if isinstance(spec.get("reference_analysis"), dict) else {}
+    observed = _items(section.get("observed"))
+    inferred = _items(section.get("inferred"))
+    unknowns = _items(section.get("unknowns"))
+    return _join(
+        [
+            f"reconstruction target: {_text(section.get('target'))}" if _text(section.get("target")) else "",
+            f"observed facts: {', '.join(observed)}" if observed else "",
+            f"inferred and unverified: {', '.join(inferred)}" if inferred else "",
+            f"unknowns: {', '.join(unknowns)}" if unknowns else "",
         ]
     )
 
@@ -509,13 +620,20 @@ def _effect_lines(spec: dict[str, Any]) -> list[str]:
 
 def _color_line(spec: dict[str, Any]) -> str:
     section = spec.get("color") if isinstance(spec.get("color"), dict) else {}
+    has_pipeline = bool(_color_pipeline_line(spec))
     palette = _items(section.get("palette"))
     return _join(
         [
             f"palette: {', '.join(palette)}" if palette else "",
-            f"grade: {_text(section.get('grade'))}" if _text(section.get("grade")) else "",
-            f"contrast: {_text(section.get('contrast'))}" if _text(section.get("contrast")) else "",
-            f"saturation: {_text(section.get('saturation'))}" if _text(section.get("saturation")) else "",
+            f"grade: {_text(section.get('grade'))}"
+            if not has_pipeline and _text(section.get("grade"))
+            else "",
+            f"contrast: {_text(section.get('contrast'))}"
+            if not has_pipeline and _text(section.get("contrast"))
+            else "",
+            f"saturation: {_text(section.get('saturation'))}"
+            if not has_pipeline and _text(section.get("saturation"))
+            else "",
         ]
     )
 
@@ -671,13 +789,17 @@ def _style_line(spec: dict[str, Any]) -> str:
 def _input_lines(spec: dict[str, Any]) -> list[str]:
     inputs = spec.get("inputs") if isinstance(spec.get("inputs"), list) else []
     result: list[str] = []
-    for index, item in enumerate(inputs, start=1):
-        if not isinstance(item, dict):
+    image_index = 0
+    for item in inputs:
+        if not isinstance(item, dict) or item.get("type") != "image":
             continue
+        image_index += 1
         result.append(
             _join(
                 [
-                    f"Image {index} ({_text(item.get('id'))})" if _text(item.get("id")) else f"Image {index}",
+                    f"Image {image_index} ({_text(item.get('id'))})"
+                    if _text(item.get("id"))
+                    else f"Image {image_index}",
                     f"role: {_text(item.get('role'))}" if _text(item.get("role")) else "",
                     _text(item.get("description")),
                     "actual image attachment required; description is not a substitute"
@@ -733,7 +855,6 @@ def _render_line(spec: dict[str, Any]) -> str:
     artifact_budget = _text(render.get("artifact_budget"))
     return _join(
         [
-            f"quality intent: {_text(render.get('quality'))}" if _text(render.get("quality")) else "",
             f"detail priorities: {', '.join(priorities)}" if priorities else "",
             f"artifact budget ({artifact_budget}): {ARTIFACT_PRESETS[artifact_budget]}"
             if artifact_budget in ARTIFACT_PRESETS
@@ -876,18 +997,95 @@ def _constraints(spec: dict[str, Any]) -> tuple[list[str], list[str], list[str]]
     )
 
 
+def _protected_section_clauses(spec: dict[str, Any]) -> dict[str, tuple[str, ...]]:
+    routing = spec.get("creative_routing") if isinstance(spec.get("creative_routing"), dict) else {}
+    dynamics = spec.get("spatial_dynamics") if isinstance(spec.get("spatial_dynamics"), dict) else {}
+    color = spec.get("color_pipeline") if isinstance(spec.get("color_pipeline"), dict) else {}
+    film = color.get("film_emulation") if isinstance(color.get("film_emulation"), dict) else {}
+    render = spec.get("render_pipeline") if isinstance(spec.get("render_pipeline"), dict) else {}
+    tone_locks = _items(routing.get("tone_locks"))
+    forbidden_drift = _items(routing.get("forbidden_drift"))
+    motion_evidence = _items(dynamics.get("motion_evidence"))
+    continuity_locks = _items(color.get("continuity_locks"))
+    forbidden_casts = _items(color.get("forbidden_casts"))
+    forbidden_artifacts = _items(render.get("forbidden_artifacts"))
+    return {
+        "creative_routing": tuple(
+            item
+            for item in (
+                f"secondary influence: {_text(routing.get('secondary_influence'))}"
+                if _text(routing.get("secondary_influence"))
+                else "",
+                f"mix rule: {_text(routing.get('mix_rule'))}" if _text(routing.get("mix_rule")) else "",
+                f"style authority: {_explicit(routing.get('style_authority'))}"
+                if _explicit(routing.get("style_authority"))
+                else "",
+                f"adaptation rule: {_text(routing.get('adaptation_rule'))}"
+                if _text(routing.get("adaptation_rule"))
+                else "",
+                f"tone locks: {', '.join(tone_locks)}" if tone_locks else "",
+                f"forbidden drift: {', '.join(forbidden_drift)}" if forbidden_drift else "",
+            )
+            if item
+        ),
+        "spatial_dynamics": tuple(
+            item
+            for item in (
+                f"depth transition: {_text(dynamics.get('depth_transition'))}"
+                if _text(dynamics.get("depth_transition"))
+                else "",
+                f"parallax logic: {_text(dynamics.get('parallax_logic'))}"
+                if _text(dynamics.get("parallax_logic"))
+                else "",
+                f"motion evidence: {', '.join(motion_evidence)}" if motion_evidence else "",
+                f"readability guard: {_text(dynamics.get('readability_guard'))}"
+                if _text(dynamics.get("readability_guard"))
+                else "",
+            )
+            if item
+        ),
+        "color_pipeline": tuple(
+            item
+            for item in (
+                f"grain: {_text(film.get('grain'))}" if _text(film.get("grain")) else "",
+                f"halation: {_text(film.get('halation'))}" if _text(film.get("halation")) else "",
+                f"bloom: {_text(film.get('bloom'))}" if _text(film.get("bloom")) else "",
+                f"gate weave: {_text(film.get('gate_weave'))}" if _text(film.get("gate_weave")) else "",
+                f"vignette: {_text(film.get('vignette'))}" if _text(film.get("vignette")) else "",
+                f"continuity locks: {', '.join(continuity_locks)}" if continuity_locks else "",
+                f"forbidden casts: {', '.join(forbidden_casts)}" if forbidden_casts else "",
+            )
+            if item
+        ),
+        "render_pipeline": tuple(
+            item
+            for item in (
+                f"NPR strategy: {_text(render.get('npr_strategy'))}"
+                if _text(render.get("npr_strategy"))
+                else "",
+                f"forbidden render artifacts: {', '.join(forbidden_artifacts)}"
+                if forbidden_artifacts
+                else "",
+            )
+            if item
+        ),
+    }
+
+
 def _common_sections(
     spec: dict[str, Any],
     *,
+    platform: str,
     model_knowledge_hint: bool = False,
     style_capsule: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     subjects = spec.get("subjects") if isinstance(spec.get("subjects"), list) else []
     mode = spec.get("mode")
-    return {
+    sections = {
         "knowledge_anchors": _knowledge_anchor_lines(spec, model_knowledge_hint=model_knowledge_hint),
         "goal": _text(spec.get("intent")),
         "creative_routing": _creative_routing_line(spec),
+        "reference_analysis": _reference_analysis_line(spec) if mode == "reconstruct" else "",
         "style_learning": _style_learning_line(spec) if mode == "learn_style" else "",
         "learned_style_capsule": _style_capsule_line(style_capsule) if mode != "learn_style" else "",
         "direction": _direction_line(spec),
@@ -911,6 +1109,86 @@ def _common_sections(
         "edits": _edit_lines(spec),
         "styleboard": _styleboard_lines(spec) if mode == "styleboard" else [],
     }
+    return _normalize_sections(sections, platform, _protected_section_clauses(spec))
+
+
+def _section_words(sections: dict[str, Any]) -> int:
+    values: list[str] = []
+    for value in sections.values():
+        if isinstance(value, str):
+            values.append(value)
+        elif isinstance(value, list):
+            values.extend(item for item in value if isinstance(item, str))
+    return len(" ".join(values).split())
+
+
+def _normalize_sections(
+    sections: dict[str, Any],
+    platform: str,
+    protected_clauses: dict[str, tuple[str, ...]],
+) -> dict[str, Any]:
+    normalized = dict(sections)
+    notes: list[str] = []
+    target = PROMPT_TARGET_WORDS[platform]
+    original_words = _section_words(sections)
+    if original_words > target:
+        limits = {
+            "openai": {
+                "creative_routing": 8,
+                "spatial_dynamics": 12,
+                "lighting": 8,
+                "materials": 8,
+                "color_pipeline": 8,
+                "render_pipeline": 7,
+                "optics": 4,
+                "style": 5,
+                "render": 4,
+            },
+            "flux": {
+                "creative_routing": 9,
+                "spatial_dynamics": 10,
+                "lighting": 8,
+                "materials": 10,
+                "color_pipeline": 8,
+                "render_pipeline": 8,
+                "optics": 4,
+                "style": 4,
+                "render": 4,
+            },
+            "midjourney": {
+                "creative_routing": 6,
+                "spatial_dynamics": 11,
+                "lighting": 6,
+                "materials": 7,
+                "color_pipeline": 14,
+                "render_pipeline": 5,
+                "optics": 3,
+                "style": 4,
+                "render": 3,
+            },
+            "generic": {
+                "creative_routing": 12,
+                "spatial_dynamics": 13,
+                "lighting": 10,
+                "materials": 14,
+                "color_pipeline": 12,
+                "render_pipeline": 12,
+                "optics": 6,
+                "style": 6,
+                "render": 5,
+            },
+        }[platform]
+        for key, limit in limits.items():
+            value = normalized.get(key)
+            if isinstance(value, str) and value:
+                compact = _limit_clauses(value, limit, protected_clauses.get(key, ()))
+                if compact != value:
+                    normalized[key] = compact
+                    notes.append(key)
+    normalized["_compiler_notes"] = notes
+    normalized["_section_words_before"] = original_words
+    normalized["_section_words_after"] = _section_words(normalized)
+    return normalized
 
 
 def _labeled_prompt(sections: dict[str, Any], preserve: list[str], change: list[str], exclude: list[str]) -> str:
@@ -918,6 +1196,7 @@ def _labeled_prompt(sections: dict[str, Any], preserve: list[str], change: list[
         ("Canonical knowledge anchors", "\n".join(f"- {item}" for item in sections["knowledge_anchors"])),
         ("Goal", sections["goal"]),
         ("Creative route and art direction", sections["creative_routing"]),
+        ("Reference reconstruction analysis", sections["reference_analysis"]),
         ("Style learning record", sections["style_learning"]),
         ("Applied learned style capsule", sections["learned_style_capsule"]),
         ("Visual direction", sections["direction"]),
@@ -957,7 +1236,7 @@ def _canvas_size(spec: dict[str, Any]) -> str | None:
 
 
 def compile_openai(spec: dict[str, Any], style_capsule: dict[str, Any] | None = None) -> dict[str, Any]:
-    sections = _common_sections(spec, model_knowledge_hint=True, style_capsule=style_capsule)
+    sections = _common_sections(spec, platform="openai", model_knowledge_hint=True, style_capsule=style_capsule)
     preserve, change, exclude = _constraints(spec)
     options = _platform_options(spec, "openai")
     parameters = (
@@ -970,6 +1249,10 @@ def compile_openai(spec: dict[str, Any], style_capsule: dict[str, Any] | None = 
         }
     )
     warnings = []
+    if sections["_compiler_notes"]:
+        warnings.append(
+            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
+        )
     anchors = spec.get("knowledge_anchors") if isinstance(spec.get("knowledge_anchors"), list) else []
     if any(isinstance(item, dict) and item.get("verification", "unverified") == "unverified" for item in anchors):
         warnings.append("Named-entity accuracy relies on model knowledge and must be visually verified against a trusted reference or by the user.")
@@ -1015,7 +1298,7 @@ def _flux_positive_constraint(item: str) -> str | None:
 
 
 def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = None) -> dict[str, Any]:
-    sections = _common_sections(spec, style_capsule=style_capsule)
+    sections = _common_sections(spec, platform="flux", style_capsule=style_capsule)
     preserve, change, exclude = _constraints(spec)
     options = _platform_options(spec, "flux")
     positive_constraints: list[str] = []
@@ -1032,6 +1315,7 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
             "knowledge_anchors": sections["knowledge_anchors"],
             "goal": sections["goal"],
             "creative_routing": sections["creative_routing"],
+            "reference_analysis": sections["reference_analysis"],
             "style_learning_record": sections["style_learning"],
             "learned_style_capsule": sections["learned_style_capsule"],
             "visual_direction": sections["direction"],
@@ -1064,6 +1348,7 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
             "Canonical knowledge anchors: " + "; ".join(sections["knowledge_anchors"]) if sections["knowledge_anchors"] else "",
             sections["goal"],
             sections["creative_routing"],
+            sections["reference_analysis"],
             sections["style_learning"],
             sections["learned_style_capsule"],
             sections["direction"],
@@ -1093,6 +1378,10 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
         prompt = ". ".join(part.rstrip(". ") for part in ordered if part) + "."
 
     warnings = []
+    if sections["_compiler_notes"]:
+        warnings.append(
+            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
+        )
     if exclude:
         warnings.append("FLUX.2 has no negative-prompt channel; exclusions were converted to positive targets when possible.")
     if unconverted:
@@ -1133,12 +1422,32 @@ def _midjourney_style_refs(value: Any) -> list[str]:
     return result
 
 
+def _midjourney_execution_route(spec: dict[str, Any], options: dict[str, Any]) -> str:
+    if spec.get("mode") in {"edit", "restyle", "expand"}:
+        return "editor_required"
+    inputs = spec.get("inputs") if isinstance(spec.get("inputs"), list) else []
+    roles = " ".join(
+        _text(item.get("role")).lower()
+        for item in inputs
+        if isinstance(item, dict) and item.get("type") == "image"
+    )
+    has_style = bool(_midjourney_style_refs(options.get("style_reference")))
+    if any(token in roles for token in ("identity", "character", "person", "product", "object", "vehicle")):
+        return "omni_reference_with_style_reference" if has_style else "omni_reference"
+    if inputs:
+        return "image_prompt_with_style_reference" if has_style else "image_prompt"
+    if has_style:
+        return "style_reference"
+    return "imagine"
+
+
 def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | None = None) -> dict[str, Any]:
-    sections = _common_sections(spec, style_capsule=style_capsule)
+    sections = _common_sections(spec, platform="midjourney", style_capsule=style_capsule)
     preserve, change, exclude = _constraints(spec)
     options = _platform_options(spec, "midjourney")
     content_parts = [
         " ".join(sections["knowledge_anchors"]), sections["goal"], sections["creative_routing"],
+        sections["reference_analysis"],
         sections["style_learning"], sections["learned_style_capsule"],
         sections["direction"], sections["cinematic"],
         " ".join(sections["inputs"]), sections["scene"], " ".join(sections["subjects"]), sections["staging"],
@@ -1182,6 +1491,10 @@ def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | Non
             flags.extend(["--no", _sanitize_midjourney_text(", ".join(exclude))])
 
     warnings = []
+    if sections["_compiler_notes"]:
+        warnings.append(
+            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
+        )
     if spec.get("mode") in {"edit", "restyle", "expand"} or sections["edits"]:
         warnings.append("Prompt coordinates are semantic anchors, not pixel-accurate edit masks; use an editor region or mask for surgical changes.")
     if preserve:
@@ -1195,6 +1508,7 @@ def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | Non
         warnings.append(styleboard_warning)
     return {
         "platform": "midjourney",
+        "execution_route": _midjourney_execution_route(spec, options),
         "prompt": content + (" " + " ".join(flags) if flags else ""),
         "negative_prompt": "",
         "parameters": {} if spec.get("mode") == "learn_style" else {"flags": flags},
@@ -1205,9 +1519,13 @@ def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | Non
 
 
 def compile_generic(spec: dict[str, Any], style_capsule: dict[str, Any] | None = None) -> dict[str, Any]:
-    sections = _common_sections(spec, style_capsule=style_capsule)
+    sections = _common_sections(spec, platform="generic", style_capsule=style_capsule)
     preserve, change, exclude = _constraints(spec)
     warnings = ["Provider-specific syntax and parameter support are unverified."]
+    if sections["_compiler_notes"]:
+        warnings.append(
+            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
+        )
     styleboard_warning = _styleboard_warning(spec)
     if styleboard_warning:
         warnings.append(styleboard_warning)
@@ -1226,6 +1544,8 @@ def compile_spec(
     spec: dict[str, Any],
     platform: str | None = None,
     style_capsule: dict[str, Any] | None = None,
+    *,
+    review_approved: bool = False,
 ) -> dict[str, Any]:
     if style_capsule is not None:
         capsule_errors = validate_style_capsule(style_capsule)
@@ -1249,8 +1569,61 @@ def compile_spec(
         result["warnings"].extend(
             "Style capsule content review: " + warning for warning in lint_style_capsule_content(style_capsule)
         )
+    metrics = _prompt_metrics(result["prompt"])
+    result["prompt_metrics"] = metrics
+    target_words = PROMPT_TARGET_WORDS[target]
+    review_reasons: list[str] = []
+    if metrics["words"] > target_words:
+        review_reasons.append("length_over_target")
+        result["warnings"].append(
+            f"Compiled prompt remains above the {target} review target: "
+            f"{metrics['words']} words > {target_words}"
+        )
     result["attachments"] = build_attachment_manifest(spec)
+    required_reference_count = sum(1 for item in result["attachments"] if item.get("must_attach"))
+    if required_reference_count >= 4:
+        review_reasons.append("high_reference_count")
+    residue_hits = context_residue_hits_from_sources(spec, style_capsule)
+    review_reasons.extend(f"context_residue:{marker}" for marker in residue_hits)
+    has_blocking_contamination = bool(residue_hits)
+    if residue_hits:
+        result["warnings"].append(
+            "Prompt review blocked conversation-dependent residue outside exact visible text: "
+            + ", ".join(residue_hits)
+        )
+    if has_blocking_contamination:
+        review_status = "blocked"
+    elif review_reasons and review_approved:
+        review_status = "approved"
+    elif review_reasons:
+        review_status = "review_required"
+    else:
+        review_status = "ready"
+    result["prompt_review"] = {
+        "status": review_status,
+        "target_words": target_words,
+        "reasons": review_reasons,
+        "required_reference_count": required_reference_count,
+        "approval_scope": "length_and_reference_complexity_only" if review_status == "approved" else "none",
+    }
+    if required_reference_count >= 4:
+        result["warnings"].append(
+            "High reference-role count: verify that every required image serves the brief; attachment count must not "
+            "become a requirement to show every role simultaneously."
+        )
     result["reference_handoff"] = build_reference_handoff(spec)
+    result["imagegen_call_plan"] = build_imagegen_call_plan(spec)
+    result["imagegen_call_plan"]["prompt_review_status"] = review_status
+    if result["imagegen_call_plan"]["status"] == "ready" and review_status in {"blocked", "review_required"}:
+        result["imagegen_call_plan"]["status"] = review_status
+        result["imagegen_call_plan"]["errors"].append(
+            "compiled prompt must pass prompt_review before ImageGen execution"
+        )
+    if result["imagegen_call_plan"]["status"] == "blocked" and result["attachments"]:
+        result["warnings"].append(
+            "Codex ImageGen execution is blocked until the imagegen_call_plan errors are resolved or the "
+            "conversation-image window is confirmed immediately before the call."
+        )
     result["warnings"].extend(reference_delivery_warnings(spec))
     return result
 
@@ -1260,10 +1633,13 @@ def _format_text(result: dict[str, Any]) -> str:
     if result.get("negative_prompt"):
         parts.append(f"NEGATIVE PROMPT\n{result['negative_prompt']}")
     parts.append("PARAMETERS\n" + json.dumps(result.get("parameters", {}), ensure_ascii=False, indent=2))
+    parts.append("PROMPT METRICS\n" + json.dumps(result.get("prompt_metrics", {}), ensure_ascii=False, indent=2))
+    parts.append("PROMPT REVIEW\n" + json.dumps(result.get("prompt_review", {}), ensure_ascii=False, indent=2))
     if result.get("attachments"):
         parts.append("ATTACHMENTS\n" + json.dumps(result["attachments"], ensure_ascii=False, indent=2))
     if result.get("reference_handoff", {}).get("required_attachment_count"):
         parts.append("REFERENCE HANDOFF\n" + json.dumps(result["reference_handoff"], ensure_ascii=False, indent=2))
+        parts.append("IMAGEGEN CALL PLAN\n" + json.dumps(result["imagegen_call_plan"], ensure_ascii=False, indent=2))
     if result.get("warnings"):
         parts.append("WARNINGS\n" + "\n".join(f"- {item}" for item in result["warnings"]))
     return "\n\n".join(parts)
@@ -1278,6 +1654,11 @@ def main() -> int:
     parser.add_argument("spec", type=Path, help="Path to a visual specification JSON file")
     parser.add_argument("--platform", choices=sorted(SUPPORTED_PLATFORMS), help="Override the platform in the spec")
     parser.add_argument("--style-capsule", type=Path, help="Optional validated reusable style capsule JSON")
+    parser.add_argument(
+        "--approve-review",
+        action="store_true",
+        help="Approve length/reference-complexity review; context residue remains blocked",
+    )
     parser.add_argument("--format", choices=("json", "text"), default="json", dest="output_format")
     args = parser.parse_args()
 
@@ -1295,7 +1676,7 @@ def main() -> int:
         return 2
 
     try:
-        result = compile_spec(spec, args.platform, style_capsule)
+        result = compile_spec(spec, args.platform, style_capsule, review_approved=args.approve_review)
     except ValueError as exc:
         print(f"INVALID STYLE CAPSULE\n{exc}", file=sys.stderr)
         return 2

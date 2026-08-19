@@ -4,9 +4,11 @@
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
 
-![镜造 Image Forge：从图片需求与真实参考图，经过场景审美路由、镜头关系、调色材质、视觉规格、平台提示词到验证迭代](assets/jingzao-image-forge-intro-zh-v3.png)
+![镜造 Image Forge：真实参考图经过视觉规格、附件预检、调用计划、ImageGen、回执与视觉验收](assets/jingzao-image-forge-intro-zh-v4.png)
 
 新版视觉套件：[功能推荐页](assets/jingzao-image-forge-recommendation-zh-v3.png) · [微信群推荐卡](assets/jingzao-image-forge-wechat-card-zh-v3.png) · [旧版卡片](assets/jingzao-image-forge-group-card-zh-v2.png)
+
+首屏案例依据：[中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [动态 CG 规格](tests/forward-specs/cg-fashion-rain-platform.json) · [九宫格规格（仅人工视觉复核）](examples/styleboard-3x3.json)
 
 **镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化生图提示词、参考图风格学习、电影镜头、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观、中国玄幻特效和分镜板。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。
 
@@ -14,24 +16,32 @@
 
 ## 实际生成案例
 
-以下均为 2026-08-19 使用内置 ImageGen 完成并经过实际视觉检查的 forward test。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
+以下均为 2026-08-19 使用内置 ImageGen 完成并经过实际视觉检查的输出。其中十张已在 forward-test manifest 中绑定哈希或回执；九宫格与材质写实图因原始执行回执或提示记录未保留，仅作为人工视觉复核示例。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
 
 <table>
   <tr>
-    <td width="50%" valign="top"><strong>电影剧情帧</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="渡轮码头长椅上两个人物关系疏离的电影剧情镜头"><br><sub>人物调度、分离眼线、前景遮挡、克制实景光，以及未完成的剧情瞬间；避免角色并排摆拍成海报。<a href="examples/narrative-film-frame.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>绯夜胶片拼贴：爵士</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的爵士歌手竖版肖像"><br><sub>极近人物主层、微型叙事记忆、深黑场、红蓝色彩归属、不均匀旧印刷和受控双重曝光。</sub></td>
     <td width="50%" valign="top"><strong>因果型中国玄幻奇观</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="单个人物抵抗山岳级法阵的中国玄幻巨物动作画面"><br><sub>通过人景比例、近景压迫、受力路径、接触、阻力、材质破裂与环境反馈证明尺度。<a href="examples/causal-fantasy-effect.json">查看规格</a></sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><strong>一键九宫格分镜</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="人物空间道具连续的九格手绘电影分镜板"><br><sub>真正的九格 <code>sheet_direct</code> 整板；人物、码头空间、指南针状态、镜头推进和手绘质感保持一致。<a href="examples/styleboard-3x3.json">查看规格</a></sub></td>
-    <td width="50%" valign="top"><strong>暗场人物与材质写实</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="单一工作灯下制作黄铜零件的暗场环境人物镜头"><br><sub>自然皮肤、靛蓝布料、旧木材、拉丝黄铜、选择性微纹理和干净暗部；没有全局油亮或无来源光斑。</sub></td>
+    <td width="50%" valign="top"><strong>一键九宫格分镜</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="人物空间道具连续的九格手绘电影分镜板"><br><sub>人工视觉复核：九格可读、空间与手绘质感稳定；原始参考图交付回执未保留，因此不作为 manifest 绑定证据。<a href="examples/styleboard-3x3.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>动态 CG 时尚镜头</strong><br><img src="assets/gallery/cg-fashion-rain-platform.jpg" width="100%" alt="雨夜轨道站台上带半透明技术面料的动态时尚人物"><br><sub>动作阶段、衣料拖拽、湿材质、列车运动轴、接触、景深层次和动机光线均可读；不声称实际运行了 Unreal、Blender 或 Lumen。<a href="tests/forward-specs/cg-fashion-rain-platform.json">查看规格</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>电影剧情帧</strong><br><img src="assets/gallery/narrative-film-frame-ferry.jpg" width="100%" alt="渡轮码头长椅上两个人物关系疏离的电影剧情镜头"><br><sub>人物调度、分离眼线、前景遮挡、克制实景光，以及未完成的剧情瞬间；避免角色并排摆拍成海报。<a href="examples/narrative-film-frame.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>绯夜胶片拼贴：科幻</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的沙漠科幻信使竖版肖像"><br><sub>同一胶囊换到完全不同的人物和世界，未带回原人物、服装、文案、签名、水印或精确版式。<a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">查看胶囊</a></sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>石墨铜产品跨题材迁移</strong><br><img src="assets/gallery/graphite-copper-product.jpg" width="100%" alt="石墨黑与克制铜色材质层级下的触感茶叶罐产品图"><br><sub>同一个证据绑定胶囊进入紧凑产品场景，同时保留空白标签、干净轮廓、哑光纸张和选择性铜色响应。</sub></td>
+    <td width="50%" valign="top"><strong>保持原图结构的孔版印刷迁移</strong><br><img src="assets/gallery/risograph-service-station.jpg" width="100%" alt="公路服务站骑手照片转为双墨色新闻纸孔版印刷"><br><sub>真实原图直接进入 ImageGen；人物、摩托、机位、4:3 裁切和站点几何保持，只改变媒介。<a href="tests/forward-specs/restyle-risograph-service-station.json">查看规格</a></sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top"><strong>无虚构文字的触感产品</strong><br><img src="assets/gallery/tactile-product-blank-label.jpg" width="100%" alt="带空白墨绿色标签和折纸植物布景的高质感茉莉茶罐产品图"><br><sub>一次最小 no-text 修复保留了产品几何、纸艺触感、铜色响应、色彩和景深，同时消除虚构包装文案。<a href="examples/tactile-stop-motion-product.json">查看规格</a></sub></td>
     <td width="50%" valign="top"><strong>石墨铜建筑跨题材迁移</strong><br><img src="assets/gallery/graphite-copper-architecture.jpg" width="100%" alt="夯土铸造玻璃和铜光构成的极简展览建筑空间"><br><sub>把图形/编辑风格胶囊迁移到建筑空间，没有复制原主体、文字、网格或精确版式坐标。<a href="examples/architecture-exhibition.json">查看规格</a></sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><strong>绯夜胶片拼贴：爵士</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的爵士歌手竖版肖像"><br><sub>极近人物主层、微型叙事记忆、深黑场、红蓝色彩归属、不均匀旧印刷和受控双重曝光。</sub></td>
-    <td width="50%" valign="top"><strong>绯夜胶片拼贴：科幻</strong><br><img src="assets/gallery/crimson-nocturne-sci-fi.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的沙漠科幻信使竖版肖像"><br><sub>同一胶囊换到完全不同的人物和世界，未带回原人物、服装、文案、签名、水印或精确版式。<a href="references/style-capsules/crimson-nocturne-wuxia-montage.json">查看胶囊</a></sub></td>
+    <td width="50%" valign="top"><strong>暗场人物与材质写实</strong><br><img src="assets/gallery/material-realism-brass-workshop.jpg" width="100%" alt="单一工作灯下制作黄铜零件的暗场环境人物镜头"><br><sub>仅人工视觉复核：自然皮肤、靛蓝布料、旧木材、拉丝黄铜、选择性微纹理和干净暗部；原始提示记录未保留，因此不作为 manifest 绑定证据。</sub></td>
+    <td width="50%" valign="top"><strong>科研参考图重建</strong><br><img src="assets/gallery/reconstruct-microfluidic-chip.jpg" width="100%" alt="三条通道和三只金属夹具组成的透明微流控芯片重建图"><br><sub>把可观察的几何、数量、材质、机位和光线与推测、未知项分开；真实原图与回执均绑定证据。<a href="tests/forward-specs/reconstruct-microfluidic-chip.json">查看规格</a></sub></td>
   </tr>
 </table>
 
@@ -46,12 +56,14 @@
 - **一致的风格系统：** 支持电影自然主义、黑色电影、表现主义、超现实梦境、浪漫崇高、现代主义图形、复古胶片、奢华编辑、手工触感、绘画、动画、纪实、世界构建、极简、档案与混合媒介。
 - **从参考图学习风格：** 把实际像素中的可复用机制沉淀为不含原图的 `style_capsule`，强制填写迁移边界，并对引号文案、品牌/签名词和坐标做风险提醒。
 - **把真实参考图直接交给 ImageGen：** 用户提供的人物、服装、产品、Logo、道具、场景、机位或风格图片会进入必传附件清单，不允许被文字描述偷偷替代。
+- **区分管线成功与创意质量：** 附件送达不等于成片通过；还必须检查用途、产品使用、交互物理、人体结构、重心和观众结论。
+- **清理污染但不削弱风格：** 用来源追踪和语义台账删除旧错误残留、否定联想、机制重复与冲突锚点，同时保护媒介、审美、调色、材质、镜头和有意夸张。
 - **设计画面张力与漂亮镜头：** 控制主次阅读、动作/反作用力、前中后景职责、夸张、镜头投影、畸变、视差、裁切压力和运动证据。
 - **建立专业调色管线：** 曝光、曲线、黑白位、高光滚降、色彩分离、肤色保护、胶片颗粒、halation、bloom 与跨镜匹配。
 - **描述专业 CG 渲染：** Blender Cycles、Unreal Engine 5/Lumen、路径追踪、光线追踪、全局光照、PBR/NPR 材质、体积、采样、降噪，以及单次生成图里的可见 pass 分离。
 - **联动人物与摄影：** 人物调度、眼线、轴线、观众位置、景别、机位高度、距离、焦段、焦点和实景光源共同服从一个观看任务。
 - **参考图分镜板：** 参考职责分离、单格镜头卡、3×3 装配，以及线稿、手绘稿和真实电影帧三种质感。
-- **不伪造平台参数：** 可选的内部 `weight / lock / variance` 只用于规划与复核；验证器检查其一致性，编译器不会把它们写进提示词或包装成模型参数。
+- **不伪造平台参数：** 旧版 `weight / lock / variance` 仅为兼容保留；新模板和示例不再使用，编译器忽略它们，也绝不映射为平台控制。
 - **从真实使用中优化：** 发现可复用问题时先提出证据和策略，经用户同意并回归测试后才修改 Skill。
 
 ## 支持的工作模式
@@ -62,7 +74,7 @@
 | `reconstruct` | 基于实际参考图，区分可观察特征与未验证推测 |
 | `edit` | 带明确保留约束的最小局部修改 |
 | `restyle` | 锁定身份、姿势、几何、版式和文字，只改变视觉处理 |
-| `expand` | 扩展画布，同时保持主体位置、透视、灯光与环境连续性 |
+| `expand` | 按保留合同扩展画布；极端扩图中的位置、尺度与比例必须视觉复核，可能失败 |
 | `learn_style` | 读取参考图，提取可迁移视觉规律并验证可复用风格胶囊 |
 | `styleboard` | 把人物、服装、场景、机位和风格参考转译为一致的多镜头展示板 |
 
@@ -156,14 +168,15 @@ OpenAI · FLUX · Midjourney · generic 提示词
 
 ## 多图参考会真正传给模型
 
-用户提供真实资产时，镜造只记录最少必要信息：图片来源、参考职责、是否必须附带。编译结果会返回 `attachments` 和 `reference_handoff`。内置 ImageGen 对本地图片使用 `referenced_image_paths`，对会话图片使用覆盖全部必需图片的最小 `num_last_images_to_include`；只要真实图片可用，就不能只把它转述成文字。
+用户提供真实资产时，镜造只记录图片来源、职责和 `must_attach`。编译结果会返回 `attachments`、`reference_handoff` 与目标感知的 `imagegen_call_plan`。内置 ImageGen 遇到超过五张必传图、本地/会话机制混用、未解析远程/平台资产或未经确认的最近会话图窗口时会 fail closed；工具执行后，receipt 必须与预期图片 ID、数量和机制一致，才可称为参考图驱动结果。
 
 人物身份、服装标记、产品、包装、Logo、道具、场景、构图和风格参考都适用。GPT Image 2 支持一张或多张参考图，并自动以高保真处理所有图片输入。Logo、产品和人物保真仍需检查实际结果；失败时定向重试或使用模型自身的图片编辑路径。镜造不执行生成后合成。
 
 验证器会拒绝没有至少一张必传图片的 `reconstruct`、`edit`、`restyle`、`expand` 和 `learn_style` 规格。原子编辑示例因此使用显式运行时资产占位符；真正执行前必须换成实际原图。
 
 ```bash
-python3 scripts/reference_delivery.py path/to/spec.json
+python3 scripts/reference_delivery.py path/to/spec.json --target codex_imagegen
+python3 scripts/reference_delivery.py path/to/spec.json --target codex_imagegen --receipt path/to/receipt.json
 ```
 
 详见[真实多图参考交接](references/reference-delivery.md)。
@@ -233,7 +246,7 @@ CG 任务中，引擎名称属于受控参考。“Blender Cycles”可表达路
 
 `learn_style` 会实际读取参考图，把直接可见机制与生产推断、未知细节分开，随后导出可复用的 `style_capsule`。胶囊可以保存媒介行为、色彩归属、线条/形状、纹理/材质、灯光、构图、字体、光学/渲染、迁移规则与禁止迁移项。
 
-这不是模型微调。导出器会移除输入记录、不保存原图像素、要求明确的禁止迁移规则，并对疑似精确文案、品牌/签名或坐标的视觉规则发出提醒；这些检查是辅助性的，人物身份、受保护角色、品牌、文案、签名和版式排除仍需人工复核。标记为 `validated` 或 `adopted` 前，必须经过两个不同题材的 forward test 和实际视觉复核；写入全局安装或公开仓库前需要明确授权。
+这不是模型微调。导出器会移除输入记录、不保存原图像素、要求明确的禁止迁移规则，并对疑似精确文案、品牌/签名或坐标的视觉规则发出提醒；这些检查是辅助性的，人物身份、受保护角色、品牌、文案、签名和版式排除仍需人工复核。标记为 `validated` 或 `adopted` 前，必须经过两个不同题材的 forward test、视觉复核，并绑定到不含原始私图的证据清单；写入全局安装或公开仓库前需要明确授权。
 
 ```bash
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
@@ -324,21 +337,30 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 ## 验证
 
 ```bash
-python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py tests/test_skill.py
+python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/reference_delivery.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py
+uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **111 项回归测试**，覆盖全部七种模式、七份视觉规格示例、两份已验证/已采用风格胶囊、场景路由与调性权威、专业调色/胶片、渲染管线、空间张力、镜头畸变、高级材质响应、因果 VFX、参考驱动模式的基础图强制交接、Midjourney 风格参考校验、显式拒绝生成后合成控制、不含原图的胶囊导出与内容风险提醒、四平台编译、异常输入、未知字段、有限数值、CLI 错误契约、分镜、编辑、知识锚点与伪影控制。
+当前本机基线为 **143 项确定性回归测试**，覆盖七种模式的 schema/编译结构、十份视觉规格示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、完整字段风格保护式归一化、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
-人工 forward test：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图经过视觉检查，材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。测试图不提交到公开仓库。
+人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 
-新增导演能力 forward test 也已通过：渡口兄妹关系镜头呈现为有动机的电影剧照而非海报；中国玄幻巨物镜头通过建筑、水压、遮挡和单一因果法阵证明尺度；`sheet_direct` 一键 3×3 手绘分镜得到九张可读的 16:9 单格，人物、空间、道具状态和阅读顺序稳定。测试图不提交到公开仓库。
+新增导演能力输出通过视觉复核：渡口兄妹关系镜头呈现为有动机的电影剧照而非海报；中国玄幻巨物镜头通过建筑、水压、遮挡和单一因果法阵证明尺度；`sheet_direct` 一键 3×3 手绘分镜得到九张可读单格。前两项已绑定 manifest；九宫格原始参考图交付回执未保留，明确标为仅人工复核。
 
-风格学习 forward test 也已通过：同一个石墨黑/铜金胶囊分别迁移到方形手工茶罐产品图和宽画幅建筑展亭。两张图都保留了色彩归属、材质层级、干净暗部、克制铜色和可读留白，同时更换了主体、比例、空间和制作媒介；均未复制原图标题、人物、门户、九宫格或版式坐标。测试图只保存在忽略的 `output/`，不提交公开仓库。
+风格学习 forward test 也已通过：同一个石墨黑/铜金胶囊分别迁移到方形手工茶罐产品图和宽画幅建筑展亭。两张图都保留了色彩归属、材质层级、干净暗部、克制铜色和可读留白，同时更换了主体、比例、空间和制作媒介；均未复制原图标题、人物、门户、九宫格或版式坐标。通过输出已公开并与证据清单绑定，其他候选继续忽略。
 
-已采用的 **Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴** 胶囊来自三张用户参考图，但不保存原图。它又在两个无关题材上完成 forward test：现代爵士歌手与沙漠科幻信使；两次都保留绯红/青蓝色彩归属、主导肖像与微型叙事层级、克制双重曝光和不均匀旧印刷质感，同时没有复制原人物、服装、文字、签名、水印或精确版式。详见[内置风格胶囊](references/style-capsules.md)。原图和实测输出均不提交公开仓库。
+新增独立模式实测保持严格：`restyle`、科研 `reconstruct` 和动态 CG 创建通过并进入案例区。`expand` 虽然环境连续，但无法同时守住目标比例、横向锚点和原始画面高度比例，因此明确记录为当前限制，不进入案例。另一项五参考图压力测试只证明五张原图均已送达，却没有通过创意用途和手—物交互验收，同样排除。附件管线与成片质量是两道独立门禁。
+
+保护风格字段后，当前玄幻与 CG 时尚的编译投影分别为 1444 与 2218 词，均保持 `review_required`：词数预算只是复核触发器，不是模型最佳长度或自动截断规则。现有图片属于视觉证据；CG 未在字段保护改动后重新生成。
+
+随后用受控交接实验定位上游提示问题：保持同样五张参考和同一动作，只把 2253 词的跨区段提示改为简洁的当前画面说明，原先无底部承托的侧捏问题就消失；把动作改为有明确用途的静止柜台交付后，画面意义与重心继续改善；只保留三张必要参考时交互最干净。由于每组只有一次样本，这支持优化方向，不宣称普遍概率。实际修复是语义归属与污染审查，不是强制写实或一刀切缩短提示。详见[不削弱风格的提示清洗](references/prompt-hygiene.md)。
+
+已采用的 **Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴** 胶囊来自三张用户参考图，但不保存原图。它又在两个无关题材上完成 forward test：现代爵士歌手与沙漠科幻信使；两次都保留绯红/青蓝色彩归属、主导肖像与微型叙事层级、克制双重曝光和不均匀旧印刷质感，同时没有复制原人物、服装、文字、签名、水印或精确版式。详见[内置风格胶囊](references/style-capsules.md)。原始私图不公开，通过的跨题材输出作为证据公开。
 
 同模型质量对比使用简单提示词、专业电影/产品路线和镜造分别完成动作与产品任务，记录可见优势、退化点和“虚构标签文字”修复重试，不宣称存在跨任务的绝对赢家。详见[对比结果](tests/benchmark-results.md)。
 

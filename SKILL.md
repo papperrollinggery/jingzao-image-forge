@@ -13,11 +13,15 @@ Turn an image brief or observed reference into a maintainable visual specificati
 2. Read or inspect every supplied image before describing it. Never infer image contents from a filename or prior summary.
 3. Preserve the user's exact facts: subject count, names, actions, spatial relationships, visible text, aspect ratio, dimensions, reference roles, and forbidden elements.
 4. Detect exact named entities whose existing model knowledge may improve the result. Preserve them verbatim as optional `knowledge_anchors`; do not replace them with generic feature inventories.
-5. For a simple single-subject creation, a concise prompt may be enough. For multi-subject scenes, reference-based work, exact layouts, or edits, build a `visual_generation_spec` using [templates/visual-spec.json](templates/visual-spec.json) and read [references/visual-spec.md](references/visual-spec.md).
-6. Separate invariants from permitted variation. `control.weight`, `control.lock`, and `control.variance` are optional planning/review annotations only: the validator checks them, but the compiler does not turn them into prompt prose or platform parameters.
-7. For edits, state both the smallest requested change and the preserve list. Normalize points and regions to top-left-origin percentages. A point such as `(x: 16.5%, y: 16.4%)` is an anchor, not a guarantee of pixel-accurate masking.
-8. Compile the specification with `scripts/compile_prompt.py` or follow [references/prompt-compiler.md](references/prompt-compiler.md). Keep generation parameters separate from prompt prose.
-9. Run `scripts/validate_spec.py` before delivering a JSON specification. Review the result against [tests/evals.md](tests/evals.md) when consistency or exact edits matter.
+5. Establish a brief-grounded purpose before inventing a scene: intended use, audience, viewer conclusion, and the visible event or product promise. Do not create a narrative, location, interaction, or character merely to make unrelated references appear in one image.
+6. Admit only references that make a necessary visual decision for that purpose. User-required assets remain required; when their roles do not form one coherent image, explain the conflict and split the work rather than forcing a synthetic integration scene.
+7. For a simple single-subject creation, a concise prompt may be enough. For multi-subject scenes, reference-based work, exact layouts, or edits, build a `visual_generation_spec` using [templates/visual-spec.json](templates/visual-spec.json) and read [references/visual-spec.md](references/visual-spec.md).
+8. Separate invariants from permitted variation through mode contracts and `constraints.must_preserve` / `must_change`. Legacy `control.weight`, `lock`, and `variance` remain accepted for compatibility but are deprecated, ignored by compilation, and should not be added to new specifications.
+9. For edits, state both the smallest requested change and the preserve list. Normalize points and regions to top-left-origin percentages. A point such as `(x: 16.5%, y: 16.4%)` is an anchor, not a guarantee of pixel-accurate masking.
+10. Compile the specification with `scripts/compile_prompt.py` or follow [references/prompt-compiler.md](references/prompt-compiler.md). The compiler normalizes placeholders, removes duplicated color ownership, compacts lower-priority finishing detail when a prompt is over budget, and reports `prompt_metrics` plus `prompt_review`; it never prunes reference requirements, exact text, visible events, relationships, actions, edits, or preserve/change invariants.
+11. Do not call ImageGen while `prompt_review.status` is `blocked` or `review_required`. Context residue must be rewritten and recompiled; it cannot be approved through. Length/reference-complexity review may be explicitly accepted with `--approve-review` after confirming the prompt is clean and the style core is intact. When several sections paraphrase one action/effect, run [references/prompt-hygiene.md](references/prompt-hygiene.md). If `$prompt-contamination-guard` is installed, use it for source tracing and semantic deduplication. Protect the active style core; remove contamination and repetition, not unique design detail.
+12. Run `scripts/validate_spec.py` and `scripts/prompt_lint.py` before delivery. Review the result against [tests/evals.md](tests/evals.md) when consistency or exact edits matter.
+13. Keep execution proof and image quality separate: a correct attachment receipt proves only that inputs reached the tool. Before calling an image deliverable-quality, verify creative purpose, visual meaning, anatomy, interaction physics, and scenario-specific success.
 
 ## Actual Reference Handoff
 
@@ -26,12 +30,25 @@ When the user supplies character, wardrobe, product, logo, prop, location, compo
 Read [references/reference-delivery.md](references/reference-delivery.md) for multi-image tool handoff and preflight.
 
 - Record each image's real source in `inputs` with `source_kind`, `source_ref`, and `must_attach: true`; keep the role in ordinary language.
-- Before execution, run `scripts/reference_delivery.py <spec>` when a filesystem spec is available. Missing local images block execution; conversation images remain runtime-required.
-- For built-in `$imagegen`, inspect local files with `view_image`, then pass every required local file through `referenced_image_paths`. When the required images exist only in the conversation, use the smallest `num_last_images_to_include` that contains all of them.
+- Before built-in ImageGen execution, run `scripts/reference_delivery.py <spec> --target codex_imagegen`. Missing or unresolved images, more than five required references, mixed local/conversation mechanisms, and unconfirmed conversation windows block execution. The five-image limit and mutually exclusive mechanisms were verified against the bundled Codex ImageGen contract on 2026-08-19 and must be rechecked when that tool changes.
+- For built-in `$imagegen`, inspect local files with `view_image`, then pass every required local file through `referenced_image_paths`. When required images exist only in the conversation, confirm immediately before the call that they are the latest contiguous image window, then use the smallest `num_last_images_to_include` that contains all of them. Conversation-image selection is best-effort until stable image references exist.
 - For multiple images, tell the model what each image contributes: character identity, wardrobe, product, logo, prop, scene, composition, camera, palette, or style. State what should remain unchanged in the normal prompt; do not invent a separate policy layer.
+- Do not turn attachment count into a composition requirement. A pipeline stress test may verify five delivered files without demanding that five unrelated roles become simultaneously visible in one finished image. Creative forward tests start from a coherent brief and use only its necessary references.
+- If the user explicitly requires several assets in one image, first verify that their roles support one real delivery context. When they do not, report the conflict or propose separate deliverables; do not invent an arbitrary handoff, event, location, or story to make the set fit.
+- Compare the execution-ready `imagegen_call_plan` with a receipt containing the actual mechanism, sent input IDs/count, tool call ID, and output reference. For local images this may be the compiler plan; for conversation images it is the execution-time preflight plan after confirming the recent window. If expected and sent inputs do not match, report `reference delivery unverified`; do not call the result reference-backed. Public evidence uses a sanitized call-ID hash and repository-relative output path; raw paths, URLs, tokens, session/thread IDs, and cursors remain local.
 - If the tool call cannot include a required image, stop and report the missing attachment instead of silently generating from text.
 - GPT Image 2 processes image inputs at high fidelity automatically; do not invent an `input_fidelity` control.
 - Logo, clothing marks, product appearance, and character continuity are visually verified after generation. If they fail, revise reference roles or use the model's image-edit path and retry. Do not hide the failure with post-generation compositing; this is a generation Skill, not a compositing Skill.
+
+## Creative Validity and Interaction Physics
+
+Reference compliance is not creative validity. A technically successful multi-image call may still produce a meaningless scene, an implausible action, or unusable commercial work. Apply this section before writing the scene and again during visual review.
+
+- Derive the delivery context and intended viewer conclusion from the user brief or project facts before combining references. A narrative image needs a grounded visible event and relationship change; a campaign or product image needs a product promise, use context, or communication task; a technical study needs an observable question. Do not manufacture these answers merely to satisfy a test.
+- Every included subject, product, prop, location, and style reference must support that purpose. Do not invent a scene merely to force unrelated reference roles into one frame.
+- For hand-object or body-object interaction, verify affordance and mechanics: which hand bears weight, where fingers wrap or support, wrist alignment, center of mass, counterforce, contact/occlusion, body balance, and the frozen action phase. Reject ambiguous floating, pinching, duplicated, contested, or anatomically impossible contact.
+- Separate reference-delivery stress tests from creative forward tests. The former proves attachment mechanics only and should not request or publish a synthetic showcase image; the latter begins with a coherent real use case and must pass purpose, interaction, anatomy, and visual communication.
+- If the creative premise is wrong, redesign the scenario from the brief. Do not spend retries polishing an image whose use or meaning cannot be explained.
 
 ## Knowledge-Aware Generation
 
@@ -81,6 +98,7 @@ For battles, action, performance, fashion movement, giant scale, extreme angles,
 - Select one exaggeration budget and one distortion strategy. State the realism or spatial anchor that prevents random deformation.
 - Couple focal length with camera distance, pitch/yaw/roll, lens projection, edge behavior, crop pressure, and camera state.
 - Treat beauty as hierarchy, silhouette, negative space, color/value separation, material contrast, depth rhythm, and controlled visual rest—not as the word “beautiful.”
+- For object handling, bind action, grip/support, weight, counterforce, wrist/body balance, and contact visibility to the chosen frozen phase; hands are not decorative endpoints.
 
 ## Professional Color and Film Finishing
 
@@ -110,7 +128,7 @@ Use `learn_style` when the user wants an actual supplied image converted into a 
 - Extract medium behavior, palette ownership, shape/line language, texture/material logic, lighting, composition, typography, optics/rendering, and limited recurring motifs.
 - Write transfer rules and forbidden transfer rules. Do not learn subject identity, faces, exact text, logos, signatures, protected character design, or exact layout coordinates as style.
 - Export a source-image-free `style_capsule` with `scripts/create_style_capsule.py`; review its advisory content-risk warnings and validate it with `scripts/validate_style_capsule.py`.
-- Test a capsule on at least two materially different subjects or scenarios before marking it `validated` or `adopted`. Applying a capsule is not evidence that the style transferred successfully; inspect the generated images.
+- Test a capsule on at least two materially different subjects or scenarios before marking it `validated` or `adopted`. Bind each test to a non-image evidence record (`case_id`, prompt index, scenario, evidence reference, review); raw private references remain uncommitted. Applying a capsule is not evidence that the style transferred successfully; inspect the generated images.
 - A draft capsule may be created automatically as the current deliverable. Durable inclusion in the installed or public Skill requires user approval, and raw private references are never embedded.
 
 ## Narrative Film Frame
@@ -136,11 +154,13 @@ Use `styleboard` when the user wants reference analysis translated into several 
 
 ## Mode Rules
 
+For `reconstruct`, `restyle`, or `expand`, read [references/reference-modes.md](references/reference-modes.md).
+
 - `create`: Describe the desired result directly; add exclusions only when they prevent a likely failure.
-- `reconstruct`: Report observable features separately from inference. Reproduce visual attributes, not an unknowable original prompt.
+- `reconstruct`: Supply `reference_analysis` with a target, directly observed facts, clearly marked inference, and explicit unknowns. Reproduce observable visual attributes, not an unknowable original prompt or software pipeline.
 - `edit`: Use “change only” plus explicit invariants. Prefer one meaningful change per iteration.
-- `restyle`: Lock geometry, identity, pose, layout, and text unless the user says otherwise; vary only visual treatment.
-- `expand`: Preserve the original field of view and subject position, then describe only the new canvas area and continuity requirements.
+- `restyle`: Require both `must_preserve` and `must_change`; lock geometry, identity, pose, layout, and text unless the user says otherwise, and vary only the named visual treatment.
+- `expand`: Require both `must_preserve` and `must_change`; preserve original content, subject relative position/scale, perspective, exposure, and source boundaries, then describe only the new edges and crop-safe continuity. Continuity alone is not a PASS when anchor, scale, or target ratio drifts.
 - `learn_style`: Analyze actual reference pixels, create a draft style-learning record, export a source-image-free capsule with reviewed transfer boundaries, and validate transfer across different content before adoption.
 - `styleboard`: Analyze reference roles, define a visual master and frame cards, choose `sheet_direct`, `independent_frames`, or `hybrid` from speed and continuity risk, then verify the approved sequence or board.
 
@@ -152,6 +172,8 @@ After completing the user's image-spec or prompt task, briefly review concrete f
 - If there is a credible improvement, finish the requested deliverable first. Then report the observed problem and evidence, its impact, the smallest proposed Skill change, affected files, and how the change would be tested. Ask whether the user wants `$jingzao-image-forge` optimized now.
 - Do not edit the development source, installed copy, tests, or references without the user's explicit approval for that optimization. Approval to create or edit an image prompt is not approval to modify the Skill.
 - When approved, use `$skill-creator`, update the development source, run structural validation, specification validation, regression tests, and relevant platform compilation checks, then sync the installed copy only after those checks pass.
+- Keep every long-running review, generation test, or delegated audit as an active plan item until it returns a terminal status and its result/evidence files are read. Record the task/session identifier and latest cursor; poll or wait every 30–60 seconds, continue safe independent work between checks, and never rely on the user to ask whether it finished.
+- An unchanged running status is not completion or failure. Do not broadcast empty polls, but do not drop the follow-up obligation. If a tool returns an error, preserve the actual error and use only documented recovery paths.
 - Do not persist user images, private prompt content, temporary session state, or unsupported guesses as Skill guidance. If no meaningful issue was observed, do not ask an optimization question.
 
 ## Delivery Contract

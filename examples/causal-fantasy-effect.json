@@ -45,8 +45,7 @@
     "summary": "A lone cultivator braces on a flooded mountain terrace as a broken circular formation descends through cloud layers.",
     "setting": "stone sanctuary above a deep mountain basin",
     "time": "storm-bright late afternoon",
-    "atmosphere": ["compressed air", "rain haze", "mineral dust"],
-    "control": {"weight": 0.95, "lock": false, "variance": 0.1}
+    "atmosphere": ["compressed air", "rain haze", "mineral dust"]
   },
   "subjects": [
     {
@@ -59,8 +58,7 @@
       "gaze": "tracks the formation's moving contact edge",
       "position": {"x_percent": 28.0, "y_percent": 70.0, "depth": "foreground"},
       "scale": "small against the basin and formation",
-      "relationships": ["the hand seal owns the effect", "water and cloth respond along the same force direction"],
-      "control": {"weight": 1.0, "lock": false, "variance": 0.05}
+      "relationships": ["the hand seal owns the effect", "water and cloth respond along the same force direction"]
     }
   ],
   "spatial_dynamics": {
@@ -97,8 +95,7 @@
     "crop_pressure": "formation exits top and right; the cultivator remains fully readable from feet to hand seal",
     "camera_state": "ground-level locked witness with a small force-driven vibration implied, not global shake",
     "action_readability": "source, path, contact, counterforce, environment response, and residue remain visible in one frame",
-    "depth_layers": ["water and cultivator", "sanctuary terraces", "basin atmosphere", "descending formation"],
-    "control": {"weight": 0.95, "lock": false, "variance": 0.08}
+    "depth_layers": ["water and cultivator", "sanctuary terraces", "basin atmosphere", "descending formation"]
   },
   "lighting": {
     "summary": "storm daylight blocked by the formation with one mineral-white contact flash",
@@ -108,8 +105,7 @@
     "direction": "left daylight opposed by the descending formation shadow",
     "contrast": "large-scale shadow with readable foreground body",
     "color_temperature": "cool storm daylight and neutral mineral contact light",
-    "practicals": [],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.1}
+    "practicals": []
   },
   "effects": [
     {
@@ -144,8 +140,7 @@
     "palette": ["storm gray", "ink black", "weathered stone", "mineral white"],
     "grade": "restrained cool sublime",
     "contrast": "large value masses with one contact accent",
-    "saturation": "low",
-    "control": {"weight": 0.85, "lock": false, "variance": 0.1}
+    "saturation": "low"
   },
   "color_pipeline": {
     "intent": "cinematic_color",
@@ -210,8 +205,7 @@
     "visual_traits": ["monumental atmosphere", "one dominant causal effect", "selective detail"],
     "era": "timeless fantasy",
     "references": [],
-    "excluded_traits": ["decorative particles", "rainbow energy", "floating rubble", "poster montage"],
-    "control": {"weight": 0.9, "lock": false, "variance": 0.1}
+    "excluded_traits": ["decorative particles", "rainbow energy", "floating rubble", "poster montage"]
   },
   "text_elements": [],
   "spatial_edits": [],
@@ -221,7 +215,6 @@
     "exclude": ["logos", "watermarks", "extra characters", "random talismans", "unowned glow"]
   },
   "render": {
-    "quality": "high",
     "detail_priority": ["body-to-effect source", "contact edge", "water force direction", "scale cues"],
     "artifact_budget": "expressive",
     "quality_controls": ["particles remain sparse and physically owned by displaced rain, water, or mineral dust"]

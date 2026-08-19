@@ -22,7 +22,8 @@ Never present inference as observation.
 6. Export a source-image-free capsule that records source count and provenance but embeds no raw image; review advisory warnings for quoted copy, brand/signature terms, or coordinates.
 7. Apply the capsule to at least two materially different subjects or scene types.
 8. Visually review whether the style transferred while identity, text, layout coordinates, brands, and source-specific objects did not.
-9. Mark the capsule `validated` only after those tests; mark it `adopted` only when the user approves durable inclusion in the Skill.
+9. Bind both tests to non-image `validation_evidence` records (`case_id`, prompt index, scenario, evidence reference, review). Public outputs may be linked through the forward-test manifest; raw private reference pixels are never required.
+10. Mark the capsule `validated` only after those tests; mark it `adopted` only when the user approves durable inclusion in the Skill.
 
 ## Required Observations
 
@@ -50,7 +51,8 @@ Never present inference as observation.
     "transfer_rules": ["transfer palette ownership and hierarchy, not source content"],
     "forbidden_transfer": ["source title", "brand marks", "exact layout coordinates", "depicted character"],
     "validation_prompts": [],
-    "verification_notes": ""
+    "verification_notes": "",
+    "validation_evidence": []
   }
 }
 ```
@@ -88,3 +90,4 @@ python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json \
 - The source subject and exact layout do not reappear unless independently requested.
 - Style remains recognizable through mechanisms rather than copied content.
 - Visual review notes state both what transferred and what did not.
+- At least two evidence records bind different scenarios to `tests/forward-test-manifest.json` or another review artifact that contains no raw private references.

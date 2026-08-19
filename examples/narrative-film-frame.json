@@ -169,7 +169,6 @@
     "exclude": ["text", "logo", "watermark", "hero pose", "montage", "split screen"]
   },
   "render": {
-    "quality": "high",
     "detail_priority": ["hands", "compass", "restrained faces", "relationship distance"],
     "artifact_budget": "balanced",
     "quality_controls": ["selective focus and ordinary background falloff", "no equal-detail poster rendering"]

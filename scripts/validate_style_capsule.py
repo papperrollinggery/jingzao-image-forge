@@ -153,17 +153,40 @@ def validate_style_capsule(capsule: Any) -> list[str]:
     if not isinstance(validation, dict):
         errors.append("$.validation: expected an object")
     else:
-        _validate_known_keys(validation, {"prompts", "notes"}, "$.validation", errors)
+        _validate_known_keys(validation, {"prompts", "notes", "evidence"}, "$.validation", errors)
         prompts = validation.get("prompts", [])
         _validate_string_list(prompts, "$.validation.prompts", errors)
         notes = validation.get("notes", "")
         if not isinstance(notes, str):
             errors.append("$.validation.notes: expected a string")
+        evidence = validation.get("evidence", [])
+        if not isinstance(evidence, list):
+            errors.append("$.validation.evidence: expected a list")
+            evidence = []
+        scenarios: set[str] = set()
+        for index, item in enumerate(evidence):
+            path = f"$.validation.evidence[{index}]"
+            if not isinstance(item, dict):
+                errors.append(f"{path}: expected an object")
+                continue
+            _validate_known_keys(item, {"case_id", "prompt_index", "scenario", "evidence_ref", "review"}, path, errors)
+            for key in ("case_id", "scenario", "evidence_ref", "review"):
+                _require_string(item.get(key), f"{path}.{key}", errors)
+            prompt_index = item.get("prompt_index")
+            if not isinstance(prompt_index, int) or isinstance(prompt_index, bool) or prompt_index < 0:
+                errors.append(f"{path}.prompt_index: expected a non-negative integer")
+            scenario = item.get("scenario")
+            if isinstance(scenario, str) and scenario.strip():
+                scenarios.add(scenario.strip())
         if _is_allowed(status, {"validated", "adopted"}):
             if not isinstance(prompts, list) or len(prompts) < 2:
                 errors.append("$.validation.prompts: validated or adopted capsules require two transfer tests")
             if not isinstance(notes, str) or not notes.strip():
                 errors.append("$.validation.notes: validated or adopted capsules require visual review notes")
+            if len(evidence) < 2 or len(scenarios) < 2:
+                errors.append(
+                    "$.validation.evidence: validated or adopted capsules require two different scenario evidence records"
+                )
 
     return errors
 

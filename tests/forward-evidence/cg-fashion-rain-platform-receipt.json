@@ -1,0 +1,12 @@
+{
+  "receipt_version": "1.0",
+  "mechanism": "none",
+  "sent_input_ids": [],
+  "sent_count": 0,
+  "tool_call_id_sha256": "5a7cacaed53aa79924024274e3c50df049378d017dc793c4a24c525b1a975eb6",
+  "execution_prompt_sha256": "87503e04bd5e37324f20b46832324edac5f0457934d0c4189dcef29cbea1c53f",
+  "execution_prompt_note": "Original 1981-word compiler projection used before style-field protection; the current projection is tracked separately in the manifest.",
+  "output_ref": "assets/gallery/cg-fashion-rain-platform.jpg",
+  "actual_output_dimensions": "1536x1024",
+  "review": "A dynamic turn, cloth drag, wet roughness, train motion axis, contact, depth layers, and restrained practical lighting were visible. Unreal, Blender, or Lumen runtime execution was not claimed."
+}

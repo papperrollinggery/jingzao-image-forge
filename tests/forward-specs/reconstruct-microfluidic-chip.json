@@ -1,0 +1,156 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "reconstruct",
+  "intent": "Faithfully reconstruct the observable geometry, material hierarchy, count, camera relationship, and cool-neutral laboratory presentation of the attached microfluidic-chip reference without claiming access to its original prompt, camera system, scientific meaning, or production software.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "custom",
+    "aspect_ratio": "3:2",
+    "dimensions": {"width": 1536, "height": 1024}
+  },
+  "inputs": [
+    {
+      "id": "microfluidic-source",
+      "type": "image",
+      "role": "observed reference for geometry, object count, materials, composition, camera, and lighting",
+      "description": "Use the actual attached image as the authority for the visible rectangular chip, three channels, metal fixtures, oblique high viewpoint, and cool-neutral bench presentation.",
+      "source_kind": "local_path",
+      "source_ref": "../fixtures/reconstruct-microfluidic-source.jpg",
+      "must_attach": true
+    }
+  ],
+  "reference_analysis": {
+    "target": "observable reconstruction of a text-free scientific macro object study",
+    "observed": [
+      "one transparent rectangular chip lies diagonally across a cool gray work surface",
+      "exactly three long straight parallel channels are visible inside the chip",
+      "each channel terminates in circular reservoir-like ends, giving six visible circular terminals",
+      "three small U-shaped brushed-metal clips contact the chip at the left, upper, and lower-right edges",
+      "dark fixture blocks with round holes are partially visible beyond the left and right chip edges",
+      "the camera is above the object at an oblique three-quarter angle rather than a top-down orthographic view",
+      "the chip occupies most of a landscape 3:2 frame and runs from lower-left toward upper-right",
+      "illumination is cool-neutral and diffuse with restrained edge reflections and clear contact shadows",
+      "no words, labels, arrows, numerals, logos, HUD, or watermark are visible"
+    ],
+    "inferred": [
+      "the transparent slab may be polymer or glass-like material, but its exact composition is not visually provable",
+      "the soft reflections are consistent with a broad laboratory light source, but the actual lighting rig is not visible",
+      "the circular ends appear reservoir-like, but their scientific function is not established by the image alone"
+    ],
+    "unknowns": [
+      "original camera body, lens model, focal length, aperture, and capture distance",
+      "original lighting instruments and exact exposure settings",
+      "chip material chemistry, scale, fabrication method, and scientific use",
+      "whether the source was photographed, rendered, or produced through a hybrid workflow",
+      "original software, model, node graph, seed, parameters, and hidden prompt"
+    ]
+  },
+  "creative_routing": {
+    "scenario_profile": "scientific_educational",
+    "genre_family": "documentary",
+    "aesthetic_family": "minimal_object_study",
+    "capture_or_render_method": "photography",
+    "scene_archetypes": ["workshop/lab", "micro-world"],
+    "audience_effect": "make the visible structure countable and materially credible without inventing scientific meaning",
+    "delivery_context": "independent reconstruction fidelity test",
+    "design_priority": "observable geometry, quantity, camera, and material consistency",
+    "style_authority": "source_reference",
+    "adaptation_rule": "the attached source owns all visible geometry and presentation; only imperceptible generative variation is permitted",
+    "tone_locks": ["cool-neutral bench light", "clean scientific object study", "text-free frame"],
+    "forbidden_drift": ["invented labels", "extra channels", "sci-fi HUD", "decorative neon", "toy-like plastic"]
+  },
+  "composition": {
+    "shot_size": "macro object study",
+    "camera_angle": "oblique high three-quarter view",
+    "perspective": "natural close-range perspective",
+    "focal_length_mm": null,
+    "framing": "chip fills most of the 3:2 landscape frame and runs lower-left to upper-right; all three channels remain countable",
+    "negative_space": "restrained cool-gray bench surrounds the chip",
+    "camera_pitch": "downward pitch matching the source",
+    "camera_yaw": "aligned to the source diagonal",
+    "camera_roll": "level horizon behavior",
+    "lens_projection": "rectilinear",
+    "perspective_distortion": "restrained",
+    "edge_behavior": "preserve straight chip edges and non-stretched round terminals",
+    "crop_pressure": "fixture blocks may remain partially cropped exactly as observed",
+    "camera_state": "locked still camera",
+    "action_readability": "static object; structural count is the viewer task",
+    "depth_layers": ["matte gray bench", "dark fixture blocks and brushed clips", "transparent chip and embedded channels"]
+  },
+  "lighting": {
+    "summary": "cool-neutral diffuse laboratory lighting matched to the reference",
+    "key": "broad soft overhead source inferred from restrained highlights",
+    "fill": "neutral bench bounce keeps transparent edges readable",
+    "rim": "only source-matched edge reflections on the clear slab",
+    "direction": "soft upper-side illumination consistent with the reference",
+    "contrast": "low to medium with precise local contact shadows",
+    "color_temperature": "cool-neutral",
+    "practicals": []
+  },
+  "materials": [
+    {
+      "target": "transparent chip and channels",
+      "description": "clear slab with visible thickness, clean edges, three embedded straight channels, and six circular terminal forms",
+      "physical_properties": ["dielectric transparent body", "restrained refraction", "smooth but not glowing surfaces"],
+      "microstructure": "clean camera-readable surface without decorative scratches",
+      "roughness": "low but not mirror-like",
+      "specular_response": "thin controlled edge highlights",
+      "transmission": "clear enough to reveal the gray bench while preserving slab thickness",
+      "contact_deformation": "rigid slab held by clips without bending"
+    },
+    {
+      "target": "small metal clips and dark fixture blocks",
+      "description": "three brushed-metal U-clips in real edge contact plus partially cropped dark support blocks",
+      "physical_properties": ["metallic clips", "dark rough fixture coating", "precise contact shadows"],
+      "microstructure": "fine directional brushing only on the clips",
+      "roughness": "medium brushed metal versus high-roughness dark blocks",
+      "specular_response": "broad muted clip highlights and low-gloss dark blocks",
+      "contact_deformation": "clips visibly seat on chip edges"
+    }
+  ],
+  "style": {
+    "medium": "source-matched scientific macro image",
+    "realism": "physically plausible and factual-looking without adding claims",
+    "visual_traits": ["clean low-noise fields", "precise transparent edges", "restrained laboratory presentation"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["infographic", "science-fiction interface", "advertising spectacle"]
+  },
+  "constraints": {
+    "must_preserve": [
+      "one transparent rectangular chip and exactly three long parallel channels",
+      "six visible circular terminal forms arranged as three opposing pairs",
+      "three small brushed-metal clips in the observed edge positions",
+      "partially cropped dark fixture blocks at opposite sides",
+      "oblique high three-quarter camera and lower-left to upper-right chip diagonal",
+      "3:2 landscape framing, cool-neutral bench, restrained diffuse lighting, and source-matched contact",
+      "absence of all visible text, labels, arrows, numbers, logos, HUD, and watermark"
+    ],
+    "must_change": [],
+    "exclude": [
+      "extra or branching channels",
+      "invented scientific labels or color-coded data",
+      "hands or people",
+      "random laboratory props",
+      "decorative neon or emissive glow",
+      "software, camera, or hidden-prompt certainty",
+      "plastic toy appearance",
+      "watermark"
+    ]
+  },
+  "render": {
+    "detail_priority": ["three channels and six circular ends", "transparent slab edges", "metal-clip contact"],
+    "artifact_budget": "source_matched",
+    "quality_controls": [
+      "all three channels remain separately countable",
+      "transparent surfaces retain clean low-noise gradients and physical edge reflections",
+      "metal and dark fixtures keep distinct roughness with precise contact shadows"
+    ]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {"stylize": 25, "chaos": 0, "quality": 1, "raw": true, "style_reference": [], "style_weight": 100}
+  }
+}

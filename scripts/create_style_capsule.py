@@ -56,6 +56,7 @@ def create_style_capsule(spec: dict[str, Any]) -> dict[str, Any]:
         "validation": {
             "prompts": copy.deepcopy(learning.get("validation_prompts", [])),
             "notes": learning.get("verification_notes", ""),
+            "evidence": copy.deepcopy(learning.get("validation_evidence", [])),
         },
     }
     capsule_errors = validate_style_capsule(capsule)

@@ -28,8 +28,7 @@
       "thin high-altitude haze",
       "subtle suspended particles",
       "large-scale cinematic depth"
-    ],
-    "control": {"weight": 0.95, "lock": true, "variance": 0.0}
+    ]
   },
   "subjects": [
     {
@@ -61,8 +60,7 @@
         "Remain behind the skyline.",
         "Do not overlap or displace buildings.",
         "Match the existing haze and atmospheric perspective."
-      ],
-      "control": {"weight": 1.0, "lock": false, "variance": 0.12}
+      ]
     }
   ],
   "composition": {
@@ -76,8 +74,7 @@
       "foreground source elements unchanged",
       "midground skyline unchanged",
       "background moon edited in place"
-    ],
-    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+    ]
   },
   "lighting": {
     "summary": "Integrate the fracture into the source exposure without relighting the city.",
@@ -87,8 +84,7 @@
     "direction": "unchanged",
     "contrast": "unchanged outside the lunar disk",
     "color_temperature": "preserve source balance",
-    "practicals": ["existing city lights unchanged"],
-    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+    "practicals": ["existing city lights unchanged"]
   },
   "materials": [
     {
@@ -99,8 +95,7 @@
         "high micro-roughness",
         "no glassy or plastic surface",
         "subtle particulate shedding"
-      ],
-      "control": {"weight": 0.95, "lock": false, "variance": 0.12}
+      ]
     }
   ],
   "color": {
@@ -111,16 +106,14 @@
     ],
     "grade": "Preserve the source grade.",
     "contrast": "No global contrast change.",
-    "saturation": "No global saturation change.",
-    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+    "saturation": "No global saturation change."
   },
   "optics": {
     "depth_of_field": "Match source focus behavior.",
     "focus_target": "unchanged",
     "motion_blur": "No added camera blur; minimal slow debris motion only.",
     "lens_character": "Match source lens and atmospheric response.",
-    "artifacts": ["retain source grain", "retain source halation if present"],
-    "control": {"weight": 1.0, "lock": true, "variance": 0.0}
+    "artifacts": ["retain source grain", "retain source halation if present"]
   },
   "style": {
     "medium": "live-action cinematic photograph",
@@ -138,8 +131,7 @@
       "plastic CGI sheen",
       "fantasy crystal moon",
       "oversharpened AI texture"
-    ],
-    "control": {"weight": 0.95, "lock": true, "variance": 0.0}
+    ]
   },
   "text_elements": [],
   "spatial_edits": [
@@ -153,8 +145,7 @@
         "height_percent": 23.0
       },
       "instruction": "Transform only the intact lunar disk into a physically fractured moon. Preserve its center, apparent diameter, broad silhouette, atmospheric depth, and surrounding sky. The moon is splitting into a few massive rocky plates with deep irregular fissures; it is not a fiery explosion.",
-      "preserve_surroundings": true,
-      "control": {"weight": 1.0, "lock": false, "variance": 0.12}
+      "preserve_surroundings": true
     }
   ],
   "constraints": {
@@ -183,7 +174,6 @@
     ]
   },
   "render": {
-    "quality": "high",
     "detail_priority": [
       "lunar fracture geometry",
       "atmospheric integration",

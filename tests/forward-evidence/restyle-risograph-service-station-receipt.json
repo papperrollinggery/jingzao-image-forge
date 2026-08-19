@@ -1,0 +1,11 @@
+{
+  "receipt_version": "1.0",
+  "mechanism": "referenced_image_paths",
+  "sent_input_ids": ["base-service-station"],
+  "sent_count": 1,
+  "tool_call_id_sha256": "c87589a6062b0be836a6051ffe9c464e79f3046116e48ef3109a4faf62e7572d",
+  "output_ref": "assets/gallery/risograph-service-station.jpg",
+  "raw_output_sha256": "c234509ba276468b78811d7f79ce874cbca1b593243cfce3d7efa81ebeaa3303",
+  "actual_output_dimensions": "1448x1086",
+  "review": "The actual base image was attached. Identity, pose, motorcycle, camera, crop, and station geometry stayed aligned while the medium changed to two-ink newsprint risograph."
+}

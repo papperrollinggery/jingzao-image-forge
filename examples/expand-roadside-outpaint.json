@@ -1,0 +1,47 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "expand",
+  "intent": "Expand an attached dusk roadside-service-station photograph to 2.39:1 for later cropping while preserving the original content, perspective, subject scale, and off-center placement.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "cinematic_ultrawide",
+    "aspect_ratio": "2.39:1",
+    "dimensions": {"width": 1920, "height": 800}
+  },
+  "inputs": [
+    {
+      "id": "roadside-source",
+      "type": "image",
+      "role": "base_image",
+      "description": "Runtime source image containing one motorcycle, one rider, a fuel canopy, and dusk roadside perspective; replace this placeholder with the actual asset before execution.",
+      "source_kind": "platform_asset",
+      "source_ref": "replace-with-actual-roadside-source-before-execution",
+      "must_attach": true
+    }
+  ],
+  "constraints": {
+    "must_preserve": [
+      "all original visible content",
+      "motorcycle and rider relative x/y position",
+      "subject frame-height ratio",
+      "fuel-canopy and road vanishing points",
+      "dusk exposure, weather, grain, and light direction"
+    ],
+    "must_change": [
+      "expand left and right edges to 2.39:1",
+      "add only perspective-continuous roadside environment and crop-safe side room"
+    ],
+    "exclude": ["recentered subject", "new vehicle", "new person", "redesigned canopy", "new text", "watermark"]
+  },
+  "render": {
+    "detail_priority": ["source boundary continuity", "vanishing points", "subject position", "dusk light"],
+    "artifact_budget": "source_matched",
+    "quality_controls": ["new side areas match source sharpness, grain, haze, and material response"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {"stylize": 25, "chaos": 0, "quality": 1, "raw": true, "style_reference": [], "style_weight": 100}
+  }
+}
