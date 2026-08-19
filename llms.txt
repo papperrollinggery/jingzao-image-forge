@@ -14,8 +14,12 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - edit: describe the smallest local change and explicit preservation constraints
 - restyle: change visual treatment while locking identity, pose, geometry, layout, and text
 - expand: extend a canvas while preserving original content and subject position
+- styleboard: assign reference roles, build per-frame cards, and choose direct-sheet, independent-frame, or hybrid generation for triptych and 3x3 boards
 - knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
 - artifact and material quality: control noise, grain, bloom, flare, oily or waxy surfaces, sharpening halos, particles, and focal-detail hierarchy
+- automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
+- cinematic shot design: bind relationship, staging, viewer position, camera height, distance, focal length, focus, and motivated lighting
+- causal VFX: define source, trigger, material/shape, path, operation, response, intensity, decay, and residue for Chinese fantasy, giant-scale, transformation, and destruction effects
 - cross-platform compilation: OpenAI, FLUX, Midjourney, and generic targets
 
 ## Core files
@@ -24,10 +28,15 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - references/visual-spec.md: visual_generation_spec schema and control semantics
 - references/prompt-compiler.md: platform-aware compilation behavior
 - references/quality-controls.md: artifact budgets, material-light controls, and clean-slate retry guidance
+- references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
+- references/direction-profiles.md: grounded, heightened, graphic, giant-scale, and Chinese-fantasy routing
+- references/styleboard-mode.md: reference roles, line-art/hand-drawn/cinematic presentation, frame cards, and 3x3 assembly
 - templates/visual-spec.json: reusable JSON template
 - scripts/validate_spec.py: standard-library specification validator
 - scripts/compile_prompt.py: standard-library prompt compiler
 - examples/atomic-cyber-live-action.json: synthetic validated edit example
+- examples/narrative-film-frame.json: validated relationship-driven cinematic ultrawide example
+- examples/styleboard-3x3.json: validated reference-led hybrid nine-grid storyboard example
 - tests/test_skill.py: deterministic regression tests
 - tests/evals.md: behavioral evaluation cases
 - assets/jingzao-image-forge-hero-en.png: English visual introduction page generated with Codex imagegen
@@ -51,8 +60,9 @@ python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 21 regression tests.
+Current deterministic baseline: 50 regression tests.
 Manual forward test: dark portrait with skin, fabric, brass, wood, and practical-light artifact controls; visually inspected, not committed.
+Direction forward tests: relationship-driven narrative film frame, monumental Chinese-fantasy causal spectacle, and one-call 3x3 hand-drawn sheet; visually inspected, not committed.
 
 ## Research foundations
 

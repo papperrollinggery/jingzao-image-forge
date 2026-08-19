@@ -1,0 +1,85 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "styleboard",
+  "intent": "Create a fast direct 3x3 hand-drawn storyboard of two siblings at a closed ferry terminal, then selectively refine failed cells if needed.",
+  "platform": "openai",
+  "canvas": {
+    "profile": "standard_widescreen",
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [
+    {
+      "id": "image-1",
+      "type": "image",
+      "role": "camera_and_identity_reference",
+      "description": "User-supplied image proving the two siblings, practical wardrobe, terminal geography, and grounded subject scale."
+    },
+    {
+      "id": "image-2",
+      "type": "image",
+      "role": "style_reference",
+      "description": "User-supplied black-and-white pencil and marker storyboard finish reference."
+    }
+  ],
+  "knowledge_anchors": [],
+  "styleboard": {
+    "layout": "3x3",
+    "frame_count": 9,
+    "frame_aspect_ratio": "16:9",
+    "presentation": "hand_drawn",
+    "generation_strategy": "hybrid",
+    "reading_order": "left_to_right_top_to_bottom",
+    "continuity_locks": [
+      "two sibling identities",
+      "dark practical wardrobe",
+      "weathered green bench",
+      "ferry-terminal geography",
+      "brass compass state",
+      "predawn light direction",
+      "screen-left and screen-right relationship"
+    ],
+    "allowed_variation": ["shot size", "camera angle", "focal-length feel", "action phase", "foreground occlusion"],
+    "reference_assignments": [
+      {
+        "input_id": "image-1",
+        "role": "identity",
+        "secondary_roles": ["wardrobe", "scene", "camera_action"],
+        "use": "identity, wardrobe, terminal geography, practical subject scale, and camera foundation",
+        "ignore": "exact pose, crop, final lighting arrangement, and photographic finish"
+      },
+      {
+        "input_id": "image-2",
+        "role": "style",
+        "secondary_roles": [],
+        "use": "line weight, pencil and marker texture, paper grain, controlled gray wash",
+        "ignore": "identity, costume, location, action, props, and panel content"
+      }
+    ],
+    "frames": [
+      {"id": "frame-01", "shot_function": "establish", "story_moment": "the empty terminal establishes the siblings' distance", "primary_action": "both sit far apart", "action_phase": "hold", "shot_size": "wide", "camera_height": "eye level", "focal_length_mm": 35, "composition": "terminal, bench, ramp, and both siblings remain geographically readable", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-02", "shot_function": "observe", "story_moment": "both share the bench but avoid acknowledging each other", "primary_action": "their eyelines diverge", "action_phase": "hold", "shot_size": "medium-wide", "camera_height": "seated eye level", "focal_length_mm": 50, "composition": "negative space separates sister screen-left and brother screen-right", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-03", "shot_function": "emphasize", "story_moment": "the shared compass becomes the relationship trigger", "primary_action": "the compass slides to a stop", "action_phase": "contact", "shot_size": "insert", "camera_height": "bench height", "focal_length_mm": 65, "composition": "compass between two separated hands", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-04", "shot_function": "observe", "story_moment": "the sister completes her decision", "primary_action": "her fingers release and withdraw", "action_phase": "response", "shot_size": "medium", "camera_height": "seated eye level", "focal_length_mm": 50, "composition": "profile with hand and compass still readable", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-05", "shot_function": "react", "story_moment": "the brother fails to complete the reach", "primary_action": "his hand stops short", "action_phase": "hold", "shot_size": "over-shoulder medium", "camera_height": "seated eye level", "focal_length_mm": 50, "composition": "sister foreground edge, brother and hand in midground", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-06", "shot_function": "react", "story_moment": "the consequence registers without dialogue", "primary_action": "the brother lowers his gaze", "action_phase": "response", "shot_size": "medium close-up", "camera_height": "eye level", "focal_length_mm": 75, "composition": "restrained face with terminal geometry retained", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-07", "shot_function": "transition", "story_moment": "the unseen departure becomes the dominant absence", "primary_action": "the empty ramp holds", "action_phase": "hold", "shot_size": "point-of-view wide", "camera_height": "seated eye level", "focal_length_mm": 40, "composition": "foreground railing and ramp preserve geography; no people", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-08", "shot_function": "observe", "story_moment": "both characters remain present but no longer share attention", "primary_action": "they look in opposite directions", "action_phase": "hold", "shot_size": "uneven two-shot", "camera_height": "seated eye level", "focal_length_mm": 50, "composition": "compass remains between them without hero framing", "reference_ids": ["image-1", "image-2"]},
+      {"id": "frame-09", "shot_function": "resolve", "story_moment": "the sister has left and the decision remains", "primary_action": "the brother sits partly obscured beside the untouched compass", "action_phase": "hold", "shot_size": "medium-wide", "camera_height": "seated eye level", "focal_length_mm": 50, "composition": "empty bench space dominates frame-right; brother remains screen-right partial", "reference_ids": ["image-1", "image-2"]}
+    ]
+  },
+  "constraints": {
+    "must_preserve": ["identity", "wardrobe", "terminal geography", "compass continuity", "screen direction"],
+    "must_change": [],
+    "exclude": ["text", "captions", "shot numbers", "speech bubbles", "logos", "watermarks", "color", "photo collage", "poster layout"]
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": ["readable shot function", "consistent identity", "clear hands and compass", "filmable geography"],
+    "artifact_budget": "strict",
+    "quality_controls": ["black-and-white pencil and marker storyboard", "controlled gray wash", "clear silhouettes", "no style drift"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "high", "size": "1536x864"}
+  }
+}

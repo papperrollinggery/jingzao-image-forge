@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
 
@@ -26,6 +26,8 @@ jobs:
         run: |
           python3 scripts/validate_spec.py templates/visual-spec.json
           python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+          python3 scripts/validate_spec.py examples/narrative-film-frame.json
+          python3 scripts/validate_spec.py examples/styleboard-3x3.json
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
@@ -36,3 +38,7 @@ jobs:
             python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform "$platform" > "/tmp/$platform.json"
             python3 -m json.tool "/tmp/$platform.json" > /dev/null
           done
+          python3 scripts/compile_prompt.py examples/narrative-film-frame.json --platform openai > /tmp/narrative-openai.json
+          python3 -m json.tool /tmp/narrative-openai.json > /dev/null
+          python3 scripts/compile_prompt.py examples/styleboard-3x3.json --platform openai > /tmp/styleboard-openai.json
+          python3 -m json.tool /tmp/styleboard-openai.json > /dev/null

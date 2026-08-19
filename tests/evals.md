@@ -141,3 +141,41 @@ Pass criteria:
 - Prefers clean-slate regeneration for widespread dirty residue unless preserving the original image is a stronger requirement.
 - Preserves requested film grain, practical flare, wet gloss, brush texture, or particles when they are intentional and physically or stylistically motivated.
 - Does not claim the artifact cause or visual fix is verified without inspecting the generated output.
+
+## 13. Narrative Film Frame vs Poster
+
+Request: Create one cinematic story frame showing two characters realizing their alliance has ended. The user did not ask for a poster or key art.
+
+Pass criteria:
+
+- Selects `narrative_film_frame`, defines the visible relationship change, viewer task, frozen moment, and withheld information.
+- Places the viewer in a motivated position and maps blocking, eyelines, axis, distance, occlusion, and attention path before choosing camera vocabulary.
+- Couples shot size, camera height, camera distance, focal length, focus, foreground, and motivated lighting to one primary viewer function.
+- Preserves partial information and offscreen space instead of presenting both characters and all props as a heroic showcase.
+- Does not use low angle, ultrawide lens, rim light, smoke, or particles as generic cinematic decoration.
+
+## 14. Artistic Spectacle and Chinese Fantasy
+
+Request: Create a monumental Chinese-fantasy frame in which one cultivator redirects a mountain-sized descending formation. The user wants a heightened, visually rich result rather than strict grounded realism.
+
+Pass criteria:
+
+- Separates treatment, spectacle scale, camera freedom, genre logic, and deliverable type instead of forcing grounded live action.
+- Proves giant scale through human/environment comparison, atmosphere, occlusion, shadow extent, and environment response.
+- Gives the supernatural effect an owner, activation protocol, material/shape, path, operation, resistance, visible result, and residue.
+- Uses one dominant effect family and one selected hero read; effects do not hide the body action, contact, scale relationship, or story beat.
+- Allows expressive or impossible camera logic only when it produces the requested viewer effect and remains spatially readable.
+
+## 15. Reference-Led Nine-Grid Styleboard
+
+Request: Analyze supplied identity, wardrobe, scene, camera, and hand-drawn style references, then create a nine-grid storyboard with consistent characters and readable film shots.
+
+Pass criteria:
+
+- Selects `styleboard`, assigns each reference one primary role, and states what each reference must not control.
+- Builds nine frame cards before generation; each has one function, story moment, primary action, action phase, shot size, camera height, focal-length feel, and composition.
+- Supports explicit `line_art`, `hand_drawn`, or `cinematic_frame` presentation without cross-style drift.
+- Selects `sheet_direct` for fast ideation, `independent_frames` for strict identity/geometry/Match Cut work, or `hybrid` for a fast board followed by targeted high-quality frame replacement.
+- Keeps labels and arrows outside generated frames; direct sheets remain valid deliverables when their panel count, ratio, continuity, and crop geometry pass review.
+- Locks identity, wardrobe, scene geography, light direction, props, screen direction, and match-cut geometry separately from allowed variation.
+- A failed frame is revised independently rather than regenerating the entire board.

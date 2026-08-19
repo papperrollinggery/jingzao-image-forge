@@ -5,6 +5,7 @@
   "platform": "openai",
   "language": "en",
   "canvas": {
+    "profile": "standard_widescreen",
     "aspect_ratio": "16:9",
     "dimensions": {"width": 1536, "height": 864}
   },

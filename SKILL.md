@@ -1,6 +1,6 @@
 ---
 name: jingzao-image-forge
-description: Create, reverse-engineer, edit, restyle, or expand image prompts using a structured visual specification and platform-aware compilation. Use when composition, spatial edits, subject consistency, exact text, clean material rendering, artifact control, lighting, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
+description: Create, reverse-engineer, edit, restyle, expand, or build reference-led styleboards using a structured visual specification and platform-aware compilation. Use when cinematic narrative frames, artistic treatments, giant-scale spectacle, Chinese fantasy effects, character blocking, camera and lens logic, composition, clean material rendering, artifact control, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
 ---
 
 # 镜造 Image Forge
@@ -9,7 +9,7 @@ Turn an image brief or observed reference into a maintainable visual specificati
 
 ## Workflow
 
-1. Classify the request as `create`, `reconstruct`, `edit`, `restyle`, or `expand`.
+1. Classify the operation as `create`, `reconstruct`, `edit`, `restyle`, `expand`, or `styleboard`.
 2. Read or inspect every supplied image before describing it. Never infer image contents from a filename or prior summary.
 3. Preserve the user's exact facts: subject count, names, actions, spatial relationships, visible text, aspect ratio, dimensions, reference roles, and forbidden elements.
 4. Detect exact named entities whose existing model knowledge may improve the result. Preserve them verbatim as optional `knowledge_anchors`; do not replace them with generic feature inventories.
@@ -42,6 +42,39 @@ For premium, clean, photorealistic, product, portrait, dark-scene, or dense fant
 - Prefer positive visible targets plus one compact current-risk avoid block. Do not preserve a history of old failed objects or styles in negative constraints.
 - For dirty-output retries, regenerate from a clean specification when practical. Repeated image-to-image cleanup can preserve or amplify unwanted residue; use editing only when the user needs the original structure preserved.
 
+## Visual Intent Router
+
+After choosing the operation mode, analyze what the image must do. Do not collapse “cinematic,” “artistic,” “spectacular,” and “fantasy” into one poster-like treatment.
+
+- **Deliverable:** `narrative_film_frame`, `cinematic_key_art`, `poster`, or `concept_art`. Story moments, relationships, reactions, decisions, and implied before/after favor a narrative frame; marketing, cover, hero, title-led, or showcase language favors key art or poster.
+- **Treatment:** `grounded_cinematic`, `heightened_cinematic`, or `graphic_stylized`. Grounded choices remain physically filmable; heightened choices may exaggerate perspective, color, optical behavior, or composition when the viewer effect is explainable; graphic treatment may use designed shape, line, 2D/3D layering, and impossible camera logic while preserving spatial readability.
+- **Spectacle scale:** `intimate`, `dramatic`, `monumental`, or `mythic`. Scale changes camera placement, human/environment ratio, atmosphere, occlusion, environment response, and information density—not merely the adjective “epic.”
+- **Genre logic:** record the world rule that governs the shot. Chinese fantasy, xianxia, mythology, giant creatures, science fiction, product work, and documentary realism require different effect, material, and camera assumptions.
+- **Camera freedom:** `physical`, `heightened`, or `impossible`. Use the least impossible level that achieves the user's requested result.
+
+For substantial cinematic, artistic, spectacle, giant-scale, or Chinese-fantasy work, read [references/direction-profiles.md](references/direction-profiles.md). Preserve the user's medium and desired exaggeration; realism is a choice, not a universal quality gate.
+
+## Narrative Film Frame
+
+When the deliverable is `narrative_film_frame`, read [references/cinematic-shot-design.md](references/cinematic-shot-design.md).
+
+- Define the visible event, relationship change, viewer task, chosen frozen moment, and withheld information before camera vocabulary.
+- Choose viewer position and primary relationship before blocking, eyelines, axis, screen direction, occlusion, and attention flow.
+- Derive shot size, camera height, camera distance, focal length, focus, and foreground from one primary viewer function.
+- Tie lighting to physical or world-valid sources and a narrative function. Decorative rim light, smoke, bloom, particles, and graphic effects cannot replace staging or performance.
+- Guard against posterization: do not make every character, prop, effect, and background equally visible, centered, sharp, heroic, or simultaneously active.
+
+Use `canvas.profile: cinematic_ultrawide` when lateral distance, offscreen space, layered geography, giant scale, or a 21:9/2.35:1 delivery materially helps. Do not force all film frames into ultrawide.
+
+## Reference-Led Styleboard
+
+Use `styleboard` when the user wants reference analysis translated into several consistent shots, a triptych, contact sheet, nine-grid board, vertical storyboard, camera/style study, or “reference image → target style → multi-frame presentation.” Read [references/styleboard-mode.md](references/styleboard-mode.md).
+
+- Inspect every reference and assign one primary role: identity, wardrobe, scene, prop, `camera_action`, style, layout, or palette. A reference must not silently control unrelated layers.
+- Build frame cards before generation. Each frame needs one shot function, one story moment, one primary action and phase, camera logic, subject map, and reference assignments.
+- Choose the generation strategy from speed and continuity risk: `sheet_direct` for the fastest one-call board, `independent_frames` for strict native-ratio continuity, or `hybrid` for a fast direct sheet followed by targeted cell replacement. A direct sheet is a valid deliverable when panel count, cell geometry, continuity, and crop safety pass review.
+- Lock continuity and state allowed variation separately. Match-cut pairs share geometry, orientation, focal-length feel, scale, action phase, and prop state; only declared variables may change.
+
 ## Mode Rules
 
 - `create`: Describe the desired result directly; add exclusions only when they prevent a likely failure.
@@ -49,6 +82,7 @@ For premium, clean, photorealistic, product, portrait, dark-scene, or dense fant
 - `edit`: Use “change only” plus explicit invariants. Prefer one meaningful change per iteration.
 - `restyle`: Lock geometry, identity, pose, layout, and text unless the user says otherwise; vary only visual treatment.
 - `expand`: Preserve the original field of view and subject position, then describe only the new canvas area and continuity requirements.
+- `styleboard`: Analyze reference roles, define a visual master and frame cards, choose `sheet_direct`, `independent_frames`, or `hybrid` from speed and continuity risk, then verify the approved sequence or board.
 
 ## Session Improvement Loop
 
@@ -70,5 +104,6 @@ Return the smallest useful set of artifacts:
 - separate negative prompt or exclusion controls only when supported;
 - separate parameters and warnings;
 - exact preservation and change constraints for edits.
+- global style locks, per-frame cards, reference assignments, and assembly instructions for `styleboard`.
 
 Do not claim an image was generated, a style was matched, or an edit is pixel-accurate without tool output or visual verification. Do not silently add brands, logos, people, text, products, or story elements.

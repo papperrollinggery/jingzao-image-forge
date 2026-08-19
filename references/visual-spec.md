@@ -11,7 +11,7 @@ Required top-level fields:
 | Field | Purpose |
 | --- | --- |
 | `visual_generation_spec` | Schema version. Use `"1.0"`. |
-| `mode` | `create`, `reconstruct`, `edit`, `restyle`, or `expand`. |
+| `mode` | `create`, `reconstruct`, `edit`, `restyle`, `expand`, or `styleboard`. |
 | `intent` | What the finished image is for and what success means. |
 | `platform` | `auto`, `openai`, `flux`, `midjourney`, or `generic`. |
 | `canvas` | Aspect ratio and optional dimensions. |
@@ -20,9 +20,13 @@ Required top-level fields:
 Optional sections add precision only when relevant:
 
 - `inputs`: base image, subject reference, style reference, layout reference, palette reference, or mask.
+- `language`: content-language metadata (`en`, `zh`, or `zh-CN`) preserved in compiler output; it does not translate supplied content automatically.
 - `knowledge_anchors`: exact named entities that a capable generation model may recognize from existing world knowledge or supplied references.
+- `direction`: deliverable, treatment, spectacle scale, camera freedom, genre, world rule, and visual goal.
+- `cinematic`: narrative-frame contract, shot function, viewer position, frozen moment, and posterization guard.
 - `scene`: environment, time, atmosphere, and overall summary.
 - `subjects`: count, appearance, action, pose, gaze, position, scale, and relationships.
+- `staging`: primary relationship, subject placement, eyelines, screen direction, axis, occlusion, and attention path.
 - `composition`: shot size, angle, perspective, framing, negative space, and depth layers.
 - `lighting`: key, fill, rim, direction, contrast, temperature, and practical sources.
 - `materials`: target-specific surface and physical properties.
@@ -31,6 +35,8 @@ Optional sections add precision only when relevant:
 - `style`: medium, realism level, visual traits, era, and non-conflicting references.
 - `text_elements`: literal visible text and typography constraints.
 - `spatial_edits`: local edit targets, anchors, regions, and preservation behavior.
+- `effects`: optional causal VFX cards for supernatural, giant-scale, destruction, transformation, energy, or environmental effects.
+- `styleboard`: reference assignments, continuity locks, presentation finish, frame cards, and board assembly.
 - `render`: quality intent, detail priorities, artifact budget, and optional quality controls.
 - `platform_options`: syntax and generation controls for a named platform.
 
@@ -53,6 +59,19 @@ Any major object may contain:
 - `variance`: allowed creative freedom from `0.0` to `1.0`.
 
 If `lock` is `true`, set `variance` to `0.0`. These values guide compilation and review. They are not automatically equivalent to Midjourney weights, CFG, denoise strength, masks, or any provider-specific parameter.
+
+## Canvas Profiles
+
+`canvas.profile` is optional:
+
+- `auto`: choose from task intent while still recording the final ratio.
+- `standard_widescreen`: 16:9-class delivery.
+- `cinematic_ultrawide`: 21:9, 2.35:1, or 2.39:1-class delivery when width carries narrative or spectacle information.
+- `vertical_story`: 9:16-class frame.
+- `square`: 1:1-class frame.
+- `custom`: any validated positive ratio.
+
+The profile does not override an explicit user ratio or the source image in an edit, restyle, or expansion.
 
 ## Knowledge Anchors
 
@@ -79,6 +98,122 @@ Use `knowledge_anchors` only when an exact named entity contributes meaningful p
 - `verification`: `unverified`, `reference_checked`, or `user_confirmed`. Model recognition alone remains `unverified`.
 - Keep cinematic composition separate from `style.medium`; “cinematic” does not imply live action.
 - Do not replace the anchor with a long facial, costume, architectural, or object-feature inventory on the first pass. Add descriptors only to resolve ambiguity or correct an observed miss.
+
+## Visual Direction
+
+```json
+{
+  "direction": {
+    "deliverable": "narrative_film_frame",
+    "treatment": "heightened_cinematic",
+    "spectacle_scale": "monumental",
+    "camera_freedom": "heightened",
+    "genre": "Chinese fantasy",
+    "world_rule": "cultivation effects must have a visible owner, operation, resistance, result, and residue",
+    "visual_goal": "place the viewer inside a pressured relationship rather than presenting every asset as key art"
+  }
+}
+```
+
+These fields are independent. A narrative frame may be grounded or highly stylized; a poster may be realistic or graphic; giant scale may be dramatic or mythic.
+
+## Cinematic Narrative Contract
+
+Use only for a cinematic task:
+
+```json
+{
+  "cinematic": {
+    "profile": "narrative_film_frame",
+    "shot_function": "observe",
+    "visible_event": "one character notices that the other has already decided to leave",
+    "relationship_pressure": "neither character meets the other's gaze",
+    "viewer_task": "read the decision through distance and an unfinished object action",
+    "viewer_position": "seated at the far end of the same table",
+    "frozen_moment": "the hand releases the shared object before the other character reaches it",
+    "withheld_information": "the destination remains offscreen",
+    "posterization_guard": true
+  },
+  "staging": {
+    "primary_relationship": "A withdraws from B across the table",
+    "subject_positions": ["A screen-left foreground", "B screen-right midground"],
+    "eyeline_logic": "A looks toward the exit; B watches A's hand",
+    "screen_direction": "attention moves left to right toward the unseen exit",
+    "axis": "table and eyeline axis remains readable",
+    "occlusion": "foreground chair edge partially blocks B",
+    "attention_path": "released object -> A's hand -> B's gaze -> empty doorway"
+  }
+}
+```
+
+For `narrative_film_frame`, the specification must also provide camera motivation, camera height, camera distance, lens rationale, and motivated lighting fields.
+
+## Causal Effects
+
+Use one dominant effect family and only the visible phase needed by the still:
+
+```json
+{
+  "effects": [
+    {
+      "function": "show that the formation suppresses movement",
+      "owner_source": "the cultivator's grounded hand seal",
+      "trigger_formation": "ink-dark lines lock into a restrained circular lattice",
+      "material_shape": "compressed calligraphic geometry with mineral dust",
+      "path_layer": "midground lattice wraps the target without covering the contact point",
+      "operation_contact": "binds the target's forward motion",
+      "receiver_environment_response": "cloth, dust, and nearby water pull toward the lattice",
+      "intensity": "hero",
+      "decay_residue": "lines dim into a few stable seal marks and settled dust"
+    }
+  ]
+}
+```
+
+An effect must have a source, operation, visible consequence, and endpoint. Particles, glow, smoke, trails, floating rocks, and emissive light are not default decoration.
+
+## Styleboard Specification
+
+`mode: styleboard` requires image inputs and a `styleboard` object:
+
+```json
+{
+  "styleboard": {
+    "layout": "3x3",
+    "frame_count": 9,
+    "frame_aspect_ratio": "16:9",
+    "presentation": "hand_drawn",
+    "generation_strategy": "auto",
+    "reading_order": "left_to_right_top_to_bottom",
+    "continuity_locks": ["character identity", "wardrobe", "location geography", "light direction"],
+    "allowed_variation": ["shot size", "camera angle", "action phase"],
+    "reference_assignments": [
+      {
+        "input_id": "image-1",
+        "role": "style",
+        "secondary_roles": [],
+        "use": "line weight, paper texture, gray-value finish",
+        "ignore": "identity, costume, scene, pose"
+      }
+    ],
+    "frames": [
+      {
+        "id": "frame-01",
+        "shot_function": "establish",
+        "story_moment": "the characters enter the same space but have not yet acknowledged each other",
+        "primary_action": "one character stops at the threshold",
+        "action_phase": "hold",
+        "shot_size": "wide",
+        "camera_height": "eye level",
+        "focal_length_mm": 35,
+        "composition": "doorway foreground, two characters separated across the middle ground"
+      }
+    ]
+  }
+}
+```
+
+Canonical presentation values are `line_art`, `hand_drawn`, `cinematic_frame`, or `mixed`. Generation strategies are `auto`, `sheet_direct`, `independent_frames`, or `hybrid`. For equal-cell direct sheets, `board ratio = frame ratio × columns ÷ rows`; this preserves native cell geometry for both square and non-square grids. Each reference has one primary `role` plus optional explicit, non-duplicated `secondary_roles` when the same image genuinely proves more than one layer.
 
 ## Spatial Coordinate DSL
 
@@ -133,6 +268,10 @@ Provide a base image and a style target. Put geometry, subject identity, pose, l
 ### Expand
 
 Provide the base image, new canvas, extension direction, and continuity rules. Preserve the original image content and subject placement unless the user explicitly requests reframing. Describe how background, lighting, texture, perspective, and depth continue into new space.
+
+### Styleboard
+
+Provide at least one image input, explicit reference roles, a presentation finish, frame count, frame ratio, continuity locks, allowed variation, and one frame card per frame. Each frame has one shot function, one story moment, one primary action, and one action phase.
 
 ## Exact Text
 
@@ -203,6 +342,10 @@ If the relation is essential, repeat it in `constraints.must_preserve`.
 - Reference-image roles are distinct.
 - Exact knowledge anchors appear early, remain verbatim, and retain their requested incarnation and medium.
 - Canonical accuracy is not marked verified from model knowledge alone.
+- Visual direction distinguishes deliverable, treatment, spectacle scale, genre logic, and camera freedom.
+- Narrative frames bind relationship, staging, lens, camera distance, and motivated light instead of defaulting to poster composition.
+- Causal effects have an owner, path, operation, response, and residue.
+- Styleboard references have one primary role; frame cards and continuity locks are explicit.
 - Artifact controls preserve intentional medium traits while suppressing unmotivated noise, light spots, uniform gloss, and equal-detail rendering.
 - Internal controls are not misrepresented as provider-native controls.
 - Unobserved reconstruction details are labeled as inference or unknown.

@@ -9,18 +9,19 @@ Platform behavior changes over time. The provider notes below were checked again
 Use a stable order so prompts remain debuggable:
 
 1. exact named-entity knowledge anchors and requested incarnation;
-2. intent or deliverable type;
-3. scene and environment;
-4. subjects, actions, and relationships;
-5. composition and spatial placement;
-6. lighting, materials, color, and optics;
-7. style and realism;
-8. compact artifact budget and shot-specific quality controls;
-9. exact visible text;
-10. requested edits;
-11. preservation constraints;
-12. exclusions or provider-native negative controls;
-13. generation parameters, kept outside prose when the provider supports them.
+2. intent, deliverable type, treatment, spectacle scale, genre logic, and camera freedom;
+3. cinematic shot contract, viewer position, frozen moment, and staging when relevant;
+4. scene and environment;
+5. subjects, actions, relationships, and causal effects;
+6. composition, camera motivation, focal-length rationale, and spatial placement;
+7. motivated lighting, materials, color, and optics;
+8. style and realism;
+9. compact artifact budget and shot-specific quality controls;
+10. exact visible text;
+11. requested edits or styleboard frame cards;
+12. preservation and continuity constraints;
+13. exclusions or provider-native negative controls;
+14. generation parameters, kept outside prose when the provider supports them.
 
 Compile locked, high-weight fields first and repeat critical invariants in the edit section. Do not translate `control.weight`, `lock`, or `variance` into provider parameters unless a documented mapping truly exists.
 
@@ -37,6 +38,12 @@ When the built-in Responses image-generation tool returns `revised_prompt`, insp
 For reference-backed or hybrid identity work, label every image by index and role. GPT Image 2 processes image inputs at high fidelity automatically; do not invent or emit an `input_fidelity` control for this model. World knowledge and prompt rewriting can improve creation, but neither proves canonical accuracy.
 
 Quality controls should be short and positive: material-specific surface response, controlled highlights, natural microcontrast, selective focal detail, and only source- or scene-motivated grain, bloom, flare, gloss, and particles. Official OpenAI prompting examples favor real texture, natural color balance, and limited retouching, and recommend iterative refinement over overloaded prompts.
+
+For `narrative_film_frame`, preserve the shot contract before aesthetic polish: visible event, relationship pressure, viewer task and position, one frozen moment, staging, camera motivation, distance, focal-length rationale, and motivated lighting. For spectacle or Chinese-fantasy work, compile the chosen treatment and scale separately from causal effects so visual richness does not become a poster-like list of simultaneous assets.
+
+For `styleboard`, compile the global visual master, reference assignments, continuity locks, frame cards, and explicit generation strategy as a prompt package. `sheet_direct` requests one equal-cell board and must carry grid geometry, reading order, panel count, and continuity locks; `independent_frames` compiles native-ratio frame prompts for assembly; `hybrid` compiles the direct board first and targeted replacement frames second. Do not represent any strategy as universally superior.
+
+When FLUX `prompt_format` is `json`, the compiler result remains a JSON envelope whose `prompt` field contains a second serialized JSON document. Consumers must parse the outer result and then parse `prompt` when they need the structured FLUX object.
 
 Example shape:
 

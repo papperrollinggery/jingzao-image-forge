@@ -1,0 +1,147 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create one grounded narrative film frame in which two adult siblings reveal a decision through distance, gaze, and an unfinished object action.",
+  "platform": "openai",
+  "canvas": {
+    "profile": "cinematic_ultrawide",
+    "aspect_ratio": "21:9",
+    "dimensions": {"width": 1792, "height": 768}
+  },
+  "inputs": [],
+  "knowledge_anchors": [],
+  "direction": {
+    "deliverable": "narrative_film_frame",
+    "treatment": "grounded_cinematic",
+    "spectacle_scale": "intimate",
+    "camera_freedom": "physical",
+    "genre": "relationship drama",
+    "world_rule": "ordinary contemporary ferry-terminal space",
+    "visual_goal": "show an irreversible relationship decision without poster-style simultaneous presentation"
+  },
+  "cinematic": {
+    "profile": "narrative_film_frame",
+    "shot_function": "observe",
+    "visible_event": "the younger sister releases their father's brass compass before her brother reaches it",
+    "relationship_pressure": "the siblings remain far apart and avoid direct eye contact",
+    "viewer_task": "infer that the sister has already decided to leave",
+    "viewer_position": "seated at the far left end of the same weathered bench",
+    "frozen_moment": "the compass has stopped between both hands while the brother's reach remains unfinished",
+    "withheld_information": "the ferry and destination remain offscreen",
+    "posterization_guard": true
+  },
+  "scene": {
+    "summary": "A closed river ferry terminal before sunrise.",
+    "setting": "Weathered green bench, concrete columns, railing, empty ramp, cold river haze.",
+    "time": "Predawn blue hour.",
+    "atmosphere": ["quiet river air", "faint damp haze", "empty public infrastructure"]
+  },
+  "subjects": [
+    {
+      "id": "younger-sister",
+      "description": "A fictional adult Chinese woman in dark practical travel clothing.",
+      "count": 1,
+      "appearance": ["restrained face", "worn dark jacket", "tied-back hair"],
+      "action": "Withdraws her hand after releasing the compass.",
+      "pose": "Seated, shoulders still, body angled toward the unseen ramp.",
+      "gaze": "Looks frame-right toward the offscreen ferry ramp.",
+      "position": {"x_percent": 31.0, "y_percent": 52.0, "depth": "midground"},
+      "scale": "Medium-wide readable figure.",
+      "relationships": ["Sits far from her brother", "releases the shared compass before he reaches it"]
+    },
+    {
+      "id": "older-brother",
+      "description": "A fictional adult Chinese man in a dark weathered jacket.",
+      "count": 1,
+      "appearance": ["restrained face", "short dark hair", "practical travel clothing"],
+      "action": "Stops his hand short of the compass.",
+      "pose": "Seated farther away, weight not yet shifted.",
+      "gaze": "Watches his sister's withdrawing hand rather than her face.",
+      "position": {"x_percent": 69.0, "y_percent": 51.0, "depth": "midground"},
+      "scale": "Medium-wide readable figure, partly occluded.",
+      "relationships": ["Keeps the bench distance", "does not complete the reach"]
+    }
+  ],
+  "staging": {
+    "primary_relationship": "The sister withdraws from her brother across a shared bench.",
+    "subject_positions": ["sister screen-left midground", "brother screen-right farther away"],
+    "eyeline_logic": "sister looks toward the ramp; brother watches her hand",
+    "screen_direction": "attention moves left-to-right toward the unseen exit",
+    "axis": "bench, compass, and eyelines keep the relationship readable",
+    "occlusion": "foreground railing partially blocks the brother",
+    "attention_path": "compass to withdrawing hand to brother's gaze to empty frame-right ramp"
+  },
+  "composition": {
+    "shot_size": "medium-wide two-shot",
+    "camera_angle": "grounded seated eye level",
+    "perspective": "natural perspective",
+    "point_of_view": "same-bench observer",
+    "camera_motivation": "place the viewer inside the shared but separating space",
+    "camera_height": "seated eye level",
+    "camera_distance": "close enough to read hands and faces while preserving the empty bench distance",
+    "focal_length_mm": 50,
+    "lens_rationale": "natural relationship distance without wide-angle facial distortion",
+    "subject_frame_ratio": "people occupy about half the frame; empty space carries the remaining pressure",
+    "framing": "siblings separated across the horizontal frame; compass is small and central but not heroic",
+    "foreground_logic": "railing proves the constrained viewer position",
+    "negative_space": "empty frame-right space implies the unseen ramp and departure",
+    "depth_layers": ["foreground railing", "midground bench and siblings", "background ramp and river haze"]
+  },
+  "lighting": {
+    "summary": "Cold predawn ambient light with one weak amber maintenance practical.",
+    "motivation": "blue dawn enters from the unseen ramp; an existing lamp glows behind the bench",
+    "narrative_function": "the compass receives the clearest small highlight while the destination stays dim",
+    "key": "cold dawn from frame-right",
+    "fill": "weak ambient river sky",
+    "rim": "none beyond natural edge separation",
+    "direction": "right-to-left falloff",
+    "contrast": "uneven but readable faces; ordinary dark areas remain",
+    "color_temperature": "cool blue ambient and weak amber practical",
+    "practicals": ["one maintenance lamp"]
+  },
+  "materials": [
+    {
+      "target": "bench and compass",
+      "description": "Weathered painted wood and a small handled brass compass.",
+      "physical_properties": ["chipped matte paint", "localized brass highlight", "damp public-space wear"]
+    }
+  ],
+  "color": {
+    "palette": ["predawn blue-gray", "weathered green", "muted skin and cloth", "small brass accent"],
+    "grade": "natural restrained film color",
+    "contrast": "medium-low microcontrast with one small bright object",
+    "saturation": "restrained"
+  },
+  "optics": {
+    "depth_of_field": "moderate, preserving the terminal geometry",
+    "focus_target": "compass and withdrawing hands",
+    "motion_blur": "none",
+    "lens_character": "natural 50mm filmic rendering",
+    "artifacts": ["subtle controlled grain"]
+  },
+  "style": {
+    "medium": "live-action feature-film still",
+    "realism": "grounded photographic realism",
+    "visual_traits": ["practical location", "restrained performance", "partial occlusion", "ordinary unresolved areas"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["poster composition", "promotional polish", "decorative rim light"]
+  },
+  "text_elements": [],
+  "spatial_edits": [],
+  "effects": [],
+  "constraints": {
+    "must_preserve": ["exactly two siblings", "bench distance", "compass between them", "divergent eyelines"],
+    "must_change": [],
+    "exclude": ["text", "logo", "watermark", "hero pose", "montage", "split screen"]
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": ["hands", "compass", "restrained faces", "relationship distance"],
+    "artifact_budget": "balanced",
+    "quality_controls": ["selective focus and ordinary background falloff", "no equal-detail poster rendering"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "high", "size": "1792x768"}
+  }
+}

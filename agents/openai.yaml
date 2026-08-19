@@ -1,6 +1,6 @@
 interface:
   display_name: "镜造 Image Forge"
-  short_description: "Forge clean visual specs and platform-ready image prompts"
+  short_description: "Direct cinematic specs, spectacle, styleboards, and image prompts"
   default_prompt: "Use $jingzao-image-forge to turn this image brief into a validated visual spec and platform-ready prompt."
 policy:
   allow_implicit_invocation: true
