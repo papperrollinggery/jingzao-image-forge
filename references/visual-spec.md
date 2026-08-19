@@ -11,7 +11,7 @@ Required top-level fields:
 | Field | Purpose |
 | --- | --- |
 | `visual_generation_spec` | Schema version. Use `"1.0"`. |
-| `mode` | `create`, `reconstruct`, `edit`, `restyle`, `expand`, or `styleboard`. |
+| `mode` | `create`, `reconstruct`, `edit`, `restyle`, `expand`, `learn_style`, or `styleboard`. |
 | `intent` | What the finished image is for and what success means. |
 | `platform` | `auto`, `openai`, `flux`, `midjourney`, or `generic`. |
 | `canvas` | Aspect ratio and optional dimensions. |
@@ -19,20 +19,25 @@ Required top-level fields:
 
 Optional sections add precision only when relevant:
 
-- `inputs`: base image, subject reference, style reference, layout reference, palette reference, or mask.
+- `inputs`: actual base image, subject, wardrobe, product, logo, prop, scene, camera/action, style, layout, palette, or mask references. Use `source_kind`, `source_ref`, and `must_attach` when the actual image must reach generation/editing; see [reference-delivery.md](reference-delivery.md).
 - `language`: content-language metadata (`en`, `zh`, or `zh-CN`) preserved in compiler output; it does not translate supplied content automatically.
 - `knowledge_anchors`: exact named entities that a capable generation model may recognize from existing world knowledge or supplied references.
+- `creative_routing`: primary scenario, genre family, aesthetic family, capture/render method, scene archetypes, audience effect, delivery context, and anti-drift rules.
 - `direction`: deliverable, treatment, spectacle scale, camera freedom, genre, world rule, and visual goal.
 - `cinematic`: narrative-frame contract, shot function, viewer position, frozen moment, and posterization guard.
 - `scene`: environment, time, atmosphere, and overall summary.
 - `subjects`: count, appearance, action, pose, gaze, position, scale, and relationships.
 - `staging`: primary relationship, subject placement, eyelines, screen direction, axis, occlusion, and attention path.
-- `composition`: shot size, angle, perspective, framing, negative space, and depth layers.
+- `spatial_dynamics`: dominant read, beauty/tension mechanism, exaggeration, distortion, action/counterforce, layer roles, parallax, and motion evidence.
+- `composition`: camera motivation, viewer position, shot size, camera height/distance, focal-length rationale, pitch/yaw/roll, projection/distortion, framing, crop pressure, negative space, and depth layers.
 - `lighting`: key, fill, rim, direction, contrast, temperature, and practical sources.
+- `color_pipeline`: professional exposure, tone scale, color separation, film/digital finishing, display intent, and shot matching.
+- `render_pipeline`: engine-reference scope, light transport, GI/ray tracing, PBR/NPR materials, sampling, and visible pass-separation intent.
 - `materials`: target-specific surface and physical properties.
 - `color`: palette and grade.
 - `optics`: focus, depth of field, lens character, motion blur, and optical artifacts.
 - `style`: medium, realism level, visual traits, era, and non-conflicting references.
+- `style_learning`: observed style mechanisms, inference/unknown separation, transfer boundaries, and validation prompts for `learn_style`.
 - `text_elements`: literal visible text and typography constraints.
 - `spatial_edits`: local edit targets, anchors, regions, and preservation behavior.
 - `effects`: optional causal VFX cards for supernatural, giant-scale, destruction, transformation, energy, or environmental effects.
@@ -58,7 +63,7 @@ Any major object may contain:
 - `lock`: whether the attribute is an invariant.
 - `variance`: allowed creative freedom from `0.0` to `1.0`.
 
-If `lock` is `true`, set `variance` to `0.0`. These values guide compilation and review. They are not automatically equivalent to Midjourney weights, CFG, denoise strength, masks, or any provider-specific parameter.
+If `lock` is `true`, set `variance` to `0.0`. These fields are optional planning/review annotations. The validator checks them, but the compiler deliberately does not turn them into prompt prose, repetition, or provider parameters. They are not equivalent to Midjourney weights, CFG, denoise strength, masks, or any provider-specific control.
 
 ## Canvas Profiles
 
@@ -117,6 +122,175 @@ Use `knowledge_anchors` only when an exact named entity contributes meaningful p
 
 These fields are independent. A narrative frame may be grounded or highly stylized; a poster may be realistic or graphic; giant scale may be dramatic or mythic.
 
+## Creative Routing
+
+Use one primary value per controlled family:
+
+```json
+{
+  "creative_routing": {
+    "scenario_profile": "product_tabletop",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "tactile_handcrafted",
+    "capture_or_render_method": "stop_motion",
+    "scene_archetypes": ["studio tabletop", "miniature set"],
+    "audience_effect": "make the object feel crafted, useful, and giftable",
+    "delivery_context": "portrait social campaign and product page",
+    "design_priority": "material tactility and label readability",
+    "cultural_context": "contemporary craft without invented heritage symbols",
+    "secondary_influence": "luxury editorial spacing",
+    "mix_rule": "handcrafted materials control the object and set; editorial spacing controls hierarchy only",
+    "style_authority": "user_brief",
+    "adaptation_rule": "new scenarios may change camera and layout but preserve the tactile tone and color hierarchy",
+    "tone_locks": ["matte material hierarchy", "restrained copper accent", "clean low-noise shadows"],
+    "forbidden_drift": ["plastic CG", "random rustic props", "unreadable label"]
+  }
+}
+```
+
+- `scenario_profile` states what the image must accomplish. Canonical profiles are documented in [scenario-profiles.md](scenario-profiles.md).
+- `genre_family` describes audience and story expectations; it does not define rendering medium.
+- `aesthetic_family` is the primary visible rule system. Canonical families and production methods are documented in [visual-style-atlas.md](visual-style-atlas.md).
+- `capture_or_render_method` describes how the image appears to have been made; it does not claim the generator used that physical process.
+- `scene_archetypes` accepts at most three open-text spatial functions.
+- A `secondary_influence` requires a `mix_rule` that assigns it one layer. Do not stack multiple equal-weight styles.
+- `style_authority` and `tone_locks` prevent a new scenario from silently erasing an explicit user, source-reference, capsule, or source-matched visual identity.
+
+## Spatial Dynamics and Camera Exaggeration
+
+```json
+{
+  "spatial_dynamics": {
+    "dominant_read": "the grounded fighter redirects the descending force",
+    "secondary_read": "the background city bends under the same pressure",
+    "beauty_mechanism": "clean silhouette against one calm sky gap, with copper light only at the contact line",
+    "tension_source": "diagonal descent opposed by a low grounded counterforce",
+    "exaggeration_budget": "strong",
+    "distortion_strategy": "perspective",
+    "realism_anchor": "feet, water displacement, and architecture preserve physical scale",
+    "action_vector": "upper right to lower left",
+    "counterforce": "ground reaction travels from both feet through the close-body hand seal",
+    "foreground_role": "wet stone edge and cloth prove viewer proximity and parallax",
+    "midground_role": "fighter and contact point own the action",
+    "background_role": "city and cloud response prove scale and consequence",
+    "depth_transition": "foreground diagonal leads to contact, then expands into the affected skyline",
+    "parallax_logic": "large near stone movement against slower distant architecture",
+    "motion_evidence": ["cloth lag", "water pull", "directional debris origin"],
+    "readability_guard": "do not let distortion stretch the face, contact point, or body anatomy"
+  }
+}
+```
+
+Composition may additionally specify `camera_pitch`, `camera_yaw`, `camera_roll`, `lens_projection`, `perspective_distortion`, `edge_behavior`, `crop_pressure`, `camera_state`, and `action_readability`. Parallax has one canonical home in `spatial_dynamics.parallax_logic`. Read [shot-tension-design.md](shot-tension-design.md).
+
+## Professional Color Pipeline
+
+`color_pipeline` separates technical/display intent from visible creative finishing:
+
+```json
+{
+  "color_pipeline": {
+    "intent": "film_emulation",
+    "color_science": "scene-referred wide-gamut intent with hue-preserving highlight compression",
+    "display_target": "SDR Rec.709",
+    "exposure_strategy": "protect window and practical-light texture while keeping hands readable",
+    "tonal_curve": "medium-density midtones, deep but open blacks, soft shoulder",
+    "black_point": "dense neutral black without crushing fabric folds",
+    "white_point": "practical bulb may approach white; skin and wall highlights retain texture",
+    "highlight_rolloff": "long natural rolloff around skin, brass, glass, and the practical source",
+    "shadow_floor": "cool readable floor with no cyan contamination",
+    "midtone_density": "slightly dense faces and wood without muddy microcontrast",
+    "white_balance": "cool exterior ambient opposed by one warm practical",
+    "color_separation": "skin, wood, brass, and blue ambient remain distinct",
+    "skin_tone_policy": "protect natural hue and luminance between warm and cool pools",
+    "saturation_policy": "restrained globally; brass owns the only warm accent",
+    "gamut_policy": "compress bright emissive and saturated blue without hue skews",
+    "film_emulation": {
+      "negative_or_reversal_character": "wide-latitude color-negative behavior",
+      "print_or_display_character": "restrained print density and soft highlight shoulder",
+      "grain": "fine irregular grain concentrated in shadows and midtones",
+      "halation": "low, only around sufficiently bright practical edges",
+      "bloom": "minimal and source-motivated",
+      "gate_weave": "none",
+      "vignette": "subtle optical falloff only"
+    },
+    "shot_matching": "lock black floor, skin treatment, and grain scale across the sequence",
+    "continuity_locks": ["skin hue", "shadow floor", "highlight ceiling", "grain scale"],
+    "forbidden_casts": ["global teal-orange", "cyan shadows", "yellow skin", "uniform red halation"]
+  }
+}
+```
+
+Read [color-pipeline.md](color-pipeline.md) for film, digital, black-and-white, print, archival, and sequence-matching rules.
+
+## Render Pipeline
+
+```json
+{
+  "render_pipeline": {
+    "domain": "path_traced",
+    "engine_reference": "Blender Cycles",
+    "engine_reference_scope": "appearance_reference",
+    "lighting_transport": "physically based diffuse, glossy, transmission, shadow, and volume paths",
+    "global_illumination": "soft multi-bounce indirect light with restrained color bleed",
+    "ray_tracing": "roughness-aware reflections and clean contact visibility",
+    "reflection_model": "material-specific specular width; metal reflects environment color",
+    "shadow_model": "soft area shadows plus precise contact shadows",
+    "ambient_occlusion": "local only at real creases and contacts; never a global dirt layer",
+    "volumetrics": "clear air unless the scene owns fog, smoke, dust, or cloud",
+    "material_workflow": "principled/OpenPBR-style metallic-roughness layers",
+    "subsurface_scattering": "skin, wax, leaves, marble, or food only where physically relevant",
+    "transmission_refraction": "IOR-aware glass and liquids with visible edges and background distortion",
+    "caustics": "only when visible and worth the noise budget",
+    "displacement_normal": "scale-correct displacement for silhouette; normals for microstructure",
+    "texture_scale": "texel and microtexture scale match object and camera distance",
+    "sampling_denoise": "high samples with detail-preserving denoise; no smeared hair, labels, or highlights",
+    "render_passes": ["diffuse", "specular", "transmission", "depth", "cryptomatte"],
+    "performance_fidelity_tradeoff": "final still prioritizes fidelity; real-time previews may simplify indirect light",
+    "npr_strategy": "",
+    "forbidden_artifacts": ["fireflies", "over-dark AO", "plastic roughness", "light leaks", "denoise smear"]
+  }
+}
+```
+
+Engine references describe visual behavior unless `engine_reference_scope` is explicitly `actual_pipeline`. See [render-pipeline.md](render-pipeline.md).
+
+## Style Learning
+
+`mode: learn_style` requires actual image inputs and a `style_learning` object:
+
+```json
+{
+  "style_learning": {
+    "profile_id": "graphite-copper-editorial",
+    "profile_name": "Graphite Copper Editorial",
+    "scope": "skill_candidate",
+    "status": "draft",
+    "source_input_ids": ["style-reference"],
+    "provenance": "Observed from a user-approved reference; raw image not embedded.",
+    "observed": {
+      "medium_behavior": "premium editorial infographic with dimensional product-visualization elements",
+      "palette_logic": ["graphite owns the field", "copper owns active lines and hierarchy"],
+      "shape_line_language": "thin rules, rectilinear panels, one circular lens motif",
+      "texture_material_logic": ["matte black", "selective brushed copper", "restrained glass"],
+      "lighting_logic": "one motivated warm path with localized highlights",
+      "composition_logic": ["large title", "single transformation path", "stacked readable sections"],
+      "typography_logic": ["high-contrast title", "clear sans labels", "monospace technical strings"],
+      "optics_rendering_logic": "clean low-noise rendering with restrained glow",
+      "motifs": ["scene graph", "lens ring", "storyboard grid"]
+    },
+    "inferred_traits": ["craft precision presented as premium technology"],
+    "unknowns": ["original typeface", "source software"],
+    "transfer_rules": ["transfer hierarchy and palette ownership, not source content"],
+    "forbidden_transfer": ["identity", "exact text", "logo", "exact layout coordinates"],
+    "validation_prompts": [],
+    "verification_notes": ""
+  }
+}
+```
+
+Scopes are `session`, `project`, or `skill_candidate`; statuses are `draft`, `validated`, or `adopted`. `validated` and `adopted` require at least two transfer-test prompts plus visual review notes. See [style-learning.md](style-learning.md) for export, application, privacy, and adoption rules.
+
 ## Cinematic Narrative Contract
 
 Use only for a cinematic task:
@@ -162,6 +336,7 @@ Use one dominant effect family and only the visible phase needed by the still:
       "material_shape": "compressed calligraphic geometry with mineral dust",
       "path_layer": "midground lattice wraps the target without covering the contact point",
       "operation_contact": "binds the target's forward motion",
+      "resistance_cost": "the caster's grounded arm trembles and the seal loses one outer ring",
       "receiver_environment_response": "cloth, dust, and nearby water pull toward the lattice",
       "intensity": "hero",
       "decay_residue": "lines dim into a few stable seal marks and settled dust"
@@ -269,6 +444,10 @@ Provide a base image and a style target. Put geometry, subject identity, pose, l
 
 Provide the base image, new canvas, extension direction, and continuity rules. Preserve the original image content and subject placement unless the user explicitly requests reframing. Describe how background, lighting, texture, perspective, and depth continue into new space.
 
+### Learn Style
+
+Provide at least one actual image input and a complete `style_learning` record. Separate observed mechanisms, inferred traits, and unknowns. Export only reusable visual rules; do not embed source images or transfer source identity, exact text, logos, signatures, protected designs, or exact layout coordinates. Validate on two different subjects or scenarios before adoption.
+
 ### Styleboard
 
 Provide at least one image input, explicit reference roles, a presentation finish, frame count, frame ratio, continuity locks, allowed variation, and one frame card per frame. Each frame has one shot function, one story moment, one primary action, and one action phase.
@@ -316,7 +495,7 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 
 Do not treat intentional film grain, brush texture, wet gloss, atmospheric particles, or lens artifacts as defects when the user or source explicitly requires them.
 
-Each `materials` item uses the canonical fields `target`, `description`, and `physical_properties`. The validator rejects the ambiguous legacy key `properties` so material intent cannot be silently dropped during compilation.
+Each `materials` item requires `target`, `description`, and `physical_properties`. Optional professional controls are `microstructure`, `roughness`, `specular_response`, `transmission`, `subsurface_behavior`, `anisotropy`, `wear_patina`, and `contact_deformation`. The validator rejects the ambiguous legacy key `properties` even when canonical fields are also present, so material intent cannot be silently dropped during compilation.
 
 ## Scene Relationships
 
@@ -343,6 +522,10 @@ If the relation is essential, repeat it in `constraints.must_preserve`.
 - Exact knowledge anchors appear early, remain verbatim, and retain their requested incarnation and medium.
 - Canonical accuracy is not marked verified from model knowledge alone.
 - Visual direction distinguishes deliverable, treatment, spectacle scale, genre logic, and camera freedom.
+- Creative routing distinguishes scenario, genre, aesthetic family, production method, scene archetype, and delivery context without duplicating or conflicting with detailed style fields.
+- Learned styles preserve observed mechanisms, inference/unknown separation, source-image-free export, reviewed transfer boundaries, advisory copy-risk warnings, and cross-subject validation evidence.
+- Professional color describes exposure, tone scale, separation, display intent, film finishing, and continuity instead of generic grading names.
+- Render pipeline and hero materials state visible light transport, BRDF/BSDF behavior, texture scale, contact, and artifact risks without claiming unexecuted software.
 - Narrative frames bind relationship, staging, lens, camera distance, and motivated light instead of defaulting to poster composition.
 - Causal effects have an owner, path, operation, response, and residue.
 - Styleboard references have one primary role; frame cards and continuity locks are explicit.

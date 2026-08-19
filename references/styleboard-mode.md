@@ -30,6 +30,8 @@ Inspect every supplied image. Assign one primary role:
 
 Write what to use and what to ignore. Keep one primary role. When one image genuinely proves additional layers, record them as explicit `secondary_roles`; do not let a style reference silently replace identity or a camera reference silently replace subject, wardrobe, and location.
 
+A validated `style_capsule` may replace repeated style-reference prose across the board. It controls only transferable visual rules; frame-specific identity, wardrobe, scene, camera, action, text, and continuity locks remain authoritative.
+
 ## Presentation Presets
 
 - `line_art`: clean black-and-white line art, variable line weight, readable silhouette, minimal gray, no color.

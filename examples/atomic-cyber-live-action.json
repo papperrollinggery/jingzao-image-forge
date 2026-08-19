@@ -14,7 +14,10 @@
       "id": "image-1",
       "type": "image",
       "role": "base_edit_source",
-      "description": "User-supplied source frame containing an intact moon in the upper-left sky. This packaged example does not include the actual image."
+      "description": "User-supplied source frame containing an intact moon in the upper-left sky. This packaged example does not include the actual image.",
+      "source_kind": "platform_asset",
+      "source_ref": "replace-with-the-actual-source-image-id-before-execution",
+      "must_attach": true
     }
   ],
   "scene": {
@@ -126,7 +129,7 @@
       "large-scale physical realism",
       "restrained science-fiction production design",
       "natural atmospheric integration",
-      "credible VFX compositing"
+      "credible single-image VFX integration"
     ],
     "era": "near future",
     "references": [],

@@ -179,3 +179,124 @@ Pass criteria:
 - Keeps labels and arrows outside generated frames; direct sheets remain valid deliverables when their panel count, ratio, continuity, and crop geometry pass review.
 - Locks identity, wardrobe, scene geography, light direction, props, screen direction, and match-cut geometry separately from allowed variation.
 - A failed frame is revised independently rather than regenerating the entire board.
+
+## 16. Broad Scenario Routing
+
+Scenario set: a product tabletop, fashion beauty close-up, architecture interior, food still life, scientific field guide, game asset, social campaign, and experimental projection piece.
+
+Pass criteria:
+
+- Selects one primary `scenario_profile` per request instead of treating everything as cinematic key art.
+- States the delivery context and audience effect when they change hierarchy, text density, crop safety, or viewing distance.
+- Uses at most three spatial `scene_archetypes` and then describes the actual place.
+- Applies scenario-specific gates: material/label truth for products, garment/skin hierarchy for fashion, circulation/material junctions for architecture, factual structure for science, and functional readability for interfaces or game assets.
+
+## 17. Coherent Aesthetic Selection
+
+Request: Explore noir, surreal dream, romantic sublime, retro analog, luxury editorial, tactile handcrafted, painterly, animation, documentary, and mixed-media treatments for different briefs.
+
+Pass criteria:
+
+- Chooses one primary `aesthetic_family` based on viewer function rather than stacking adjectives.
+- Keeps genre, aesthetic, and capture/render method separate.
+- Allows at most one `secondary_influence` and requires a `mix_rule` that assigns it one layer.
+- Preserves medium-owned grain, brushwork, seams, misregistration, or handmade marks when intentional.
+- Names likely forbidden drift without turning the exclusions into an exhaustive style blacklist.
+
+## 18. Stop-Motion Product and Architecture
+
+Scenario A: a tactile handcrafted tea-tin product still. Scenario B: a wide material-research pavilion in a gallery.
+
+Pass criteria:
+
+- Product route prioritizes silhouette, label truth, contact shadow, paper/metal behavior, and clean negative space.
+- Architecture route prioritizes massing, circulation, human scale, daylight path, and material junctions.
+- Stop-motion or miniature language produces physical tactility rather than plastic CG or accidental toy scale.
+- A shared aesthetic capsule may influence palette and hierarchy without forcing both scenarios into the same composition.
+
+## 19. Learn Style From an Actual Reference
+
+Request: Analyze an attached reference image and save its reusable visual style for later prompts.
+
+Pass criteria:
+
+- Actually inspects the image and uses `learn_style`.
+- Separates observed mechanisms, inferred traits, and unknown production details.
+- Extracts medium behavior, palette ownership, shape/line, texture/material, lighting, composition, typography, optics/rendering, and limited motifs.
+- Does not learn the source face, identity, exact text, logo, signature, protected character design, subject inventory, or exact layout coordinates as style.
+- Exports a capsule with `raw_images_stored: false` and explicit transfer/forbidden-transfer rules.
+
+## 20. Style Capsule Transfer and Adoption
+
+Scenario: Apply one learned capsule to a product and an architecture image, then consider adding it to the installed/public Skill.
+
+Pass criteria:
+
+- Compiles the target scenario before the capsule and says the target specification remains authoritative.
+- Both images preserve recognizable palette/material/hierarchy mechanisms while using different subjects, ratios, spaces, and production methods.
+- Source content does not reappear unless independently requested.
+- Requires two visually inspected transfer tests and review notes before `validated` or `adopted` status.
+- Creates a draft candidate automatically when requested, but does not persist private images or publish/adopt a capsule without user authorization.
+
+## 21. Professional Film Color Pipeline
+
+Request: Create a predawn relationship scene with restrained film texture, cool exterior ambient, one weak amber practical, natural skin, and no generic teal-orange grade.
+
+Pass criteria:
+
+- Separates display/color-science intent from the creative grade.
+- Defines exposure strategy, tonal curve, black/white points, highlight rolloff, shadow floor, midtone density, white balance, and color separation.
+- Protects skin and hero materials across warm/cool pools.
+- Separates negative/reversal character, print/display character, grain, halation, bloom, gate weave, and vignette.
+- Grain is exposure- and scale-aware; halation/bloom remain source-motivated.
+- Includes shot-matching and continuity locks for a sequence.
+
+## 22. Blender / Unreal / Professional CG Rendering
+
+Scenario A: a path-traced Blender Cycles-style product or fantasy still. Scenario B: a real-time Unreal Engine 5/Lumen-style architecture or game cinematic.
+
+Pass criteria:
+
+- Labels engine names as appearance references unless actual engine execution is in scope.
+- Distinguishes offline path tracing, real-time GI/reflections, raster/NPR, and hybrid layered single-image appearance.
+- Describes visible diffuse/specular/transmission/volume transport, GI, reflections, shadows, AO, SSS, refraction, caustics, and displacement only when relevant.
+- Hero materials define microstructure, roughness, specular width, transmission/subsurface/anisotropy, wear, and contact.
+- Sampling/denoise and performance/fidelity rules prevent fireflies, temporal shimmer, over-dark AO, plastic uniform roughness, light leaks, and smeared detail.
+
+## 23. Battle Tension and Beautiful Shot Design
+
+Request: Create a visually beautiful battle frame with readable action, strong foreground/background relation, a dramatic angle, controlled distortion, and no poster pose.
+
+Pass criteria:
+
+- States dominant and secondary reads plus one concrete beauty mechanism.
+- Defines action vector, counterforce, frozen phase, motion evidence, and physical consequence.
+- Foreground proves viewer position/speed/scale; midground owns action; background proves threat or consequence.
+- Couples camera height/distance, pitch/yaw/roll, focal length, lens projection, edge behavior, parallax, and crop pressure.
+- Uses one exaggeration budget and one distortion strategy with a realism anchor and readability guard.
+- Explicit user tone, capsule, color pipeline, medium, and material hierarchy survive the battle adaptation.
+
+## 24. Same-Model Prompt Quality Benchmark
+
+Scenario: Use one image model to render (A) a one-sentence baseline, (B) a professional local image/cinema Skill prompt, and (C) Jingzao's structured prompt for the same battle or CG-product brief.
+
+Pass criteria:
+
+- Keeps model, subject, aspect ratio, and requested facts constant.
+- Scores prompt adherence, action readability, foreground/midground/background depth, camera/distortion, material response, color/film finishing, artifacts, and overall aesthetic hierarchy.
+- Does not claim one Skill is superior from prompt length or one lucky image alone.
+- Records concrete remaining gaps and changes only reusable mechanisms supported by the visual comparison.
+- Re-runs regression and forward tests after any benchmark-driven Skill change.
+
+## 25. Actual Multi-Image Reference Handoff
+
+Request: Use supplied character, wardrobe-mark, product, logo, and scene images to generate a poster or film frame.
+
+Pass criteria:
+
+- Inspects every actual image and records its source, ordinary-language role, and `must_attach` state.
+- Compiler output contains an attachment manifest; actual ImageGen tool arguments include every required image.
+- Never replaces an available image with only a prose description.
+- Uses the smallest sufficient multi-image set and states what each image contributes without adding a complex policy layer.
+- Visually checks character identity, wardrobe mark, product form, logo shape/placement/spelling/color, and scene use after generation.
+- If reference fidelity fails, retries or uses the model's own image-edit path; it does not add a post-generation compositing workflow.

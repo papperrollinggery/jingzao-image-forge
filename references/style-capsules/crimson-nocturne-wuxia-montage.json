@@ -1,0 +1,80 @@
+{
+  "style_capsule": "1.0",
+  "id": "crimson-nocturne-wuxia-montage",
+  "name": "Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴",
+  "scope": "skill_candidate",
+  "status": "adopted",
+  "adoption_approved": true,
+  "source_summary": {
+    "source_count": 3,
+    "raw_images_stored": false,
+    "provenance": "Observed from three user-supplied vertical martial-arts poster references. Raw references, faces, copy, and watermarks are not stored."
+  },
+  "visual_rules": {
+    "medium_behavior": "aged vertical martial-arts release-print and editorial photomontage appearance with controlled double exposure, distressed scan edges, and tactile analog reproduction",
+    "palette_logic": [
+      "deep black owns the negative field and frame edges",
+      "crimson red owns the dominant face, fabric, or emotional pressure",
+      "cyan blue owns night water, distant silhouettes, or the secondary narrative layer",
+      "warm amber may bridge skin and red highlights",
+      "off-white is reserved for user-supplied vertical copy only"
+    ],
+    "shape_line_language": "one extreme cropped portrait mass, one much smaller narrative silhouette layer, diagonal occlusion or fabric/blade-like edge, soft photographic boundaries, and narrow vertical text columns when exact copy is supplied",
+    "texture_material_logic": [
+      "coarse irregular print grain varies across shadow and midtone density",
+      "small scratches, dust, edge fogging, and light leaks remain sparse and nonuniform",
+      "faces retain skin texture beneath print softness rather than plastic polish",
+      "dark fabric and hair merge into black fields but keep local edge information"
+    ],
+    "lighting_logic": "low-key underexposure with a saturated crimson key or fabric reflection on the dominant portrait, cyan-blue secondary night light, localized warm flare, and no neutral commercial fill",
+    "composition_logic": [
+      "dominant face or eye occupies roughly half to two-thirds of the vertical frame",
+      "secondary story appears as a small double-exposed silhouette, landscape, reflection, or lower panel",
+      "large black negative areas separate layers and preserve mystery",
+      "asymmetric margins and partial crops create pressure rather than centered poster symmetry"
+    ],
+    "typography_logic": [
+      "vertical Chinese copy uses restrained off-white or gray and generous tracking",
+      "small English subtitle may anchor a lower corner only when exact text is supplied",
+      "typography remains sparse and never becomes fake calligraphic clutter"
+    ],
+    "optics_rendering_logic": "locally soft focus, low-to-medium microcontrast, dense textured blacks, soft highlight shoulder, coarse uneven grain, mild crimson halation at bright edges, restrained bloom, subtle vignette, scan scratches, and occasional edge light leak",
+    "motifs": [
+      "dominant portrait plus miniature narrative memory",
+      "double-exposure boundary",
+      "red-to-cyan nocturnal separation",
+      "partial face concealment"
+    ]
+  },
+  "inferred_traits": [
+    "the visual system treats character memory and present danger as two exposure layers",
+    "analog degradation is expressive and deliberate rather than a universal quality defect"
+  ],
+  "unknowns": [
+    "original source productions",
+    "exact film stock or scanning process",
+    "original fonts",
+    "original artists' production workflow"
+  ],
+  "transfer_rules": [
+    "transfer the dominant-portrait versus miniature-story hierarchy, not the source people or story",
+    "transfer red/cyan color ownership and analog print behavior while adapting copy, costume, and scene to the new brief",
+    "keep grain, halation, scratches, and light leaks intentionally uneven and subordinate to face/story readability",
+    "use vertical typography only when the user supplies exact copy"
+  ],
+  "forbidden_transfer": [
+    "source faces or likenesses",
+    "source costume, jewelry, weapons, boats, landscape, or silhouettes",
+    "source Chinese or English text",
+    "source signature or watermark",
+    "exact split points, crop coordinates, or layer arrangement",
+    "generic random scratches that hide the image"
+  ],
+  "validation": {
+    "prompts": [
+      "Transfer the style to an original contemporary jazz singer backstage after a failed performance, with no martial-arts content and no text.",
+      "Transfer the style to an original desert science-fiction courier remembering a lost orbital station, with a new silhouette layer and no source content."
+    ],
+    "notes": "Forward-tested on 2026-08-19 with two unrelated subjects using the same image generator. The jazz singer result preserved the dominant crimson portrait, cyan miniature story layer, deep black field, analog print texture, and double-exposure hierarchy without martial-arts content or copied text. The science-fiction courier result preserved the same transferable mechanisms while changing character, wardrobe, setting, and secondary narrative layer; no source face, costume, wording, signature, or watermark was reproduced. These are visual checks, not guarantees of exact repeatability."
+  }
+}

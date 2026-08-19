@@ -1,0 +1,76 @@
+{
+  "style_capsule": "1.0",
+  "id": "graphite-copper-editorial",
+  "name": "Graphite Copper Editorial",
+  "scope": "skill_candidate",
+  "status": "validated",
+  "adoption_approved": false,
+  "source_summary": {
+    "source_count": 1,
+    "raw_images_stored": false,
+    "provenance": "Observed from a Jingzao-owned generated recommendation card; raw source image is not embedded in the capsule."
+  },
+  "visual_rules": {
+    "medium_behavior": "premium editorial infographic blended with restrained dimensional product visualization",
+    "palette_logic": [
+      "graphite black owns the background field",
+      "warm copper gold owns active connectors, headings, and focal edges",
+      "off-white is reserved for high-legibility explanatory text",
+      "small cinematic frames may carry natural warm color without recoloring the whole layout"
+    ],
+    "shape_line_language": "thin precise copper rules, rectilinear framed modules, circular lens geometry, and one continuous diagonal transformation line",
+    "texture_material_logic": [
+      "matte black paper and coated metal absorb most light",
+      "brushed copper appears only on focal borders and type",
+      "transparent glass is selective and edge-lit rather than globally glossy"
+    ],
+    "lighting_logic": "one motivated warm transformation path creates localized copper highlights while the background remains deep, clean, and low-noise",
+    "composition_logic": [
+      "large title establishes authority before information",
+      "one unbroken reading path links the main stages or objects",
+      "stacked modules use consistent margins and scanning order",
+      "dense information is separated by generous black negative space"
+    ],
+    "typography_logic": [
+      "high-contrast serif title for identity",
+      "clear sans-serif Chinese labels for information",
+      "monospace technical strings inside restrained outline containers"
+    ],
+    "optics_rendering_logic": "clean deep-focus editorial rendering with restrained bloom, localized metallic response, crisp text, and no uncontrolled grain or halo",
+    "motifs": [
+      "circular precision geometry",
+      "network lattice",
+      "small sequence grid",
+      "single warm connector"
+    ]
+  },
+  "inferred_traits": [
+    "the design positions technical structure as a form of craft precision",
+    "cinematic imagery is evidence of output rather than the primary decorative background"
+  ],
+  "unknowns": [
+    "original typeface family",
+    "source software",
+    "exact material shader settings"
+  ],
+  "transfer_rules": [
+    "transfer palette ownership, hierarchy, material contrast, and one connected process path",
+    "adapt module count and layout to the new content rather than reproducing coordinates",
+    "retain clean low-noise shadows and localized copper highlights",
+    "use optional motifs only when they explain the target concept"
+  ],
+  "forbidden_transfer": [
+    "source title or invocation text",
+    "Jingzao name or brand identity",
+    "exact panel coordinates",
+    "depicted lone figure, circular portal scene, or copied storyboard frames",
+    "logos, signatures, or source-specific typography wording"
+  ],
+  "validation": {
+    "prompts": [
+      "Create a premium tea-tin launch image using the capsule while preserving the new product identity and a square product-tabletop layout.",
+      "Create an architecture exhibition announcement using the capsule while preserving a wide spatial image, new copy hierarchy, and no product-tabletop composition."
+    ],
+    "notes": "Visually reviewed two ImageGen forward tests on 2026-08-19. The square tea product preserved graphite field ownership, restrained copper accents, matte paper tactility, clean hierarchy, and negative space without importing source text, identity, portal imagery, storyboard panels, or layout coordinates. The wide architecture pavilion preserved graphite/copper hierarchy, dry material separation, selective glass, and one warm circulation path while adapting to architectural scale, 16:9 perspective, and visitor flow without becoming a product still or infographic."
+  }
+}

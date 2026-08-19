@@ -5,3 +5,10 @@ dist/
 output/
 outputs/
 work/
+SCOPE.md
+TASK.md
+STATUS.json
+ASK.md
+RESULT.md
+OPINION.md
+.dsh-delegation-history/

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Regression tests for 镜造 Image Forge."""
 
 from __future__ import annotations
@@ -6,10 +5,10 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import subprocess
 import sys
 import unittest
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
@@ -25,6 +24,9 @@ def _load_module(name: str, path: Path):
 
 
 validator = _load_module("validator", SCRIPTS / "validate_spec.py")
+capsule_validator = _load_module("capsule_validator", SCRIPTS / "validate_style_capsule.py")
+capsule_creator = _load_module("capsule_creator", SCRIPTS / "create_style_capsule.py")
+reference_delivery = _load_module("reference_delivery", SCRIPTS / "reference_delivery.py")
 compiler = _load_module("compiler", SCRIPTS / "compile_prompt.py")
 
 
@@ -98,6 +100,9 @@ def make_styleboard_spec():
             "type": "image",
             "role": "style_reference",
             "description": "User-supplied hand-drawn storyboard finish reference.",
+            "source_kind": "conversation_image",
+            "source_ref": "Image 1 in the active conversation",
+            "must_attach": True,
         }
     ]
     spec["styleboard"] = {
@@ -142,6 +147,18 @@ class ValidationTests(unittest.TestCase):
         self.template = load_json(ROOT / "templates" / "visual-spec.json")
         self.example = load_json(ROOT / "examples" / "atomic-cyber-live-action.json")
 
+    @staticmethod
+    def _attached_image(role: str, description: str):
+        return {
+            "id": "source",
+            "type": "image",
+            "role": role,
+            "description": description,
+            "source_kind": "conversation_image",
+            "source_ref": "Image 1 in the active conversation",
+            "must_attach": True,
+        }
+
     def test_template_is_valid(self):
         self.assertEqual([], validator.validate_spec(self.template))
 
@@ -155,6 +172,347 @@ class ValidationTests(unittest.TestCase):
     def test_styleboard_3x3_example_is_valid(self):
         spec = load_json(ROOT / "examples" / "styleboard-3x3.json")
         self.assertEqual([], validator.validate_spec(spec))
+
+    def test_style_learning_example_is_valid(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_tactile_product_example_is_valid(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_architecture_exhibition_example_is_valid(self):
+        spec = load_json(ROOT / "examples" / "architecture-exhibition.json")
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_causal_fantasy_effect_example_is_valid(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_style_capsule_example_is_valid(self):
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        self.assertEqual([], capsule_validator.validate_style_capsule(capsule))
+
+    def test_adopted_crimson_nocturne_capsule_is_valid(self):
+        capsule = load_json(
+            ROOT / "references" / "style-capsules" / "crimson-nocturne-wuxia-montage.json"
+        )
+        self.assertEqual([], capsule_validator.validate_style_capsule(capsule))
+        self.assertEqual("adopted", capsule["status"])
+        self.assertTrue(capsule["adoption_approved"])
+        self.assertFalse(capsule["source_summary"]["raw_images_stored"])
+
+    def test_adopted_crimson_nocturne_capsule_compiles_with_transfer_boundaries(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(
+            ROOT / "references" / "style-capsules" / "crimson-nocturne-wuxia-montage.json"
+        )
+        result = compiler.compile_spec(spec, "openai", capsule)
+        prompt = result["prompt"]
+        self.assertIn("Crimson Nocturne Wuxia Print Montage", prompt)
+        self.assertIn("target specification remains authoritative", prompt)
+        self.assertIn("source faces or likenesses", prompt)
+        self.assertIn("source signature or watermark", prompt)
+
+    def test_all_scenario_profiles_are_valid(self):
+        for value in validator.SCENARIO_PROFILES:
+            with self.subTest(value=value):
+                spec = copy.deepcopy(self.template)
+                spec["creative_routing"]["scenario_profile"] = value
+                if value == "custom":
+                    spec["creative_routing"]["custom_scenario"] = "custom scenario"
+                self.assertEqual([], validator.validate_spec(spec))
+
+    def test_all_genre_families_are_valid(self):
+        for value in validator.GENRE_FAMILIES:
+            with self.subTest(value=value):
+                spec = copy.deepcopy(self.template)
+                spec["creative_routing"]["genre_family"] = value
+                if value == "custom":
+                    spec["creative_routing"]["custom_genre"] = "custom genre"
+                self.assertEqual([], validator.validate_spec(spec))
+
+    def test_all_aesthetic_families_are_valid(self):
+        for value in validator.AESTHETIC_FAMILIES:
+            with self.subTest(value=value):
+                spec = copy.deepcopy(self.template)
+                spec["creative_routing"]["aesthetic_family"] = value
+                if value == "custom":
+                    spec["creative_routing"]["custom_aesthetic"] = "custom aesthetic"
+                self.assertEqual([], validator.validate_spec(spec))
+
+    def test_all_capture_or_render_methods_are_valid(self):
+        for value in validator.CAPTURE_OR_RENDER_METHODS:
+            with self.subTest(value=value):
+                spec = copy.deepcopy(self.template)
+                spec["creative_routing"]["capture_or_render_method"] = value
+                if value == "custom":
+                    spec["creative_routing"]["custom_method"] = "custom method"
+                self.assertEqual([], validator.validate_spec(spec))
+
+    def test_unknown_creative_routing_enums_are_rejected(self):
+        fields = ("scenario_profile", "genre_family", "aesthetic_family", "capture_or_render_method")
+        for field in fields:
+            with self.subTest(field=field):
+                spec = copy.deepcopy(self.template)
+                spec["creative_routing"][field] = "style-magic"
+                errors = validator.validate_spec(spec)
+                self.assertTrue(any(f"creative_routing.{field}" in item for item in errors))
+
+    def test_creative_routing_limits_scene_archetypes(self):
+        spec = copy.deepcopy(self.template)
+        spec["creative_routing"]["scene_archetypes"] = ["one", "two", "three", "four"]
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("at most three" in item for item in errors))
+
+    def test_secondary_influence_requires_mix_rule(self):
+        spec = copy.deepcopy(self.template)
+        spec["creative_routing"]["secondary_influence"] = "tactile paper"
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("mix_rule" in item for item in errors))
+
+    def test_mix_rule_requires_secondary_influence(self):
+        spec = copy.deepcopy(self.template)
+        spec["creative_routing"]["mix_rule"] = "paper controls only the background"
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("secondary_influence" in item for item in errors))
+
+    def test_validated_style_learning_requires_transfer_tests_and_notes(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        spec["style_learning"]["status"] = "validated"
+        spec["style_learning"]["validation_prompts"] = ["one test"]
+        spec["style_learning"]["verification_notes"] = ""
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("at least two transfer tests" in item for item in errors))
+        self.assertTrue(any("visual review notes" in item for item in errors))
+
+    def test_style_learning_rejects_unknown_source_input(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        spec["style_learning"]["source_input_ids"] = ["missing-reference"]
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("unknown input id" in item for item in errors))
+
+    def test_style_capsule_export_strips_raw_source_content(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        capsule = capsule_creator.create_style_capsule(spec)
+        self.assertFalse(capsule["source_summary"]["raw_images_stored"])
+        self.assertNotIn("inputs", capsule)
+        self.assertEqual([], capsule_validator.validate_style_capsule(capsule))
+
+    def test_style_capsule_rejects_embedded_raw_source_flag(self):
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["source_summary"]["raw_images_stored"] = True
+        errors = capsule_validator.validate_style_capsule(capsule)
+        self.assertTrue(any("expected false" in item for item in errors))
+
+    def test_unhashable_enum_fields_return_errors_without_traceback(self):
+        cases = (
+            ("mode",),
+            ("platform",),
+            ("language",),
+            ("canvas", "profile"),
+            ("creative_routing", "scenario_profile"),
+            ("platform_options", "openai", "quality"),
+            ("platform_options", "flux", "prompt_format"),
+        )
+        for path in cases:
+            for malformed in ({"bad": []}, [[]]):
+                with self.subTest(path=path, malformed=type(malformed).__name__):
+                    spec = copy.deepcopy(self.template)
+                    node = spec
+                    for key in path[:-1]:
+                        node = node[key]
+                    node[path[-1]] = malformed
+                    errors = validator.validate_spec(spec)
+                    self.assertTrue(errors)
+
+    def test_nonfinite_numbers_are_rejected(self):
+        for value in (float("nan"), float("inf"), float("-inf")):
+            with self.subTest(value=value):
+                spec = copy.deepcopy(self.template)
+                spec["subjects"][0]["position"]["x_percent"] = value
+                errors = validator.validate_spec(spec)
+                self.assertTrue(any("x_percent" in item for item in errors))
+
+    def test_unknown_fields_are_rejected(self):
+        spec = copy.deepcopy(self.template)
+        spec["lightning"] = {}
+        spec["constraints"]["exlude"] = ["logo"]
+        spec["subjects"][0]["apperance"] = ["red"]
+        spec["creative_routing"]["scenario_prof"] = "product_tabletop"
+        errors = validator.validate_spec(spec)
+        for field in ("lightning", "exlude", "apperance", "scenario_prof"):
+            self.assertTrue(any(field in item and "unknown field" in item for item in errors))
+
+    def test_openai_flexible_size_constraints_are_validated(self):
+        valid_sizes = ("auto", "1024x1024", "1536x864", "1792x768", "3840x2160")
+        for value in valid_sizes:
+            with self.subTest(valid=value):
+                spec = copy.deepcopy(self.template)
+                spec["platform_options"]["openai"]["size"] = value
+                self.assertEqual([], validator.validate_spec(spec))
+        invalid_sizes = ("858x1834", "3856x1024", "2048x512", "640x640", "not-a-size")
+        for value in invalid_sizes:
+            with self.subTest(invalid=value):
+                spec = copy.deepcopy(self.template)
+                spec["platform_options"]["openai"]["size"] = value
+                self.assertTrue(any("openai.size" in item for item in validator.validate_spec(spec)))
+
+    def test_custom_creative_route_requires_and_accepts_description(self):
+        spec = copy.deepcopy(self.template)
+        spec["creative_routing"]["scenario_profile"] = "custom"
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("custom_scenario" in item for item in errors))
+        spec["creative_routing"]["custom_scenario"] = "museum conservation plate"
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_adopted_style_learning_requires_explicit_approval(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        spec["style_learning"]["status"] = "adopted"
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("adoption_approved" in item for item in errors))
+        spec["style_learning"]["adoption_approved"] = True
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_adopted_capsule_requires_explicit_approval(self):
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["status"] = "adopted"
+        errors = capsule_validator.validate_style_capsule(capsule)
+        self.assertTrue(any("adoption_approved" in item for item in errors))
+        capsule["adoption_approved"] = True
+        self.assertEqual([], capsule_validator.validate_style_capsule(capsule))
+
+    def test_capsule_content_linter_flags_copy_risks(self):
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["visual_rules"]["typography_logic"] = ['title reads "ACME"', "copy the logo"]
+        capsule["visual_rules"]["composition_logic"] = ["place at (x:16.5%, y:16.4%)"]
+        warnings = capsule_validator.lint_style_capsule_content(capsule)
+        self.assertTrue(any("quoted literal" in item for item in warnings))
+        self.assertTrue(any("brand or signature" in item for item in warnings))
+        self.assertTrue(any("coordinate-like" in item for item in warnings))
+
+    def test_capsule_export_is_deep_copied(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        capsule = capsule_creator.create_style_capsule(spec)
+        capsule["visual_rules"]["palette_logic"].append("new mutation")
+        self.assertNotIn("new mutation", spec["style_learning"]["observed"]["palette_logic"])
+
+    def test_legacy_material_key_is_rejected_even_with_canonical_key(self):
+        spec = copy.deepcopy(self.template)
+        spec["materials"] = [
+            {
+                "target": "skin",
+                "description": "natural skin",
+                "physical_properties": ["matte base"],
+                "properties": ["legacy value"],
+            }
+        ]
+        self.assertTrue(any("legacy key" in item for item in validator.validate_spec(spec)))
+
+    def test_midjourney_version_rejects_boolean(self):
+        spec = copy.deepcopy(self.template)
+        spec["platform_options"]["midjourney"]["version"] = True
+        self.assertTrue(any("midjourney.version" in item for item in validator.validate_spec(spec)))
+
+    def test_mode_specific_sections_do_not_cross_modes(self):
+        spec = copy.deepcopy(self.template)
+        spec["style_learning"] = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")["style_learning"]
+        self.assertTrue(any("allowed only" in item for item in validator.validate_spec(spec)))
+        spec = copy.deepcopy(self.template)
+        spec["styleboard"] = make_styleboard_spec()["styleboard"]
+        self.assertTrue(any("allowed only" in item for item in validator.validate_spec(spec)))
+
+    def test_effect_requires_resistance_cost(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        del spec["effects"][0]["resistance_cost"]
+        self.assertTrue(any("resistance_cost" in item for item in validator.validate_spec(spec)))
+
+    def test_color_pipeline_custom_intent_contract(self):
+        spec = copy.deepcopy(self.template)
+        spec["color_pipeline"]["intent"] = "custom"
+        self.assertTrue(any("custom_intent" in item for item in validator.validate_spec(spec)))
+        spec["color_pipeline"]["custom_intent"] = "silver-rich monochrome print"
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_render_pipeline_engine_scope_and_custom_domain_contract(self):
+        spec = copy.deepcopy(self.template)
+        spec["render_pipeline"]["engine_reference"] = "Blender Cycles"
+        spec["render_pipeline"]["engine_reference_scope"] = "pretend_execution"
+        self.assertTrue(any("engine_reference_scope" in item for item in validator.validate_spec(spec)))
+        spec["render_pipeline"]["engine_reference_scope"] = "appearance_reference"
+        spec["render_pipeline"]["domain"] = "custom"
+        self.assertTrue(any("custom_domain" in item for item in validator.validate_spec(spec)))
+        spec["render_pipeline"]["custom_domain"] = "spectral research renderer"
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_render_pipeline_rejects_post_generation_compositing_control(self):
+        spec = copy.deepcopy(self.template)
+        spec["render_pipeline"]["compositing"] = "assemble the generated result afterward"
+        errors = validator.validate_spec(spec)
+        self.assertIn("$.render_pipeline.compositing: unknown field", errors)
+        self.assertNotIn("hybrid_composite", validator.RENDER_DOMAINS)
+
+    def test_advanced_material_response_fields_are_valid(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        material = spec["materials"][0]
+        for key in (
+            "microstructure",
+            "roughness",
+            "specular_response",
+            "transmission",
+            "subsurface_behavior",
+            "anisotropy",
+            "wear_patina",
+            "contact_deformation",
+        ):
+            self.assertTrue(material[key])
+        self.assertEqual([], validator.validate_spec(spec))
+
+    def test_must_attach_input_requires_actual_source(self):
+        spec = copy.deepcopy(self.template)
+        spec["inputs"] = [
+            {
+                "id": "logo-reference",
+                "type": "image",
+                "role": "logo reference",
+                "description": "Actual logo supplied by the user.",
+                "source_kind": "unspecified",
+                "source_ref": "",
+                "must_attach": True,
+            }
+        ]
+        self.assertTrue(any("actual source reference" in item for item in validator.validate_spec(spec)))
+
+    def test_reference_led_modes_require_an_attached_image(self):
+        for mode in ("reconstruct", "edit", "restyle", "expand", "learn_style"):
+            with self.subTest(mode=mode):
+                spec = copy.deepcopy(self.template)
+                spec["mode"] = mode
+                spec["inputs"] = [
+                    {
+                        "id": "source",
+                        "type": "image",
+                        "role": "base_image",
+                        "description": "A described source that was not attached.",
+                        "source_kind": "unspecified",
+                        "source_ref": "",
+                        "must_attach": False,
+                    }
+                ]
+                errors = validator.validate_spec(spec)
+                self.assertIn(f"$.inputs: mode={mode!r} requires at least one image with must_attach=true", errors)
+
+    def test_reference_preflight_resolves_local_asset(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        result = reference_delivery.preflight_reference_delivery(spec, ROOT / "examples")
+        self.assertTrue(result["valid"])
+        self.assertEqual("ready", result["attachments"][0]["preflight"])
+
+    def test_conversation_references_remain_runtime_required(self):
+        spec = load_json(ROOT / "examples" / "styleboard-3x3.json")
+        result = reference_delivery.preflight_reference_delivery(spec, ROOT / "examples")
+        self.assertTrue(result["valid"])
+        self.assertEqual(["image-1", "image-2"], result["runtime_required"])
 
     def test_region_cannot_escape_canvas(self):
         spec = copy.deepcopy(self.example)
@@ -189,6 +547,25 @@ class ValidationTests(unittest.TestCase):
                 spec["platform_options"]["midjourney"][key] = value
                 errors = validator.validate_spec(spec)
                 self.assertTrue(any(f"midjourney.{key}" in item for item in errors))
+
+    def test_midjourney_style_reference_items_are_validated(self):
+        invalid_items = [123, "", {"bad": True}, {"url": ""}, {"url": "https://example.com/a.png", "weight": 0}]
+        for item in invalid_items:
+            with self.subTest(item=item):
+                spec = copy.deepcopy(self.template)
+                spec["platform_options"]["midjourney"]["style_reference"] = [item]
+                errors = validator.validate_spec(spec)
+                self.assertTrue(any("midjourney.style_reference[0]" in error for error in errors))
+
+    def test_midjourney_style_reference_weights_compile(self):
+        spec = copy.deepcopy(self.template)
+        spec["platform_options"]["midjourney"]["style_reference"] = [
+            "https://example.com/a.png",
+            {"url": "https://example.com/b.png", "weight": 2},
+        ]
+        self.assertEqual([], validator.validate_spec(spec))
+        result = compiler.compile_spec(spec, "midjourney")
+        self.assertIn("--sref https://example.com/a.png https://example.com/b.png::2", result["prompt"])
 
     def test_unknown_knowledge_strategy_is_rejected(self):
         spec = copy.deepcopy(self.template)
@@ -332,17 +709,13 @@ class ValidationTests(unittest.TestCase):
     def test_reconstruct_mode_accepts_observed_image_input(self):
         spec = copy.deepcopy(self.template)
         spec["mode"] = "reconstruct"
-        spec["inputs"] = [
-            {"id": "source", "type": "image", "role": "observed_reference", "description": "Actual reference image."}
-        ]
+        spec["inputs"] = [self._attached_image("observed_reference", "Actual reference image.")]
         self.assertEqual([], validator.validate_spec(spec))
 
     def test_restyle_mode_requires_and_accepts_preservation_contract(self):
         spec = copy.deepcopy(self.template)
         spec["mode"] = "restyle"
-        spec["inputs"] = [
-            {"id": "source", "type": "image", "role": "base_image", "description": "Image to restyle."}
-        ]
+        spec["inputs"] = [self._attached_image("base_image", "Image to restyle.")]
         spec["constraints"]["must_preserve"] = ["identity", "pose", "layout", "text"]
         spec["constraints"]["must_change"] = ["visual treatment only"]
         self.assertEqual([], validator.validate_spec(spec))
@@ -350,9 +723,7 @@ class ValidationTests(unittest.TestCase):
     def test_expand_mode_requires_and_accepts_preservation_contract(self):
         spec = copy.deepcopy(self.template)
         spec["mode"] = "expand"
-        spec["inputs"] = [
-            {"id": "source", "type": "image", "role": "base_image", "description": "Image to expand."}
-        ]
+        spec["inputs"] = [self._attached_image("base_image", "Image to expand.")]
         spec["constraints"]["must_preserve"] = ["original content", "subject scale", "relative position"]
         spec["constraints"]["must_change"] = ["extend both sides"]
         self.assertEqual([], validator.validate_spec(spec))
@@ -360,9 +731,7 @@ class ValidationTests(unittest.TestCase):
     def test_edit_mode_accepts_must_change_without_spatial_edit(self):
         spec = copy.deepcopy(self.template)
         spec["mode"] = "edit"
-        spec["inputs"] = [
-            {"id": "source", "type": "image", "role": "base_image", "description": "Image to edit."}
-        ]
+        spec["inputs"] = [self._attached_image("base_image", "Image to edit.")]
         spec["constraints"]["must_preserve"] = ["camera", "layout"]
         spec["constraints"]["must_change"] = ["replace the background"]
         spec["spatial_edits"] = []
@@ -529,6 +898,190 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("frame frame-01", result["prompt"])
         self.assertIn("frame frame-09", result["prompt"])
         self.assertTrue(any("rapid exploration" in item for item in result["warnings"]))
+
+    def test_creative_routing_compiles_for_every_platform(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertIn("product_tabletop", result["prompt"])
+                self.assertIn("tactile_handcrafted", result["prompt"])
+                self.assertIn("stop_motion", result["prompt"])
+
+    def test_style_capsule_compiles_for_every_platform(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform, capsule)
+                self.assertIn("Graphite Copper Editorial", result["prompt"])
+                self.assertIn("forbidden transfer", result["prompt"])
+
+    def test_style_capsule_keeps_target_spec_authoritative(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        result = compiler.compile_spec(spec, "openai", capsule)
+        self.assertIn("target specification remains authoritative", result["prompt"])
+        self.assertLess(result["prompt"].index("product_tabletop"), result["prompt"].index("Graphite Copper Editorial"))
+
+    def test_invalid_style_capsule_is_rejected_before_compilation(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["source_summary"]["raw_images_stored"] = True
+        with self.assertRaisesRegex(ValueError, "Style capsule validation failed"):
+            compiler.compile_spec(spec, "openai", capsule)
+
+    def test_auto_creative_routing_fields_do_not_clutter_prompt(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertNotIn("scenario profile: auto", result["prompt"])
+        self.assertNotIn("primary aesthetic: auto", result["prompt"])
+
+    def test_platform_options_null_compiles_every_platform(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["platform_options"] = None
+        self.assertEqual([], validator.validate_spec(spec))
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertEqual(platform, result["platform"])
+
+    def test_learn_style_compile_is_analysis_only(self):
+        spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertTrue(any("Analysis record only" in item for item in result["warnings"]))
+                self.assertEqual({}, result["parameters"])
+                if platform == "midjourney":
+                    self.assertNotIn("--ar", result["prompt"])
+
+    def test_flux_exclusion_normalization_handles_docs_and_plurals(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["constraints"]["exclude"] = [
+            "no plastic CGI",
+            "no extra text",
+            "logos",
+            "watermarks",
+            "global gloss",
+        ]
+        result = compiler.compile_spec(spec, "flux")
+        self.assertIn("physically plausible materials", result["prompt"])
+        self.assertIn("only the specified literal text", result["prompt"])
+        self.assertIn("unbranded scene", result["prompt"])
+        self.assertIn("material-specific matte", result["prompt"])
+        self.assertFalse(any("Review unconverted" in item for item in result["warnings"]))
+
+    def test_midjourney_sanitizes_parameter_injection_from_prose(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "A calm portrait --v 7 --stylize 900"
+        spec["style"]["visual_traits"] = ["editorial finish ::2"]
+        spec["constraints"]["exclude"] = ["blur --ar 1:1"]
+        result = compiler.compile_spec(spec, "midjourney")
+        content, _, flags = result["prompt"].partition(" --ar 16:9")
+        self.assertNotIn("--", content)
+        self.assertNotIn("::", content)
+        self.assertNotIn("--ar 1:1", flags)
+
+    def test_exact_text_escapes_quotes_and_newlines(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["text_elements"] = [
+            {
+                "content": 'He said "STOP"\nnow',
+                "case_sensitive": True,
+                "placement": "center",
+                "typography": "bold sans serif",
+                "color": "white",
+            }
+        ]
+        result = compiler.compile_spec(spec, "openai")
+        self.assertIn(r'"He said \"STOP\"\nnow" exactly', result["prompt"])
+
+    def test_causal_effect_compiles_resistance_and_cost(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertIn("resistance/cost", result["prompt"])
+        self.assertIn("one knee sinks into water", result["prompt"])
+
+    def test_capsule_lint_warnings_surface_in_compiler(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        capsule = load_json(ROOT / "examples" / "style-capsule-graphite-copper.json")
+        capsule["visual_rules"]["typography_logic"] = ['copy the logo "ACME"']
+        result = compiler.compile_spec(spec, "openai", capsule)
+        self.assertTrue(any("Style capsule content review" in item for item in result["warnings"]))
+
+    def test_auto_direction_and_cinematic_profiles_do_not_clutter_prompt(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["direction"] = {
+            "deliverable": "auto",
+            "treatment": "auto",
+            "spectacle_scale": "dramatic",
+            "camera_freedom": "physical",
+        }
+        spec["cinematic"] = {"profile": "auto"}
+        result = compiler.compile_spec(spec, "openai")
+        self.assertNotIn("deliverable: auto", result["prompt"])
+        self.assertNotIn("treatment: auto", result["prompt"])
+        self.assertNotIn("profile: auto", result["prompt"])
+
+    def test_color_pipeline_compiles_for_every_platform(self):
+        spec = load_json(ROOT / "examples" / "narrative-film-frame.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertIn("film_emulation", result["prompt"])
+                self.assertIn("highlight rolloff", result["prompt"])
+                self.assertIn("fine irregular grain", result["prompt"])
+                self.assertIn("global teal-orange", result["prompt"])
+
+    def test_render_pipeline_and_spatial_dynamics_compile_for_every_platform(self):
+        spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertIn("Blender Cycles", result["prompt"])
+                self.assertIn("global illumination", result["prompt"])
+                self.assertIn("exaggeration budget", result["prompt"])
+                self.assertIn("foreground role", result["prompt"])
+
+    def test_module_invocation_compiles_without_import_error(self):
+        result = subprocess.run(
+            [sys.executable, "-m", "scripts.compile_prompt", "examples/tactile-stop-motion-product.json"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+
+    def test_cli_directory_input_returns_clean_error(self):
+        for script in ("validate_spec.py", "compile_prompt.py"):
+            with self.subTest(script=script):
+                result = subprocess.run(
+                    [sys.executable, str(SCRIPTS / script), str(ROOT / "examples")],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertNotEqual(0, result.returncode)
+                self.assertNotIn("Traceback", result.stdout + result.stderr)
+
+    def test_compiler_emits_actual_attachment_handoff(self):
+        spec = load_json(ROOT / "examples" / "styleboard-3x3.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual(2, len(result["attachments"]))
+        self.assertTrue(all(item["must_attach"] for item in result["attachments"]))
+        self.assertEqual(2, result["reference_handoff"]["required_attachment_count"])
+        self.assertIn("Never replace an attachment", result["reference_handoff"]["imagegen_contract"])
+        self.assertTrue(any("Actual image attachments are mandatory" in item for item in result["warnings"]))
+        self.assertNotIn("post_composite", json.dumps(result, ensure_ascii=False))
+
+    def test_product_without_text_elements_blocks_invented_copy(self):
+        spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")
+        result = compiler.compile_spec(spec, "openai")
+        self.assertIn("no lettering", result["prompt"])
+        self.assertIn("Do not add or show: new text", result["prompt"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,32 @@
+{
+  "style_capsule": "1.0",
+  "id": "replace-with-style-id",
+  "name": "Replace with a human-readable style name",
+  "scope": "session",
+  "status": "draft",
+  "adoption_approved": false,
+  "source_summary": {
+    "source_count": 1,
+    "raw_images_stored": false,
+    "provenance": "Observed from supplied reference images; raw images are not embedded in this capsule."
+  },
+  "visual_rules": {
+    "medium_behavior": "Describe how the image appears to have been captured, rendered, printed, painted, or assembled.",
+    "palette_logic": ["Assign colors to roles rather than listing attractive colors."],
+    "shape_line_language": "Describe edge, contour, silhouette, geometry, and mark behavior.",
+    "texture_material_logic": ["Describe repeatable surface and material behavior."],
+    "lighting_logic": "Describe source ownership, contrast, falloff, and focal hierarchy.",
+    "composition_logic": ["Describe repeatable hierarchy, spacing, depth, crop, and negative-space tendencies."],
+    "typography_logic": [],
+    "optics_rendering_logic": "Describe lens, focus, grain, halation, rendering, or in-image layer behavior.",
+    "motifs": []
+  },
+  "inferred_traits": [],
+  "unknowns": [],
+  "transfer_rules": ["Transfer only reusable visual mechanisms."],
+  "forbidden_transfer": ["Do not transfer source identity, exact text, logos, protected marks, or layout coordinates."],
+  "validation": {
+    "prompts": [],
+    "notes": ""
+  }
+}

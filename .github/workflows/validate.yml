@@ -17,10 +17,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - name: Compile Python sources
-        run: python3 -m py_compile scripts/validate_spec.py scripts/compile_prompt.py tests/test_skill.py
+        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py tests/test_skill.py
 
       - name: Validate specifications
         run: |
@@ -28,6 +28,21 @@ jobs:
           python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
           python3 scripts/validate_spec.py examples/narrative-film-frame.json
           python3 scripts/validate_spec.py examples/styleboard-3x3.json
+          python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
+          python3 scripts/validate_spec.py examples/tactile-stop-motion-product.json
+          python3 scripts/validate_spec.py examples/architecture-exhibition.json
+          python3 scripts/validate_spec.py examples/causal-fantasy-effect.json
+          python3 scripts/validate_style_capsule.py templates/style-capsule.json
+          python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
+          python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
+          python3 scripts/create_style_capsule.py examples/style-learning-graphite-copper.json --output /tmp/style-capsule.json
+          cmp /tmp/style-capsule.json examples/style-capsule-graphite-copper.json
+          python3 scripts/reference_delivery.py examples/style-learning-graphite-copper.json > /tmp/reference-local.json
+          python3 -m json.tool /tmp/reference-local.json > /dev/null
+          python3 scripts/reference_delivery.py examples/styleboard-3x3.json > /tmp/reference-conversation.json
+          python3 -m json.tool /tmp/reference-conversation.json > /dev/null
+          python3 scripts/reference_delivery.py examples/atomic-cyber-live-action.json > /tmp/reference-runtime-asset.json
+          python3 -m json.tool /tmp/reference-runtime-asset.json > /dev/null
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
@@ -42,3 +57,17 @@ jobs:
           python3 -m json.tool /tmp/narrative-openai.json > /dev/null
           python3 scripts/compile_prompt.py examples/styleboard-3x3.json --platform openai > /tmp/styleboard-openai.json
           python3 -m json.tool /tmp/styleboard-openai.json > /dev/null
+          for platform in openai flux midjourney generic; do
+            python3 scripts/compile_prompt.py examples/style-learning-graphite-copper.json --platform "$platform" > "/tmp/style-learning-$platform.json"
+            python3 -m json.tool "/tmp/style-learning-$platform.json" > /dev/null
+          done
+          python3 scripts/compile_prompt.py examples/causal-fantasy-effect.json --platform openai > /tmp/causal-openai.json
+          python3 -m json.tool /tmp/causal-openai.json > /dev/null
+          for platform in openai flux midjourney generic; do
+            python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json --style-capsule examples/style-capsule-graphite-copper.json --platform "$platform" > "/tmp/tactile-$platform.json"
+            python3 -m json.tool "/tmp/tactile-$platform.json" > /dev/null
+            python3 scripts/compile_prompt.py examples/architecture-exhibition.json --style-capsule examples/style-capsule-graphite-copper.json --platform "$platform" > "/tmp/architecture-$platform.json"
+            python3 -m json.tool "/tmp/architecture-$platform.json" > /dev/null
+            python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json --style-capsule references/style-capsules/crimson-nocturne-wuxia-montage.json --platform "$platform" > "/tmp/crimson-$platform.json"
+            python3 -m json.tool "/tmp/crimson-$platform.json" > /dev/null
+          done

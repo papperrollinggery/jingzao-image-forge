@@ -1,0 +1,175 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create a square launch image for a handcrafted jasmine-tea tin that feels tactile, giftable, and contemporary rather than rustic or synthetic.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "square",
+    "aspect_ratio": "1:1",
+    "dimensions": {"width": 1024, "height": 1024}
+  },
+  "inputs": [],
+  "knowledge_anchors": [],
+  "creative_routing": {
+    "scenario_profile": "product_tabletop",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "tactile_handcrafted",
+    "capture_or_render_method": "stop_motion",
+    "scene_archetypes": ["studio tabletop", "miniature set"],
+    "audience_effect": "make the tea feel carefully made, calm, modern, and giftable",
+    "delivery_context": "square product launch image",
+    "design_priority": "tin silhouette, label readability, paper tactility, and believable contact",
+    "cultural_context": "contemporary tea craft without invented heritage symbols",
+    "secondary_influence": "luxury editorial spacing",
+    "mix_rule": "stop-motion craft controls the object and miniature set; editorial spacing controls only hierarchy and negative space",
+    "style_authority": "style_capsule",
+    "adaptation_rule": "the learned graphite/copper hierarchy may influence finish, but the tea tin, paper craft, square composition, and green identity remain authoritative",
+    "tone_locks": ["tactile paper construction", "matte surfaces", "deep green product identity", "clean negative space"],
+    "forbidden_drift": ["plastic CG", "generic rustic props", "floating product", "fake Chinese calligraphy"]
+  },
+  "scene": {
+    "summary": "A single jasmine-tea tin rests inside a minimal folded-paper garden.",
+    "setting": "small studio tabletop with layered paper leaves and one low paper plinth",
+    "time": "timeless studio setting",
+    "atmosphere": ["calm", "precise", "tactile"],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.2}
+  },
+  "subjects": [
+    {
+      "id": "tea-tin",
+      "description": "one cylindrical matte ivory jasmine-tea tin with a blank dark-green paper label and one small abstract jasmine relief, no lettering",
+      "count": 1,
+      "appearance": ["clean silhouette", "fine paper grain", "subtle hand-finished seam"],
+      "action": "rests firmly on the paper plinth",
+      "pose": "upright with the label facing camera",
+      "gaze": "not applicable",
+      "position": {"x_percent": 50.0, "y_percent": 52.0, "depth": "midground"},
+      "scale": "occupies about forty percent of frame height",
+      "relationships": ["paper leaves frame the tin without touching the label"],
+      "control": {"weight": 1.0, "lock": false, "variance": 0.08}
+    }
+  ],
+  "spatial_dynamics": {
+    "dominant_read": "one tactile tea tin with a fully readable silhouette and label plane",
+    "secondary_read": "folded paper leaves reveal craft through layered shadows",
+    "beauty_mechanism": "matte ivory and deep green separate against graphite, with one narrow copper lid accent and generous quiet space",
+    "tension_source": "restrained asymmetry between centered product mass and sweeping paper leaves",
+    "exaggeration_budget": "restrained",
+    "distortion_strategy": "none",
+    "realism_anchor": "contact shadow, paper fiber, metal seam, and accurate cylinder perspective",
+    "action_vector": "paper leaves rise diagonally around a stable vertical product",
+    "counterforce": "the low plinth and circular tin keep the composition grounded",
+    "foreground_role": "one soft leaf edge provides depth without covering the product",
+    "midground_role": "tea tin owns product identity and material proof",
+    "background_role": "graphite field provides copy-safe calm and tonal separation",
+    "depth_transition": "foreground leaf to tin edge to quiet background",
+    "parallax_logic": "small near paper overlap, stable product plane, soft distant field",
+    "motion_evidence": [],
+    "readability_guard": "do not distort the cylinder, label plane, lid ellipse, or product contact"
+  },
+  "composition": {
+    "shot_size": "product medium close-up",
+    "camera_angle": "slightly above label height",
+    "perspective": "natural tabletop perspective",
+    "focal_length_mm": 70,
+    "framing": "single centered hero with asymmetrical paper leaves and generous upper-right negative space",
+    "negative_space": "clean upper-right field for optional external copy",
+    "depth_layers": ["soft paper leaf foreground", "tea tin and plinth", "matte graphite backdrop"],
+    "control": {"weight": 0.95, "lock": false, "variance": 0.1}
+  },
+  "lighting": {
+    "summary": "one large soft key and a restrained warm edge reflection",
+    "key": "large diffused source from upper left reveals paper grain and cylinder form",
+    "fill": "minimal graphite bounce preserves readable dark values",
+    "rim": "narrow warm reflection only on the lid edge",
+    "direction": "upper left to lower right",
+    "contrast": "soft product contrast with contained highlights",
+    "color_temperature": "neutral key with a subtle warm edge",
+    "practicals": [],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+  },
+  "materials": [
+    {
+      "target": "tea tin and paper set",
+      "description": "matte coated metal, uncoated label paper, and layered cut paper",
+      "physical_properties": ["broad soft highlights", "visible fine paper fiber", "clean contact shadows", "no wet gloss"],
+      "microstructure": "fine uncoated paper fiber and subtle sprayed-metal texture",
+      "roughness": "high on paper and coated body; medium-low only on the copper lid edge",
+      "specular_response": "broad soft body highlight and one narrow controlled copper reflection",
+      "transmission": "paper leaves remain opaque with slight edge translucency only",
+      "subsurface_behavior": "very low paper-fiber light penetration at thin edges",
+      "anisotropy": "subtle brushed direction on the copper lid ring",
+      "wear_patina": "new product with tiny hand-finished seam variation, no grime",
+      "contact_deformation": "paper leaves bend at folds and the tin compresses the plinth shadow without floating"
+    }
+  ],
+  "color": {
+    "palette": ["graphite black", "matte ivory", "deep tea green", "small warm copper accent"],
+    "grade": "restrained editorial neutrals",
+    "contrast": "deep but readable",
+    "saturation": "low to moderate",
+    "control": {"weight": 0.85, "lock": false, "variance": 0.15}
+  },
+  "style": {
+    "medium": "physical stop-motion product set rendered as a polished still photograph",
+    "realism": "tactile handcrafted realism",
+    "visual_traits": ["visible paper construction", "precise editorial hierarchy", "selective material detail"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["plastic CGI sheen", "rustic clutter", "global gloss"],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.15}
+  },
+  "render_pipeline": {
+    "domain": "path_traced",
+    "custom_domain": "",
+    "engine_reference": "Blender Cycles",
+    "engine_reference_scope": "appearance_reference",
+    "lighting_transport": "soft diffuse and glossy path-traced product lighting with limited transmission through paper edges",
+    "global_illumination": "clean multi-bounce studio fill with restrained green and copper color bleed",
+    "ray_tracing": "roughness-aware reflections and accurate contact visibility",
+    "reflection_model": "broad dielectric highlights on coated metal and paper, narrow anisotropic copper edge",
+    "shadow_model": "soft area shadows plus precise layered-paper contact shadows",
+    "ambient_occlusion": "local only inside paper folds, beneath the tin, and at material seams",
+    "volumetrics": "clear studio air",
+    "material_workflow": "principled/OpenPBR-style metallic-roughness materials",
+    "subsurface_scattering": "minimal thin-paper edge transmission only",
+    "transmission_refraction": "no glass; paper edge translucency remains subtle",
+    "caustics": "none",
+    "displacement_normal": "micro-normal paper tooth and sprayed-metal texture; no noisy displacement",
+    "texture_scale": "fine texture resolves only on the product and nearest paper",
+    "sampling_denoise": "high samples with label-edge and paper-fiber-preserving denoise",
+    "render_passes": ["diffuse", "specular", "shadow", "depth", "cryptomatte"],
+    "performance_fidelity_tradeoff": "final still prioritizes material fidelity",
+    "npr_strategy": "physical paper-craft construction remains visible without cartoon outlines",
+    "forbidden_artifacts": ["fireflies", "plastic paper", "over-dark AO", "floating contact", "denoise-smudged label edge"]
+  },
+  "text_elements": [],
+  "spatial_edits": [],
+  "constraints": {
+    "must_preserve": ["one tin", "label-facing orientation", "clean product contact", "square canvas"],
+    "must_change": [],
+    "exclude": ["people", "logos", "watermarks", "extra packages", "new text", "fake calligraphy"]
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": ["tea-tin silhouette", "label paper", "contact shadow"],
+    "artifact_budget": "strict",
+    "quality_controls": ["matte surfaces retain fine texture without sharpening halos"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium", "size": "1024x1024"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {
+      "aspect_ratio": "1:1",
+      "stylize": 100,
+      "chaos": 0,
+      "quality": 1,
+      "raw": true,
+      "seed": null,
+      "version": null,
+      "style_reference": [],
+      "style_weight": 100
+    }
+  }
+}

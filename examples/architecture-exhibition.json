@@ -1,0 +1,157 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create a wide architecture-exhibition hero image showing a quiet material research pavilion, with spatial clarity and a premium but non-commercial sense of discovery.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "standard_widescreen",
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [],
+  "knowledge_anchors": [],
+  "creative_routing": {
+    "scenario_profile": "architecture_interior",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "graphic_modernism",
+    "capture_or_render_method": "photoreal_cg",
+    "scene_archetypes": ["public architecture", "gallery interior"],
+    "audience_effect": "invite slow visual exploration and make construction logic understandable",
+    "delivery_context": "wide exhibition announcement and website hero",
+    "design_priority": "spatial circulation, material junctions, human scale, and clean copy-safe space",
+    "cultural_context": "contemporary material research with no invented historical symbolism",
+    "secondary_influence": "minimal object study",
+    "mix_rule": "graphic modernism controls grid and hierarchy; minimal object study controls only material isolation and quiet negative space",
+    "style_authority": "style_capsule",
+    "adaptation_rule": "preserve graphite/copper hierarchy while architecture, human scale, daylight, and circulation remain authoritative",
+    "tone_locks": ["dry material honesty", "graphite negative field", "one restrained warm path", "quiet editorial spacing"],
+    "forbidden_drift": ["luxury retail showroom", "empty white render", "random copper decoration", "sci-fi interface overlays"]
+  },
+  "scene": {
+    "summary": "A low pavilion of rammed earth, darkened timber, and translucent recycled glass forms a walkable sequence of thresholds.",
+    "setting": "large neutral gallery with one pavilion, a shallow reflecting strip, and two distant visitors",
+    "time": "late afternoon indoor daylight",
+    "atmosphere": ["quiet", "precise", "contemplative"],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.18}
+  },
+  "subjects": [
+    {
+      "id": "pavilion",
+      "description": "one inhabitable material-research pavilion with three offset walls and a narrow luminous threshold",
+      "count": 1,
+      "appearance": ["rammed earth mass", "charred timber frame", "translucent recycled glass joint"],
+      "action": "guides two distant visitors through a compressed entrance into an open central bay",
+      "pose": "low horizontal mass with one vertical light joint",
+      "gaze": "not applicable",
+      "position": {"x_percent": 48.0, "y_percent": 52.0, "depth": "midground"},
+      "scale": "visitors establish full human scale without becoming portrait subjects",
+      "relationships": ["reflecting strip follows the circulation edge", "visitors remain separated by one threshold"],
+      "control": {"weight": 1.0, "lock": false, "variance": 0.08}
+    }
+  ],
+  "composition": {
+    "shot_size": "wide architectural view",
+    "camera_angle": "standing eye level",
+    "perspective": "two-point architectural perspective",
+    "focal_length_mm": 32,
+    "framing": "pavilion spans the lower two thirds; circulation enters from left foreground; upper-right wall remains copy-safe",
+    "negative_space": "quiet upper-right gallery wall",
+    "depth_layers": ["dark floor edge and reflecting strip", "pavilion and visitors", "neutral gallery shell"],
+    "control": {"weight": 0.95, "lock": false, "variance": 0.08}
+  },
+  "lighting": {
+    "summary": "large overhead daylight washes the gallery while one narrow warm threshold reveals material depth",
+    "key": "broad cool daylight from clerestory panels",
+    "fill": "soft reflected gallery light",
+    "rim": "none",
+    "direction": "top left with a narrow warm vertical counterpoint",
+    "contrast": "controlled material separation without theatrical black crush",
+    "color_temperature": "cool-neutral gallery daylight and one warm threshold",
+    "practicals": ["concealed warm source inside the narrow threshold"],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+  },
+  "materials": [
+    {
+      "target": "pavilion envelope",
+      "description": "rammed earth, charred timber, translucent recycled glass, and shallow water",
+      "physical_properties": ["dry mineral texture", "open timber grain", "diffuse glass transmission", "subtle water reflection"],
+      "microstructure": "layered earth compaction, open charred grain, seeded recycled-glass inclusions",
+      "roughness": "high on earth and timber, variable on glass, low only on shallow water",
+      "specular_response": "broad mineral highlights, narrow wet edge, rough translucent glass reflection",
+      "transmission": "diffuse through recycled glass with visible thickness and inclusions",
+      "subsurface_behavior": "none",
+      "anisotropy": "directional charred-timber grain only",
+      "wear_patina": "controlled construction marks and slight water mineral deposits",
+      "contact_deformation": "heavy earth walls meet floor with credible weight, shadow gap, and no floating edges"
+    }
+  ],
+  "color": {
+    "palette": ["graphite floor", "warm earth", "charred timber", "smoky recycled glass", "small warm threshold"],
+    "grade": "restrained architectural editorial",
+    "contrast": "material-led",
+    "saturation": "low",
+    "control": {"weight": 0.85, "lock": false, "variance": 0.12}
+  },
+  "style": {
+    "medium": "photoreal architectural visualization with editorial restraint",
+    "realism": "physically plausible",
+    "visual_traits": ["material honesty", "human scale", "quiet graphic hierarchy", "copy-safe negative space"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["glossy luxury retail", "empty parametric spectacle", "floating UI"],
+    "control": {"weight": 0.9, "lock": false, "variance": 0.12}
+  },
+  "render_pipeline": {
+    "domain": "real_time",
+    "custom_domain": "",
+    "engine_reference": "Unreal Engine 5 Lumen",
+    "engine_reference_scope": "appearance_reference",
+    "lighting_transport": "dynamic real-time diffuse interreflection and indirect specular with a declared fidelity/performance balance",
+    "global_illumination": "Lumen-like sky-shadowed interior GI with soft infinite-bounce color bleed kept subtle",
+    "ray_tracing": "software/hardware-ray-tracing appearance for roughness-aware reflections and large-space visibility",
+    "reflection_model": "roughness-correct earth, timber, glass, and water reflections; screen-space loss must not erase offscreen contribution",
+    "shadow_model": "virtual-shadow-map-like contact precision plus soft clerestory penumbra",
+    "ambient_occlusion": "local at wall-floor junctions and threshold contacts only",
+    "volumetrics": "clear gallery air with no decorative fog",
+    "material_workflow": "PBR metallic-roughness materials with scale-accurate textures and high-precision normals",
+    "subsurface_scattering": "none for the pavilion; visitors retain subtle skin response",
+    "transmission_refraction": "high-quality front-layer glass transmission with roughness and interior inclusions",
+    "caustics": "none",
+    "displacement_normal": "earth layer relief and timber grain remain scale-correct without noisy tessellation",
+    "texture_scale": "human-scale material texture remains coherent from foreground to pavilion",
+    "sampling_denoise": "stable temporal appearance with no reflection shimmer or smeared glass detail",
+    "render_passes": ["diffuse", "specular", "transmission", "shadow", "depth", "object ID"],
+    "performance_fidelity_tradeoff": "cinematic still prioritizes Lumen quality and reflection stability over gameplay frame rate",
+    "npr_strategy": "none",
+    "forbidden_artifacts": ["emissive noise", "screen-space reflection loss", "temporal shimmer", "light leaks", "plastic earth", "over-dark AO"]
+  },
+  "text_elements": [],
+  "spatial_edits": [],
+  "constraints": {
+    "must_preserve": ["one pavilion", "two distant visitors", "human-scale circulation", "copy-safe upper-right wall"],
+    "must_change": [],
+    "exclude": ["logos", "watermarks", "retail products", "crowds", "floating interface graphics"]
+  },
+  "render": {
+    "quality": "high",
+    "detail_priority": ["material junctions", "threshold depth", "visitor scale", "floor contact"],
+    "artifact_budget": "strict",
+    "quality_controls": ["clean gradients and restrained reflections preserve dry mineral surfaces"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium", "size": "1536x864"},
+    "flux": {"model_family": "FLUX.2", "prompt_format": "natural_language", "prompt_upsampling": false},
+    "midjourney": {
+      "aspect_ratio": "16:9",
+      "stylize": 80,
+      "chaos": 0,
+      "quality": 1,
+      "raw": true,
+      "seed": null,
+      "version": null,
+      "style_reference": [],
+      "style_weight": 80
+    }
+  }
+}

@@ -13,13 +13,19 @@
       "id": "image-1",
       "type": "image",
       "role": "camera_and_identity_reference",
-      "description": "User-supplied image proving the two siblings, practical wardrobe, terminal geography, and grounded subject scale."
+      "description": "User-supplied image proving the two siblings, practical wardrobe, terminal geography, and grounded subject scale.",
+      "source_kind": "conversation_image",
+      "source_ref": "Image 1 in the active conversation",
+      "must_attach": true
     },
     {
       "id": "image-2",
       "type": "image",
       "role": "style_reference",
-      "description": "User-supplied black-and-white pencil and marker storyboard finish reference."
+      "description": "User-supplied black-and-white pencil and marker storyboard finish reference.",
+      "source_kind": "conversation_image",
+      "source_ref": "Image 2 in the active conversation",
+      "must_attach": true
     }
   ],
   "knowledge_anchors": [],

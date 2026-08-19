@@ -9,19 +9,22 @@ Platform behavior changes over time. The provider notes below were checked again
 Use a stable order so prompts remain debuggable:
 
 1. exact named-entity knowledge anchors and requested incarnation;
-2. intent, deliverable type, treatment, spectacle scale, genre logic, and camera freedom;
-3. cinematic shot contract, viewer position, frozen moment, and staging when relevant;
-4. scene and environment;
-5. subjects, actions, relationships, and causal effects;
-6. composition, camera motivation, focal-length rationale, and spatial placement;
-7. motivated lighting, materials, color, and optics;
-8. style and realism;
-9. compact artifact budget and shot-specific quality controls;
-10. exact visible text;
-11. requested edits or styleboard frame cards;
-12. preservation and continuity constraints;
-13. exclusions or provider-native negative controls;
-14. generation parameters, kept outside prose when the provider supports them.
+2. intent plus creative route: scenario, genre, primary aesthetic, capture/render method, scene archetypes, audience effect, and delivery context;
+3. optional learned style capsule, explicitly subordinate to the target subject, scene, layout, text, and production method;
+4. deliverable type, treatment, spectacle scale, genre logic, and camera freedom;
+5. cinematic shot contract, viewer position, frozen moment, and staging when relevant;
+6. scene and environment;
+7. subjects, actions, relationships, and causal effects;
+8. composition, camera motivation, focal-length rationale, and spatial placement;
+9. spatial dynamics, camera/lens/distortion, and motivated lighting;
+10. materials, color, professional color pipeline, render pipeline, and optics;
+11. detailed style and realism;
+12. compact artifact budget and shot-specific quality controls;
+13. exact visible text;
+14. requested edits or styleboard frame cards;
+15. preservation and continuity constraints;
+16. exclusions or provider-native negative controls;
+17. generation parameters, kept outside prose when the provider supports them.
 
 Compile locked, high-weight fields first and repeat critical invariants in the edit section. Do not translate `control.weight`, `lock`, or `variance` into provider parameters unless a documented mapping truly exists.
 
@@ -31,17 +34,27 @@ Use short labeled sections for complex prompts. State explicit framing, placemen
 
 OpenAI's current official guidance recommends `gpt-image-2` for new image generation and editing workflows. It supports generation and edits through the Image API, and conversational multi-turn image work through the Responses API. Keep `model`, `quality`, and `size` separate from prompt prose. Accepted quality values are `low`, `medium`, `high`, and `auto`.
 
+`gpt-image-2` accepts flexible sizes, not a three-size allow-list. A concrete `WIDTHxHEIGHT` size must keep both edges at multiples of 16, each edge at or below 3840, long-to-short ratio at or below 3:1, and total pixels from 655,360 through 8,294,400; `auto` is also valid. The validator enforces these current constraints. A `learn_style` analysis compile emits no generation size because it is not an image-generation deliverable.
+
 GPT image generation models can combine reasoning with world knowledge. For a named character, place, historical event, artifact, or fictional-world element, preserve the exact entity and version wording before the rest of the prompt. Start with a clean base prompt and refine through small single-change follow-ups; do not bury a useful entity anchor under speculative generic descriptors.
 
 When the built-in Responses image-generation tool returns `revised_prompt`, inspect it before accepting the result. The exact knowledge anchor, requested incarnation, and rendering medium must remain intact. A rewrite that converts animation into live action, drops a named version, or substitutes a generic subject should be corrected before the next generation.
 
 For reference-backed or hybrid identity work, label every image by index and role. GPT Image 2 processes image inputs at high fidelity automatically; do not invent or emit an `input_fidelity` control for this model. World knowledge and prompt rewriting can improve creation, but neither proves canonical accuracy.
 
+When an input declares `must_attach: true`, the compiler emits it in the top-level `attachments` manifest and marks the prompt input line as requiring the actual image. Executors must forward the real files/images to the generation or edit call; descriptions are not replacements. The top-level `reference_handoff` explains the built-in ImageGen attachment mechanism. This Skill does not route to post-generation compositing.
+
 Quality controls should be short and positive: material-specific surface response, controlled highlights, natural microcontrast, selective focal detail, and only source- or scene-motivated grain, bloom, flare, gloss, and particles. Official OpenAI prompting examples favor real texture, natural color balance, and limited retouching, and recommend iterative refinement over overloaded prompts.
 
 For `narrative_film_frame`, preserve the shot contract before aesthetic polish: visible event, relationship pressure, viewer task and position, one frozen moment, staging, camera motivation, distance, focal-length rationale, and motivated lighting. For spectacle or Chinese-fantasy work, compile the chosen treatment and scale separately from causal effects so visual richness does not become a poster-like list of simultaneous assets.
 
 For `styleboard`, compile the global visual master, reference assignments, continuity locks, frame cards, and explicit generation strategy as a prompt package. `sheet_direct` requests one equal-cell board and must carry grid geometry, reading order, panel count, and continuity locks; `independent_frames` compiles native-ratio frame prompts for assembly; `hybrid` compiles the direct board first and targeted replacement frames second. Do not represent any strategy as universally superior.
+
+For `creative_routing`, compile the primary scenario and aesthetic before detailed scene/style fields so the downstream controls share one purpose. A secondary influence must carry a division-of-labor `mix_rule`; do not flatten it into an equal-weight style list.
+
+For `learn_style`, the analysis record may be compiled for inspection, but the reusable output is a validated `style_capsule`. When `--style-capsule` is supplied, compile its transferable surface, palette, shape/line, material, lighting, hierarchy, optics/rendering, and optional motifs before the target scene. Explicitly state that the target specification remains authoritative. Always include capsule `forbidden_transfer` boundaries; do not allow a capsule to reintroduce source identity, exact text, logo, protected design, or layout coordinates.
+
+Compile `spatial_dynamics` before camera detail so dominant read, tension, action/counterforce, layer roles, exaggeration, and distortion explain why the camera is designed that way. Compile the target `color_pipeline` and `render_pipeline` after scene lighting/material/color so they refine the visible result without replacing the subject or world. Engine references labeled `appearance_reference` must remain visual vocabulary; do not present them as tools that actually ran.
 
 When FLUX `prompt_format` is `json`, the compiler result remains a JSON envelope whose `prompt` field contains a second serialized JSON document. Consumers must parse the outer result and then parse `prompt` when they need the structured FLUX object.
 
@@ -85,10 +98,13 @@ Do not produce a negative prompt for FLUX.2. Official guidance says it does not 
 | --- | --- |
 | `no blur` | `sharp focus throughout` |
 | `no people` | `an empty environment` |
-| `no plastic CGI` | `physically plausible materials with natural surface variation` |
-| `no extra text` | `only the specified literal text appears` |
+| `no plastic CGI` / `plastic CGI sheen` | `physically plausible materials with natural surface variation` |
+| `no extra text` / `new text` | `only the specified literal text appears` |
+| `logo` / `logos` | `unbranded scene containing only the requested visual content` |
+| `watermark` / `watermarks` | `clean image containing only the requested visual content` |
+| `global gloss` | `material-specific matte and reflective response with no uniform sheen` |
 
-If an exclusion cannot be expressed safely as a positive visual target, return it as a warning for human review instead of pretending it is enforced.
+The compiler strips `no`/`without`, folds supported plurals, and maps only known concepts. If an exclusion cannot be expressed safely as a positive visual target, it is omitted from the FLUX prompt and returned as a warning for human review instead of pretending it is enforced.
 
 For multiple references, state the role of each image: subject from image 1, style from image 2, environment from image 3. Use exact quoted text and explicit placement. Keep optional `prompt_upsampling` in parameters rather than prompt prose.
 
@@ -106,13 +122,14 @@ Common mappings:
 
 - canvas aspect ratio → `--ar`;
 - exclusions → `--no`;
-- style reference URL → `--sref`;
+- style reference URL or style-code string → `--sref`; an optional positive per-reference `weight` compiles as `URL::weight`, while global `style_weight` compiles separately as `--sw`;
 - style reference influence → `--sw`;
-- image prompt influence → `--iw` when explicitly supplied;
 - raw mode → `--raw`;
 - stylization, chaos, quality, seed, and version → their documented parameters.
 
 Do not map internal `control.weight` directly to multi-prompt weights. Only emit Midjourney weights when the specification explicitly supplies a provider-native weight.
+
+Ordinary prose is neutralized before Midjourney flags are appended: user text containing `--` or `::` must not become an injected parameter or multi-prompt weight. Provider-native style-reference weights remain separate flag values.
 
 Style References transfer overall visual characteristics such as color, medium, texture, and lighting; they are not identity or object-copy controls. Keep text prompts focused on desired content when a Style Reference is present.
 
@@ -133,7 +150,7 @@ When the platform is unknown, produce:
   "prompt": "positive visual description",
   "negative_prompt": "portable exclusions",
   "parameters": {},
-  "warnings": ["Provider-specific behavior is unverified."]
+  "warnings": ["Provider-specific syntax and parameter support are unverified."]
 }
 ```
 
@@ -147,6 +164,9 @@ Compile a validated spec:
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform openai
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform flux --format text
 python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform midjourney
+python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json \
+  --style-capsule examples/style-capsule-graphite-copper.json \
+  --platform openai
 ```
 
-The JSON output contains `platform`, `prompt`, `negative_prompt`, `parameters`, `warnings`, and `source_spec_version`.
+The JSON output contains `platform`, `prompt`, `negative_prompt`, `parameters`, `warnings`, `attachments`, `reference_handoff`, and `source_spec_version`.

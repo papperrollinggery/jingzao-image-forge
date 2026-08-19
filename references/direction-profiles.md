@@ -1,6 +1,6 @@
 # Visual Direction Profiles
 
-Use this reference to translate a request into an appropriate visual treatment without forcing all images into grounded realism or poster spectacle.
+Use this reference to translate cinematic, spectacle, giant-scale, and Chinese-fantasy requests into an appropriate treatment without forcing all images into grounded realism or poster spectacle. For product, fashion, architecture, food, documentary, science, interface, game, social, or experimental work, route first through [scenario-profiles.md](scenario-profiles.md) and [visual-style-atlas.md](visual-style-atlas.md).
 
 ## Analysis Matrix
 
@@ -92,6 +92,8 @@ The effect must perform one operation: bind, redirect, reveal, divide, purify, e
 - use one dominant effect family and at most one supporting family;
 - particles, smoke, debris, and light decay after the selected hero intensity;
 - costume, architecture, landscape, materials, and social order carry the world before effects do.
+
+Effect intensity values are `minor`, `medium`, or `hero`. Intensity controls effect priority, scale, and environment response; it is not a universal glow or particle multiplier.
 
 For grounded xianxia, keep camera access and physical sets plausible. For heightened or graphic xianxia, exaggerate shape rhythm, scale, color ownership, or impossible viewpoint while preserving effect causality and character identity.
 
