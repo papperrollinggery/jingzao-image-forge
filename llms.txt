@@ -108,7 +108,7 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 150 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 151 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in natural-language and FLUX JSON projections, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and two explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations

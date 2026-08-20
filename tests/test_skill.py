@@ -1432,6 +1432,16 @@ class CompilerTests(unittest.TestCase):
                 self.assertIn("compiled prompt has no semantic content", errors)
                 self.assertIn("prompt_review is blocked", errors)
 
+    def test_flux_json_empty_template_is_blocked_without_empty_subject_payload(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["platform_options"]["flux"]["prompt_format"] = "json"
+        result = compiler.compile_spec(spec, "flux", review_approved=True)
+        self.assertEqual("", result["prompt"])
+        self.assertEqual("blocked", result["prompt_review"]["status"])
+        self.assertIn("empty_prompt", result["prompt_review"]["reasons"])
+        self.assertEqual("blocked", result["imagegen_call_plan"]["status"])
+        self.assertIn("compiled prompt has no semantic content", prompt_lint.lint_compiled_result(result))
+
     def test_prompt_review_requires_semantic_audit_above_target(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
         spec["intent"] = " ".join(["distinct-current-fact"] * 1400)

@@ -6,6 +6,8 @@ Use this reference for multi-subject images, reference-based reconstruction, exa
 
 The specification is a platform-neutral source of truth. It separates scene intent from platform syntax and separates hard invariants from creative freedom.
 
+The distributed template is a neutral fill-in skeleton, not an executable prompt. Until it contains semantic generation content, compilation is blocked with `empty_prompt` even though the template itself remains schema-valid.
+
 Required top-level fields:
 
 | Field | Purpose |

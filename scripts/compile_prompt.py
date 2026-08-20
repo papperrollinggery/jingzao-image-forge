@@ -105,6 +105,19 @@ def _join(parts: Iterable[str], separator: str = "; ") -> str:
     return separator.join(part for part in parts if part)
 
 
+def _clean_json_prompt_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return value if value.strip() else None
+    if isinstance(value, list):
+        cleaned = [_clean_json_prompt_value(item) for item in value]
+        cleaned = [item for item in cleaned if item is not None]
+        return cleaned or None
+    if isinstance(value, dict):
+        cleaned = {key: item for key, raw in value.items() if (item := _clean_json_prompt_value(raw)) is not None}
+        return cleaned or None
+    return value
+
+
 def _reviewable_source_strings(value: Any, path: tuple[str | int, ...] = ()) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -1016,28 +1029,7 @@ def _common_sections(
         "edits": _edit_lines(spec),
         "styleboard": _styleboard_lines(spec) if mode == "styleboard" else [],
     }
-    return _normalize_sections(sections)
-
-
-def _section_words(sections: dict[str, Any]) -> int:
-    values: list[str] = []
-    for key, value in sections.items():
-        if key.startswith("_"):
-            continue
-        if isinstance(value, str):
-            values.append(value)
-        elif isinstance(value, list):
-            values.extend(item for item in value if isinstance(item, str))
-    return len(" ".join(values).split())
-
-
-def _normalize_sections(sections: dict[str, Any]) -> dict[str, Any]:
-    normalized = dict(sections)
-    original_words = _section_words(sections)
-    normalized["_compiler_notes"] = []
-    normalized["_section_words_before"] = original_words
-    normalized["_section_words_after"] = original_words
-    return normalized
+    return sections
 
 
 def _labeled_prompt(sections: dict[str, Any], preserve: list[str], change: list[str], exclude: list[str]) -> str:
@@ -1098,10 +1090,6 @@ def compile_openai(spec: dict[str, Any], style_capsule: dict[str, Any] | None = 
         }
     )
     warnings = []
-    if sections["_compiler_notes"]:
-        warnings.append(
-            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
-        )
     anchors = spec.get("knowledge_anchors") if isinstance(spec.get("knowledge_anchors"), list) else []
     if any(isinstance(item, dict) and item.get("verification", "unverified") == "unverified" for item in anchors):
         warnings.append("Named-entity accuracy relies on model knowledge and must be visually verified against a trusted reference or by the user.")
@@ -1191,7 +1179,12 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
             "desired_state_constraints": positive_constraints,
             "styleboard_package": sections["styleboard"],
         }
-        prompt = json.dumps({key: value for key, value in payload.items() if value}, ensure_ascii=False, indent=2)
+        cleaned_payload = {
+            key: cleaned
+            for key, value in payload.items()
+            if (cleaned := _clean_json_prompt_value(value)) is not None
+        }
+        prompt = json.dumps(cleaned_payload, ensure_ascii=False, indent=2) if cleaned_payload else ""
     else:
         ordered = [
             "Canonical knowledge anchors: " + "; ".join(sections["knowledge_anchors"]) if sections["knowledge_anchors"] else "",
@@ -1229,10 +1222,6 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
             prompt += "."
 
     warnings = []
-    if sections["_compiler_notes"]:
-        warnings.append(
-            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
-        )
     if exclude:
         warnings.append("FLUX.2 has no negative-prompt channel; exclusions were converted to positive targets when possible.")
     if unconverted:
@@ -1342,10 +1331,6 @@ def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | Non
             flags.extend(["--no", _sanitize_midjourney_text(", ".join(exclude))])
 
     warnings = []
-    if sections["_compiler_notes"]:
-        warnings.append(
-            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
-        )
     if spec.get("mode") in {"edit", "restyle", "expand"} or sections["edits"]:
         warnings.append("Prompt coordinates are semantic anchors, not pixel-accurate edit masks; use an editor region or mask for surgical changes.")
     if preserve:
@@ -1373,10 +1358,6 @@ def compile_generic(spec: dict[str, Any], style_capsule: dict[str, Any] | None =
     sections = _common_sections(spec, platform="generic", style_capsule=style_capsule)
     preserve, change, exclude = _constraints(spec)
     warnings = ["Provider-specific syntax and parameter support are unverified."]
-    if sections["_compiler_notes"]:
-        warnings.append(
-            "Prompt normalization compacted lower-priority sections: " + ", ".join(sections["_compiler_notes"])
-        )
     styleboard_warning = _styleboard_warning(spec)
     if styleboard_warning:
         warnings.append(styleboard_warning)

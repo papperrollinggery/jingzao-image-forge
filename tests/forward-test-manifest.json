@@ -173,7 +173,7 @@
       "output": "assets/gallery/path-traced-koi-automaton.jpg",
       "output_sha256": "9b65736e368cc82e04b1ea4917946525f5b9bfc8f2bb238af080926c96be8fd4",
       "review_date": "2026-08-20",
-      "review": "Passed first attempt: ivory porcelain plates, darkened brass articulation, clear glass tail, black-water contact, controlled reflections/refraction, clean gradients, quiet negative space, and an S-curve silhouette remained distinct without poster clutter, neon drift, fireflies, global bloom, or uniform plastic gloss."
+      "review": "Passed first attempt: ivory porcelain plates, darkened brass articulation, clear glass tail, black-water contact, controlled reflections/refraction, clean gradients, quiet negative space, and an S-curve silhouette remained distinct without poster clutter, neon drift, fireflies, global bloom, or uniform plastic gloss. The current 869-word projection is byte-identical to the compiler prompt sent in this session, but no public execution receipt was retained; the manifest therefore proves the current prompt/output hashes and manual review, not a receipt-bound tool-call linkage."
     }
   ]
 }
