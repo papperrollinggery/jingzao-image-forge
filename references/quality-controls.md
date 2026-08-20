@@ -21,8 +21,9 @@ Generic quality adjectives such as `8K`, `ultra detailed`, `hyper realistic`, or
 
 | Budget | Use when | Default behavior |
 | --- | --- | --- |
+| `auto` | first-pass generation without a demonstrated artifact risk | emit no preset; let the requested subject, medium, material, and light lead |
 | `strict` | products, typography, diagrams, clean editorials | clean gradients, contained highlights, clear air, no decorative texture systems |
-| `balanced` | default premium imagery | restrained source-driven effects, natural material roughness, selective focal detail |
+| `balanced` | premium imagery that explicitly needs restrained finishing | restrained source-driven effects, natural material roughness, selective focal detail |
 | `expressive` | painterly, analog, fantasy, VFX-heavy work | intentional artifacts allowed only when coherent with medium, event, or visible source |
 | `source_matched` | edits, restyles, expansions | inherit source grain, flare, sharpness, and surface response; add no new artifact classes |
 

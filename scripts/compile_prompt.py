@@ -105,24 +105,6 @@ def _join(parts: Iterable[str], separator: str = "; ") -> str:
     return separator.join(part for part in parts if part)
 
 
-def _limit_clauses(value: str, limit: int, protected_clauses: tuple[str, ...] = ()) -> str:
-    protected_map: dict[str, str] = {}
-    protected_value = value
-    for index, clause in enumerate(sorted((item for item in protected_clauses if item), key=len, reverse=True)):
-        marker = f"__JINGZAO_PROTECTED_{index}__"
-        if clause in protected_value:
-            protected_value = protected_value.replace(clause, marker, 1)
-            protected_map[marker] = clause
-    clauses = [item.strip() for item in protected_value.split(";") if item.strip()]
-    if len(clauses) <= limit:
-        selected = clauses
-    else:
-        protected_indexes = {index for index, clause in enumerate(clauses) if clause in protected_map}
-        kept_indexes = set(range(min(limit, len(clauses)))).union(protected_indexes)
-        selected = [clause for index, clause in enumerate(clauses) if index in kept_indexes]
-    return "; ".join(protected_map.get(clause, clause) for clause in selected)
-
-
 def _reviewable_source_strings(value: Any, path: tuple[str | int, ...] = ()) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -997,81 +979,6 @@ def _constraints(spec: dict[str, Any]) -> tuple[list[str], list[str], list[str]]
     )
 
 
-def _protected_section_clauses(spec: dict[str, Any]) -> dict[str, tuple[str, ...]]:
-    routing = spec.get("creative_routing") if isinstance(spec.get("creative_routing"), dict) else {}
-    dynamics = spec.get("spatial_dynamics") if isinstance(spec.get("spatial_dynamics"), dict) else {}
-    color = spec.get("color_pipeline") if isinstance(spec.get("color_pipeline"), dict) else {}
-    film = color.get("film_emulation") if isinstance(color.get("film_emulation"), dict) else {}
-    render = spec.get("render_pipeline") if isinstance(spec.get("render_pipeline"), dict) else {}
-    tone_locks = _items(routing.get("tone_locks"))
-    forbidden_drift = _items(routing.get("forbidden_drift"))
-    motion_evidence = _items(dynamics.get("motion_evidence"))
-    continuity_locks = _items(color.get("continuity_locks"))
-    forbidden_casts = _items(color.get("forbidden_casts"))
-    forbidden_artifacts = _items(render.get("forbidden_artifacts"))
-    return {
-        "creative_routing": tuple(
-            item
-            for item in (
-                f"secondary influence: {_text(routing.get('secondary_influence'))}"
-                if _text(routing.get("secondary_influence"))
-                else "",
-                f"mix rule: {_text(routing.get('mix_rule'))}" if _text(routing.get("mix_rule")) else "",
-                f"style authority: {_explicit(routing.get('style_authority'))}"
-                if _explicit(routing.get("style_authority"))
-                else "",
-                f"adaptation rule: {_text(routing.get('adaptation_rule'))}"
-                if _text(routing.get("adaptation_rule"))
-                else "",
-                f"tone locks: {', '.join(tone_locks)}" if tone_locks else "",
-                f"forbidden drift: {', '.join(forbidden_drift)}" if forbidden_drift else "",
-            )
-            if item
-        ),
-        "spatial_dynamics": tuple(
-            item
-            for item in (
-                f"depth transition: {_text(dynamics.get('depth_transition'))}"
-                if _text(dynamics.get("depth_transition"))
-                else "",
-                f"parallax logic: {_text(dynamics.get('parallax_logic'))}"
-                if _text(dynamics.get("parallax_logic"))
-                else "",
-                f"motion evidence: {', '.join(motion_evidence)}" if motion_evidence else "",
-                f"readability guard: {_text(dynamics.get('readability_guard'))}"
-                if _text(dynamics.get("readability_guard"))
-                else "",
-            )
-            if item
-        ),
-        "color_pipeline": tuple(
-            item
-            for item in (
-                f"grain: {_text(film.get('grain'))}" if _text(film.get("grain")) else "",
-                f"halation: {_text(film.get('halation'))}" if _text(film.get("halation")) else "",
-                f"bloom: {_text(film.get('bloom'))}" if _text(film.get("bloom")) else "",
-                f"gate weave: {_text(film.get('gate_weave'))}" if _text(film.get("gate_weave")) else "",
-                f"vignette: {_text(film.get('vignette'))}" if _text(film.get("vignette")) else "",
-                f"continuity locks: {', '.join(continuity_locks)}" if continuity_locks else "",
-                f"forbidden casts: {', '.join(forbidden_casts)}" if forbidden_casts else "",
-            )
-            if item
-        ),
-        "render_pipeline": tuple(
-            item
-            for item in (
-                f"NPR strategy: {_text(render.get('npr_strategy'))}"
-                if _text(render.get("npr_strategy"))
-                else "",
-                f"forbidden render artifacts: {', '.join(forbidden_artifacts)}"
-                if forbidden_artifacts
-                else "",
-            )
-            if item
-        ),
-    }
-
-
 def _common_sections(
     spec: dict[str, Any],
     *,
@@ -1109,12 +1016,14 @@ def _common_sections(
         "edits": _edit_lines(spec),
         "styleboard": _styleboard_lines(spec) if mode == "styleboard" else [],
     }
-    return _normalize_sections(sections, platform, _protected_section_clauses(spec))
+    return _normalize_sections(sections)
 
 
 def _section_words(sections: dict[str, Any]) -> int:
     values: list[str] = []
-    for value in sections.values():
+    for key, value in sections.items():
+        if key.startswith("_"):
+            continue
         if isinstance(value, str):
             values.append(value)
         elif isinstance(value, list):
@@ -1122,72 +1031,12 @@ def _section_words(sections: dict[str, Any]) -> int:
     return len(" ".join(values).split())
 
 
-def _normalize_sections(
-    sections: dict[str, Any],
-    platform: str,
-    protected_clauses: dict[str, tuple[str, ...]],
-) -> dict[str, Any]:
+def _normalize_sections(sections: dict[str, Any]) -> dict[str, Any]:
     normalized = dict(sections)
-    notes: list[str] = []
-    target = PROMPT_TARGET_WORDS[platform]
     original_words = _section_words(sections)
-    if original_words > target:
-        limits = {
-            "openai": {
-                "creative_routing": 8,
-                "spatial_dynamics": 12,
-                "lighting": 8,
-                "materials": 8,
-                "color_pipeline": 8,
-                "render_pipeline": 7,
-                "optics": 4,
-                "style": 5,
-                "render": 4,
-            },
-            "flux": {
-                "creative_routing": 9,
-                "spatial_dynamics": 10,
-                "lighting": 8,
-                "materials": 10,
-                "color_pipeline": 8,
-                "render_pipeline": 8,
-                "optics": 4,
-                "style": 4,
-                "render": 4,
-            },
-            "midjourney": {
-                "creative_routing": 6,
-                "spatial_dynamics": 11,
-                "lighting": 6,
-                "materials": 7,
-                "color_pipeline": 14,
-                "render_pipeline": 5,
-                "optics": 3,
-                "style": 4,
-                "render": 3,
-            },
-            "generic": {
-                "creative_routing": 12,
-                "spatial_dynamics": 13,
-                "lighting": 10,
-                "materials": 14,
-                "color_pipeline": 12,
-                "render_pipeline": 12,
-                "optics": 6,
-                "style": 6,
-                "render": 5,
-            },
-        }[platform]
-        for key, limit in limits.items():
-            value = normalized.get(key)
-            if isinstance(value, str) and value:
-                compact = _limit_clauses(value, limit, protected_clauses.get(key, ()))
-                if compact != value:
-                    normalized[key] = compact
-                    notes.append(key)
-    normalized["_compiler_notes"] = notes
+    normalized["_compiler_notes"] = []
     normalized["_section_words_before"] = original_words
-    normalized["_section_words_after"] = _section_words(normalized)
+    normalized["_section_words_after"] = original_words
     return normalized
 
 
@@ -1375,7 +1224,9 @@ def compile_flux(spec: dict[str, Any], style_capsule: dict[str, Any] | None = No
             "Desired visible state: " + "; ".join(positive_constraints) if positive_constraints else "",
             "Styleboard package: " + "; ".join(sections["styleboard"]) if sections["styleboard"] else "",
         ]
-        prompt = ". ".join(part.rstrip(". ") for part in ordered if part) + "."
+        prompt = ". ".join(part.rstrip(". ") for part in ordered if part)
+        if prompt:
+            prompt += "."
 
     warnings = []
     if sections["_compiler_notes"]:
@@ -1468,7 +1319,7 @@ def compile_midjourney(spec: dict[str, Any], style_capsule: dict[str, Any] | Non
     flags: list[str] = []
     if spec.get("mode") != "learn_style":
         aspect = options.get("aspect_ratio") or canvas.get("aspect_ratio")
-        if aspect:
+        if aspect and aspect != "auto":
             flags.extend(["--ar", str(aspect)])
         if options.get("stylize") is not None:
             flags.extend(["--s", str(options["stylize"])])
@@ -1573,6 +1424,13 @@ def compile_spec(
     result["prompt_metrics"] = metrics
     target_words = PROMPT_TARGET_WORDS[target]
     review_reasons: list[str] = []
+    semantic_prompt = result["prompt"]
+    if target == "midjourney":
+        semantic_prompt = semantic_prompt.split(" --", 1)[0]
+    is_empty_prompt = not semantic_prompt.strip().strip(".")
+    if is_empty_prompt:
+        review_reasons.append("empty_prompt")
+        result["warnings"].append("Prompt review blocked an empty prompt with no semantic generation content.")
     if metrics["words"] > target_words:
         review_reasons.append("length_over_target")
         result["warnings"].append(
@@ -1585,7 +1443,7 @@ def compile_spec(
         review_reasons.append("high_reference_count")
     residue_hits = context_residue_hits_from_sources(spec, style_capsule)
     review_reasons.extend(f"context_residue:{marker}" for marker in residue_hits)
-    has_blocking_contamination = bool(residue_hits)
+    has_blocking_contamination = bool(residue_hits) or is_empty_prompt
     if residue_hits:
         result["warnings"].append(
             "Prompt review blocked conversation-dependent residue outside exact visible text: "

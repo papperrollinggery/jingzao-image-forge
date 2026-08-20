@@ -1,0 +1,146 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create a vertical 9:16 refined path-traced material study of one small porcelain koi automaton rising from black water; the image should feel like collectible design rather than fantasy poster art.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "vertical_story",
+    "aspect_ratio": "9:16",
+    "dimensions": {"width": 864, "height": 1536}
+  },
+  "creative_routing": {
+    "scenario_profile": "creature_design",
+    "genre_family": "science_fiction",
+    "aesthetic_family": "minimal_object_study",
+    "capture_or_render_method": "photoreal_cg",
+    "scene_archetypes": ["emergence"],
+    "audience_effect": "admire the material construction before reading the quiet motion",
+    "delivery_context": "vertical collectible-design key visual",
+    "design_priority": "one object, material separation, water contact",
+    "style_authority": "user_brief",
+    "tone_locks": ["minimal", "precise", "tactile porcelain and metal"],
+    "forbidden_drift": ["fantasy poster", "ornamental background", "global neon"]
+  },
+  "scene": {
+    "summary": "a single porcelain koi automaton curves upward from a shallow plane of black water in a dark seamless studio",
+    "setting": "minimal black studio water tank with no visible horizon clutter",
+    "time": "controlled studio environment",
+    "atmosphere": ["clear air", "small physically caused ripples"]
+  },
+  "subjects": [
+    {
+      "id": "koi-automaton",
+      "description": "one articulated koi automaton made from ivory porcelain scales, darkened brass joints and a translucent glass tail fin",
+      "count": 1,
+      "appearance": ["porcelain scale plates overlap cleanly", "brass spine visible only at articulation gaps", "glass tail has thin ribbing"],
+      "action": "curving upward with its lower body still breaking the water surface",
+      "pose": "one elegant S-curve with believable articulated joints",
+      "gaze": "small dark glass eyes facing slightly upward",
+      "position": {"x_percent": 50, "y_percent": 46, "depth": "foreground"},
+      "scale": "small collectible object photographed close",
+      "relationships": ["lower porcelain plates displace water and create one coherent ripple system"]
+    }
+  ],
+  "composition": {
+    "shot_size": "close vertical object portrait",
+    "camera_angle": "slightly below the koi head",
+    "perspective": "controlled studio perspective",
+    "camera_distance": "close enough to read scale overlaps and joint gaps",
+    "focal_length_mm": 70,
+    "lens_rationale": "compressed collectible-object geometry with a clean silhouette",
+    "framing": "koi S-curve rises through the center with quiet black space above and around it",
+    "foreground_logic": "waterline and reflected porcelain establish contact",
+    "negative_space": "deep black upper third and side margins",
+    "depth_layers": ["water surface and near ripples", "koi body", "seamless black studio"]
+  },
+  "lighting": {
+    "summary": "one tall softbox creates long porcelain gradients; narrow controlled strip reflections define brass and glass separately",
+    "key": "large soft source high camera-left",
+    "fill": "very low neutral frontal fill",
+    "rim": "thin source-matched edge only on glass tail",
+    "direction": "top-left across the S-curve",
+    "contrast": "high-value separation with readable dark metal",
+    "color_temperature": "neutral studio white",
+    "practicals": []
+  },
+  "materials": [
+    {
+      "target": "porcelain scale plates",
+      "description": "warm ivory high-fired porcelain",
+      "physical_properties": ["subtle subsurface warmth", "fine glaze variation", "thin darker edges at overlaps"],
+      "microstructure": "nearly smooth with tiny kiln variation only at close range",
+      "roughness": "satin glaze, not mirror gloss",
+      "specular_response": "broad softbox reflection following each curved plate",
+      "subsurface_behavior": "very shallow warm light penetration at thin edges",
+      "contact_deformation": "rigid plates with tight articulated gaps"
+    },
+    {
+      "target": "brass joints and spine",
+      "description": "darkened machined brass with selective worn edges",
+      "physical_properties": ["narrow warm highlights", "no uniform gold coating"],
+      "roughness": "varies between oxidized recesses and polished contact edges",
+      "specular_response": "tight reflection only where geometry faces the strip source",
+      "wear_patina": "localized at moving interfaces"
+    },
+    {
+      "target": "glass tail fin",
+      "description": "smoke-clear cast glass with fine internal ribs",
+      "physical_properties": ["visible edge thickness", "controlled refraction", "no plastic look"],
+      "roughness": "polished outer face with faint cast texture",
+      "specular_response": "thin clean strip reflection",
+      "transmission": "clear gray transmission with subtle distortion",
+      "contact_deformation": "rigid fin mounted into the final brass joint"
+    }
+  ],
+  "color": {
+    "palette": ["warm ivory", "darkened brass", "smoke glass", "deep neutral black"],
+    "grade": "neutral luxury product grade",
+    "contrast": "high but not crushed",
+    "saturation": "restrained"
+  },
+  "render_pipeline": {
+    "domain": "path_traced",
+    "engine_reference": "Blender Cycles",
+    "engine_reference_scope": "appearance_reference",
+    "lighting_transport": "physically based multi-bounce diffuse, specular and transmission transport",
+    "global_illumination": "soft studio bounce retained in porcelain and shadowed brass",
+    "ray_tracing": "clean reflection and refraction paths with stable water contact",
+    "reflection_model": "roughness-aware material-specific reflections",
+    "shadow_model": "soft contact-rich shadows without black seams",
+    "ambient_occlusion": "very restrained at articulation gaps only",
+    "volumetrics": "none",
+    "material_workflow": "physically based porcelain, metal and glass with independent roughness",
+    "subsurface_scattering": "shallow warm porcelain edge response only",
+    "transmission_refraction": "glass tail and water use distinct indices and readable boundaries",
+    "caustics": "small restrained water and glass caustics near contact only",
+    "displacement_normal": "micro variation remains below silhouette scale",
+    "texture_scale": "collectible-object scale; no oversized procedural noise",
+    "sampling_denoise": "clean gradients without fireflies or denoise-smudged joint detail",
+    "render_passes": [],
+    "performance_fidelity_tradeoff": "material separation and silhouette outrank background detail",
+    "npr_strategy": "",
+    "forbidden_artifacts": ["fireflies", "plastic uniform gloss", "black AO seams", "floating water contact"]
+  },
+  "style": {
+    "medium": "photoreal path-traced product visualization",
+    "realism": "physically plausible collectible object with restrained design stylization",
+    "visual_traits": ["minimal", "tactile", "precise silhouette", "quiet luxury"],
+    "era": "contemporary collectible design",
+    "references": [],
+    "excluded_traits": ["game splash art", "ornate fantasy illustration", "neon cyberpunk"]
+  },
+  "constraints": {
+    "must_preserve": ["exactly one koi automaton", "porcelain, brass and glass remain distinct", "lower body contacts black water"],
+    "must_change": [],
+    "exclude": ["people", "text", "logo", "watermark", "extra fish", "decorative particles", "global bloom"]
+  },
+  "render": {
+    "detail_priority": ["koi silhouette", "porcelain scale overlaps", "brass articulation", "glass tail edges", "water contact"],
+    "artifact_budget": "strict",
+    "quality_controls": ["clean broad gradients", "material-specific highlights", "selective focal microdetail"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"}
+  }
+}

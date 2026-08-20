@@ -26,11 +26,11 @@
       "tool": "image_gen.imagegen",
       "model": "Codex built-in ImageGen (provider model not exposed)",
       "prompt_source": {"type": "compiled_spec", "spec": "examples/causal-fantasy-effect.json", "platform": "openai"},
-      "prompt_sha256": "30f718998456aedf3a1ecab2d026aee5702337b0083ffdd6b3be309a1d8d58b6",
+      "prompt_sha256": "06197a1d53e490210f164dbe89aa903aa0e3974f4a060dd49abb034f28b3a7bc",
       "output": "assets/gallery/causal-fantasy-scale.jpg",
       "output_sha256": "50ba3d87adcdd0f76fd939386876f1aed5fe58528b774cf8409bf760fe9cf93c",
       "review_date": "2026-08-19",
-      "review": "Passed visually: one grounded owner, readable source/contact, human-to-world scale, material fracture, resistance, and environmental response remain visible. The current 1444-word compiler projection is length-only review_required and must be explicitly approved; it is not auto-truncated."
+      "review": "Passed visually: one grounded owner, readable source/contact, human-to-world scale, material fracture, resistance, and environmental response remain visible. The current 1726-word compiler projection is length-only review_required and must be explicitly approved; explicit source fields are not auto-truncated."
     },
     {
       "case_id": "product-no-fake-text",
@@ -58,7 +58,7 @@
       "output": "assets/gallery/graphite-copper-product.jpg",
       "output_sha256": "b24d324617103894cb66a78a6dfe8068403d78b5b53feb010f01e7f68cd2e639",
       "review_date": "2026-08-19",
-      "review": "Passed: graphite field, restrained copper, matte paper, product hierarchy, and negative space transferred without source wording or layout coordinates."
+      "review": "Passed: graphite field, restrained copper, matte paper, product hierarchy, and negative space transferred without source wording or layout coordinates. The manifest tracks the current no-deletion compiler projection; the existing output was not regenerated for this release."
     },
     {
       "case_id": "graphite-copper-architecture",
@@ -72,7 +72,7 @@
       "output": "assets/gallery/graphite-copper-architecture.jpg",
       "output_sha256": "0e61a66b4937618f69319aac06b53f6e25466ff6c0fd6fda5df15c42a3f20993",
       "review_date": "2026-08-19",
-      "review": "Passed: material hierarchy, quiet graphite field, selective glass, warm circulation line, human scale, and architectural perspective survived the cross-domain transfer."
+      "review": "Passed: material hierarchy, quiet graphite field, selective glass, warm circulation line, human scale, and architectural perspective survived the cross-domain transfer. The manifest tracks the current no-deletion compiler projection; the existing output was not regenerated for this release."
     },
     {
       "case_id": "crimson-nocturne-jazz",
@@ -140,12 +140,40 @@
       "tool": "image_gen.imagegen",
       "model": "Codex built-in ImageGen (provider model not exposed)",
       "prompt_source": {"type": "compiled_spec", "spec": "tests/forward-specs/cg-fashion-rain-platform.json", "platform": "openai"},
-      "prompt_sha256": "aef7ee42a41b4d850e3a4a686485bb87e22fe2e2153c4e7907f21f33cd54ff44",
+      "prompt_sha256": "3702af289784b6a7bdd49e8c9a3bfffa0bdca44e8b60352fe471ebe2c9ae6796",
       "output": "assets/gallery/cg-fashion-rain-platform.jpg",
       "output_sha256": "5e6ec3958ab8513902124c9f6ff0a8ebf8d0eba7f327bf1d0f048fafad1a4e15",
       "execution_receipt": "tests/forward-evidence/cg-fashion-rain-platform-receipt.json",
       "review_date": "2026-08-19",
-      "review": "Passed first attempt: dynamic turning pose, cloth drag, wet roughness, train motion axis, contact, depth layers, and restrained practical lighting were visible; engine runtime was not claimed. The current 2218-word compiler projection is length-only review_required and must be explicitly approved; it was not regenerated after the field-protection change."
+      "review": "Passed first attempt: dynamic turning pose, cloth drag, wet roughness, train motion axis, contact, depth layers, and restrained practical lighting were visible; engine runtime was not claimed. The current 2603-word no-deletion projection is length-only review_required and must be explicitly approved; it was not regenerated for this release."
+    },
+    {
+      "case_id": "cinematic-bridge-rescue",
+      "status": "passed",
+      "mode": "create",
+      "scenario": "ultrawide Chinese-fantasy relationship action with hand-object physics",
+      "tool": "image_gen.imagegen",
+      "model": "Codex built-in ImageGen (provider model not exposed)",
+      "prompt_source": {"type": "compiled_spec", "spec": "tests/forward-specs/cinematic-bridge-rescue.json", "platform": "openai"},
+      "prompt_sha256": "7c5411e79d7998a242c1c75f40b946476e3c0c559216bc908f6a1accbcd84c49",
+      "output": "assets/gallery/cinematic-bridge-rescue.jpg",
+      "output_sha256": "fce745f7ed8db8770ecc19f6a63617d8a7f87f60de0fdf39f269b3c709a62edc",
+      "review_date": "2026-08-20",
+      "review": "Passed first attempt: a single wrist rescue grip, planted support hand, loaded shoulders, opposed pull/gravity vectors, broken bridge geography, foreground occlusion, cloud-depth scale, motivated lantern light, and incomplete action read as one film moment rather than poster key art. The current 1286-word no-deletion projection is ready; the output was generated from an earlier 1242-word projection before silent compaction was removed."
+    },
+    {
+      "case_id": "path-traced-koi-automaton",
+      "status": "passed",
+      "mode": "create",
+      "scenario": "vertical path-traced collectible material study",
+      "tool": "image_gen.imagegen",
+      "model": "Codex built-in ImageGen (provider model not exposed)",
+      "prompt_source": {"type": "compiled_spec", "spec": "tests/forward-specs/path-traced-koi-automaton.json", "platform": "openai"},
+      "prompt_sha256": "7eabed39c0de2afaab68ac0585f37eb4a4882e30f1f72d4a63ec9c32684e8bec",
+      "output": "assets/gallery/path-traced-koi-automaton.jpg",
+      "output_sha256": "9b65736e368cc82e04b1ea4917946525f5b9bfc8f2bb238af080926c96be8fd4",
+      "review_date": "2026-08-20",
+      "review": "Passed first attempt: ivory porcelain plates, darkened brass articulation, clear glass tail, black-water contact, controlled reflections/refraction, clean gradients, quiet negative space, and an S-curve silhouette remained distinct without poster clutter, neon drift, fireflies, global bloom, or uniform plastic gloss."
     }
   ]
 }

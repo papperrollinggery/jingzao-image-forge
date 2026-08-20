@@ -1,0 +1,69 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create a square 1:1 quiet premium catalog image of one handmade red ceramic mug; the product form and fired-clay surface are the entire visual idea.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "square",
+    "aspect_ratio": "1:1",
+    "dimensions": {"width": 1024, "height": 1024}
+  },
+  "scene": {
+    "summary": "The mug stands alone on a plain warm-gray stone tabletop against a seamless neutral background.",
+    "atmosphere": []
+  },
+  "subjects": [
+    {
+      "id": "mug",
+      "description": "one wheel-thrown vermilion-red ceramic mug with a simple rounded handle",
+      "count": 1,
+      "appearance": ["subtle handmade asymmetry", "thin darker fired rim"],
+      "action": "standing upright",
+      "relationships": []
+    }
+  ],
+  "composition": {
+    "shot_size": "close product view",
+    "camera_angle": "slightly above table height",
+    "perspective": "natural product perspective",
+    "focal_length_mm": null,
+    "framing": "one centered product with generous clean breathing room",
+    "negative_space": "quiet neutral space around the silhouette",
+    "depth_layers": []
+  },
+  "lighting": {
+    "summary": "one large soft window-like source from camera-left with gentle neutral fill",
+    "contrast": "soft but shape-defining",
+    "practicals": []
+  },
+  "materials": [
+    {
+      "target": "mug body",
+      "description": "fired red clay under a thin satin glaze",
+      "physical_properties": ["broad soft highlight", "subtle wheel marks visible only on the focal surface"],
+      "roughness": "satin, not glossy",
+      "specular_response": "localized soft reflection",
+      "contact_deformation": "firm contact shadow at the base"
+    }
+  ],
+  "style": {
+    "medium": "natural product photography",
+    "realism": "credible handmade object with restrained retouching",
+    "visual_traits": ["clean silhouette", "calm tonal hierarchy"],
+    "excluded_traits": []
+  },
+  "constraints": {
+    "must_preserve": [],
+    "must_change": [],
+    "exclude": ["people", "new text", "logo", "watermark", "decorative particles"]
+  },
+  "render": {
+    "detail_priority": ["mug silhouette", "handle attachment", "fired-clay surface"],
+    "artifact_budget": "auto",
+    "quality_controls": []
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"}
+  }
+}

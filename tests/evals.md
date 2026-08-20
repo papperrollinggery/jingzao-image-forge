@@ -310,7 +310,7 @@ Scenario: Compile the full causal-fantasy, narrative-film, product, and Midjourn
 Pass criteria:
 
 - Template `Describe...` placeholders and deprecated internal controls never reach prompt prose.
-- Lower-priority finishing and render detail may be compacted, but references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, and NPR constraints remain.
+- Compilation does not silently compact explicit source fields. Over-budget output becomes `review_required`; source-spec cleanup must preserve references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, material transport, and NPR constraints.
 - `prompt_metrics` are emitted and canonical fixture ceilings do not regress without a reviewed forward test.
 - `prompt_review` is `blocked` for context residue outside exact visible copy and cannot be approved through. Length/reference complexity becomes `review_required`; an explicit review may approve it without auto-truncation, and the active style core remains protected.
 - A complete color pipeline owns grade/contrast/saturation while `color` remains palette-focused; physical lighting is not deleted.
@@ -340,3 +340,17 @@ Pass criteria:
 - Finger wrap or palm support, wrist alignment, center of mass, load path, counterforce, contact/occlusion, and body balance agree.
 - Ambiguous pinching, floating, duplicated, contested, or anatomically impossible hand-object contact fails the visual gate.
 - If the premise itself is meaningless, redesign the scenario rather than retrying surface polish.
+
+## 29. Minimal Intervention and Capability Activation
+
+Scenario A: one red ceramic mug on a plain tabletop. Scenario B: a natural window-light portrait. Scenario C: change one object in an attached image. Scenario D: an explicitly path-traced CG material study. Scenario E: an explicitly designed narrative battle frame.
+
+Pass criteria:
+
+- A neutral template emits no aspect ratio, dimensions, subject anchor, camera choice, artifact preset, grain, bloom, flare, gloss, particles, color pipeline, or render pipeline.
+- A neutral template is not executable: `empty_prompt` blocks `prompt_review`, prompt lint, and the ImageGen call plan even when Midjourney provider flags exist.
+- The mug and portrait compile only brief-grounded core content; “cinematic” alone does not activate a full film, camera, color, or render vocabulary.
+- A basic edit compiles the actual reference role, smallest requested change, preserve list, and necessary constraints without unrelated art direction.
+- Professional controls activate when explicitly required: CG transport for the material study; event, relationship, staging, camera, action/counterforce, motivated light, and requested finishing for the battle frame.
+- Explicit focal length, distortion, film behavior, material response, stylization, and quality controls survive normalization. Minimal intervention never flattens requested style or complex-scene design.
+- A failed output is corrected with the smallest cause-specific change; retry history and speculative cleanup phrases do not become defaults.

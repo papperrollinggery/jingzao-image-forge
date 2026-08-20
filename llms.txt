@@ -10,6 +10,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 ## Primary capabilities
 
 - create: create a new image prompt from a brief
+- progressive detail: keep the neutral template free of implicit ratio, camera, coordinates, grain, bloom, flare, particles, color pipeline, and render pipeline; compile explicit professional controls when the task requires them
 - reconstruct: describe observable reference-image attributes without claiming to recover a hidden prompt
 - edit: describe the smallest local change and explicit preservation constraints
 - restyle: change visual treatment while locking identity, pose, geometry, layout, and text
@@ -80,7 +81,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - assets/jingzao-image-forge-intro-zh-v4.png: current landscape workflow page showing reference preflight, call planning, ImageGen, receipt, and visual review
 - assets/jingzao-image-forge-recommendation-zh-v3.png: current vertical feature recommendation poster
 - assets/jingzao-image-forge-wechat-card-zh-v3.png: current concise WeChat group recommendation card
-- assets/gallery/: twelve web-optimized, visually inspected outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, restyle, reconstruction, CG fashion, and cross-subject style-capsule transfers; ten are manifest-bound and two are explicitly manual-review-only
+- assets/gallery/: fourteen web-optimized, visually inspected outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, restyle, reconstruction, CG fashion, path-traced object design, and cross-subject style-capsule transfers; twelve are manifest-bound and two are explicitly manual-review-only
 
 ## Invocation
 
@@ -103,11 +104,11 @@ python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 143 regression tests covering schema, compilation, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, full-value style-protected normalization, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 150 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and two explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations

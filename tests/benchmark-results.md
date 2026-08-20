@@ -61,3 +61,22 @@ Observed:
 - Jingzao's difference is the combined control of scenario, tone authority, spatial dynamics, causal effects, professional color, render/material behavior, style learning, actual reference delivery, validation, and multi-platform compilation.
 - More fields are not automatically better. Prompt sections must remain conditional, scenario-relevant, and ordered by visual priority.
 - Benchmark-driven changes require visual evidence and regression coverage; one lucky image does not justify a universal rule.
+
+## Minimal-Intervention Forward Check — 2026-08-20
+
+This follow-up was run after making the template ratio-, camera-, position-, and artifact-neutral. It is still a qualitative one-generation check, not a statistical quality claim.
+
+| Route | Prompt size | Result |
+| --- | ---: | --- |
+| Direct natural portrait | 59 words | 3:2 observational frame; natural skin and window light; two anatomically coherent hands rested on the closed book; no automatic grain, flare, particles, poster treatment, or stylized grade |
+| Minimal product spec | 212 words | Square handmade red mug; clean silhouette, handle attachment, fired-clay variation, soft contact, and no invented text/logo or decorative artifacts |
+| Technical CG spec | 869 words | 9:16 porcelain/brass/glass koi automaton; readable articulation, water contact, material-specific reflection/refraction, quiet negative space, and no global neon/poster clutter |
+| Cinematic relationship-action spec | 1,286 current projection; 1,242 executed | 21:9 Chinese-fantasy bridge rescue; one readable wrist grip, planted counterforce, opposed action vectors, broken-bridge geography, monumental cloud depth, and motivated lantern light without character-lineup key art |
+
+Observed:
+
+- Neutral defaults did not reduce the simple routes to unpolished images; the direct portrait and product task needed no professional film/render modules.
+- Explicit technical and cinematic controls remained active. The CG and bridge frames preserved requested material transport, lens/space design, relationship pressure, action physics, and color motivation.
+- The bridge prompt reached `ready` without manual approval after lower-value duplicated clauses were removed from the specification. The compiler retained every remaining explicit field and used final serialized length for the review decision.
+- The displayed bridge output predates the final no-deletion compiler correction: its execution prompt was 1,242 words, while the current 1,286-word projection restores explicit fields that the earlier projection omitted. The manifest intentionally distinguishes current prompt hash from execution evidence.
+- The product and porcelain renders remain one-seed examples; their satin surfaces read slightly more reflective than the wording alone might imply. This does not justify a new universal anti-gloss rule because material separation and local highlight behavior still passed.

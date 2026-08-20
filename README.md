@@ -8,7 +8,7 @@
 
 Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [feature recommendation poster](assets/jingzao-image-forge-recommendation-zh-v3.png) · [WeChat group card](assets/jingzao-image-forge-wechat-card-zh-v3.png) · [previous card](assets/jingzao-image-forge-group-card-zh-v2.png)
 
-Featured evidence: [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [dynamic CG spec](tests/forward-specs/cg-fashion-rain-platform.json) · [3×3 storyboard spec (manual visual review)](examples/styleboard-3x3.json)
+Featured evidence: [bridge-rescue spec](tests/forward-specs/cinematic-bridge-rescue.json) · [path-traced koi spec](tests/forward-specs/path-traced-koi-automaton.json) · [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [3×3 storyboard spec (manual visual review)](examples/styleboard-3x3.json)
 
 **Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured image prompt engineering, reference-image style learning, cinematic shot design, art direction, product, fashion, architecture, illustration, animation, documentary, experimental media, spectacle, Chinese-fantasy VFX, and storyboards. It turns briefs, observed references, local edits, learned styles, and multi-frame plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator.
 
@@ -16,9 +16,13 @@ It is designed for work where composition, named entities, subject relationships
 
 ## Selected Generated Cases
 
-These are actual outputs generated with the built-in ImageGen and visually inspected on 2026-08-19. Ten are hash/receipt-bound in the forward-test manifest; the storyboard and material-realism images are retained as manual visual-review examples because their original execution receipt or prompt record was not retained. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
+These are actual outputs generated with the built-in ImageGen and visually inspected on 2026-08-19–20. Twelve are hash/receipt-bound in the forward-test manifest; the storyboard and material-realism images are retained as manual visual-review examples because their original execution receipt or prompt record was not retained. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
 
 <table>
+  <tr>
+    <td width="50%" valign="top"><strong>Ultrawide bridge rescue</strong><br><img src="assets/gallery/cinematic-bridge-rescue.jpg" width="100%" alt="Ultrawide Chinese-fantasy film frame of one swordswoman catching a falling companion as a mountain bridge collapses"><br><sub>One readable wrist grip, planted counterforce, incomplete action, foreground occlusion, broken-bridge geography, cloud-depth scale, and motivated lantern light. <a href="tests/forward-specs/cinematic-bridge-rescue.json">Spec</a></sub></td>
+    <td width="50%" valign="top"><strong>Path-traced koi automaton</strong><br><img src="assets/gallery/path-traced-koi-automaton.jpg" width="100%" alt="Vertical collectible-design study of an ivory porcelain and darkened-brass koi automaton emerging from black water"><br><sub>Porcelain, brass, glass, and water remain optically distinct through controlled roughness, reflection, refraction, contact, negative space, and clean path-traced gradients. <a href="tests/forward-specs/path-traced-koi-automaton.json">Spec</a></sub></td>
+  </tr>
   <tr>
     <td width="50%" valign="top"><strong>Crimson Nocturne — jazz</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="Vertical crimson and cyan analog photomontage portrait of a jazz singer on an empty stage"><br><sub>Dominant portrait, miniature narrative memory, deep-black field, red/cyan ownership, uneven print texture, and controlled double exposure.</sub></td>
     <td width="50%" valign="top"><strong>Causal Chinese-fantasy spectacle</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="Monumental Chinese fantasy action scene with one cultivator resisting a mountain-sized formation"><br><sub>Scale proven through human/environment ratio, near-frame occlusion, force path, contact, resistance, material fracture, and environmental response. <a href="examples/causal-fantasy-effect.json">Spec</a></sub></td>
@@ -50,6 +54,7 @@ These are actual outputs generated with the built-in ImageGen and visually inspe
 Image prompts often fail for reasons that are hard to debug: a named character is diluted into generic traits, cinematic language silently changes the rendering medium, an edit drifts outside its target, or platform-specific controls are invented. Jingzao keeps the visual intent separate from provider syntax so the source specification remains inspectable and reusable.
 
 - **Maintain one source of truth:** scene, subjects, camera, lighting, materials, text, edits, invariants, and exclusions.
+- **Scale intervention to the task:** a neutral template emits no ratio, camera, coordinates, grain, bloom, flare, particles, color pipeline, or render pipeline; explicitly requested professional controls remain intact.
 - **Use model world knowledge deliberately:** optional `knowledge_anchors` preserve exact characters, places, events, artifacts, and fictional-world terms.
 - **Control local edits:** normalized points and regions, explicit “change only” instructions, and preserve lists.
 - **Control unwanted image artifacts:** compact budgets for noise, bloom, flare, oily or waxy surfaces, sharpening halos, and decorative particles.
@@ -224,7 +229,7 @@ For CG imagery, engine names are scoped references. “Blender Cycles” can req
 
 ## Cinematic Ultrawide
 
-The general template remains 16:9. Use the optional `cinematic_ultrawide` profile when horizontal space carries story or spectacle information:
+The general template is ratio-neutral. It keeps `canvas.profile` and `aspect_ratio` at `auto` until the user, source image, delivery format, or composition supplies a reason to choose. Use the optional `cinematic_ultrawide` profile when horizontal space carries story or spectacle information:
 
 ```json
 {
@@ -330,8 +335,9 @@ Jingzao uses one optional `render.artifact_budget` instead of a long universal c
 
 | Budget | Best for |
 | --- | --- |
+| `auto` | Neutral first pass; emits no cleanup or aesthetic preset |
 | `strict` | Product images, typography, diagrams, minimal editorials, clean gradients |
-| `balanced` | Default premium images with restrained scene-motivated effects |
+| `balanced` | Explicitly restrained premium finishing with scene-motivated effects |
 | `expressive` | Painterly, analog, fantasy, or VFX-heavy imagery with intentional artifacts |
 | `source_matched` | Edits and expansions that must preserve the source artifact profile |
 
@@ -359,11 +365,11 @@ uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
 python3 -m unittest discover -s tests -v
 ```
 
-Current local baseline: **143 deterministic regression tests** covering schema and compilation structure for all seven modes, ten validated visual-spec examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, full-value style-protected normalization, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
+Current local baseline: **150 deterministic regression tests** covering schema and compilation structure for all seven modes, neutral-template/minimal-intervention and empty-prompt fail-closed behavior, twelve validated forward visual specifications or examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
 
 Manual visual review: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The output remains in the gallery, but its original prompt record was not retained and it is not manifest-bound evidence.
 
@@ -373,7 +379,7 @@ Style-learning forward tests also passed: one learned graphite/copper capsule tr
 
 The new independent mode tests stayed strict: `restyle`, scientific `reconstruct`, and dynamic CG creation passed and entered the gallery. The `expand` test remained continuous but failed to preserve target ratio, lateral anchor, and frame-height ratio together, so it is documented as a current limitation and excluded. A five-reference stress test proved delivery of all five files but failed creative-purpose and hand-object interaction review; it was also excluded. Attachment plumbing and image quality are separate gates.
 
-After field-protection normalization, the current causal-fantasy and CG-fashion compiler projections are 1,444 and 2,218 words. Both remain `review_required`: the budget is a review trigger, not a model-optimal length claim or auto-truncation rule. Their existing images are visual evidence; CG was not regenerated after the protection change.
+With silent field deletion removed, the current causal-fantasy and CG-fashion compiler projections are 1,726 and 2,603 words. Both remain `review_required`: the budget is a review trigger, not a model-optimal length claim or auto-truncation rule. Their existing images remain visual evidence of earlier execution; neither was regenerated from the current projection.
 
 A controlled handoff study then isolated the upstream prompt problem. Keeping the same five references and action but replacing a 2,253-word cross-section prompt with one short current-frame instruction removed the unsupported side-pinch; changing the action to a purposeful stationary checkout exchange improved meaning and balance; retaining only the three necessary references produced the cleanest interaction. Because each condition has one generated sample, the study supports direction rather than a universal probability claim. The implemented fix is semantic ownership and contamination review—not blanket realism or indiscriminate prompt shortening. See [Prompt Hygiene Without Style Flattening](references/prompt-hygiene.md).
 

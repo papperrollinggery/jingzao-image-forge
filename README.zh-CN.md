@@ -8,7 +8,7 @@
 
 新版视觉套件：[功能推荐页](assets/jingzao-image-forge-recommendation-zh-v3.png) · [微信群推荐卡](assets/jingzao-image-forge-wechat-card-zh-v3.png) · [旧版卡片](assets/jingzao-image-forge-group-card-zh-v2.png)
 
-首屏案例依据：[中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [动态 CG 规格](tests/forward-specs/cg-fashion-rain-platform.json) · [九宫格规格（仅人工视觉复核）](examples/styleboard-3x3.json)
+首屏案例依据：[断桥救援规格](tests/forward-specs/cinematic-bridge-rescue.json) · [路径追踪机械锦鲤规格](tests/forward-specs/path-traced-koi-automaton.json) · [中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [九宫格规格（仅人工视觉复核）](examples/styleboard-3x3.json)
 
 **镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化生图提示词、参考图风格学习、电影镜头、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观、中国玄幻特效和分镜板。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。
 
@@ -16,9 +16,13 @@
 
 ## 实际生成案例
 
-以下均为 2026-08-19 使用内置 ImageGen 完成并经过实际视觉检查的输出。其中十张已在 forward-test manifest 中绑定哈希或回执；九宫格与材质写实图因原始执行回执或提示记录未保留，仅作为人工视觉复核示例。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
+以下均为 2026-08-19 至 20 日使用内置 ImageGen 完成并经过实际视觉检查的输出。其中十二张已在 forward-test manifest 中绑定哈希或回执；九宫格与材质写实图因原始执行回执或提示记录未保留，仅作为人工视觉复核示例。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
 
 <table>
+  <tr>
+    <td width="50%" valign="top"><strong>21:9 断桥救援剧情帧</strong><br><img src="assets/gallery/cinematic-bridge-rescue.jpg" width="100%" alt="女剑客在山桥崩塌时抓住坠落同伴的中国玄幻超宽电影帧"><br><sub>单一可读抓握、支撑反力、未完成动作、前景遮挡、断桥地理、云海尺度和有来源灯笼光共同服务剧情。<a href="tests/forward-specs/cinematic-bridge-rescue.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>路径追踪机械锦鲤</strong><br><img src="assets/gallery/path-traced-koi-automaton.jpg" width="100%" alt="象牙白陶瓷、深色黄铜和透明玻璃组成的机械锦鲤从黑水中升起"><br><sub>陶瓷、黄铜、玻璃与水通过独立粗糙度、反射、折射、接触、留白和干净路径追踪渐变保持清晰分离。<a href="tests/forward-specs/path-traced-koi-automaton.json">查看规格</a></sub></td>
+  </tr>
   <tr>
     <td width="50%" valign="top"><strong>绯夜胶片拼贴：爵士</strong><br><img src="assets/gallery/crimson-nocturne-jazz.jpg" width="100%" alt="绯红青蓝旧印刷双重曝光风格的爵士歌手竖版肖像"><br><sub>极近人物主层、微型叙事记忆、深黑场、红蓝色彩归属、不均匀旧印刷和受控双重曝光。</sub></td>
     <td width="50%" valign="top"><strong>因果型中国玄幻奇观</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="单个人物抵抗山岳级法阵的中国玄幻巨物动作画面"><br><sub>通过人景比例、近景压迫、受力路径、接触、阻力、材质破裂与环境反馈证明尺度。<a href="examples/causal-fantasy-effect.json">查看规格</a></sub></td>
@@ -48,6 +52,7 @@
 ## 为什么使用镜造？
 
 - **统一视觉事实源：** 场景、人物、镜头、灯光、材质、文字、修改、保留项和排除项集中维护。
+- **按任务控制干预强度：** 中立模板不输出画幅、机位、坐标、颗粒、bloom、flare、粒子、调色或渲染预设；用户明确要求的专业控制完整保留。
 - **有意识地利用模型世界知识：** 可选 `knowledge_anchors` 保留精确的人物、地点、事件、器物和世界观专名。
 - **控制局部修改：** 使用归一化坐标、区域、“只修改”指令和明确保留列表。
 - **控制常见画面伪影：** 用紧凑质量档管理噪点、光斑、bloom、油蜡感、锐化光环和装饰性粒子。
@@ -220,7 +225,7 @@ CG 任务中，引擎名称属于受控参考。“Blender Cycles”可表达路
 
 ## 电影超宽画幅预设
 
-通用模板仍是 16:9。需要横向关系、画外空间、巨物尺度或 21:9/2.35:1 交付时，使用 `cinematic_ultrawide`：
+通用模板现在保持画幅中立：`canvas.profile` 与 `aspect_ratio` 默认为 `auto`，只有用户要求、原图比例、交付格式或构图理由成立时才选择具体画幅。需要横向关系、画外空间、巨物尺度或 21:9/2.35:1 交付时，使用 `cinematic_ultrawide`：
 
 ```json
 {
@@ -313,8 +318,9 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 
 | 质量档 | 适用场景 |
 | --- | --- |
+| `auto` | 中立首轮，不输出清理预设或审美预设 |
 | `strict` | 产品图、精确文字、图表、极简编辑设计和干净渐变 |
-| `balanced` | 默认高质量图片，只允许克制且由场景驱动的效果 |
+| `balanced` | 明确需要克制高级收尾时，只允许由场景驱动的效果 |
 | `expressive` | 绘画、胶片、幻想或重 VFX 画面，允许有意的媒介伪影 |
 | `source_matched` | 需要继承原图颗粒、光斑、锐度和表面响应的编辑与扩图 |
 
@@ -342,11 +348,11 @@ uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1600
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **143 项确定性回归测试**，覆盖七种模式的 schema/编译结构、十份视觉规格示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、完整字段风格保护式归一化、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **150 项确定性回归测试**，覆盖七种模式的 schema/编译结构、中立模板、低干预与空提示 fail-closed 行为、十二份经验证的 forward 规格或示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 
@@ -356,7 +362,7 @@ python3 -m unittest discover -s tests -v
 
 新增独立模式实测保持严格：`restyle`、科研 `reconstruct` 和动态 CG 创建通过并进入案例区。`expand` 虽然环境连续，但无法同时守住目标比例、横向锚点和原始画面高度比例，因此明确记录为当前限制，不进入案例。另一项五参考图压力测试只证明五张原图均已送达，却没有通过创意用途和手—物交互验收，同样排除。附件管线与成片质量是两道独立门禁。
 
-保护风格字段后，当前玄幻与 CG 时尚的编译投影分别为 1444 与 2218 词，均保持 `review_required`：词数预算只是复核触发器，不是模型最佳长度或自动截断规则。现有图片属于视觉证据；CG 未在字段保护改动后重新生成。
+取消静默字段删除后，当前玄幻与 CG 时尚的编译投影分别为 1726 与 2603 词，均保持 `review_required`：词数预算只是复核触发器，不是模型最佳长度或自动截断规则。现有图片属于早期执行的视觉证据；两张均未使用当前投影重新生成。
 
 随后用受控交接实验定位上游提示问题：保持同样五张参考和同一动作，只把 2253 词的跨区段提示改为简洁的当前画面说明，原先无底部承托的侧捏问题就消失；把动作改为有明确用途的静止柜台交付后，画面意义与重心继续改善；只保留三张必要参考时交互最干净。由于每组只有一次样本，这支持优化方向，不宣称普遍概率。实际修复是语义归属与污染审查，不是强制写实或一刀切缩短提示。详见[不削弱风格的提示清洗](references/prompt-hygiene.md)。
 

@@ -97,6 +97,11 @@ def make_narrative_spec():
 def make_styleboard_spec():
     spec = load_json(ROOT / "templates" / "visual-spec.json")
     spec["mode"] = "styleboard"
+    spec["canvas"] = {
+        "profile": "standard_widescreen",
+        "aspect_ratio": "16:9",
+        "dimensions": {"width": 1536, "height": 864},
+    }
     spec["inputs"] = [
         {
             "id": "style-reference",
@@ -767,9 +772,19 @@ class ValidationTests(unittest.TestCase):
 
     def test_canvas_and_provider_geometry_must_agree(self):
         spec = copy.deepcopy(self.template)
+        spec["canvas"] = {
+            "profile": "standard_widescreen",
+            "aspect_ratio": "16:9",
+            "dimensions": {"width": 1536, "height": 864},
+        }
         spec["platform_options"]["openai"]["size"] = "1024x1024"
         self.assertTrue(any("must match canvas.dimensions" in item for item in validator.validate_spec(spec)))
         spec = copy.deepcopy(self.template)
+        spec["canvas"] = {
+            "profile": "standard_widescreen",
+            "aspect_ratio": "16:9",
+            "dimensions": {"width": 1536, "height": 864},
+        }
         spec["platform_options"]["midjourney"]["aspect_ratio"] = "1:1"
         self.assertTrue(any("must match canvas.aspect_ratio" in item for item in validator.validate_spec(spec)))
 
@@ -844,6 +859,7 @@ class ValidationTests(unittest.TestCase):
     def test_cinematic_ultrawide_rejects_standard_ratio(self):
         spec = copy.deepcopy(self.template)
         spec["canvas"]["profile"] = "cinematic_ultrawide"
+        spec["canvas"]["aspect_ratio"] = "16:9"
         errors = validator.validate_spec(spec)
         self.assertTrue(any("cinematic_ultrawide" in item for item in errors))
 
@@ -1141,7 +1157,7 @@ class CompilerTests(unittest.TestCase):
     def test_narrative_compiler_frontloads_story_camera_and_staging(self):
         result = compiler.compile_spec(make_narrative_spec(), "openai")
         prompt = result["prompt"]
-        self.assertLess(prompt.index("Cinematic shot contract:"), prompt.index("Subjects:"))
+        self.assertLess(prompt.index("Cinematic shot contract:"), prompt.index("Staging and relationship geometry:"))
         self.assertIn("camera motivation", prompt)
         self.assertIn("40mm lens intent", prompt)
         self.assertIn("avoid poster-style simultaneous showcase", prompt)
@@ -1192,6 +1208,100 @@ class CompilerTests(unittest.TestCase):
         self.assertNotIn("scenario profile: auto", result["prompt"])
         self.assertNotIn("primary aesthetic: auto", result["prompt"])
 
+    def test_neutral_template_does_not_invent_canvas_camera_position_or_finish(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        self.assertEqual([], validator.validate_spec(spec))
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                content = result["prompt"].split(" --", 1)[0]
+                self.assertEqual("", content)
+                self.assertNotIn("--ar", result["prompt"])
+                self.assertNotIn("size", result.get("parameters", {}))
+                self.assertNotIn("aspect_ratio", result.get("parameters", {}))
+                self.assertEqual("blocked", result["prompt_review"]["status"])
+                self.assertIn("empty_prompt", result["prompt_review"]["reasons"])
+                self.assertEqual("blocked", result["imagegen_call_plan"]["status"])
+                approved = compiler.compile_spec(spec, platform, review_approved=True)
+                self.assertEqual("blocked", approved["prompt_review"]["status"])
+
+    def test_auto_artifact_budget_is_valid_and_emits_no_aesthetic_prior(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["render"]["artifact_budget"] = "auto"
+        self.assertEqual([], validator.validate_spec(spec))
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertNotIn("artifact budget", result["prompt"])
+                self.assertNotIn("grain", result["prompt"])
+                self.assertNotIn("bloom", result["prompt"])
+                self.assertNotIn("flare", result["prompt"])
+                self.assertNotIn("particles", result["prompt"])
+
+    def test_simple_create_uses_only_brief_grounded_core_content(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "Create a clean catalog image of one red ceramic mug."
+        spec["scene"]["summary"] = "The mug stands on a plain warm-gray tabletop."
+        spec["subjects"][0]["description"] = "red ceramic mug"
+        spec["style"]["medium"] = "natural product photography"
+        result = compiler.compile_spec(spec, "openai")
+        self.assertLessEqual(result["prompt_metrics"]["words"], 80)
+        for absent in (
+            "Cinematic shot contract",
+            "Spatial dynamics and visual tension",
+            "Color pipeline and finishing",
+            "Render pipeline and material transport",
+            "Render intent",
+            "grain",
+            "bloom",
+            "flare",
+            "particles",
+        ):
+            self.assertNotIn(absent, result["prompt"])
+
+    def test_explicit_professional_controls_survive_minimal_intervention(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["composition"].update(
+            {
+                "shot_size": "medium close-up",
+                "camera_angle": "low angle",
+                "focal_length_mm": 32,
+                "camera_roll": "8 degrees clockwise",
+                "perspective_distortion": "controlled near-field expansion",
+            }
+        )
+        spec["color_pipeline"].update(
+            {
+                "intent": "film_emulation",
+                "highlight_rolloff": "long shoulder with contained practicals",
+            }
+        )
+        spec["color_pipeline"]["film_emulation"]["grain"] = "fine irregular 35mm grain"
+        spec["render_pipeline"].update(
+            {
+                "domain": "path_traced",
+                "global_illumination": "multi-bounce indirect light",
+            }
+        )
+        spec["render"]["artifact_budget"] = "expressive"
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform, review_approved=True)
+                for required in (
+                    "medium close-up",
+                    "low angle",
+                    "32mm lens intent",
+                    "8 degrees clockwise",
+                    "controlled near-field expansion",
+                    "film_emulation",
+                    "long shoulder with contained practicals",
+                    "fine irregular 35mm grain",
+                    "path_traced",
+                    "multi-bounce indirect light",
+                    "artifact budget (expressive)",
+                ):
+                    self.assertIn(required, result["prompt"])
+
     def test_template_placeholders_do_not_reach_compiled_prompt(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
         for platform in ("openai", "flux", "midjourney", "generic"):
@@ -1199,10 +1309,9 @@ class CompilerTests(unittest.TestCase):
                 result = compiler.compile_spec(spec, platform)
                 self.assertNotIn("Describe the", result["prompt"])
 
-    def test_prompt_normalization_reduces_causal_fixture_without_losing_critical_chain(self):
+    def test_prompt_review_preserves_full_causal_fixture_without_silent_compaction(self):
         spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
         result = compiler.compile_spec(spec, "openai")
-        self.assertLess(result["prompt_metrics"]["characters"], 11000)
         self.assertEqual("review_required", result["prompt_review"]["status"])
         for required in (
             "one adult cultivator",
@@ -1214,7 +1323,28 @@ class CompilerTests(unittest.TestCase):
             "24mm lens intent",
         ):
             self.assertIn(required, result["prompt"])
-        self.assertTrue(any("Prompt normalization compacted" in item for item in result["warnings"]))
+        self.assertFalse(any("Prompt normalization compacted" in item for item in result["warnings"]))
+
+    def test_length_review_uses_final_prompt_without_deleting_explicit_fields(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        long_clause = " ".join(f"detail{index}" for index in range(130))
+        spec["lighting"] = {
+            "summary": long_clause,
+            "motivation": long_clause,
+            "narrative_function": long_clause,
+            "key": long_clause,
+            "fill": long_clause,
+            "rim": long_clause,
+            "direction": long_clause,
+            "contrast": long_clause,
+            "color_temperature": "KEEP_EXPLICIT_TEMPERATURE " + long_clause,
+            "practicals": [],
+        }
+        spec["constraints"]["must_preserve"] = [" ".join(["constraint"] * 250)]
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertIn("KEEP_EXPLICIT_TEMPERATURE", result["prompt"])
+        self.assertFalse(any("Prompt normalization compacted" in item for item in result["warnings"]))
 
     def test_prompt_normalization_preserves_style_tension_fields(self):
         cases = (
@@ -1239,7 +1369,7 @@ class CompilerTests(unittest.TestCase):
         for marker in ("grain:", "halation:", "NPR strategy:", "forbidden render artifacts:"):
             self.assertIn(marker, causal)
 
-    def test_protected_fields_preserve_semicolon_continuations(self):
+    def test_all_explicit_fields_preserve_semicolon_continuations(self):
         spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
         spec["intent"] += " " + "current-style-density " * 500
         spec["creative_routing"]["adaptation_rule"] = "KEEP_ADAPT_A; KEEP_ADAPT_B"
@@ -1249,20 +1379,58 @@ class CompilerTests(unittest.TestCase):
         for platform in ("openai", "flux", "midjourney", "generic"):
             with self.subTest(platform=platform):
                 result = compiler.compile_spec(spec, platform, review_approved=True)
-                self.assertTrue(any("Prompt normalization compacted" in item for item in result["warnings"]))
+                self.assertFalse(any("Prompt normalization compacted" in item for item in result["warnings"]))
                 prompt = result["prompt"]
                 for marker in ("KEEP_ADAPT_B", "KEEP_DEPTH_B", "KEEP_GRAIN_B", "KEEP_NPR_B"):
                     self.assertIn(marker, prompt)
 
+    def test_rich_forward_specs_keep_explicit_controls_in_provider_projections(self):
+        bridge = load_json(ROOT / "tests" / "forward-specs" / "cinematic-bridge-rescue.json")
+        bridge_prompt = compiler.compile_spec(bridge, "openai", review_approved=True)["prompt"]
+        for marker in (
+            "saturation policy: restrained except for the small amber contact cue",
+            "film negative/reversal character: fine-grained 35mm dramatic negative response",
+            "temperature: cold blue-gray environment with localized dim amber",
+            "practicals: one gate lantern at far left",
+        ):
+            self.assertIn(marker, bridge_prompt)
+
+        koi = load_json(ROOT / "tests" / "forward-specs" / "path-traced-koi-automaton.json")
+        koi_prompt = compiler.compile_spec(koi, "midjourney", review_approved=True)["prompt"]
+        for marker in (
+            "reflection model:",
+            "shadow model:",
+            "ambient occlusion:",
+            "volumetrics:",
+            "material workflow:",
+            "subsurface scattering:",
+            "transmission/refraction:",
+            "caustics:",
+            "displacement/normal:",
+            "texture scale:",
+            "sampling/denoise:",
+            "performance/fidelity tradeoff:",
+        ):
+            self.assertIn(marker, koi_prompt)
+
     def test_prompt_lint_blocks_placeholder_and_fixture_regression(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
         result = compiler.compile_spec(spec, "openai")
-        self.assertEqual([], prompt_lint.lint_compiled_result(result, max_words=1200))
+        self.assertIn("prompt_review is blocked", prompt_lint.lint_compiled_result(result, max_words=1200))
         bad = copy.deepcopy(result)
         bad["prompt"] = "Describe the scene with control.weight; keep it different from the previous version"
         bad["prompt_metrics"] = {"words": 1300}
         errors = prompt_lint.lint_compiled_result(bad, max_words=1200)
         self.assertGreaterEqual(len(errors), 3)
+
+    def test_prompt_lint_rejects_empty_semantic_prompt_for_every_platform(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                errors = prompt_lint.lint_compiled_result(result)
+                self.assertIn("compiled prompt has no semantic content", errors)
+                self.assertIn("prompt_review is blocked", errors)
 
     def test_prompt_review_requires_semantic_audit_above_target(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
@@ -1383,7 +1551,7 @@ class CompilerTests(unittest.TestCase):
         spec["style"]["visual_traits"] = ["editorial finish ::2"]
         spec["constraints"]["exclude"] = ["blur --ar 1:1"]
         result = compiler.compile_spec(spec, "midjourney")
-        content, _, flags = result["prompt"].partition(" --ar 16:9")
+        content, _, flags = result["prompt"].partition(" --s 100")
         self.assertNotIn("--", content)
         self.assertNotIn("::", content)
         self.assertNotIn("--ar 1:1", flags)

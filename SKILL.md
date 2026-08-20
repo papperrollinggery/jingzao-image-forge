@@ -18,10 +18,21 @@ Turn an image brief or observed reference into a maintainable visual specificati
 7. For a simple single-subject creation, a concise prompt may be enough. For multi-subject scenes, reference-based work, exact layouts, or edits, build a `visual_generation_spec` using [templates/visual-spec.json](templates/visual-spec.json) and read [references/visual-spec.md](references/visual-spec.md).
 8. Separate invariants from permitted variation through mode contracts and `constraints.must_preserve` / `must_change`. Legacy `control.weight`, `lock`, and `variance` remain accepted for compatibility but are deprecated, ignored by compilation, and should not be added to new specifications.
 9. For edits, state both the smallest requested change and the preserve list. Normalize points and regions to top-left-origin percentages. A point such as `(x: 16.5%, y: 16.4%)` is an anchor, not a guarantee of pixel-accurate masking.
-10. Compile the specification with `scripts/compile_prompt.py` or follow [references/prompt-compiler.md](references/prompt-compiler.md). The compiler normalizes placeholders, removes duplicated color ownership, compacts lower-priority finishing detail when a prompt is over budget, and reports `prompt_metrics` plus `prompt_review`; it never prunes reference requirements, exact text, visible events, relationships, actions, edits, or preserve/change invariants.
+10. Compile the specification with `scripts/compile_prompt.py` or follow [references/prompt-compiler.md](references/prompt-compiler.md). The compiler normalizes placeholders, removes known duplicated color ownership, preserves every explicit non-empty source field, and reports `prompt_metrics` plus `prompt_review`. An over-budget prompt requires review and source-spec cleanup; compilation never silently deletes requested camera, relationship, color, film, material, render, reference, edit, or preservation controls.
 11. Do not call ImageGen while `prompt_review.status` is `blocked` or `review_required`. Context residue must be rewritten and recompiled; it cannot be approved through. Length/reference-complexity review may be explicitly accepted with `--approve-review` after confirming the prompt is clean and the style core is intact. When several sections paraphrase one action/effect, run [references/prompt-hygiene.md](references/prompt-hygiene.md). If `$prompt-contamination-guard` is installed, use it for source tracing and semantic deduplication. Protect the active style core; remove contamination and repetition, not unique design detail.
 12. Run `scripts/validate_spec.py` and `scripts/prompt_lint.py` before delivery. Review the result against [tests/evals.md](tests/evals.md) when consistency or exact edits matter.
 13. Keep execution proof and image quality separate: a correct attachment receipt proves only that inputs reached the tool. Before calling an image deliverable-quality, verify creative purpose, visual meaning, anatomy, interaction physics, and scenario-specific success.
+
+## Progressive Detail and Minimal Intervention
+
+Treat the template as a neutral scaffold, not a request to fill every field.
+
+- Start with only the brief-grounded core: intended result, subject or visible event, environment when needed, requested medium, explicit canvas, and hard constraints.
+- Leave canvas, subject coordinates, camera, film finishing, render transport, optical artifacts, and artifact controls at `auto` or empty when the brief and observed references do not require them. `auto` must not emit prose or silently choose 16:9, a camera, grain, bloom, flare, gloss, or particles.
+- Add a professional section only when it solves a current visual decision: narrative staging, extreme action geometry, hand/object mechanics, strict color continuity, named CG behavior, reference reconstruction, or another explicit requirement.
+- Explicit non-empty user or specification values remain authoritative and compile normally. Minimal intervention controls automatic enrichment; it must not erase requested focal length, distortion, film behavior, material transport, stylization, or other intentional design.
+- Use a deletion test before delivery: if removing a clause would not change a requested fact, visible decision, preservation rule, or diagnosed failure, omit it from the first-pass prompt.
+- Correct observed failures with the smallest relevant addition. Do not promote one retry phrase, model accident, or stylistic preference into a universal default.
 
 ## Actual Reference Handoff
 
@@ -66,7 +77,7 @@ Use this route when a request names a recognizable character, person, work, hist
 
 For premium, clean, photorealistic, product, portrait, dark-scene, or dense fantasy work, run a compact quality preflight. Read [references/quality-controls.md](references/quality-controls.md) when an output looks noisy, speckled, waxy, oily, over-sharpened, excessively glossy, flare-heavy, or uniformly over-processed.
 
-- Choose one optional `render.artifact_budget`: `strict`, `balanced`, `expressive`, or `source_matched`. Do not stack every cleanup phrase into every prompt.
+- Keep `render.artifact_budget: auto` for a clean first pass. Select `strict`, `balanced`, `expressive`, or `source_matched` only when the medium, source, delivery risk, or an observed artifact justifies that preset. Do not stack every cleanup phrase into every prompt.
 - Define material-specific roughness, highlight width, reflection, texture scale, and contact behavior before adding generic quality adjectives.
 - Keep detail selective: reserve full clarity and microtexture for focal surfaces; let secondary areas fall off through distance, light, focus, and occlusion.
 - Bloom, lens flare, grain, floating particles, sparks, and gloss require a visible light source, requested medium, physical event, or source-image precedent. Otherwise keep them restrained.

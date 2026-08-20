@@ -15,7 +15,7 @@ MODES = {"create", "reconstruct", "edit", "restyle", "expand", "styleboard", "le
 PLATFORMS = {"auto", "openai", "flux", "midjourney", "generic"}
 KNOWLEDGE_STRATEGIES = {"auto", "model_knowledge", "reference", "hybrid"}
 KNOWLEDGE_VERIFICATIONS = {"unverified", "reference_checked", "user_confirmed"}
-ARTIFACT_BUDGETS = {"strict", "balanced", "expressive", "source_matched"}
+ARTIFACT_BUDGETS = {"auto", "strict", "balanced", "expressive", "source_matched"}
 SPEC_LANGUAGES = {"en", "zh", "zh-CN"}
 CANVAS_PROFILES = {"auto", "standard_widescreen", "cinematic_ultrawide", "vertical_story", "square", "custom"}
 DIRECTION_DELIVERABLES = {"auto", "narrative_film_frame", "cinematic_key_art", "poster", "concept_art"}
@@ -462,7 +462,10 @@ def validate_spec(spec: Any) -> list[str]:
             errors.append(f"$.canvas.profile: expected one of {sorted(CANVAS_PROFILES)}")
         aspect_ratio = canvas.get("aspect_ratio")
         match = ASPECT_RATIO_RE.match(aspect_ratio) if isinstance(aspect_ratio, str) else None
-        if match is None:
+        if aspect_ratio == "auto":
+            if canvas_profile != "auto":
+                errors.append('$.canvas.aspect_ratio: "auto" requires canvas.profile="auto"')
+        elif match is None:
             errors.append("$.canvas.aspect_ratio: expected a ratio such as \"16:9\"")
         elif float(match.group(1)) <= 0 or float(match.group(2)) <= 0:
             errors.append("$.canvas.aspect_ratio: both ratio values must be greater than 0")

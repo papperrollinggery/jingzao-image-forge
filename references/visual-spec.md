@@ -66,7 +66,7 @@ The validator still accepts and consistency-checks these fields for backward com
 
 `canvas.profile` is optional:
 
-- `auto`: choose from task intent while still recording the final ratio.
+- `auto`: keep `aspect_ratio: "auto"` and omit dimensions when a creation brief does not specify or materially imply a ratio. Resolve the ratio only when the delivery, composition, source image, or user request requires it.
 - `standard_widescreen`: 16:9-class delivery.
 - `cinematic_ultrawide`: 21:9, 2.35:1, or 2.39:1-class delivery when width carries narrative or spectacle information.
 - `vertical_story`: 9:16-class frame.
@@ -75,7 +75,7 @@ The validator still accepts and consistency-checks these fields for backward com
 
 The profile does not override an explicit user ratio or the source image in an edit, restyle, or expansion.
 
-`canvas` is the visual geometry source of truth. Provider `size` or aspect-ratio overrides are optional; when supplied, they must agree with canvas dimensions/ratio or validation fails.
+`canvas` is the visual geometry source of truth once its ratio is explicit. Provider `size` or aspect-ratio overrides are optional; when both sides are supplied, they must agree with canvas dimensions/ratio or validation fails. `auto` emits no size or aspect-ratio instruction.
 
 ## Knowledge Anchors
 
@@ -475,7 +475,7 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 {
   "render": {
     "detail_priority": ["primary subject", "hero material"],
-    "artifact_budget": "balanced",
+    "artifact_budget": "auto",
     "quality_controls": [
       "skin remains matte with soft, localized specular highlights",
       "background gradients remain clean and low-noise"
@@ -484,8 +484,9 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 }
 ```
 
+- `auto`: default neutral behavior; emits no artifact preset or aesthetic prior.
 - `strict`: clean product, typography, diagrams, minimal editorials, and other artifact-intolerant work.
-- `balanced`: default premium imagery; allows only restrained, scene-motivated grain, bloom, flare, gloss, and particles.
+- `balanced`: explicitly requested premium restraint; allows only restrained, scene-motivated grain, bloom, flare, gloss, and particles.
 - `expressive`: intentional painterly, analog, fantasy, or effects-heavy work while preserving material separation and focal hierarchy.
 - `source_matched`: edits, restyles, and expansions that must inherit the source image's grain, sharpness, bloom, flare, and surface response without adding new artifact classes.
 - `quality_controls`: optional shot-specific positive targets. Keep them concise and physically observable.

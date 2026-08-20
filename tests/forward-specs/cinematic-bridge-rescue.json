@@ -1,0 +1,187 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "intent": "Create one ultrawide 21:9 heightened but physically readable Chinese-fantasy film frame: a rescue decision is visible at the instant a mountain bridge fails.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "cinematic_ultrawide",
+    "aspect_ratio": "21:9",
+    "dimensions": {"width": 1792, "height": 768}
+  },
+  "creative_routing": {
+    "scenario_profile": "narrative_scene",
+    "genre_family": "fantasy_mythic",
+    "aesthetic_family": "heightened_expressionism",
+    "capture_or_render_method": "live_action_cinema",
+    "scene_archetypes": ["threshold", "fracture"],
+    "style_authority": "user_brief",
+    "tone_locks": ["lived-in Chinese fantasy", "physical weight", "one incomplete action"],
+    "forbidden_drift": ["poster lineup", "decorative magic storm", "hero pose"]
+  },
+  "direction": {
+    "deliverable": "narrative_film_frame",
+    "treatment": "heightened_cinematic",
+    "spectacle_scale": "monumental",
+    "camera_freedom": "heightened",
+    "world_rule": "magic changes matter through visible contact and cost",
+    "visual_goal": ""
+  },
+  "cinematic": {
+    "profile": "narrative_film_frame",
+    "shot_function": "emphasize",
+    "visible_event": "a woman catches her companion's wrist one instant before the broken bridge deck drops away",
+    "relationship_pressure": "she must choose between keeping her sword hand free and holding him",
+    "viewer_task": "read the unstable grip, then discover the abyss and the falling bridge",
+    "viewer_position": "crouched behind a wet stone lion at the surviving end of the bridge",
+    "frozen_moment": "their hands have just locked; his boots have lost the deck but have not begun a full swing",
+    "withheld_information": "what pursues them remains beyond the frame",
+    "posterization_guard": true
+  },
+  "scene": {
+    "summary": "an ancient chain-and-stone bridge between rain-dark mountain gates above a cloud-filled abyss",
+    "setting": "weathered Chinese mountain pass, wet carved stone, torn prayer ribbons, distant cliff temples",
+    "time": "storm-blue predawn",
+    "atmosphere": ["wind-driven rain", "low cloud far below", "no decorative sparks"]
+  },
+  "subjects": [
+    {
+      "id": "rescuer",
+      "description": "one adult Chinese swordswoman in dark indigo travel robes",
+      "count": 1,
+      "appearance": ["rain-darkened layered cloth", "hair tied for travel", "sheathed sword pulling at her free side"],
+      "action": "bracing one knee and catching the other character by the wrist",
+      "pose": "torso twisted toward the drop, shoulder and back visibly bearing load",
+      "gaze": "fixed on the failing grip",
+      "position": {"x_percent": 42, "y_percent": 48, "depth": "midground"},
+      "scale": "",
+      "relationships": ["her right hand supports the companion's wrist while her left palm braces on wet stone"]
+    },
+    {
+      "id": "companion",
+      "description": "one adult Chinese male traveler in weathered gray robes",
+      "count": 1,
+      "appearance": ["soaked sleeve", "mud-streaked boots", "small medicine case strapped across his chest"],
+      "action": "falling with one wrist caught and the other hand reaching for the bridge edge",
+      "pose": "hips below the deck line, legs pulled downward by the collapsing slab",
+      "gaze": "toward the rescuer's hand, not toward camera",
+      "position": {"x_percent": 58, "y_percent": 61, "depth": "midground"},
+      "scale": "",
+      "relationships": ["one clear wrist-to-hand rescue contact; no duplicated or contested grip"]
+    }
+  ],
+  "staging": {
+    "primary_relationship": "rescuer anchored to surviving stone, companion suspended over the break",
+    "subject_positions": ["rescuer left of the fracture", "companion lower-right across the fracture"],
+    "eyeline_logic": "both attention lines converge on the grip",
+    "screen_direction": "bridge collapse travels from upper-right toward lower-right while rescue force pulls back left",
+    "axis": "the bridge chain and both forearms preserve one readable tension axis",
+    "occlusion": "foreground stone lion hides part of the rescuer's planted leg but not the grip",
+    "attention_path": "joined hands to loaded shoulder to falling deck to cloud abyss"
+  },
+  "spatial_dynamics": {
+    "dominant_read": "the loaded wrist grip between the two travelers",
+    "secondary_read": "stone slabs and chains peeling into the abyss",
+    "beauty_mechanism": "a bright skin-and-wet-cloth contact point inside a diagonal field of dark stone and cloud",
+    "tension_source": "rescue force pulls left while gravity and collapsing masonry pull down-right",
+    "exaggeration_budget": "strong",
+    "distortion_strategy": "perspective",
+    "realism_anchor": "anatomically plausible shoulders, wrists, load path, wet friction and falling debris",
+    "action_vector": "joined hands pull back toward the surviving gate",
+    "counterforce": "gravity, the companion's weight and the falling bridge pull toward the abyss",
+    "foreground_role": "wet stone lion and chain establish the viewer's low, sheltered position",
+    "midground_role": "the two bodies and grip carry story and force",
+    "background_role": "broken bridge, cliff temples and cloud depth prove scale",
+    "depth_transition": "stone lion edge leads to hands, bodies, fracture, falling slabs and cloud void",
+    "parallax_logic": "near stone and chain cross faster than the distant cliff temples",
+    "motion_evidence": ["taut sleeve folds", "spray kicked from the fracture", "chain links snapping in sequence", "prayer ribbons streaming with the same wind"],
+    "readability_guard": "keep both arms, the single grip, the deck edge and open fall clearly separated"
+  },
+  "composition": {
+    "shot_size": "wide two-person action frame",
+    "camera_angle": "low oblique angle just above the surviving deck",
+    "perspective": "heightened near-field perspective with stable anatomy",
+    "point_of_view": "same-side witness behind the stone lion",
+    "camera_motivation": "put the viewer close enough to feel the grip while retaining the abyss",
+    "camera_height": "knee height",
+    "camera_distance": "close foreground anchor, both bodies readable in the midground",
+    "focal_length_mm": 24,
+    "lens_rationale": "exaggerate the bridge fracture and depth without stretching faces or hands",
+    "subject_frame_ratio": "",
+    "framing": "joined hands near the central visual hinge, heads separated, fall open to lower-right",
+    "foreground_logic": "",
+    "camera_pitch": "slight downward pitch into the gap",
+    "camera_yaw": "diagonal along the bridge",
+    "camera_roll": "subtle clockwise instability",
+    "lens_projection": "rectilinear wide angle",
+    "perspective_distortion": "controlled expansion of near stone and chain; faces and hands remain natural",
+    "edge_behavior": "falling slabs may crop at right edge; no stretched anatomy at edges",
+    "crop_pressure": "tight on surviving left gate, open toward the fall",
+    "camera_state": "handheld but frozen at the decisive contact",
+    "action_readability": "one unambiguous rescue grip and one collapsing direction",
+    "negative_space": "cloud abyss remains an empty value field beneath the companion",
+    "depth_layers": ["wet stone lion and chain", "two travelers and bridge fracture", "falling slabs", "cloud abyss and distant temples"]
+  },
+  "lighting": {
+    "summary": "storm-blue ambient sky with one dying amber gate lantern reflected in rain",
+    "motivation": "cold predawn sky, wet stone bounce and one practical lantern",
+    "narrative_function": "the warm reflection isolates the joined hands while the abyss stays cold",
+    "key": "soft cold top-side sky",
+    "fill": "low wet-stone bounce",
+    "rim": "only a restrained rain edge from the visible lantern",
+    "direction": "upper-left sky and left gate practical",
+    "contrast": "readable shadow floor with contained practical highlight",
+    "color_temperature": "cold blue-gray environment with localized dim amber",
+    "practicals": ["one gate lantern at far left"]
+  },
+  "color": {
+    "palette": ["storm blue-gray", "wet charcoal stone", "indigo cloth", "dim amber reflection", "natural skin"],
+    "grade": "",
+    "contrast": "",
+    "saturation": ""
+  },
+  "color_pipeline": {
+    "intent": "film_emulation",
+    "exposure_strategy": "protect rain highlights and skin while retaining the cloud abyss",
+    "tonal_curve": "dense midtones with a long highlight shoulder",
+    "highlight_rolloff": "smooth and contained around the practical lantern",
+    "shadow_floor": "dark but readable wet cloth and stone",
+    "midtone_density": "substantial live-action density",
+    "white_balance": "cold ambient with locally warm reflected practical",
+    "color_separation": "skin and indigo remain distinct from wet stone",
+    "skin_tone_policy": "natural muted skin under mixed cold and amber light",
+    "saturation_policy": "restrained except for the small amber contact cue",
+    "film_emulation": {
+      "negative_or_reversal_character": "fine-grained 35mm dramatic negative response",
+      "print_or_display_character": "",
+      "grain": "fine irregular grain visible mainly in midtones",
+      "halation": "minimal and limited to the visible lantern",
+      "bloom": "very restrained around the same lantern",
+      "gate_weave": "",
+      "vignette": "negligible"
+    },
+    "continuity_locks": [],
+    "forbidden_casts": []
+  },
+  "style": {
+    "medium": "live-action Chinese fantasy cinema",
+    "realism": "heightened perspective within physically credible bodies, cloth, rain, stone and gravity",
+    "visual_traits": ["incomplete action", "lived-in costume", "monumental negative space", "selective detail"],
+    "era": "timeless historical-fantasy",
+    "references": [],
+    "excluded_traits": ["game key art", "character poster", "decorative magic effects"]
+  },
+  "constraints": {
+    "must_preserve": ["exactly two adult characters", "one clear wrist rescue grip", "companion below deck line", "open cloud abyss", "one visible practical lantern"],
+    "must_change": [],
+    "exclude": ["extra people", "extra limbs", "duplicated hands", "hero poses", "text", "logo", "watermark", "decorative energy trails"]
+  },
+  "render": {
+    "detail_priority": ["rescue grip", "loaded shoulders and sleeves", "wet fracture edge", "falling bridge geometry"],
+    "artifact_budget": "auto",
+    "quality_controls": ["natural hand anatomy and wrist alignment", "rain detail concentrated around contact and fracture", "no global oily sheen"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "medium"}
+  }
+}

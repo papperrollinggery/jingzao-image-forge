@@ -5,9 +5,9 @@
   "platform": "auto",
   "language": "en",
   "canvas": {
-    "profile": "standard_widescreen",
-    "aspect_ratio": "16:9",
-    "dimensions": {"width": 1536, "height": 864}
+    "profile": "auto",
+    "aspect_ratio": "auto",
+    "dimensions": null
   },
   "inputs": [],
   "knowledge_anchors": [],
@@ -47,11 +47,7 @@
       "action": "Describe the action.",
       "pose": "Describe the pose when relevant.",
       "gaze": "Describe gaze when relevant.",
-      "position": {
-        "x_percent": 50.0,
-        "y_percent": 50.0,
-        "depth": "midground"
-      },
+      "position": {},
       "scale": "Describe relative scale.",
       "relationships": []
     }
@@ -75,9 +71,9 @@
     "readability_guard": ""
   },
   "composition": {
-    "shot_size": "wide shot",
-    "camera_angle": "eye level",
-    "perspective": "natural perspective",
+    "shot_size": "",
+    "camera_angle": "",
+    "perspective": "",
     "focal_length_mm": null,
     "framing": "Describe the visual hierarchy and crop.",
     "negative_space": "Describe intentional negative space.",
@@ -190,7 +186,7 @@
   },
   "render": {
     "detail_priority": [],
-    "artifact_budget": "balanced",
+    "artifact_budget": "auto",
     "quality_controls": []
   },
   "platform_options": {

@@ -28,6 +28,9 @@ def lint_compiled_result(result: dict[str, Any], *, max_words: int | None = None
     if not isinstance(prompt, str):
         return ["compiled result requires a string prompt"]
     errors: list[str] = []
+    semantic_prompt = prompt.split(" --", 1)[0] if result.get("platform") == "midjourney" else prompt
+    if not semantic_prompt.strip().strip("."):
+        errors.append("compiled prompt has no semantic content")
     for marker in ("Describe the", "replace-with-the-actual", "control.weight", "control.variance"):
         if marker in prompt:
             errors.append(f"placeholder or internal control leaked into prompt: {marker}")
