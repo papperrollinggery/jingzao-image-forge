@@ -4,7 +4,7 @@
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
 
-![Jingzao Image Forge v1.1 workflow: brief and references, visual-intent analysis, visual specification, platform compilation, ImageGen, visual review, seven modes, cinematic controls, real references, and continuous nine-shot storyboards](assets/jingzao-image-forge-intro-zh-v5.png)
+![Jingzao Image Forge v1.1 workflow: brief and references, intent analysis, visual specification, platform compilation, ImageGen, visual review, seven modes, cinematic controls, real references, and continuous nine-shot storyboards](assets/jingzao-image-forge-intro-zh-v5.png)
 
 Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [previous workflow page](assets/jingzao-image-forge-intro-zh-v4.png) · [feature recommendation poster](assets/jingzao-image-forge-recommendation-zh-v3.png) · [WeChat group card](assets/jingzao-image-forge-wechat-card-zh-v3.png)
 

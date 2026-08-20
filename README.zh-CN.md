@@ -4,7 +4,7 @@
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
 
-![镜造 Image Forge v1.1：需求与参考图经过视觉意图分析、视觉规格、平台编译、ImageGen 与视觉验收，并展示七种模式、电影镜头、真实参考图和连续九镜分镜能力](assets/jingzao-image-forge-intro-zh-v5.png)
+![镜造 Image Forge v1.1：需求与参考图经过意图分析、视觉规格、平台编译、ImageGen 与视觉验收，并展示七种模式、电影镜头、真实参考图和连续九镜分镜能力](assets/jingzao-image-forge-intro-zh-v5.png)
 
 视觉套件：[英文总览](assets/jingzao-image-forge-hero-en.png) · [上一版工作流页](assets/jingzao-image-forge-intro-zh-v4.png) · [功能推荐页](assets/jingzao-image-forge-recommendation-zh-v3.png) · [微信群推荐卡](assets/jingzao-image-forge-wechat-card-zh-v3.png)
 
