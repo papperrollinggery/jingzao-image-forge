@@ -1,6 +1,6 @@
 # Jingzao Image Forge
 
-> A Codex visual-director Skill for structured image prompts, reference-image style learning, cinematic and cross-domain art direction. It converts briefs, observed references, local edits, and reusable style capsules into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators.
+> A Codex visual-director Skill for structured AI image prompts, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It converts briefs, observed references, local edits, multi-shot plans, and reusable style capsules into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators.
 
 Canonical repository: https://github.com/papperrollinggery/jingzao-image-forge
 English documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.md
@@ -16,7 +16,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - restyle: change visual treatment while locking identity, pose, geometry, layout, and text
 - expand: attempt canvas extension under a preservation contract; strict position/scale/ratio retention requires visual review and may fail
 - learn_style: inspect actual reference images, separate observed/inferred/unknown traits, and export a source-image-free capsule with required transfer boundaries and advisory content-risk warnings
-- styleboard: assign reference roles, build per-frame cards, and choose direct-sheet, independent-frame, or hybrid generation for triptych and 3x3 boards
+- styleboard: assign reference roles, build one causal beat per frame, lock identity/wardrobe/prop/geography/light/object state, and choose direct-sheet, independent-frame, or hybrid generation for triptych and 3x3 boards
 - creative routing: choose one primary scenario, genre family, aesthetic family, capture/render method, and up to three scene archetypes across 20+ use cases
 - visual style atlas: cinematic naturalism, noir, expressionism, oneiric, sublime, graphic modernism, analog, editorial, handcrafted, painterly, animation, documentary, speculative, minimal, archival, and mixed media
 - style authority and spatial tension: preserve explicit tone locks across scenarios; design dominant read, action/counterforce, foreground-midground-background roles, exaggeration, distortion, parallax, and motion evidence
@@ -62,6 +62,8 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - examples/atomic-cyber-live-action.json: synthetic validated edit example
 - examples/narrative-film-frame.json: validated relationship-driven cinematic ultrawide example
 - examples/styleboard-3x3.json: validated reference-led hybrid nine-grid storyboard example
+- examples/continuous-nine-shot-ferry.json: validated live-action direct-sheet specification for nine causal shots with identity, wardrobe, prop, geography, light, screen-direction, and object-state continuity
+- examples/jingzao-intro-infographic-edit.json: validated source-matched product-introduction edit specification; its first ImageGen candidate failed the embedded-board preservation gate and was rejected
 - examples/style-learning-graphite-copper.json: validated reference-image style-learning record based on an inspected Jingzao-owned asset
 - examples/style-capsule-graphite-copper.json: validated reusable style capsule with no embedded source image
 - examples/tactile-stop-motion-product.json: validated handcrafted product scenario
@@ -78,10 +80,11 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - assets/jingzao-image-forge-hero-zh.png: Chinese visual introduction page generated with Codex imagegen
 - assets/jingzao-image-forge-group-card-zh.png: concise Chinese community recommendation card
 - assets/jingzao-image-forge-group-card-zh-v2.png: information-rich Chinese workflow, capabilities, and use-case recommendation card
-- assets/jingzao-image-forge-intro-zh-v4.png: current landscape workflow page showing reference preflight, call planning, ImageGen, receipt, and visual review
+- assets/jingzao-image-forge-intro-zh-v5.png: current accepted landscape product introduction page; the later edit-mode candidate was rejected because it redrew the embedded evidence board
+- assets/jingzao-image-forge-intro-zh-v4.png: previous landscape workflow page showing reference preflight, call planning, ImageGen, receipt, and visual review
 - assets/jingzao-image-forge-recommendation-zh-v3.png: current vertical feature recommendation poster
 - assets/jingzao-image-forge-wechat-card-zh-v3.png: current concise WeChat group recommendation card
-- assets/gallery/: fourteen web-optimized, visually inspected outputs spanning narrative film, causal fantasy, nine-grid storyboard, material realism, product, architecture, restyle, reconstruction, CG fashion, path-traced object design, and cross-subject style-capsule transfers; twelve are manifest-bound and two are explicitly manual-review-only
+- assets/gallery/: fifteen web-optimized, visually inspected outputs spanning continuous cinematic storyboards, narrative film, causal fantasy, hand-drawn nine-grid, material realism, product, architecture, restyle, reconstruction, CG fashion, path-traced object design, and cross-subject style-capsule transfers; twelve are manifest-bound and three are explicitly manual-review-only
 
 ## Invocation
 
@@ -100,6 +103,8 @@ $jingzao-image-forge <image brief, reference observation, or edit request>
 
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
+python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
@@ -109,7 +114,7 @@ uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
 Current deterministic baseline: 151 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in natural-language and FLUX JSON projections, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
-Manifest-bound outputs and two explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
+Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations
 

@@ -4,21 +4,24 @@
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
 
-![Jingzao Image Forge: real references through visual_generation_spec, attachment preflight, call planning, ImageGen, receipt, and visual review](assets/jingzao-image-forge-intro-zh-v4.png)
+![Jingzao Image Forge v1.1 workflow: brief and references, visual-intent analysis, visual specification, platform compilation, ImageGen, visual review, seven modes, cinematic controls, real references, and continuous nine-shot storyboards](assets/jingzao-image-forge-intro-zh-v5.png)
 
-Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [feature recommendation poster](assets/jingzao-image-forge-recommendation-zh-v3.png) · [WeChat group card](assets/jingzao-image-forge-wechat-card-zh-v3.png) · [previous card](assets/jingzao-image-forge-group-card-zh-v2.png)
+Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [previous workflow page](assets/jingzao-image-forge-intro-zh-v4.png) · [feature recommendation poster](assets/jingzao-image-forge-recommendation-zh-v3.png) · [WeChat group card](assets/jingzao-image-forge-wechat-card-zh-v3.png)
 
-Featured evidence: [bridge-rescue spec](tests/forward-specs/cinematic-bridge-rescue.json) · [path-traced koi spec](tests/forward-specs/path-traced-koi-automaton.json) · [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json) · [3×3 storyboard spec (manual visual review)](examples/styleboard-3x3.json)
+Featured evidence: [continuous nine-shot film spec](examples/continuous-nine-shot-ferry.json) · [bridge-rescue spec](tests/forward-specs/cinematic-bridge-rescue.json) · [path-traced koi spec](tests/forward-specs/path-traced-koi-automaton.json) · [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json)
 
-**Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured image prompt engineering, reference-image style learning, cinematic shot design, art direction, product, fashion, architecture, illustration, animation, documentary, experimental media, spectacle, Chinese-fantasy VFX, and storyboards. It turns briefs, observed references, local edits, learned styles, and multi-frame plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator.
+**Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured AI image prompts, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, art direction, product, fashion, architecture, illustration, animation, documentary, spectacle, Chinese-fantasy VFX, and CG material studies. It turns briefs, observed references, local edits, learned styles, and multi-shot plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator.
 
-It is designed for work where composition, named entities, subject relationships, exact text, spatial edits, materials, lighting, style, or preservation constraints must survive multiple prompt iterations.
+Simple tasks stay concise and neutral; complex tasks can explicitly control composition, subject relationships, camera and lens logic, action physics, exact text, spatial edits, materials, lighting, color, style, references, and cross-shot continuity without silent compiler deletion.
 
 ## Selected Generated Cases
 
-These are actual outputs generated with the built-in ImageGen and visually inspected on 2026-08-19–20. Twelve are hash/receipt-bound in the forward-test manifest; the storyboard and material-realism images are retained as manual visual-review examples because their original execution receipt or prompt record was not retained. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
+These are 15 actual outputs generated with the built-in ImageGen and visually inspected on 2026-08-19–20. Twelve are hash/receipt-bound in the forward-test manifest. The hand-drawn storyboard, material-realism portrait, and continuous nine-shot film board are labeled manual visual review because a public execution receipt was not retained. They demonstrate different routes and failure controls; they are examples, not deterministic quality guarantees. Comparator and failed-retry images are intentionally excluded.
 
 <table>
+  <tr>
+    <td colspan="2" valign="top"><strong>Continuous nine-shot film story — live consistency test</strong><br><img src="assets/gallery/continuous-nine-shot-ferry.jpg" width="100%" alt="Nine consecutive cinematic frames of two Chinese siblings abandoning the last ferry to rescue an elderly pharmacist, with consistent faces, navy and moss-green rainwear, red suitcase, flooded pharmacy geography, rain, lighting, action phases, and motivated final screen-direction reversal"><br><sub>One actual master reference reached ImageGen through <code>referenced_image_paths</code>. A single 3×3 <code>sheet_direct</code> generation preserved sibling identity, wardrobe, backpack, red-suitcase state, pharmacy/ferry geography, predawn blue-and-amber light, and a complete causal arc across nine different shot designs. Manual visual review passed with the frame-6 hand-load deviation disclosed below; no public execution receipt retained. <a href="examples/continuous-nine-shot-ferry.json">Spec</a></sub></td>
+  </tr>
   <tr>
     <td width="50%" valign="top"><strong>Ultrawide bridge rescue</strong><br><img src="assets/gallery/cinematic-bridge-rescue.jpg" width="100%" alt="Ultrawide Chinese-fantasy film frame of one swordswoman catching a falling companion as a mountain bridge collapses"><br><sub>One readable wrist grip, planted counterforce, incomplete action, foreground occlusion, broken-bridge geography, cloud-depth scale, and motivated lantern light. <a href="tests/forward-specs/cinematic-bridge-rescue.json">Spec</a></sub></td>
     <td width="50%" valign="top"><strong>Path-traced koi automaton</strong><br><img src="assets/gallery/path-traced-koi-automaton.jpg" width="100%" alt="Vertical collectible-design study of an ivory porcelain and darkened-brass koi automaton emerging from black water"><br><sub>Porcelain, brass, glass, and water remain optically distinct through controlled roughness, reflection, refraction, contact, negative space, and clean path-traced gradients. <a href="tests/forward-specs/path-traced-koi-automaton.json">Spec</a></sub></td>
@@ -69,6 +72,7 @@ Image prompts often fail for reasons that are hard to debug: a named character i
 - **Build professional color pipelines:** exposure, tone curves, black/white points, highlight rolloff, color separation, skin protection, film grain, halation, bloom, and shot matching.
 - **Describe professional CG rendering:** Blender Cycles, Unreal Engine 5/Lumen, path tracing, ray tracing, global illumination, PBR/NPR materials, volumes, sampling, denoise, and visible pass separation inside one generated image.
 - **Direct camera and relationships:** bind blocking, eyelines, axis, viewer position, shot size, camera height, camera distance, focal length, focus, and motivated light to one viewer task.
+- **Maintain causal continuity across shots:** lock identity, wardrobe, props, geography, light direction, screen direction, and object state while each frame advances one new story beat.
 - **Build reference-led styleboards:** role-scoped references, independent frame cards, 3×3 assembly, and line-art, hand-drawn, or cinematic-frame finishes.
 - **Compile without fake controls:** legacy `weight`, `lock`, and `variance` annotations remain accepted for compatibility but are deprecated, omitted from new examples, ignored by compilation, and never mapped to provider controls.
 - **Improve from real usage:** evidence-backed problems can become optimization proposals, but the Skill changes only after user approval and regression testing.
@@ -249,6 +253,8 @@ Explicit `2.35:1` and `2.39:1` requests are also supported. The Skill does not f
 
 Jingzao supports three execution strategies: `sheet_direct` for fastest one-call ideation, `independent_frames` for strict identity and camera continuity, and `hybrid` for a fast direct sheet followed by targeted high-quality replacement of selected or failed cells. `auto` chooses from speed and continuity risk.
 
+The live [Missed Last Ferry test](examples/continuous-nine-shot-ferry.json) used one attached identity/wardrobe/prop/scene master and one direct 3×3 generation. Manual review found nine distinct causal beats with stable sibling identity, clothing, backpack, suitcase state, pharmacy/ferry geography, rain, and blue/amber lighting; one hand-load detail deviated from the requested two-hand lift. This is visual evidence, not a deterministic repeatability claim.
+
 ## Learn Style from Reference Images
 
 `learn_style` inspects actual supplied images and records directly observed mechanisms separately from plausible inference and unknown production details. The result can be exported as a reusable `style_capsule` containing medium behavior, palette ownership, line/shape, texture/material, lighting, composition, typography, optics/rendering, transfer rules, and forbidden transfer.
@@ -318,6 +324,8 @@ Compile a validated specification:
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_spec.py examples/narrative-film-frame.json
 python3 scripts/validate_spec.py examples/styleboard-3x3.json
+python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
+python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_spec.py examples/causal-fantasy-effect.json
@@ -369,11 +377,13 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 python3 -m unittest discover -s tests -v
 ```
 
-Current local baseline: **151 deterministic regression tests** covering schema and compilation structure for all seven modes, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in both natural-language and FLUX JSON projections, twelve validated forward visual specifications or examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
+Current local baseline: **151 deterministic regression tests** covering schema and compilation structure for all seven modes, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in both natural-language and FLUX JSON projections, validated forward visual specifications and examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
 
 Manual visual review: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The output remains in the gallery, but its original prompt record was not retained and it is not manifest-bound evidence.
 
-Additional direction tests passed visually: a relationship-driven ferry-terminal frame read as a motivated film still rather than a poster; a monumental Chinese-fantasy shot proved scale through architecture, water pressure, occlusion, and one causal formation effect; and a one-call `sheet_direct` 3×3 hand-drawn storyboard produced nine readable cells. The first two are manifest-bound; the storyboard's original reference-delivery receipt was not retained and is labeled manual review only.
+Additional direction tests passed visually: a relationship-driven ferry-terminal frame read as a motivated film still rather than a poster; a monumental Chinese-fantasy shot proved scale through architecture, water pressure, occlusion, and one causal formation effect; a one-call `sheet_direct` hand-drawn board produced nine readable cells; and a separate live-action nine-shot continuity test preserved recurring identities, wardrobe, props, geography, rain, lighting, and a causal beginning-to-end arc. The first two are manifest-bound; both boards are labeled manual review because public execution receipts were not retained.
+
+The introduction image was also dogfooded through [`edit` mode](examples/jingzao-intro-infographic-edit.json). Validation, compilation, and the actual `referenced_image_paths` handoff passed, but the generated candidate failed the preservation gate: it clarified node 2 from “意图” to “视觉意图” while also redrawing the embedded evidence board, and it rendered `learn_style` with a visual space. That candidate was rejected and is not used above; the accepted v5 hero remains the public image, and exact callable spelling stays in text.
 
 Style-learning forward tests also passed: one learned graphite/copper capsule transferred to a square tactile tea product and a wide architecture pavilion. Both retained palette ownership, material hierarchy, clean shadows, restrained copper accents, and readable negative space while changing subject, ratio, scene, and production method. Neither reproduced the source title, identity, portal image, storyboard grid, or layout coordinates. Approved outputs are committed and evidence-bound; other candidates remain ignored.
 
@@ -458,6 +468,10 @@ Narrative profiles require a visible event, relationship pressure, viewer task, 
 ### Does it support nine-grid storyboards?
 
 Yes. `styleboard` supports 3×3 boards, role-scoped references, continuity locks, one-call direct sheets, independent native-ratio frames, hybrid replacement, and line-art, hand-drawn, cinematic-frame, or mixed finishes.
+
+### Can it keep a continuous nine-shot story consistent?
+
+It can explicitly lock identity, wardrobe, props, geography, light, screen direction, and object state while giving every cell a different causal beat and camera purpose. The committed live test passed manual review across all nine cells, but generated continuity still requires visual inspection and targeted retries when a pose, hand, or state drifts.
 
 ### Can it learn a style from my reference image?
 

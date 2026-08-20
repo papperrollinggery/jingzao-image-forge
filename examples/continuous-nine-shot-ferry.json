@@ -1,0 +1,229 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "styleboard",
+  "intent": "Create one direct 3x3 contact sheet containing exactly nine consecutive 21:9 live-action film frames for the story The Missed Last Ferry. Read left to right, top to bottom. Each cell shows one new causal beat, not nine variations of the same pose.",
+  "platform": "openai",
+  "language": "en",
+  "canvas": {
+    "profile": "cinematic_ultrawide",
+    "aspect_ratio": "21:9",
+    "dimensions": {"width": 1792, "height": 768}
+  },
+  "inputs": [
+    {
+      "id": "master-reference",
+      "type": "image",
+      "role": "identity_wardrobe_prop_scene_reference",
+      "description": "Continuity master for sibling identities, navy and moss-green rainwear, burgundy scarf, dark backpack, scratched vermilion suitcase, pharmacy-left/ferry-right geography, flood depth, rain and cold-right/warm-left light.",
+      "source_kind": "local_path",
+      "source_ref": "../tests/fixtures/continuous-nine-shot-master.jpg",
+      "must_attach": true
+    }
+  ],
+  "creative_routing": {
+    "scenario_profile": "narrative_scene",
+    "genre_family": "drama",
+    "aesthetic_family": "cinematic_naturalism",
+    "capture_or_render_method": "live_action_cinema",
+    "scene_archetypes": ["escape route", "rescue threshold", "missed departure"],
+    "audience_effect": "",
+    "delivery_context": "",
+    "design_priority": "",
+    "style_authority": "user_brief",
+    "tone_locks": ["grounded live action", "cold predawn plus one amber practical", "wet material truth"],
+    "forbidden_drift": ["hero lineup", "random locations"]
+  },
+  "direction": null,
+  "lighting": {
+    "summary": "continuous cold predawn sky from frame-right and one amber emergency lamp above the pharmacy on frame-left",
+    "narrative_function": "cold ferry route opposes the warm rescue threshold",
+    "contrast": "open wet shadows and protected faces",
+    "practicals": ["single pharmacy emergency lamp"]
+  },
+  "color": {
+    "palette": ["cold blue-gray", "dark navy", "moss green", "burgundy", "vermilion suitcase", "yellow pharmacist raincoat", "localized amber"],
+    "grade": "restrained natural predawn cinema",
+    "contrast": "",
+    "saturation": ""
+  },
+  "style": {
+    "medium": "grounded live-action feature-film contact sheet",
+    "realism": "natural people, rain, floodwater, wet stone and physically plausible interaction",
+    "visual_traits": ["lived-in wardrobe", "motivated camera", "partial occlusion", "selective detail"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["poster", "photo collage with mismatched worlds", "commercial campaign"]
+  },
+  "styleboard": {
+    "layout": "3x3",
+    "frame_count": 9,
+    "frame_aspect_ratio": "21:9",
+    "presentation": "cinematic_frame",
+    "generation_strategy": "sheet_direct",
+    "reading_order": "left_to_right_top_to_bottom",
+    "continuity_locks": [
+      "Lin Mei: short wet hair, long navy raincoat, burgundy scarf",
+      "Lin Jun: short hair, moss-green short jacket, dark backpack",
+      "one vermilion suitcase, black handle, two lower-right scratches",
+      "elderly pharmacist wears one yellow hooded raincoat and does not appear fully before frame 7",
+      "pharmacy shutter and amber lamp stay left; ferry dock stays right",
+      "mid-calf water, diagonal rain, cold-right and amber-left light",
+      "escape direction left-to-right for frames 1-8; only frame 9 reverses right-to-left after the decision",
+      "suitcase is pulled in frames 1-4, becomes the shutter support in frame 5, and remains wedged in frames 6-9"
+    ],
+    "allowed_variation": ["shot size", "camera height", "focal-length feel", "foreground occlusion", "single frozen action phase", "focus plane"],
+    "reference_assignments": [
+      {
+        "input_id": "master-reference",
+        "role": "identity",
+        "secondary_roles": ["wardrobe", "scene", "prop", "palette", "camera_action"],
+        "use": "preserve faces, body proportions, clothing, backpack, suitcase, geography, flood depth and light direction",
+        "ignore": "exact pose, crop, shot size and action; each frame card owns those"
+      }
+    ],
+    "frames": [
+      {
+        "id": "frame-01",
+        "shot_function": "establish",
+        "story_moment": "the siblings must reach the last ferry through the flooded street",
+        "primary_action": "Lin Jun pulls the vermilion suitcase while Lin Mei follows from pharmacy-left toward ferry-right",
+        "action_phase": "initiate",
+        "shot_size": "ultrawide establishing shot",
+        "camera_height": "standing eye level across the street",
+        "focal_length_mm": 24,
+        "composition": "pharmacy shutter and lamp anchor left, siblings and suitcase cross the midground left-to-right, lit ferry waits far right; readable water depth and empty route",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-02",
+        "shot_function": "follow",
+        "story_moment": "time pressure rises but Lin Mei hears something behind them",
+        "primary_action": "both wade faster; Lin Mei turns her head back to pharmacy-left while Lin Jun and suitcase continue right",
+        "action_phase": "response",
+        "shot_size": "moving environmental medium-wide",
+        "camera_height": "waist height near the water",
+        "focal_length_mm": 40,
+        "composition": "diagonal rain and suitcase wake preserve left-to-right movement; siblings remain separated enough to read opposing attention",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-03",
+        "shot_function": "emphasize",
+        "story_moment": "the trapped pharmacist appears only through one hand under the shutter",
+        "primary_action": "an older yellow-sleeved hand reaches through the narrow pharmacy-shutter gap as the suitcase wheel passes in foreground water",
+        "action_phase": "contact",
+        "shot_size": "tight insert",
+        "camera_height": "waterline and shutter-gap height",
+        "focal_length_mm": 85,
+        "composition": "only the older hand, yellow sleeve, metal gap, rainwater and recognizable suitcase wheel; no full pharmacist and no faces",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-04",
+        "shot_function": "observe",
+        "story_moment": "the siblings split over whether to stop",
+        "primary_action": "Lin Mei stops at pharmacy-left while Lin Jun two steps to the right turns back; the extended suitcase handle creates a taut line between them",
+        "action_phase": "hold",
+        "shot_size": "uneven relational two-shot",
+        "camera_height": "standing chest height",
+        "focal_length_mm": 50,
+        "composition": "Lin Mei left under amber lamp, Lin Jun right in cold light, suitcase between; ferry remains small and urgent in far-right background",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-05",
+        "shot_function": "emphasize",
+        "story_moment": "the escape asset becomes a rescue tool",
+        "primary_action": "Lin Mei kneels and slides the suitcase horizontally under the shutter so its hard shell becomes a support",
+        "action_phase": "contact",
+        "shot_size": "low medium action detail",
+        "camera_height": "just above floodwater",
+        "focal_length_mm": 32,
+        "composition": "clear suitcase-to-metal contact, her two hands on safe surfaces, aligned wrists and planted knee; Lin Jun begins returning in background",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-06",
+        "shot_function": "follow",
+        "story_moment": "the siblings combine forces to raise the shutter",
+        "primary_action": "Lin Jun lifts the shutter with both hands while Lin Mei braces the suitcase and pushes upward from below",
+        "action_phase": "contact",
+        "shot_size": "low wide action frame",
+        "camera_height": "knee height beside the suitcase",
+        "focal_length_mm": 24,
+        "composition": "shoulders, wrists, planted feet and knees show load paths; water displacement and bending metal show counterforce; decisive opening remains visible",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-07",
+        "shot_function": "react",
+        "story_moment": "the rescue succeeds without releasing the support",
+        "primary_action": "the elderly pharmacist in a yellow hooded raincoat moves through the triangular opening; Lin Mei supports her forearm while Lin Jun continues bearing the shutter",
+        "action_phase": "response",
+        "shot_size": "low three-person medium shot",
+        "camera_height": "seated waist height",
+        "focal_length_mm": 50,
+        "composition": "one readable support contact per person, pharmacist clear of the suitcase edge, wedged suitcase and shutter geometry remain visible; no duplicated hands",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-08",
+        "shot_function": "react",
+        "story_moment": "the cost of the rescue arrives as the ferry departs",
+        "primary_action": "the three huddle under the awning while the siblings look past the pharmacist toward the leaving ferry",
+        "action_phase": "hold",
+        "shot_size": "compressed emotional medium-wide",
+        "camera_height": "seated eye level under the awning",
+        "focal_length_mm": 85,
+        "composition": "siblings and yellow-raincoat pharmacist compressed in left-midground, wedged red suitcase lower-left, ferry pulling away in right background; distance proves the missed departure",
+        "reference_ids": ["master-reference"]
+      },
+      {
+        "id": "frame-09",
+        "shot_function": "resolve",
+        "story_moment": "the siblings choose to return to the city with the rescued elderly pharmacist",
+        "primary_action": "Lin Mei and Lin Jun support the elderly pharmacist right-to-left through floodwater, leaving the suitcase wedged under the pharmacy shutter",
+        "action_phase": "hold",
+        "shot_size": "distant resolving wide shot",
+        "camera_height": "standing eye level from the ferry-route side",
+        "focal_length_mm": 35,
+        "composition": "motivated direction reversal: three figures walk left into the city; pharmacy and red suitcase remain right-rear, ferry is only a distant point of light; generous quiet water closes the story",
+        "reference_ids": ["master-reference"]
+      }
+    ]
+  },
+  "constraints": {
+    "must_preserve": [
+      "exact 3x3 equal-cell layout and left-to-right top-to-bottom story order",
+      "master-reference identities, wardrobe, suitcase and geography",
+      "elderly pharmacist only as a hand in frame 3 and fully from frame 7",
+      "suitcase state, rain, flood depth and light continuity"
+    ],
+    "must_change": [],
+    "exclude": [
+      "captions",
+      "shot numbers",
+      "speech bubbles",
+      "written labels",
+      "readable signage",
+      "logos",
+      "watermarks",
+      "children",
+      "more than three adults",
+      "extra suitcases",
+      "different locations",
+      "daylight jumps",
+      "poster poses",
+      "decorative particles",
+      "fantasy effects"
+    ]
+  },
+  "render": {
+    "detail_priority": ["nine distinct causal beats", "identity and wardrobe continuity", "suitcase state continuity", "filmable geography", "hand and load physics"],
+    "artifact_budget": "auto",
+    "quality_controls": ["thin consistent dark gutters between nine equal cells", "clean rain and wet reflections", "natural hands and body balance", "no style drift between cells"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "high"}
+  }
+}

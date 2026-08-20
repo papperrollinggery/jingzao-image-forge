@@ -1,0 +1,164 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "edit",
+  "intent": "Surgically correct and lightly polish the existing Mirror Forge product introduction infographic so it accurately communicates the native workflow, exact mode names, and live nine-shot evidence without implying any built-in external story-planning integration.",
+  "platform": "openai",
+  "language": "zh-CN",
+  "canvas": {
+    "profile": "standard_widescreen",
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1672, "height": 941}
+  },
+  "inputs": [
+    {
+      "id": "intro-base",
+      "type": "image",
+      "role": "base_edit_source",
+      "description": "Existing graphite-black, copper and cyan product infographic with the actual nine-shot live-test board embedded at right.",
+      "source_kind": "local_path",
+      "source_ref": "../assets/jingzao-image-forge-intro-zh-v5.png",
+      "must_attach": true
+    }
+  ],
+  "creative_routing": {
+    "scenario_profile": "editorial_infographic",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "graphic_modernism",
+    "capture_or_render_method": "interface_graphic",
+    "scene_archetypes": ["product capability map", "workflow explainer", "visual evidence panel"],
+    "audience_effect": "understand the product boundary and core value within five seconds",
+    "delivery_context": "GitHub README hero and group-sharing introduction image",
+    "design_priority": "accuracy first, then information hierarchy and premium restraint",
+    "cultural_context": "bilingual developer-tool audience with Chinese primary copy",
+    "secondary_influence": "cinematic production-interface precision",
+    "mix_rule": "preserve the current design system; do not add a new visual language",
+    "style_authority": "source_reference",
+    "adaptation_rule": "make only named corrections and source-matched micro-polish",
+    "tone_locks": ["graphite black", "satin copper", "restrained cyan", "clean technical editorial hierarchy"],
+    "forbidden_drift": ["external story-planning tool as a product step", "poster spectacle", "dashboard clutter", "new claims", "rewritten evidence imagery"]
+  },
+  "scene": {
+    "summary": "One premium landscape product introduction infographic with a six-step workflow at left and a real continuous nine-shot evidence board at right.",
+    "setting": "flat graphic-design canvas",
+    "time": "not applicable",
+    "atmosphere": ["precise", "premium", "cinematic", "restrained"]
+  },
+  "subjects": [
+    {
+      "id": "infographic",
+      "description": "The existing Mirror Forge v1.1 product introduction page as one coherent graphic.",
+      "count": 1,
+      "appearance": ["graphite-black ground", "satin copper titles and borders", "cyan operational labels", "embedded live nine-shot board"],
+      "action": "communicates the product workflow, modes, capabilities, validation evidence and use cases",
+      "pose": "preserve the source landscape layout",
+      "gaze": "not applicable",
+      "position": {},
+      "scale": "full canvas",
+      "relationships": ["workflow remains the primary explanatory read", "nine-shot board remains the primary visual proof", "evidence badges remain secondary validation"]
+    }
+  ],
+  "composition": {
+    "shot_size": "full-canvas infographic",
+    "camera_angle": "orthographic front view",
+    "perspective": "flat graphic layout",
+    "focal_length_mm": null,
+    "framing": "Preserve the left information system and right evidence board with generous black margins and the existing visual hierarchy.",
+    "negative_space": "Preserve all existing breathing room around the title, workflow, cards and command panel.",
+    "depth_layers": ["black background", "copper and cyan interface lines", "text and icons", "embedded photographic storyboard"]
+  },
+  "lighting": {
+    "summary": "Preserve the source's restrained luminous copper and cyan edge treatment.",
+    "key": "source-matched copper title glow",
+    "fill": "none beyond existing cyan accents",
+    "rim": "existing fine copper borders",
+    "direction": "unchanged",
+    "contrast": "unchanged",
+    "color_temperature": "unchanged",
+    "practicals": []
+  },
+  "color": {
+    "palette": ["graphite black", "satin copper", "restrained cyan", "embedded cinematic blue and amber"],
+    "grade": "preserve the source graphic grade and embedded storyboard grade",
+    "contrast": "preserve",
+    "saturation": "preserve"
+  },
+  "optics": {
+    "depth_of_field": "none on interface; preserve embedded storyboard",
+    "focus_target": "workflow and exact copy",
+    "motion_blur": "none",
+    "lens_character": "flat graphic-design surface",
+    "artifacts": []
+  },
+  "style": {
+    "medium": "premium technical product infographic",
+    "realism": "crisp graphic design with an unchanged photographic evidence panel",
+    "visual_traits": ["precise grid", "restrained copper foil character", "cyan system accents", "high information density with clear hierarchy"],
+    "era": "contemporary",
+    "references": [],
+    "excluded_traits": ["generic SaaS dashboard", "busy neon cyberpunk", "glossy 3D poster", "decorative particles", "new gradients", "rewritten photography"]
+  },
+  "text_elements": [
+    {
+      "content": "2 视觉意图",
+      "case_sensitive": true,
+      "placement": "workflow card number 2, directly below the clapperboard icon",
+      "typography": "match the existing compact copper workflow labels",
+      "color": "source-matched copper"
+    },
+    {
+      "content": "create · reconstruct · edit · restyle · expand · learn_style · styleboard",
+      "case_sensitive": true,
+      "placement": "the single cyan modes strip below the six-step workflow",
+      "typography": "match the existing cyan monospace line",
+      "color": "source-matched cyan"
+    }
+  ],
+  "spatial_edits": [
+    {
+      "target": "workflow card 2 label",
+      "region": {"x_percent": 10.0, "y_percent": 38.0, "width_percent": 7.0, "height_percent": 7.0},
+      "instruction": "Set the label to exactly '2 视觉意图'. This describes Mirror Forge's native visual-intent analysis. Do not mention external story planning or story orchestration.",
+      "preserve_surroundings": true
+    },
+    {
+      "target": "modes strip",
+      "region": {"x_percent": 2.0, "y_percent": 45.0, "width_percent": 49.0, "height_percent": 9.0},
+      "instruction": "Preserve the existing line and spacing while changing only 'learn style' to the exact callable mode name 'learn_style'.",
+      "preserve_surroundings": true
+    }
+  ],
+  "constraints": {
+    "must_preserve": [
+      "all source layout geometry, icons, borders, spacing and hierarchy",
+      "title '镜造 Image Forge v1.1' and subtitle",
+      "workflow nodes 1 and 3 through 6",
+      "all capability cards, evidence badges, use-case line, platform line and command panel",
+      "the embedded nine-shot board exactly as supplied",
+      "the meaning that the board is live ImageGen evidence",
+      "source colors, textures, sharpness and aspect ratio"
+    ],
+    "must_change": [
+      "workflow node 2 becomes exactly '2 视觉意图'",
+      "mode name becomes exactly 'learn_style'"
+    ],
+    "exclude": [
+      "external story-planning integration claim",
+      "new workflow steps",
+      "new feature claims",
+      "new logos",
+      "new images",
+      "watermarks",
+      "rewritten or regenerated nine-shot cells",
+      "layout redesign",
+      "added visual effects"
+    ]
+  },
+  "render": {
+    "detail_priority": ["exact workflow semantics", "exact mode spelling", "small-copy legibility", "source fidelity"],
+    "artifact_budget": "source_matched",
+    "quality_controls": ["clean Chinese glyphs", "clean underscore in learn_style", "no text collision", "no global redraw"]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "high"}
+  }
+}
