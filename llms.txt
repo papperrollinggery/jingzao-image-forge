@@ -25,6 +25,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - verified multi-image delivery: emit actual supplied images, a target-aware Codex ImageGen call plan, fail-closed capability checks, and an expected-vs-sent execution receipt; never replace references with prose-only summaries or add post-generation compositing
 - knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
 - artifact and material quality: control noise, grain, bloom, flare, oily or waxy surfaces, sharpening halos, particles, and focal-detail hierarchy
+- bundled prompt-contamination guard: source trace, clean-slate reset, semantic ownership and deduplication, deletion test, stateless-generator read, and PASS/FAIL without requiring another installed Skill
 - automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
 - cinematic shot design: bind relationship, staging, viewer position, camera height, distance, focal length, focus, and motivated lighting
 - causal VFX: define source, trigger, material/shape, path, operation, response, intensity, decay, and residue for Chinese fantasy, giant-scale, transformation, and destruction effects
@@ -35,7 +36,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
 - references/visual-spec.md: visual_generation_spec schema and control semantics
 - references/prompt-compiler.md: platform-aware compilation behavior
-- references/prompt-hygiene.md: source tracing, semantic ownership, contamination cleanup, feasibility, and style-preserving prompt review
+- references/prompt-hygiene.md: bundled standalone source tracing, contamination classes, semantic ownership ledger, deletion test, stateless-generator read, feasibility, and style-preserving PASS/FAIL review
 - references/quality-controls.md: artifact budgets, material-light controls, and clean-slate retry guidance
 - references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
 - references/direction-profiles.md: grounded, heightened, graphic, giant-scale, and Chinese-fantasy routing

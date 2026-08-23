@@ -354,3 +354,18 @@ Pass criteria:
 - Professional controls activate when explicitly required: CG transport for the material study; event, relationship, staging, camera, action/counterforce, motivated light, and requested finishing for the battle frame.
 - Explicit focal length, distortion, film behavior, material response, stylization, and quality controls survive normalization. Minimal intervention never flattens requested style or complex-scene design.
 - A failed output is corrected with the smallest cause-specific change; retry history and speculative cleanup phrases do not become defaults.
+
+## 30. Standalone Prompt-Contamination Guard
+
+Scenario A: a GitHub-only Jingzao installation receives a complex retry prompt containing old-scene nouns, negative correction history, a habitual camera template, loaded style labels, and several paraphrases of one effect. `$prompt-contamination-guard` is not installed. Scenario B: a simple clean single-subject prompt needs delivery.
+
+Pass criteria:
+
+- Uses the bundled `references/prompt-hygiene.md`; no external Skill is required and its absence does not block or weaken the audit.
+- Applies only the fast gate to the simple prompt and does not expose a backstage trace table or semantic ledger in the paste-ready output.
+- For the complex retry, traces suspicious clauses to current sources, classifies old-context, correction/exclusion, default-template, loaded-label, internal-control, conflicting-anchor, and positive-overweighting contamination, then keeps, rewrites, or deletes each clause.
+- Builds a semantic ledger only for mechanisms whose ownership is unclear; each geometry, path, lifecycle, result, endpoint, camera behavior, or material response has one authoritative owner.
+- Deletes stale nouns instead of explaining them through negation and rewrites loaded labels as current visible evidence.
+- Performs a stateless-generator read and preserves every unique current identity, reference role, style, camera, material, continuity, edit, and risk-control decision.
+- Treats deterministic compiler/lint checks as a partial static gate, not proof that semantic duplication or template carryover is absent.
+- Audit-only output contains findings, collisions, and `PASS` / `FAIL`; cleanup output keeps diagnosis outside one self-contained model-facing prompt.
