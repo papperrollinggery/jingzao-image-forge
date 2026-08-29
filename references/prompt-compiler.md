@@ -19,7 +19,7 @@ Use a stable order so prompts remain debuggable:
 9. spatial dynamics, camera/lens/distortion, and motivated lighting;
 10. materials, color, professional color pipeline, render pipeline, and optics;
 11. detailed style and realism;
-12. compact artifact budget and shot-specific quality controls;
+12. compact artifact budget and shot-specific quality controls; `clean_reset` additionally compiles dominant low-frequency masses, focal texture ownership, material-boundary separation, localized contact, highlight protection, and readable shadows;
 13. exact visible text;
 14. requested edits or styleboard frame cards;
 15. preservation and continuity constraints;

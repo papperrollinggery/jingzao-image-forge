@@ -1148,6 +1148,24 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("clean low-noise tonal fields", result["prompt"])
         self.assertIn("matte skin with localized soft specular highlights", result["prompt"])
 
+    def test_clean_reset_budget_compiles_surface_ownership_across_platforms(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "Rebuild a premium portrait from a clean specification after repeated oily noise."
+        spec["render"]["artifact_budget"] = "clean_reset"
+        self.assertEqual([], validator.validate_spec(spec))
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                prompt = compiler.compile_spec(spec, platform)["prompt"]
+                for marker in (
+                    "3-7 dominant low-frequency shape groups",
+                    "one or two camera-readable focal-detail clusters",
+                    "at least one continuous calm surface",
+                    "localized contact shadows only at real seams",
+                    "strict wet/dry and matte/gloss boundaries",
+                    "readable shadow floor",
+                ):
+                    self.assertIn(marker, prompt)
+
     def test_source_matched_budget_preserves_source_artifact_profile(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
         spec["render"]["artifact_budget"] = "source_matched"

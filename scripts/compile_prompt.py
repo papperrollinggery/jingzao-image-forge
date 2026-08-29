@@ -74,6 +74,14 @@ ARTIFACT_PRESETS = {
         "natural material-specific roughness and specular response; selective focal detail with natural microcontrast; "
         "sparse scene-motivated particles"
     ),
+    "clean_reset": (
+        "clean-slate surface rebuild; 3-7 dominant low-frequency shape groups; one or two camera-readable focal-detail "
+        "clusters; at least one continuous calm surface; texture only where camera scale and named light reveal it; "
+        "background edge frequency and microtexture below the focal zone; material classes separated by roughness, "
+        "highlight width, reflection, translucency, and edge response; strict wet/dry and matte/gloss boundaries; "
+        "localized contact shadows only at real seams, overlaps, and support points; clean low-noise gradients; "
+        "protected highlight texture with smooth rolloff; readable shadow floor"
+    ),
     "expressive": (
         "intentional grain, bloom, flare, particles, and gloss only where coherent with the requested medium or visible "
         "light sources; preserve focal hierarchy and material separation"

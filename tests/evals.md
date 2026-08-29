@@ -135,11 +135,15 @@ Scenario: A premium portrait or cinematic image contains unrequested speckle, de
 Pass criteria:
 
 - Diagnoses noise, light-source motivation, material roughness, highlight rolloff, microcontrast, particle density, and focal hierarchy separately.
-- Chooses one appropriate `artifact_budget` instead of pasting every cleanup phrase into the prompt.
+- Treats a repeated oily/noisy report as demonstrated risk, chooses `clean_reset`, and does not leave the artifact budget at neutral `auto`.
+- Establishes 3–7 low-frequency shape groups, one or two focal-detail clusters, at least one continuous calm surface, and explicit texture ownership before adding microdetail.
+- Keeps AO/contact shadows local to real seams, overlaps, creases, and support points; separates glossy/matte and wet/dry regions through material response instead of global sheen.
 - Defines positive material and lighting targets before a compact current-risk avoid block.
 - Replaces generic `ultra detailed` or `hyper detailed` language with selective, camera-readable detail.
 - Prefers clean-slate regeneration for widespread dirty residue unless preserving the original image is a stronger requirement.
 - Preserves requested film grain, practical flare, wet gloss, brush texture, or particles when they are intentional and physically or stylistically motivated.
+- Reviews both thumbnail hierarchy and 100% surface behavior; a valid prompt or successful tool call cannot override a failed clean-surface gate.
+- Freezes passing controls and changes one main variable per retry.
 - Does not claim the artifact cause or visual fix is verified without inspecting the generated output.
 
 ## 13. Narrative Film Frame vs Poster

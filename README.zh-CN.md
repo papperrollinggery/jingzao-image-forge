@@ -10,7 +10,7 @@
 
 首屏案例依据：[连续九镜电影规格](examples/continuous-nine-shot-ferry.json) · [宣传图编辑规格](examples/jingzao-intro-infographic-edit.json) · [断桥救援规格](tests/forward-specs/cinematic-bridge-rescue.json) · [路径追踪机械锦鲤规格](tests/forward-specs/path-traced-koi-automaton.json) · [中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json)
 
-**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、电影剧情镜头、连续分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。
+**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、GPT Image 2 清图、电影剧情镜头、连续分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。清洁表面工作流专门治理油点、蜡感/油腻感、随机噪点、纹理噪波、脏 AO 光晕、暗部脏噪、塑料反光和全画面同频细节，同时保留用户明确要求的胶片颗粒、笔触、湿润材质和真实光源 flare。
 
 简单任务保持精简中立；复杂任务才启用构图、命名实体、人物关系、镜头与焦段、动作物理、精确文字、空间修改、材质、灯光、调色、参考图和跨镜连续性控制。
 
@@ -58,7 +58,7 @@
 - **按任务控制干预强度：** 中立模板不输出画幅、机位、坐标、颗粒、bloom、flare、粒子、调色或渲染预设；用户明确要求的专业控制完整保留。
 - **有意识地利用模型世界知识：** 可选 `knowledge_anchors` 保留精确的人物、地点、事件、器物和世界观专名。
 - **控制局部修改：** 使用归一化坐标、区域、“只修改”指令和明确保留列表。
-- **控制常见画面伪影：** 用紧凑质量档管理噪点、光斑、bloom、油蜡感、锐化光环和装饰性粒子。
+- **控制常见画面伪影：** 用紧凑质量档与 fail-closed 清洁表面门禁治理油点、随机噪点、脏 AO、油蜡感、塑料反光、锐化光环和同频纹理。
 - **自动判断视觉意图：** 区分剧情电影帧、key art、海报、真实电影、艺术化电影、图形化风格、巨物奇观和题材世界规则。
 - **20+ 使用场景自动路由：** 剧情、肖像、表演、动作、广告、品牌、产品、时尚、美食、建筑、环境、载具、怪物、历史、科研、图解、界面、游戏、活动、社交和实验艺术。
 - **一致的风格系统：** 支持电影自然主义、黑色电影、表现主义、超现实梦境、浪漫崇高、现代主义图形、复古胶片、奢华编辑、手工触感、绘画、动画、纪实、世界构建、极简、档案与混合媒介。
@@ -329,10 +329,26 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 | `auto` | 中立首轮，不输出清理预设或审美预设 |
 | `strict` | 产品图、精确文字、图表、极简编辑设计和干净渐变 |
 | `balanced` | 明确需要克制高级收尾时，只允许由场景驱动的效果 |
+| `clean_reset` | 连续出现油腻感、噪点、脏 AO、纹理汤或潜在残留时，从干净规格重建 |
 | `expressive` | 绘画、胶片、幻想或重 VFX 画面，允许有意的媒介伪影 |
 | `source_matched` | 需要继承原图颗粒、光斑、锐度和表面响应的编辑与扩图 |
 
 质量层会分别管理材质粗糙度、高光、纹理尺度、焦点细节、噪声/颗粒、bloom、flare、粒子与锐度。用户明确要求的胶片颗粒、笔触、湿润高光或实际光源 flare 会被保留；无来源噪点、全局油亮和全画面同等锐利不会被当作“高级感”。详见[伪影与材质质量控制](references/quality-controls.md)。
+
+### AI 清图与去油腻工作流
+
+当画面连续出现油点、噪波或脏 AO 时，镜造不会继续在受污染的图上反复修补，也不会把 `artifact_budget` 留在中立 `auto`。它会启用 `clean_reset`，只锁定已经认可的主体、构图、媒介、色板与关系，然后重建：
+
+1. 3–7 个主导的低频大形；
+2. 1–2 个在当前镜头尺度可读的焦点细节簇；
+3. 至少一个连续的安静表面；
+4. 材质各自的粗糙度、高光宽度、反射、纹理尺度，以及严格的干湿/亮哑边界；
+5. 只落在真实缝隙、重叠、褶皱和承重点的局部 AO/接触阴影；
+6. 保住纹理的高光、可读暗部、干净渐变和低于焦点区的背景边缘频率。
+
+产图必须通过双尺度视觉门禁：缩略图检查信息层级，100% 检查表面。随机油点、类似水印的暗纹、脏 AO 光晕、全局油亮/塑料感、暗部噪点填充或焦点外同等密度的微纹理都会阻断交付。每轮冻结已经通过的控制，只改一个主变量。
+
+这组优化吸收了 MIT 许可的 [IM2 Clean Image（审阅版本 `cdd471f`）](https://github.com/q2522879285-source/im2-image-skills/tree/cdd471f3cf82531f0d4b7b0740945fd0039dd224/skills/im2-clean-image) 中关于低频大形、纹理归属、局部接触、干净重生和单变量重试的可取机制；镜造仍保留自己的中立模板、结构化规格、跨平台编译、原图保真合同和视觉验收门禁。
 
 ## 目录结构
 
@@ -362,7 +378,7 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **151 项确定性回归测试**，覆盖七种模式的 schema/编译结构、中立模板、低干预以及自然语言/FLUX JSON 空提示 fail-closed 行为、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **152 项确定性回归测试**，覆盖七种模式的 schema/编译结构、中立模板、低干预以及自然语言/FLUX JSON 空提示 fail-closed 行为、四平台 `clean_reset` 表面归属、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 

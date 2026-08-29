@@ -77,12 +77,15 @@ Use this route when a request names a recognizable character, person, work, hist
 
 For premium, clean, photorealistic, product, portrait, dark-scene, or dense fantasy work, run a compact quality preflight. Read [references/quality-controls.md](references/quality-controls.md) when an output looks noisy, speckled, waxy, oily, over-sharpened, excessively glossy, flare-heavy, or uniformly over-processed.
 
-- Keep `render.artifact_budget: auto` for a clean first pass. Select `strict`, `balanced`, `expressive`, or `source_matched` only when the medium, source, delivery risk, or an observed artifact justifies that preset. Do not stack every cleanup phrase into every prompt.
+- Keep `render.artifact_budget: auto` for a clean first pass. Select `strict`, `balanced`, `clean_reset`, `expressive`, or `source_matched` only when the medium, source, delivery risk, or an observed artifact justifies that preset. Do not stack every cleanup phrase into every prompt.
+- A repeated dirty-output report is demonstrated risk, not a neutral first pass. Set `render.artifact_budget: clean_reset`, rebuild from a clean specification, and preserve only the subject, composition, medium, palette, and essential relationships. Do not use repeated image-to-image cleanup unless exact source geometry matters more than residue carryover.
 - Define material-specific roughness, highlight width, reflection, texture scale, and contact behavior before adding generic quality adjectives.
-- Keep detail selective: reserve full clarity and microtexture for focal surfaces; let secondary areas fall off through distance, light, focus, and occlusion.
+- Assign texture ownership before adding microdetail: establish 3–7 dominant low-frequency shape groups, one or two focal-detail clusters, and at least one continuous calm surface. Reserve full clarity for camera-readable focal surfaces; make support and depth zones lose edge frequency, texture frequency, and contour completeness through distance, light, focus, atmosphere, or occlusion.
+- Keep ambient occlusion and contact shadows local to real seams, overlaps, creases, and support points. Separate glossy, matte, wet, and dry regions by material response; never use global sheen or contour grime as a depth shortcut.
 - Bloom, lens flare, grain, floating particles, sparks, and gloss require a visible light source, requested medium, physical event, or source-image precedent. Otherwise keep them restrained.
 - Prefer positive visible targets plus one compact current-risk avoid block. Do not preserve a history of old failed objects or styles in negative constraints.
 - For dirty-output retries, regenerate from a clean specification when practical. Repeated image-to-image cleanup can preserve or amplify unwanted residue; use editing only when the user needs the original structure preserved.
+- Before calling an output deliverable-quality, inspect it both at thumbnail scale and at 100%. Fail the clean-surface gate if large calm masses disappear, non-focal areas carry equal microtexture, highlights become oily/plastic, AO becomes a dirty halo, darks fill with noise, or random dots/text-like marks survive. Freeze passing controls and change one main variable per retry.
 
 ## Visual Intent Router
 

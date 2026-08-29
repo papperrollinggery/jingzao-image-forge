@@ -1,6 +1,6 @@
 # Jingzao Image Forge
 
-> A Codex visual-director Skill for structured AI image prompts, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It converts briefs, observed references, local edits, multi-shot plans, and reusable style capsules into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators.
+> A Codex visual-director Skill for structured AI image prompts, clean GPT Image 2 rendering, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It converts briefs, observed references, local edits, multi-shot plans, and reusable style capsules into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators. Its clean-surface reset targets oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering.
 
 Canonical repository: https://github.com/papperrollinggery/jingzao-image-forge
 English documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.md
@@ -24,7 +24,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - professional render pipeline: Blender/Unreal/production-renderer appearance references, path/ray tracing, global illumination, PBR/NPR materials, volume, sampling, and visible pass separation inside one generated image
 - verified multi-image delivery: emit actual supplied images, a target-aware Codex ImageGen call plan, fail-closed capability checks, and an expected-vs-sent execution receipt; never replace references with prose-only summaries or add post-generation compositing
 - knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
-- artifact and material quality: control noise, grain, bloom, flare, oily or waxy surfaces, sharpening halos, particles, and focal-detail hierarchy
+- artifact and material quality: use `clean_reset`, low-frequency shape groups, explicit texture ownership, material-specific roughness/highlights, localized AO/contact, and a two-scale visual gate for oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering
 - bundled prompt-contamination guard: source trace, clean-slate reset, semantic ownership and deduplication, deletion test, stateless-generator read, and PASS/FAIL without requiring another installed Skill
 - automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
 - cinematic shot design: bind relationship, staging, viewer position, camera height, distance, focal length, focus, and motivated lighting
@@ -37,7 +37,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - references/visual-spec.md: visual_generation_spec schema and control semantics
 - references/prompt-compiler.md: platform-aware compilation behavior
 - references/prompt-hygiene.md: bundled standalone source tracing, contamination classes, semantic ownership ledger, deletion test, stateless-generator read, feasibility, and style-preserving PASS/FAIL review
-- references/quality-controls.md: artifact budgets, material-light controls, and clean-slate retry guidance
+- references/quality-controls.md: artifact budgets, clean-surface reset, texture ownership, material-light controls, two-scale acceptance, and single-variable retry guidance
 - references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
 - references/direction-profiles.md: grounded, heightened, graphic, giant-scale, and Chinese-fantasy routing
 - references/scenario-profiles.md: story, commercial, product, fashion, food, architecture, environment, knowledge, interface, game, event, social, and experimental routes
@@ -114,7 +114,7 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 151 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in natural-language and FLUX JSON projections, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 152 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in natural-language and FLUX JSON projections, cross-platform clean_reset surface ownership, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations

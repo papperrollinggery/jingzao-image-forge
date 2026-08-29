@@ -24,6 +24,7 @@ Generic quality adjectives such as `8K`, `ultra detailed`, `hyper realistic`, or
 | `auto` | first-pass generation without a demonstrated artifact risk | emit no preset; let the requested subject, medium, material, and light lead |
 | `strict` | products, typography, diagrams, clean editorials | clean gradients, contained highlights, clear air, no decorative texture systems |
 | `balanced` | premium imagery that explicitly needs restrained finishing | restrained source-driven effects, natural material roughness, selective focal detail |
+| `clean_reset` | repeated oiliness, random speckle, dirty AO, texture soup, or latent residue | rebuild low-frequency masses, texture ownership, material boundaries, contact, and exposure from a clean specification |
 | `expressive` | painterly, analog, fantasy, VFX-heavy work | intentional artifacts allowed only when coherent with medium, event, or visible source |
 | `source_matched` | edits, restyles, expansions | inherit source grain, flare, sharpness, and surface response; add no new artifact classes |
 
@@ -60,6 +61,16 @@ Examples:
 
 Do not make every surface equally legible. Allocate full clarity to the primary subject and hero materials. Secondary content may lose detail through distance, atmosphere, depth of field, shadow, occlusion, or lower contrast. This produces visual hierarchy and avoids the over-processed AI look.
 
+For artifact-prone work, make the hierarchy observable before adding texture:
+
+1. establish 3–7 dominant low-frequency shape groups;
+2. assign one or two focal-detail clusters;
+3. protect at least one continuous calm surface or negative-space mass;
+4. let support and depth zones lose edge frequency, texture frequency, contrast, and contour completeness;
+5. add texture only where camera scale, named light, and narrative or product importance can reveal it.
+
+Texture must have an owner. Skin pores belong to readable facial planes, fabric structure follows folds, wear belongs to plausible contact edges, and AO belongs only to real seams, overlaps, creases, and support points. Unowned speckle, global sheen, contour grime, and equal-frequency backgrounds fail the surface model.
+
 Replace risky phrases:
 
 | Risky phrase | Prefer |
@@ -86,6 +97,28 @@ When a generated image already contains widespread noise, ghost texture, uncontr
 
 Use image editing when preservation of the original geometry or content is more important than the risk of carrying artifacts forward. For `source_matched` edits, explicitly preserve intentional grain or flare while forbidding new artifact classes outside the edit target.
 
+### Recurring dirty-output reset
+
+Use `render.artifact_budget: clean_reset` after a repeated oily/noisy failure. Compile in this order:
+
+1. lock the subject, composition, medium, palette, and essential relationships;
+2. rebuild dominant masses and focal/support/quiet information density;
+3. rebuild each hero material by roughness, highlight width, reflection, texture scale, and contact;
+4. protect highlight texture, shadow readability, wet/dry boundaries, and glossy/matte boundaries;
+5. add one compact current-risk avoid block only when the target supports or benefits from it;
+6. generate from the clean specification rather than narrating the failed image.
+
+After each output, freeze controls that visibly pass and change one main variable: texture density, highlight width, roughness separation, AO/contact localization, shadow floor, or background edge frequency. A multi-variable rewrite makes cause and improvement impossible to audit.
+
+## Clean-Surface Acceptance Gate
+
+Review at two scales:
+
+- **Thumbnail:** one dominant read, one or two focal-detail clusters, and at least one broad calm mass survive; the background does not compete through equal edge density.
+- **100% view:** texture follows material topology and camera scale; highlights keep surface information; AO is local; dark values remain readable; gradients do not break into random dots, watermark-like marks, sharpening halos, or residual micro-patterns.
+
+If either scale fails, the image is not deliverable-quality. A valid prompt or successful tool call does not override this visual gate.
+
 ## Review Checklist
 
 - Each hero material has a distinct physical response.
@@ -95,3 +128,7 @@ Use image editing when preservation of the original geometry or content is more 
 - Dark regions retain shape separation without noisy fill.
 - No repeated micro-patterns, hidden text-like marks, decorative speckle, or sharpening halos appear.
 - The chosen artifact budget matches the requested medium and source image.
+
+## Method Note
+
+The low-frequency mass, texture-ownership, localized-contact, clean-slate regeneration, and single-variable retry refinements were adapted from the MIT-licensed [IM2 Clean Image source reviewed at `cdd471f`](https://github.com/q2522879285-source/im2-image-skills/tree/cdd471f3cf82531f0d4b7b0740945fd0039dd224/skills/im2-clean-image) and reconciled with Jingzao's existing neutral-template and source-preservation contracts.

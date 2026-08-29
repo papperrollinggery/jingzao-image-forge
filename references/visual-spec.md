@@ -489,6 +489,7 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 - `auto`: default neutral behavior; emits no artifact preset or aesthetic prior.
 - `strict`: clean product, typography, diagrams, minimal editorials, and other artifact-intolerant work.
 - `balanced`: explicitly requested premium restraint; allows only restrained, scene-motivated grain, bloom, flare, gloss, and particles.
+- `clean_reset`: repeated oiliness, speckle, dirty AO, equal-frequency texture, or latent residue; rebuilds low-frequency masses, texture ownership, material boundaries, contact, and exposure from a clean specification rather than preserving failed pixels.
 - `expressive`: intentional painterly, analog, fantasy, or effects-heavy work while preserving material separation and focal hierarchy.
 - `source_matched`: edits, restyles, and expansions that must inherit the source image's grain, sharpness, bloom, flare, and surface response without adding new artifact classes.
 - `quality_controls`: optional shot-specific positive targets. Keep them concise and physically observable.
