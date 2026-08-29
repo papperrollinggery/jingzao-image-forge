@@ -361,6 +361,7 @@ An effect must have a source, operation, visible consequence, and endpoint. Part
     "presentation": "hand_drawn",
     "generation_strategy": "auto",
     "reading_order": "left_to_right_top_to_bottom",
+    "hierarchy_profile": "auto",
     "continuity_locks": ["character identity", "wardrobe", "location geography", "light direction"],
     "allowed_variation": ["shot size", "camera angle", "action phase"],
     "reference_assignments": [
@@ -389,9 +390,27 @@ An effect must have a source, operation, visible consequence, and endpoint. Part
 }
 ```
 
-Canonical presentation values are `line_art`, `hand_drawn`, `cinematic_frame`, or `mixed`. Generation strategies are `auto`, `sheet_direct`, `independent_frames`, or `hybrid`. For equal-cell direct sheets, `board ratio = frame ratio × columns ÷ rows`; this preserves native cell geometry for both square and non-square grids. Each reference has one primary `role` plus optional explicit, non-duplicated `secondary_roles` when the same image genuinely proves more than one layer.
+Canonical presentation values are `line_art`, `hand_drawn`, `cinematic_frame`, or `mixed`. Generation strategies are `auto`, `sheet_direct`, `independent_frames`, or `hybrid`. Hierarchy profiles are `auto`, `minimal_state`, `layered_editorial`, `spatial_system`, or `custom`. For equal-cell direct sheets, `board ratio = frame ratio × columns ÷ rows`; this preserves native cell geometry for both square and non-square grids. Each reference has one primary `role` plus optional explicit, non-duplicated `secondary_roles` when the same image genuinely proves more than one layer.
 
 For a UI Motion board, keep the same schema and read [ui-motion-storyboard.md](ui-motion-storyboard.md). Put exact on-screen copy in `text_elements`; put the viewer conclusion, proof object, local interface state, motion phase, accent target, and background rule in the corresponding frame's `story_moment`, `primary_action`, `action_phase`, and `composition`. Use `line_art` with one declared semantic accent rather than inventing a separate full-color presentation mode.
+
+When `hierarchy_profile` is `layered_editorial` or `spatial_system`, every frame requires this hierarchy object; `minimal_state` requires at least L0, L1, and a calm zone:
+
+```json
+{
+  "hierarchy": {
+    "l0_primary_focus": "one dominant current event",
+    "l1_proof": ["exact title", "one visible proof relationship"],
+    "l2_continuity": ["cropped previous state", "small next-state preview"],
+    "l3_ambient_scaffold": ["quiet point field", "low-contrast construction arc"],
+    "calm_zone": "upper-left field with reduced line and dot density",
+    "accent_owner": "only the active node and completed route",
+    "silenced_elements": ["inactive nodes", "support cards", "ambient routes"]
+  }
+}
+```
+
+These fields compile as explicit L0–L3 prompt clauses and contribute a duplicate-resistant `hierarchy_layer_count` complexity signal. The additional review budget protects real layered content; it is not permission to fill every layer with decorative detail.
 
 ## Spatial Coordinate DSL
 
@@ -452,7 +471,7 @@ Provide at least one actual image input and a complete `style_learning` record. 
 
 ### Styleboard
 
-Provide at least one image input, explicit reference roles, a presentation finish, frame count, frame ratio, continuity locks, allowed variation, and one frame card per frame. Each frame has one shot function, one story moment, one primary action, and one action phase.
+Provide at least one image input, explicit reference roles, a presentation finish, frame count, frame ratio, continuity locks, allowed variation, and one frame card per frame. Each frame has one shot function, one story moment, one primary action, and one action phase. For layered UI Motion, also provide a hierarchy profile and the required per-frame hierarchy object; ordinary cinematic or hand-drawn boards may leave the profile at `auto`.
 
 ## Exact Text
 

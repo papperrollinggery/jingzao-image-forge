@@ -968,6 +968,9 @@ def _styleboard_lines(spec: dict[str, Any]) -> list[str]:
                 if _text(board.get("generation_strategy"))
                 else "",
                 f"reading order: {_text(board.get('reading_order'))}" if _text(board.get("reading_order")) else "",
+                f"hierarchy profile: {_text(board.get('hierarchy_profile')).replace('_', ' ')}"
+                if _text(board.get("hierarchy_profile"))
+                else "",
                 f"continuity locks: {', '.join(_items(board.get('continuity_locks')))}"
                 if _items(board.get("continuity_locks"))
                 else "",
@@ -998,6 +1001,7 @@ def _styleboard_lines(spec: dict[str, Any]) -> list[str]:
         if not isinstance(frame, dict):
             continue
         focal = frame.get("focal_length_mm")
+        hierarchy = frame.get("hierarchy") if isinstance(frame.get("hierarchy"), dict) else {}
         result.append(
             _join(
                 [
@@ -1010,6 +1014,27 @@ def _styleboard_lines(spec: dict[str, Any]) -> list[str]:
                     f"camera height: {_text(frame.get('camera_height'))}",
                     f"{focal:g}mm" if isinstance(focal, (int, float)) else "",
                     f"composition: {_text(frame.get('composition'))}",
+                    f"L0 primary focus: {_text(hierarchy.get('l0_primary_focus'))}"
+                    if _text(hierarchy.get("l0_primary_focus"))
+                    else "",
+                    f"L1 proof layer: {', '.join(_items(hierarchy.get('l1_proof')))}"
+                    if _items(hierarchy.get("l1_proof"))
+                    else "",
+                    f"L2 continuity layer: {', '.join(_items(hierarchy.get('l2_continuity')))}"
+                    if _items(hierarchy.get("l2_continuity"))
+                    else "",
+                    f"L3 ambient scaffold: {', '.join(_items(hierarchy.get('l3_ambient_scaffold')))}"
+                    if _items(hierarchy.get("l3_ambient_scaffold"))
+                    else "",
+                    f"calm zone: {_text(hierarchy.get('calm_zone'))}"
+                    if _text(hierarchy.get("calm_zone"))
+                    else "",
+                    f"accent owner: {_text(hierarchy.get('accent_owner'))}"
+                    if _text(hierarchy.get("accent_owner"))
+                    else "",
+                    f"silence competitors: {', '.join(_items(hierarchy.get('silenced_elements')))}"
+                    if _items(hierarchy.get("silenced_elements"))
+                    else "",
                     f"reference inputs: {', '.join(_items(frame.get('reference_ids')))}"
                     if _items(frame.get("reference_ids"))
                     else "",
@@ -1163,6 +1188,17 @@ def _prompt_budget(
     board = spec.get("styleboard") if isinstance(spec.get("styleboard"), dict) else {}
     frames = board.get("frames") if isinstance(board.get("frames"), list) else []
     styleboard_frame_count = _unique_semantic_count(item for item in frames if isinstance(item, dict))
+    hierarchy_layers: list[tuple[str, Any]] = []
+    for frame in frames:
+        if not isinstance(frame, dict):
+            continue
+        hierarchy = frame.get("hierarchy") if isinstance(frame.get("hierarchy"), dict) else {}
+        primary_focus = _text(hierarchy.get("l0_primary_focus"))
+        if primary_focus:
+            hierarchy_layers.append(("l0", primary_focus))
+        for key in ("l1_proof", "l2_continuity", "l3_ambient_scaffold"):
+            hierarchy_layers.extend((key, item) for item in _items(hierarchy.get(key)))
+    hierarchy_layer_count = _unique_semantic_count(hierarchy_layers)
     preserve, change, exclude = _constraints(spec)
     constraint_count = _unique_semantic_count(
         [("preserve", item) for item in preserve]
@@ -1179,6 +1215,7 @@ def _prompt_budget(
         + effect_count * 2
         + exact_text_count
         + styleboard_frame_count
+        + (hierarchy_layer_count + 1) // 2
         + (constraint_count + 2) // 3
         + (4 if style_capsule_applied else 0)
     )
@@ -1208,6 +1245,7 @@ def _prompt_budget(
             "effect_count": effect_count,
             "exact_text_count": exact_text_count,
             "styleboard_frame_count": styleboard_frame_count,
+            "hierarchy_layer_count": hierarchy_layer_count,
             "constraint_count": constraint_count,
             "style_capsule_applied": style_capsule_applied,
         },

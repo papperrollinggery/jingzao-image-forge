@@ -78,7 +78,7 @@ jobs:
           python3 scripts/prompt_lint.py examples/tactile-stop-motion-product.json --platform openai --max-words 1100
           python3 scripts/prompt_lint.py examples/continuous-nine-shot-ferry.json --platform openai --max-words 1400
           python3 scripts/prompt_lint.py examples/jingzao-intro-infographic-edit.json --platform openai --max-words 1000
-          python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform openai --max-words 1000
+          python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform openai --max-words 1700
           python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform midjourney --approve-review --max-words 1700
 
       - name: Validate platform compiler JSON

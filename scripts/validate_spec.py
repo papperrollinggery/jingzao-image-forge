@@ -141,6 +141,7 @@ STYLEBOARD_PRESENTATIONS = {"line_art", "hand_drawn", "cinematic_frame", "mixed"
 STYLEBOARD_STRATEGIES = {"auto", "sheet_direct", "independent_frames", "hybrid"}
 STYLEBOARD_REFERENCE_ROLES = {"identity", "wardrobe", "scene", "prop", "camera_action", "style", "layout", "palette"}
 STYLEBOARD_READING_ORDERS = {"left_to_right_top_to_bottom", "top_to_bottom_left_to_right"}
+STYLEBOARD_HIERARCHY_PROFILES = {"auto", "minimal_state", "layered_editorial", "spatial_system", "custom"}
 ACTION_PHASES = {"prepare", "initiate", "contact", "response", "hold"}
 ASPECT_RATIO_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*:\s*(\d+(?:\.\d+)?)\s*$")
 GRID_LAYOUT_RE = re.compile(r"^\s*(\d+)\s*[x×]\s*(\d+)\s*$", re.IGNORECASE)
@@ -1119,6 +1120,7 @@ def validate_spec(spec: Any) -> list[str]:
                     "presentation",
                     "generation_strategy",
                     "reading_order",
+                    "hierarchy_profile",
                     "continuity_locks",
                     "allowed_variation",
                     "reference_assignments",
@@ -1143,6 +1145,11 @@ def validate_spec(spec: Any) -> list[str]:
                 errors.append(f"$.styleboard.generation_strategy: expected one of {sorted(STYLEBOARD_STRATEGIES)}")
             if not _is_allowed(styleboard.get("reading_order", "left_to_right_top_to_bottom"), STYLEBOARD_READING_ORDERS):
                 errors.append(f"$.styleboard.reading_order: expected one of {sorted(STYLEBOARD_READING_ORDERS)}")
+            hierarchy_profile = styleboard.get("hierarchy_profile", "auto")
+            if not _is_allowed(hierarchy_profile, STYLEBOARD_HIERARCHY_PROFILES):
+                errors.append(
+                    f"$.styleboard.hierarchy_profile: expected one of {sorted(STYLEBOARD_HIERARCHY_PROFILES)}"
+                )
             _validate_string_list(styleboard.get("continuity_locks", []), "$.styleboard.continuity_locks", errors)
             _validate_string_list(styleboard.get("allowed_variation", []), "$.styleboard.allowed_variation", errors)
 
@@ -1239,6 +1246,7 @@ def validate_spec(spec: Any) -> list[str]:
                             "camera_height",
                             "focal_length_mm",
                             "composition",
+                            "hierarchy",
                             "reference_ids",
                             "control",
                         },
@@ -1259,6 +1267,81 @@ def validate_spec(spec: Any) -> list[str]:
                     focal_length = frame.get("focal_length_mm")
                     if not _is_number(focal_length) or focal_length <= 0:
                         errors.append(f"{path}.focal_length_mm: expected a positive number")
+                    hierarchy = frame.get("hierarchy")
+                    requires_hierarchy = _is_allowed(
+                        hierarchy_profile,
+                        {"minimal_state", "layered_editorial", "spatial_system"},
+                    )
+                    if hierarchy is None:
+                        if requires_hierarchy:
+                            errors.append(f"{path}.hierarchy: required for hierarchy_profile={hierarchy_profile!r}")
+                    elif not isinstance(hierarchy, dict):
+                        errors.append(f"{path}.hierarchy: expected an object")
+                    else:
+                        _validate_known_keys(
+                            hierarchy,
+                            {
+                                "l0_primary_focus",
+                                "l1_proof",
+                                "l2_continuity",
+                                "l3_ambient_scaffold",
+                                "calm_zone",
+                                "accent_owner",
+                                "silenced_elements",
+                            },
+                            f"{path}.hierarchy",
+                            errors,
+                        )
+                        _require_string(
+                            hierarchy.get("l0_primary_focus"),
+                            f"{path}.hierarchy.l0_primary_focus",
+                            errors,
+                        )
+                        _validate_optional_string_fields(
+                            hierarchy,
+                            ("calm_zone", "accent_owner"),
+                            f"{path}.hierarchy",
+                            errors,
+                        )
+                        for hierarchy_key in (
+                            "l1_proof",
+                            "l2_continuity",
+                            "l3_ambient_scaffold",
+                            "silenced_elements",
+                        ):
+                            hierarchy_items = hierarchy.get(hierarchy_key, [])
+                            _validate_string_list(
+                                hierarchy_items,
+                                f"{path}.hierarchy.{hierarchy_key}",
+                                errors,
+                            )
+                            if (
+                                _is_allowed(hierarchy_profile, {"layered_editorial", "spatial_system"})
+                                and isinstance(hierarchy_items, list)
+                                and not hierarchy_items
+                            ):
+                                errors.append(
+                                    f"{path}.hierarchy.{hierarchy_key}: expected at least one item "
+                                    f"for hierarchy_profile={hierarchy_profile!r}"
+                                )
+                        if hierarchy_profile == "minimal_state":
+                            proof_items = hierarchy.get("l1_proof", [])
+                            if isinstance(proof_items, list) and not proof_items:
+                                errors.append(
+                                    f"{path}.hierarchy.l1_proof: expected at least one item "
+                                    "for hierarchy_profile='minimal_state'"
+                                )
+                        if _is_allowed(hierarchy_profile, {"layered_editorial", "spatial_system"}):
+                            _require_string(
+                                hierarchy.get("accent_owner"),
+                                f"{path}.hierarchy.accent_owner",
+                                errors,
+                            )
+                        if _is_allowed(
+                            hierarchy_profile,
+                            {"minimal_state", "layered_editorial", "spatial_system"},
+                        ):
+                            _require_string(hierarchy.get("calm_zone"), f"{path}.hierarchy.calm_zone", errors)
                     frame_references = frame.get("reference_ids", [])
                     _validate_string_list(frame_references, f"{path}.reference_ids", errors)
                     if isinstance(frame_references, list):

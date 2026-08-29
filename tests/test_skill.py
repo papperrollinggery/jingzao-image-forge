@@ -891,6 +891,58 @@ class ValidationTests(unittest.TestCase):
         errors = validator.validate_spec(spec)
         self.assertTrue(any("styleboard.generation_strategy" in item for item in errors))
 
+    def test_unknown_styleboard_hierarchy_profile_is_rejected(self):
+        for invalid in ("everything-equal", [], {}):
+            with self.subTest(invalid=invalid):
+                spec = make_styleboard_spec()
+                spec["styleboard"]["hierarchy_profile"] = invalid
+                errors = validator.validate_spec(spec)
+                self.assertTrue(any("styleboard.hierarchy_profile" in item for item in errors))
+
+    def test_layered_styleboard_requires_hierarchy_for_every_frame(self):
+        spec = make_styleboard_spec()
+        spec["styleboard"]["hierarchy_profile"] = "layered_editorial"
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("frames[0].hierarchy" in item for item in errors))
+
+    def test_layered_styleboard_requires_continuity_and_ambient_layers(self):
+        spec = make_styleboard_spec()
+        spec["styleboard"]["hierarchy_profile"] = "layered_editorial"
+        for frame in spec["styleboard"]["frames"]:
+            frame["hierarchy"] = {
+                "l0_primary_focus": "one dominant action",
+                "l1_proof": ["one visible result"],
+                "l2_continuity": [],
+                "l3_ambient_scaffold": [],
+                "calm_zone": "upper-left text-safe field",
+                "accent_owner": "none",
+                "silenced_elements": ["all unrelated controls"],
+            }
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("l2_continuity: expected at least one item" in item for item in errors))
+        self.assertTrue(any("l3_ambient_scaffold: expected at least one item" in item for item in errors))
+
+    def test_layered_styleboard_requires_explicit_accent_owner(self):
+        spec = load_json(ROOT / "examples" / "ui-motion-storyboard.json")
+        del spec["styleboard"]["frames"][0]["hierarchy"]["accent_owner"]
+        errors = validator.validate_spec(spec)
+        self.assertTrue(any("frames[0].hierarchy.accent_owner" in item for item in errors))
+
+    def test_minimal_state_allows_quiet_continuity_and_ambient_layers(self):
+        spec = make_styleboard_spec()
+        spec["styleboard"]["hierarchy_profile"] = "minimal_state"
+        for frame in spec["styleboard"]["frames"]:
+            frame["hierarchy"] = {
+                "l0_primary_focus": "one selected button",
+                "l1_proof": ["one exact functional label"],
+                "l2_continuity": [],
+                "l3_ambient_scaffold": [],
+                "calm_zone": "all space outside the control",
+                "accent_owner": "the selected outline only",
+                "silenced_elements": [],
+            }
+        self.assertEqual([], validator.validate_spec(spec))
+
     def test_unknown_styleboard_secondary_role_is_rejected(self):
         spec = make_styleboard_spec()
         spec["styleboard"]["reference_assignments"][0]["secondary_roles"] = ["mood_magic"]
@@ -1204,8 +1256,53 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("hand or finger cursor", prompt)
         self.assertIn("all introductory or inactive elements remain charcoal or gray", prompt)
         self.assertIn("visible shot numbers, frame IDs, duration labels, review arrows or production annotations", prompt)
+        self.assertIn("hierarchy profile: layered editorial", prompt)
+        self.assertIn("L0 primary focus:", prompt)
+        self.assertIn("L1 proof layer:", prompt)
+        self.assertIn("L2 continuity layer:", prompt)
+        self.assertIn("L3 ambient scaffold:", prompt)
+        self.assertIn("calm zone:", prompt)
+        self.assertIn("silence competitors:", prompt)
         self.assertEqual("sequence", result["prompt_review"]["detail_mode"])
         self.assertEqual(4, result["prompt_review"]["complexity_signals"]["styleboard_frame_count"])
+        self.assertGreater(result["prompt_review"]["complexity_signals"]["hierarchy_layer_count"], 12)
+
+    def test_ui_motion_hierarchy_compiles_for_every_platform(self):
+        spec = load_json(ROOT / "examples" / "ui-motion-storyboard.json")
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                self.assertIn("hierarchy profile: layered editorial", result["prompt"])
+                self.assertIn("L0 primary focus:", result["prompt"])
+                self.assertIn("L1 proof layer:", result["prompt"])
+                self.assertIn("L2 continuity layer:", result["prompt"])
+                self.assertIn("L3 ambient scaffold:", result["prompt"])
+                self.assertIn("calm zone:", result["prompt"])
+                self.assertIn("accent owner:", result["prompt"])
+                self.assertIn("silence competitors:", result["prompt"])
+                self.assertEqual(
+                    28,
+                    result["prompt_review"]["complexity_signals"]["hierarchy_layer_count"],
+                )
+
+    def test_duplicate_hierarchy_layers_do_not_inflate_budget_signal(self):
+        spec = make_styleboard_spec()
+        spec["styleboard"]["hierarchy_profile"] = "layered_editorial"
+        for frame in spec["styleboard"]["frames"]:
+            frame["hierarchy"] = {
+                "l0_primary_focus": "same element",
+                "l1_proof": ["same element"],
+                "l2_continuity": ["same element"],
+                "l3_ambient_scaffold": ["same element"],
+                "calm_zone": "same calm zone",
+                "accent_owner": "none",
+                "silenced_elements": ["same competitor"],
+            }
+        result = compiler.compile_spec(spec, "openai")
+        self.assertEqual(
+            4,
+            result["prompt_review"]["complexity_signals"]["hierarchy_layer_count"],
+        )
 
     def test_creative_routing_compiles_for_every_platform(self):
         spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")

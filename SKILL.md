@@ -1,6 +1,6 @@
 ---
 name: jingzao-image-forge
-description: Create, reverse-engineer, edit, restyle, expand, learn reusable styles from reference images, or build cinematic and UI Motion styleboards using a structured visual specification and platform-aware compilation. Use when adaptive clean first-pass rendering, dynamic prompt budgeting, exact in-frame typography, semantic accent color, interface-state sequencing, visual direction, cinematic/action shots, camera/lens/distortion, spatial tension, professional color and film finishing, Blender/Unreal/CG render behavior, product, fashion, architecture, illustration, animation, documentary, experimental art, giant-scale spectacle, Chinese fantasy, material quality, prompt-contamination cleanup, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
+description: Create, reverse-engineer, edit, restyle, expand, learn reusable styles from reference images, or build cinematic and UI Motion styleboards using a structured visual specification and platform-aware compilation. Use when adaptive clean first-pass rendering, dynamic prompt budgeting, exact in-frame typography, semantic accent color, layered L0-L3 information hierarchy, interface-state sequencing, visual direction, cinematic/action shots, camera/lens/distortion, spatial tension, professional color and film finishing, Blender/Unreal/CG render behavior, product, fashion, architecture, illustration, animation, documentary, experimental art, giant-scale spectacle, Chinese fantasy, material quality, prompt-contamination cleanup, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
 ---
 
 # 镜造 Image Forge
@@ -185,9 +185,12 @@ Use `styleboard` when the user wants reference analysis translated into several 
 Use this route for interface-led brand-film frames, product walkthroughs, animated infographics, data cards, button/progress interactions, or monochrome storyboard frames with a restrained semantic accent. Read [references/ui-motion-storyboard.md](references/ui-motion-storyboard.md).
 
 - Translate every beat into `viewer conclusion → visible proof → local UI state → motion phase → exact visible text`. Do not replace requested content with a generic dashboard or decorative technology background.
+- Choose `minimal_state`, `layered_editorial`, `spatial_system`, or a reference-derived custom hierarchy from the actual beat. Information-rich brand-film frames normally use `layered_editorial`; maps, networks, equipment fields, and ecosystem frames use `spatial_system`; a tight button or confirmation beat may use `minimal_state`.
+- For layered or spatial frames, map one L0 primary focus, L1 proof, L2 previous/next continuity, L3 ambient scaffold, one calm zone, the exact accent owner, and the elements that must recede. Detail means unequal visual roles and controlled density falloff—not more equally dark cards, icons, dots, or lines.
 - Treat in-frame SUPER, UI labels, data, and brand copy as literal `text_elements`; production notes and shot annotations stay outside the generated frame. Reject wrong characters, punctuation, line breaks, hierarchy, or alignment when exact text matters.
 - Preserve the requested line-art medium. One approved accent color may identify the selected state, active path, key number, progress, or decisive object; it must not become indiscriminate full-color decoration. Orange is a project choice, not a universal default.
 - Split a UI action into readable local states. Prefer close-up component states over repeating a full dashboard; use a pointer for desktop interaction and a hand only when the device or scene requires touch.
+- Default production sequences with frame-specific hierarchy and exact text to `independent_frames`. Use direct sheets for calibration, comparison, or a user-requested board, then verify every adopted native-ratio frame separately.
 - Generate the full sequence before broad rework, review it as one film, preserve approved frames, and revise only failed or genuinely ambiguous frames. Keep source, generated, candidate, and adopted iterations separately traceable.
 
 ## Mode Rules
@@ -225,6 +228,7 @@ Return the smallest useful set of artifacts:
 - separate parameters and warnings;
 - exact preservation and change constraints for edits.
 - global style locks, per-frame cards, reference assignments, and assembly instructions for `styleboard`.
+- for layered UI Motion, the hierarchy profile plus per-frame L0–L3 roles, calm zone, accent owner, and suppressed competitors.
 - observed/inferred/unknown separation, transfer boundaries, and a validated `style_capsule` for `learn_style`.
 
 Do not claim an image was generated, a style was matched, or an edit is pixel-accurate without tool output or visual verification. Do not silently add brands, logos, people, text, products, or story elements.

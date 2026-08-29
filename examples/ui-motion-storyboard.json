@@ -94,8 +94,9 @@
     "frame_count": 4,
     "frame_aspect_ratio": "16:9",
     "presentation": "line_art",
-    "generation_strategy": "hybrid",
+    "generation_strategy": "independent_frames",
     "reading_order": "left_to_right_top_to_bottom",
+    "hierarchy_profile": "layered_editorial",
     "continuity_locks": [
       "16:9 native frame geometry",
       "flat graphite line system",
@@ -124,7 +125,16 @@
         "shot_size": "medium-wide interface state",
         "camera_height": "front-on orthographic",
         "focal_length_mm": 50,
-        "composition": "one large setup card and exact title; no full dashboard, no map, and all introductory or inactive elements remain charcoal or gray",
+        "composition": "one large setup card anchors center-left, the exact title owns a protected upper-left field, a faint four-node sequence rail recedes toward the right, and low-contrast point-grid construction stays at the margins; no full dashboard, no map, and all introductory or inactive elements remain charcoal or gray",
+        "hierarchy": {
+          "l0_primary_focus": "one dominant setup card with a folder-and-document action",
+          "l1_proof": ["the exact setup title", "one readable file-to-folder relationship"],
+          "l2_continuity": ["a faint four-node sequence rail", "the next upload node appears only as a small preview"],
+          "l3_ambient_scaffold": ["regular low-contrast point fields at the outer margins", "one broad graphite guide arc"],
+          "calm_zone": "protect the upper-left title field from routes, dots, and secondary cards",
+          "accent_owner": "none in this introductory frame; every state remains charcoal or gray",
+          "silenced_elements": ["future nodes", "support lines", "decorative data", "all non-primary cards"]
+        },
         "reference_ids": ["line-style-reference"]
       },
       {
@@ -136,7 +146,16 @@
         "shot_size": "close-up interface insert",
         "camera_height": "front-on orthographic",
         "focal_length_mm": 65,
-        "composition": "the button fills most of the frame; orange appears only on the selected outline and pointer contact, with no hand cursor",
+        "composition": "the selected upload control becomes the only near-full-frame component; a source document card enters from the left, the previous setup edge is cropped at the far left, the next progress node is a faint preview at the far right, and point-grid construction remains quiet; orange appears only on the selected outline and pointer contact, with no hand cursor",
+        "hierarchy": {
+          "l0_primary_focus": "the enlarged selected upload control and pointer contact",
+          "l1_proof": ["the exact upload label", "one source document visibly entering the active control"],
+          "l2_continuity": ["a cropped residue of the prior setup card", "a faint next progress node on the shared sequence rail"],
+          "l3_ambient_scaffold": ["sparse regular point-grid construction", "one low-contrast motion arc behind the control"],
+          "calm_zone": "leave the upper-right field open so the active control reads without a dashboard surround",
+          "accent_owner": "only the selected outline, current sequence node, and pointer-contact ticks use #FF6A2A",
+          "silenced_elements": ["prior setup card", "future progress state", "inactive rail nodes", "ambient dots"]
+        },
         "reference_ids": ["line-style-reference"]
       },
       {
@@ -148,7 +167,16 @@
         "shot_size": "close-up data state",
         "camera_height": "front-on orthographic",
         "focal_length_mm": 65,
-        "composition": "large progress ring and exact percentage; only the completed arc is orange, all inactive marks stay gray",
+        "composition": "a large progress ring and exact percentage dominate the frame; one uploaded-document proof sits beside the ring, a cropped upload residue remains at the left edge, a small completion preview sits at the right edge, and low-contrast point-grid motion passes behind them; only the completed arc is orange, all inactive marks stay gray",
+        "hierarchy": {
+          "l0_primary_focus": "the 68-percent progress ring and its completed orange arc",
+          "l1_proof": ["the exact processing label and percentage", "one uploaded-document state linked to the ring"],
+          "l2_continuity": ["the previous upload control survives as a cropped left-edge residue", "the future completion node appears as a small right-edge preview"],
+          "l3_ambient_scaffold": ["a thin shared process rail", "low-contrast regular point-grid motion behind the focal ring"],
+          "calm_zone": "keep the lower-right quadrant free of cards and dense dots",
+          "accent_owner": "only the completed progress arc and current sequence node use #FF6A2A",
+          "silenced_elements": ["inactive remainder of the ring", "previous upload residue", "future completion preview", "ambient grid"]
+        },
         "reference_ids": ["line-style-reference"]
       },
       {
@@ -160,7 +188,16 @@
         "shot_size": "medium result state",
         "camera_height": "front-on orthographic",
         "focal_length_mm": 50,
-        "composition": "one confirmation mark and exact result title; orange belongs only to the confirmation mark and the final active edge",
+        "composition": "one confirmation card and exact result title dominate center-right; the prior progress ring is cropped and lowered in contrast at the left edge, the shared sequence rail resolves into the final node, and sparse point-grid residue exits toward the bottom; orange belongs only to the confirmation mark and the final active edge",
+        "hierarchy": {
+          "l0_primary_focus": "the completed confirmation card and decisive check mark",
+          "l1_proof": ["the exact result title", "the final sequence node visibly resolves"],
+          "l2_continuity": ["the prior progress ring remains as a cropped low-contrast residue", "the shared process rail terminates at the completed state"],
+          "l3_ambient_scaffold": ["sparse point-grid residue leaving the frame", "one broad low-contrast closing arc"],
+          "calm_zone": "protect the upper-left and lower-right fields so the completion state has visual rest",
+          "accent_owner": "only the confirmation mark and final active edge use #FF6A2A",
+          "silenced_elements": ["prior progress ring", "earlier rail nodes", "ambient point field", "all non-result controls"]
+        },
         "reference_ids": ["line-style-reference"]
       }
     ]
@@ -171,6 +208,7 @@
       "16:9 frame ratio",
       "flat 2D line-art medium",
       "typography hierarchy",
+      "layered L0-L3 information hierarchy with one dominant focal event per frame",
       "semantic orange ownership",
       "mouse pointer for desktop interaction"
     ],
@@ -185,18 +223,22 @@
       "invented copy",
       "warped characters",
       "arbitrary colored icons",
+      "equal-weight cards or equally dark detail across the whole frame",
+      "one isolated component floating in unexplained empty space",
       "empty text-safe boxes",
       "visible shot numbers, frame IDs, duration labels, review arrows or production annotations"
     ]
   },
   "render": {
-    "detail_priority": ["exact typography", "local UI state", "active-state accent", "clean line hierarchy"],
+    "detail_priority": ["L0 focal event", "L1 visible proof", "L2 sequence continuity", "L3 quiet scaffold", "exact typography", "local UI state", "active-state accent", "clean line hierarchy"],
     "artifact_budget": "strict",
     "quality_controls": [
       "text remains exact and readable",
       "main title stays dominant over auxiliary UI detail",
       "orange covers only semantic targets",
       "inactive elements remain charcoal or gray",
+      "L0 remains readable at thumbnail scale while L2 and L3 recede",
+      "each frame preserves one calm zone and asymmetric density",
       "no pseudo-3D material drift",
       "no map motif outside a geography frame"
     ]

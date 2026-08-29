@@ -74,7 +74,7 @@
 - **描述专业 CG 渲染：** Blender Cycles、Unreal Engine 5/Lumen、路径追踪、光线追踪、全局光照、PBR/NPR 材质、体积、采样、降噪，以及单次生成图里的可见 pass 分离。
 - **联动人物与摄影：** 人物调度、眼线、轴线、观众位置、景别、机位高度、距离、焦段、焦点和实景光源共同服从一个观看任务。
 - **保持跨镜因果连续：** 锁定人物身份、服装、道具、地理、光线方向、屏幕方向和物体状态，同时让每一格推进一个新的剧情因果节点。
-- **电影与 UI Motion 分镜板：** 参考职责分离、单格镜头卡、3×3 装配、精确画内文字、局部界面状态、语义强调色，以及线稿、手绘稿和真实电影帧质感。
+- **电影与 UI Motion 分镜板：** 参考职责分离、单格镜头卡、3×3 装配、精确画内文字、局部界面状态、语义强调色、显式 L0–L3 层级，以及线稿、手绘稿和真实电影帧质感。
 - **不伪造平台参数：** 旧版 `weight / lock / variance` 仅为兼容保留；新模板和示例不再使用，编译器忽略它们，也绝不映射为平台控制。
 - **从真实使用中优化：** 发现可复用问题时先提出证据和策略，经用户同意并回归测试后才修改 Skill。
 
@@ -252,15 +252,17 @@ CG 任务中，引擎名称属于受控参考。“Blender Cycles”可表达路
 
 `styleboard` 支持 `line_art` 黑白线稿、`hand_drawn` 手绘灰阶、`cinematic_frame` 真实/指定媒介电影帧，以及混合展示。每张参考图只承担人物、服装、场景、道具、机位动作、风格、版式或色彩中的一个主要职责。
 
-九宫格提供三种执行策略：`sheet_direct` 一键生成整张，速度最快；`independent_frames` 逐格生成，适合严格身份与机位连续性；`hybrid` 先快速出整板，再只重做入选或失败格。`auto` 根据速度需求和连续性风险自动选择。
+九宫格提供三种执行策略：`sheet_direct` 一键生成整张，速度最快；`independent_frames` 逐格生成，适合严格身份、机位、字体和逐帧层级；`hybrid` 先快速出整板，再只重做入选或失败格。`auto` 根据速度需求和连续性风险自动选择。对于每镜信息密度和精确文字不同的正式 UI Motion 序列，默认采用原生画幅逐帧生成。
 
 已提交的[《错过末班渡轮》案例](examples/continuous-nine-shot-ferry.json)包含一张人物/服装/道具/场景母版、一份整板规格和一张 3×3 案例图。人工复核显示九个因果节点清楚，姐弟身份、服装、背包、行李箱状态、药店/渡轮地理、雨势与蓝/琥珀光线保持稳定；第 6 格原定双手抬闸但实际主要呈现单手受力，是保留记录的偏差。该案例仅作为人工视觉证据，不作为回执绑定的执行证据，也不代表可确定性复现。
 
 ### UI Motion 分镜
 
-UI Motion 继续使用同一 `styleboard` 模式，不创建互不兼容的新 schema。每格按“观众结论 → 可见证据 → 局部 UI 状态 → 运动阶段 → 精确画内文字”组织。必需的 UI 标签、SUPER、数据和品牌文案通过 `text_elements` 留在画内；制作批注留在画外。声明的强调色只归属于激活状态、进度、关键数据或决定性对象，`line_art` 仍以单色线稿为主，不漂移成油亮的全彩 UI 概念图。
+UI Motion 继续使用同一 `styleboard` 模式，不创建互不兼容的新 schema。每格先按“观众结论 → 可见证据 → 局部 UI 状态 → 运动阶段 → 精确画内文字”组织，再根据内容选择 `minimal_state`、`layered_editorial`、`spatial_system` 或有证据的自定义层级。分层镜头会显式编译 L0 主焦点、L1 证明层、L2 前后状态连续层、L3 环境骨架、一个受保护的留白区、强调色归属和必须退后的元素。细致度来自不等权层级、非对称密度、边缘残影、大小/裁切/线重/灰度衰减，而不是把画面塞满同权重卡片。
 
-已验证的[四格 UI Motion 示例](examples/ui-motion-storyboard.json)使用一张线稿风格参考、四条精确中文文字、四个局部界面状态、桌面鼠标指针交互，并把 `#FF6A2A` 限定为语义激活层。当前 OpenAI 投影为 `sequence`，878 个 CJK-safe review units，动态目标 1,718，状态 `ready`。详见 [UI Motion Storyboard Workflow](references/ui-motion-storyboard.md)。
+必需的 UI 标签、SUPER、数据和品牌文案通过 `text_elements` 留在画内；制作批注留在画外。声明的强调色只归属于激活状态、进度、关键数据或决定性对象，`line_art` 仍以单色线稿为主，不漂移成油亮的全彩 UI 概念图。
+
+已验证的[四格 UI Motion 示例](examples/ui-motion-storyboard.json)使用一张线稿风格参考、四条精确中文文字、四张独立 16:9 正式帧、`layered_editorial` 层级、桌面鼠标指针交互，并把 `#FF6A2A` 限定为语义激活层。当前 OpenAI 投影为 `sequence`，1,488 个 CJK-safe review units，动态目标 2,200，包含 28 个去重后的层级单元，状态 `ready`。详见 [UI Motion Storyboard Workflow](references/ui-motion-storyboard.md)。
 
 ## 从参考图学习风格
 
@@ -365,7 +367,7 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 
 ## 动态语义提示词预算
 
-镜造不设置模型字数硬上限，也不会自动截断。编译器根据有效章节、主体、必传参考图、材质、因果效果、精确文字、分镜帧、保留/修改/排除约束和风格胶囊计算动态复核目标，并在 `prompt_review` 中公开 `detail_mode`、`complexity_units`、`complexity_signals` 及平台最小/最大复核范围。长度复核使用 CJK 安全的 `review_units`，无空格中文/日文/韩文不能绕过；完全重复的结构化条目不会虚增复杂度预算。
+镜造不设置模型字数硬上限，也不会自动截断。编译器根据有效章节、主体、必传参考图、材质、因果效果、精确文字、分镜帧、L0–L3 层级、保留/修改/排除约束和风格胶囊计算动态复核目标，并在 `prompt_review` 中公开 `detail_mode`、`complexity_units`、`complexity_signals` 及平台最小/最大复核范围。显式层级通过去重后的 `hierarchy_layer_count` 计入复杂度，所以真正分层的序列不会再只按“有几帧”分配空间。长度复核使用 CJK 安全的 `review_units`，无空格中文/日文/韩文不能绕过；完全重复的结构化条目不会虚增复杂度预算。
 
 - 单句重复堆字仍然是低语义复杂度，不会因此获得更大预算。
 - 真正复杂的单帧或多镜序列可获得更大的复核目标。
@@ -400,10 +402,11 @@ python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
 python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
 python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
+python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform openai --max-words 1700
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **162 项确定性回归测试**，覆盖七种模式的 schema/编译结构、UI Motion 精确文字/强调色/sequence 行为、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **169 项确定性回归测试**，覆盖七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 
@@ -498,7 +501,7 @@ python3 -m unittest discover -s tests -v
 
 ### 支持九宫格分镜吗？
 
-支持。`styleboard` 同时支持 3×3 电影分镜和 UI Motion 序列，包含参考职责分离、精确画内文字、语义强调色、连续性锁定、一键整板、逐格独立生成与混合替换，以及线稿、手绘稿、真实电影帧或混合质感。
+支持。`styleboard` 同时支持 3×3 电影分镜和 UI Motion 序列，包含参考职责分离、精确画内文字、语义强调色、L0–L3 层级 profile、连续性锁定、一键整板、逐格独立生成与混合替换，以及线稿、手绘稿、真实电影帧或混合质感。
 
 ### 连续九镜剧情能保持一致吗？
 

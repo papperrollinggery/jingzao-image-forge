@@ -1,6 +1,6 @@
 interface:
   display_name: "镜造 Image Forge"
-  short_description: "Build adaptive clean prompts with verified references"
-  default_prompt: "Use $jingzao-image-forge to ground this brief in a real delivery purpose, attach every necessary reference through a verified call plan and receipt, apply the adaptive preventive clean base without flattening intentional texture, budget prompt review from actual semantic complexity without truncation, remove contamination or generic surface-risk wording, and return a validated spec plus a platform-ready prompt with an explicit visual acceptance gate."
+  short_description: "Build clean prompts and layered visual systems"
+  default_prompt: "Use $jingzao-image-forge to ground this brief in a real delivery purpose, attach every necessary reference through a verified call plan and receipt, apply the adaptive clean base without flattening intentional texture, budget review from semantic complexity without truncation, remove contamination, map UI Motion into explicit L0-L3 roles when relevant, and return a validated spec plus a platform-ready prompt with a visual acceptance gate."
 policy:
   allow_implicit_invocation: true

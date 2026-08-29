@@ -193,11 +193,15 @@ Request: Turn an approved product-flow outline into four 16:9 UI Motion storyboa
 Pass criteria:
 
 - Locks the retained frame list and maps every frame as viewer conclusion, visible proof, local UI state, motion phase, and exact visible text.
-- Uses one dominant local component state per frame rather than repeating a full dashboard.
+- Selects `minimal_state`, `layered_editorial`, `spatial_system`, or a justified `custom` hierarchy from the actual beat rather than using one density level for every frame.
+- For layered or spatial frames, records one L0 primary focus, L1 proof, L2 previous/next continuity, L3 ambient scaffold, one calm zone, the accent owner, and the elements that must recede.
+- Keeps L0 dominant at thumbnail scale; L1 proves it; L2 and L3 lose size, line weight, gray value, density, or completeness. It rejects equal-weight cards, uniformly dark detail, and unexplained empty halves.
+- Uses one dominant local component state per action frame rather than repeating a full dashboard; map, system, and transition frames may use broader spatial context when that context is the proof.
 - Treats exact in-frame text as composition: main and auxiliary hierarchy, line breaks, alignment, units, spacing, and edge safety are explicit and verified.
 - Keeps the base medium flat 2D graphite/line art; it does not drift into fake 3D, glossy materials, stone, or full-color rendering.
 - Assigns the orange accent to selected state, active path, key number, progress, or decisive result; inactive elements remain neutral.
 - Uses maps only for geographic proof, a pointer for desktop UI, and a hand only for an explicit touch interaction.
+- Defaults production UI Motion with frame-specific typography and hierarchy to independent native-ratio frames; direct sheets remain calibration/comparison artifacts until each adopted frame is reviewed separately.
 - Generates the complete first pass, reviews the whole sequence, preserves approved frames, and revises only failed or genuinely ambiguous frames.
 - Archives local history, uploaded reference, generated candidate, and current adopted images with iteration and provenance labels.
 
@@ -332,7 +336,7 @@ Pass criteria:
 
 - Template `Describe...` placeholders and deprecated internal controls never reach prompt prose.
 - Compilation does not silently compact explicit source fields. Output above its dynamic semantic review target becomes `review_required`; source-spec cleanup must preserve references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, material transport, and NPR constraints.
-- `prompt_metrics`, `detail_mode`, `complexity_units`, `complexity_signals`, and platform min/max review targets are emitted. A simple prompt receives a smaller target than a genuinely complex or multi-frame prompt, while repeated prose does not earn more space.
+- `prompt_metrics`, `detail_mode`, `complexity_units`, `complexity_signals`, and platform min/max review targets are emitted. A simple prompt receives a smaller target than a genuinely complex or multi-frame prompt, while repeated prose does not earn more space. Explicit styleboard L0–L3 roles contribute a duplicate-resistant `hierarchy_layer_count` signal instead of being squeezed under a frame-count-only budget.
 - The platform maximum is a review ceiling rather than a model limit; even an extreme prompt remains byte-complete and requires review instead of truncation.
 - Canonical fixture `--max-words` ceilings remain deterministic CI regression checks and do not control model-facing compilation.
 - `prompt_review` is `blocked` for context residue outside exact visible copy and cannot be approved through. Dynamic-length, reference-complexity, and generic surface-risk wording become `review_required`; an explicit review may approve them without auto-truncation, and the active style core remains protected.
