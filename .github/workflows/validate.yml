@@ -33,6 +33,7 @@ jobs:
           python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
           python3 scripts/validate_spec.py examples/narrative-film-frame.json
           python3 scripts/validate_spec.py examples/styleboard-3x3.json
+          python3 scripts/validate_spec.py examples/ui-motion-storyboard.json
           python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
           python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
           python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
@@ -59,6 +60,7 @@ jobs:
           python3 -m json.tool /tmp/reference-runtime-asset.json > /dev/null
           python3 scripts/reference_delivery.py examples/style-learning-graphite-copper.json --target codex_imagegen > /tmp/reference-codex-local.json
           python3 scripts/reference_delivery.py examples/styleboard-3x3.json --target codex_imagegen --confirm-conversation-window > /tmp/reference-codex-conversation.json
+          python3 scripts/reference_delivery.py examples/ui-motion-storyboard.json --target codex_imagegen > /tmp/reference-codex-ui-motion.json
           python3 scripts/reference_delivery.py examples/continuous-nine-shot-ferry.json --target codex_imagegen > /tmp/reference-codex-continuous.json
           python3 scripts/reference_delivery.py examples/jingzao-intro-infographic-edit.json --target codex_imagegen > /tmp/reference-codex-intro.json
           if python3 scripts/reference_delivery.py examples/atomic-cyber-live-action.json --target codex_imagegen > /tmp/reference-codex-unresolved.json; then
@@ -76,6 +78,7 @@ jobs:
           python3 scripts/prompt_lint.py examples/tactile-stop-motion-product.json --platform openai --max-words 1100
           python3 scripts/prompt_lint.py examples/continuous-nine-shot-ferry.json --platform openai --max-words 1400
           python3 scripts/prompt_lint.py examples/jingzao-intro-infographic-edit.json --platform openai --max-words 1000
+          python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform openai --max-words 1000
           python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform midjourney --approve-review --max-words 1700
 
       - name: Validate platform compiler JSON
@@ -88,6 +91,8 @@ jobs:
           python3 -m json.tool /tmp/narrative-openai.json > /dev/null
           python3 scripts/compile_prompt.py examples/styleboard-3x3.json --platform openai > /tmp/styleboard-openai.json
           python3 -m json.tool /tmp/styleboard-openai.json > /dev/null
+          python3 scripts/compile_prompt.py examples/ui-motion-storyboard.json --platform openai > /tmp/ui-motion-openai.json
+          python3 -m json.tool /tmp/ui-motion-openai.json > /dev/null
           for spec in continuous-nine-shot-ferry jingzao-intro-infographic-edit; do
             for platform in openai flux midjourney generic; do
               python3 scripts/compile_prompt.py "examples/$spec.json" --platform "$platform" > "/tmp/$spec-$platform.json"

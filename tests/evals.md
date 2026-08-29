@@ -182,9 +182,24 @@ Pass criteria:
 - Builds nine frame cards before generation; each has one function, story moment, primary action, action phase, shot size, camera height, focal-length feel, and composition.
 - Supports explicit `line_art`, `hand_drawn`, or `cinematic_frame` presentation without cross-style drift.
 - Selects `sheet_direct` for fast ideation, `independent_frames` for strict identity/geometry/Match Cut work, or `hybrid` for a fast board followed by targeted high-quality frame replacement.
-- Keeps labels and arrows outside generated frames; direct sheets remain valid deliverables when their panel count, ratio, continuity, and crop geometry pass review.
+- Keeps production labels, review arrows, and shot annotations outside generated frames; exact in-frame UI, data, SUPER, and brand copy remains inside when required. Direct sheets remain valid deliverables when their panel count, ratio, continuity, and crop geometry pass review.
 - Locks identity, wardrobe, scene geography, light direction, props, screen direction, and match-cut geometry separately from allowed variation.
 - A failed frame is revised independently rather than regenerating the entire board.
+
+## 15A. UI Motion Line-Art Storyboard
+
+Request: Turn an approved product-flow outline into four 16:9 UI Motion storyboard frames. The frames must remain mostly monochrome line art, include exact Chinese UI/SUPER text, and use one approved orange accent to identify the active state.
+
+Pass criteria:
+
+- Locks the retained frame list and maps every frame as viewer conclusion, visible proof, local UI state, motion phase, and exact visible text.
+- Uses one dominant local component state per frame rather than repeating a full dashboard.
+- Treats exact in-frame text as composition: main and auxiliary hierarchy, line breaks, alignment, units, spacing, and edge safety are explicit and verified.
+- Keeps the base medium flat 2D graphite/line art; it does not drift into fake 3D, glossy materials, stone, or full-color rendering.
+- Assigns the orange accent to selected state, active path, key number, progress, or decisive result; inactive elements remain neutral.
+- Uses maps only for geographic proof, a pointer for desktop UI, and a hand only for an explicit touch interaction.
+- Generates the complete first pass, reviews the whole sequence, preserves approved frames, and revises only failed or genuinely ambiguous frames.
+- Archives local history, uploaded reference, generated candidate, and current adopted images with iteration and provenance labels.
 
 ## 16. Broad Scenario Routing
 

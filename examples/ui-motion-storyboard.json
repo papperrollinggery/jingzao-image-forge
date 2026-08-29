@@ -1,0 +1,207 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "styleboard",
+  "intent": "Create a four-frame 16:9 UI Motion storyboard that proves a setup flow through local interface states, exact typography, flat graphite line art, and one restrained semantic orange accent.",
+  "platform": "openai",
+  "language": "zh-CN",
+  "canvas": {
+    "profile": "standard_widescreen",
+    "aspect_ratio": "16:9",
+    "dimensions": {"width": 1536, "height": 864}
+  },
+  "inputs": [
+    {
+      "id": "line-style-reference",
+      "type": "image",
+      "role": "style_reference",
+      "description": "Repository reference used only for line weight, paper-white field, controlled gray, and hand-drawn restraint.",
+      "source_kind": "local_path",
+      "source_ref": "../assets/gallery/storyboard-3x3-hand-drawn.jpg",
+      "must_attach": true
+    }
+  ],
+  "knowledge_anchors": [],
+  "creative_routing": {
+    "scenario_profile": "interface_mockup",
+    "genre_family": "commercial_editorial",
+    "aesthetic_family": "graphic_modernism",
+    "capture_or_render_method": "2d_animation",
+    "delivery_context": "motion-design storyboard for a product walkthrough",
+    "design_priority": "exact text, local state readability, typography hierarchy, and semantic accent ownership",
+    "style_authority": "user_brief",
+    "tone_locks": ["flat 2D graphite line art", "warm-white background", "neutral inactive states", "single orange active-state accent"],
+    "forbidden_drift": ["full dashboard repetition", "fake 3D extrusion", "decorative map", "glossy full-color render"]
+  },
+  "scene": {
+    "summary": "A local interface setup flow shown as four independent 16:9 states.",
+    "setting": "warm-white UI field with charcoal outlines, restrained gray fills, and generous negative space",
+    "time": "not applicable",
+    "atmosphere": ["precise", "calm", "instructional"]
+  },
+  "subjects": [],
+  "color": {
+    "palette": ["#111111", "#A8A8A8", "#F6F4EF", "#FF6A2A"],
+    "grade": "neutral warm-white field with graphite lines",
+    "contrast": "clear black-gray hierarchy with orange only on the active semantic target",
+    "saturation": "near-monochrome except the restrained orange accent"
+  },
+  "style": {
+    "medium": "flat 2D graphite and clean vector-like line art",
+    "realism": "graphic storyboard abstraction",
+    "visual_traits": [
+      "variable charcoal line weight",
+      "light gray inactive components",
+      "no fake perspective depth",
+      "one orange active-state layer",
+      "clean Chinese typography grid"
+    ],
+    "era": "contemporary UI Motion",
+    "references": ["line-style-reference"],
+    "excluded_traits": ["glossy 3D", "stone texture", "full-color icons", "decorative network map", "unrelated motion trails"]
+  },
+  "text_elements": [
+    {
+      "content": "开始设置",
+      "case_sensitive": true,
+      "placement": "frame-01, left aligned in the primary title zone, one line",
+      "typography": "large bold Chinese sans serif, dominant first read, generous tracking",
+      "color": "#111111"
+    },
+    {
+      "content": "上传资料",
+      "case_sensitive": true,
+      "placement": "frame-02, centered inside the enlarged active button",
+      "typography": "medium semibold Chinese sans serif, one line, optically centered",
+      "color": "#111111"
+    },
+    {
+      "content": "分析中 68%",
+      "case_sensitive": true,
+      "placement": "frame-03, adjacent to the progress ring without crossing its active arc",
+      "typography": "bold numeral with smaller Chinese label on a shared baseline",
+      "color": "#111111"
+    },
+    {
+      "content": "完成",
+      "case_sensitive": true,
+      "placement": "frame-04, one-line result title aligned with the confirmation mark",
+      "typography": "large bold Chinese sans serif, balanced against the orange confirmation mark",
+      "color": "#111111"
+    }
+  ],
+  "styleboard": {
+    "layout": "2x2",
+    "frame_count": 4,
+    "frame_aspect_ratio": "16:9",
+    "presentation": "line_art",
+    "generation_strategy": "hybrid",
+    "reading_order": "left_to_right_top_to_bottom",
+    "continuity_locks": [
+      "16:9 native frame geometry",
+      "flat graphite line system",
+      "typography alignment grid",
+      "orange #FF6A2A owns only the active state",
+      "same rounded component language",
+      "warm-white background"
+    ],
+    "allowed_variation": ["component scale", "active-state position", "progress amount", "negative-space balance"],
+    "reference_assignments": [
+      {
+        "input_id": "line-style-reference",
+        "role": "style",
+        "secondary_roles": [],
+        "use": "line weight, paper-white field, controlled gray, hand-drawn restraint",
+        "ignore": "characters, location, props, panel content, exact layout, and all text"
+      }
+    ],
+    "frames": [
+      {
+        "id": "frame-01",
+        "shot_function": "introduce",
+        "story_moment": "the viewer understands that setup begins here",
+        "primary_action": "one setup card becomes the dominant available action",
+        "action_phase": "prepare",
+        "shot_size": "medium-wide interface state",
+        "camera_height": "front-on orthographic",
+        "focal_length_mm": 50,
+        "composition": "one large setup card and exact title; no full dashboard, no map, and all introductory or inactive elements remain charcoal or gray",
+        "reference_ids": ["line-style-reference"]
+      },
+      {
+        "id": "frame-02",
+        "shot_function": "emphasize",
+        "story_moment": "the upload step becomes the selected action",
+        "primary_action": "a mouse pointer selects the enlarged upload button",
+        "action_phase": "contact",
+        "shot_size": "close-up interface insert",
+        "camera_height": "front-on orthographic",
+        "focal_length_mm": 65,
+        "composition": "the button fills most of the frame; orange appears only on the selected outline and pointer contact, with no hand cursor",
+        "reference_ids": ["line-style-reference"]
+      },
+      {
+        "id": "frame-03",
+        "shot_function": "follow",
+        "story_moment": "the system is visibly processing the uploaded material",
+        "primary_action": "the progress arc advances to 68 percent",
+        "action_phase": "initiate",
+        "shot_size": "close-up data state",
+        "camera_height": "front-on orthographic",
+        "focal_length_mm": 65,
+        "composition": "large progress ring and exact percentage; only the completed arc is orange, all inactive marks stay gray",
+        "reference_ids": ["line-style-reference"]
+      },
+      {
+        "id": "frame-04",
+        "shot_function": "resolve",
+        "story_moment": "the viewer understands that setup has succeeded",
+        "primary_action": "the result card changes to the completed state",
+        "action_phase": "response",
+        "shot_size": "medium result state",
+        "camera_height": "front-on orthographic",
+        "focal_length_mm": 50,
+        "composition": "one confirmation mark and exact result title; orange belongs only to the confirmation mark and the final active edge",
+        "reference_ids": ["line-style-reference"]
+      }
+    ]
+  },
+  "constraints": {
+    "must_preserve": [
+      "exact Chinese text and punctuation",
+      "16:9 frame ratio",
+      "flat 2D line-art medium",
+      "typography hierarchy",
+      "semantic orange ownership",
+      "mouse pointer for desktop interaction"
+    ],
+    "must_change": [],
+    "exclude": [
+      "full dashboard",
+      "decorative map or globe",
+      "fake 3D extrusion",
+      "stone or chrome material",
+      "hand or finger cursor",
+      "extra logo",
+      "invented copy",
+      "warped characters",
+      "arbitrary colored icons",
+      "empty text-safe boxes",
+      "visible shot numbers, frame IDs, duration labels, review arrows or production annotations"
+    ]
+  },
+  "render": {
+    "detail_priority": ["exact typography", "local UI state", "active-state accent", "clean line hierarchy"],
+    "artifact_budget": "strict",
+    "quality_controls": [
+      "text remains exact and readable",
+      "main title stays dominant over auxiliary UI detail",
+      "orange covers only semantic targets",
+      "inactive elements remain charcoal or gray",
+      "no pseudo-3D material drift",
+      "no map motif outside a geography frame"
+    ]
+  },
+  "platform_options": {
+    "openai": {"model": "gpt-image-2", "quality": "high", "size": "1536x864"}
+  }
+}

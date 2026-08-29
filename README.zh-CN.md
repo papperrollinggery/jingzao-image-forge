@@ -6,21 +6,23 @@
 
 ![镜造 Image Forge v1.1：需求与参考图经过意图分析、视觉规格、平台编译、ImageGen 与视觉验收，并展示七种模式、电影镜头、真实参考图和连续九镜分镜能力](assets/jingzao-image-forge-intro-zh-v5.png)
 
+<sub>证据说明：图中的 “Real ImageGen” 是工作流概述；其中连续九镜属于人工视觉复核案例，不是公开执行回执。可审计边界以本文案例标注与 [forward-test manifest](tests/forward-test-manifest.json) 为准。</sub>
+
 视觉套件：[英文总览](assets/jingzao-image-forge-hero-en.png) · [上一版工作流页](assets/jingzao-image-forge-intro-zh-v4.png) · [功能推荐页](assets/jingzao-image-forge-recommendation-zh-v3.png) · [微信群推荐卡](assets/jingzao-image-forge-wechat-card-zh-v3.png)
 
-首屏案例依据：[连续九镜电影规格](examples/continuous-nine-shot-ferry.json) · [宣传图编辑规格](examples/jingzao-intro-infographic-edit.json) · [断桥救援规格](tests/forward-specs/cinematic-bridge-rescue.json) · [路径追踪机械锦鲤规格](tests/forward-specs/path-traced-koi-automaton.json) · [中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json)
+首屏案例依据：[连续九镜电影规格](examples/continuous-nine-shot-ferry.json) · [UI Motion 规格](examples/ui-motion-storyboard.json) · [宣传图编辑规格](examples/jingzao-intro-infographic-edit.json) · [断桥救援规格](tests/forward-specs/cinematic-bridge-rescue.json) · [路径追踪机械锦鲤规格](tests/forward-specs/path-traced-koi-automaton.json) · [中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json)
 
-**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、GPT Image 2 清图、电影剧情镜头、连续分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。默认轻量清洁层会在生成前降低无归属油点、随机噪点、纹理噪波、脏 AO、全局油亮/塑料感和全画面同频细节的概率，同时保护明确要求的胶片颗粒、笔触、包浆、磨损、湿润材质与真实光学效果。
+**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、GPT Image 2 清图、电影剧情镜头、连续分镜与 UI Motion 分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格、界面状态序列和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。默认轻量清洁层会在生成前降低无归属油点、随机噪点、纹理噪波、脏 AO、全局油亮/塑料感和全画面同频细节的概率，同时保护明确要求的胶片颗粒、笔触、包浆、磨损、湿润材质与真实光学效果。
 
 简单任务保持精简；复杂任务会根据实际有效章节、主体、参考图、材质、效果、精确文字、约束和分镜帧获得更大的动态语义复核目标。该目标不是模型上限，编译器不会截断显式内容。
 
-## 实际生成案例
+## 案例画廊
 
-以下十五张均为 2026-08-19 至 20 日使用内置 ImageGen 完成并经过实际视觉检查的输出。其中十二张已在 forward-test manifest 中绑定哈希或回执；手绘九宫格、材质写实图与连续九镜电影板因未保留公开执行回执或原始提示记录，仅作为人工视觉复核示例。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
+画廊包含十五张于 2026-08-19 至 20 日完成视觉检查的输出。其中十二张已在 forward-test manifest 中绑定哈希或回执；手绘九宫格、材质写实图与连续九镜电影板因未保留公开执行回执或原始提示记录，仅作为人工视觉复核示例，这三项不能独立证明生成器、工具调用绑定或参考图交付。它们用于展示不同路由与故障控制，不代表每次生成都能确定性复现。对照组、失败稿和修复前版本不会混入案例区。
 
 <table>
   <tr>
-    <td colspan="2" valign="top"><strong>连续九镜电影故事：现场一致性测试</strong><br><img src="assets/gallery/continuous-nine-shot-ferry.jpg" width="100%" alt="两名中国姐弟放弃末班渡轮营救老年药剂师的连续九镜电影分镜，人物、藏青与苔绿雨衣、红色行李箱、被淹药店地理、雨势、光线、动作阶段与最后一次动机化方向反转保持一致"><br><sub>一张真实人物/服装/道具/场景母版通过 <code>referenced_image_paths</code> 到达 ImageGen；单次 3×3 <code>sheet_direct</code> 生成保住了姐弟身份、服装、背包、红箱状态、药店/渡轮地理、凌晨蓝色与琥珀色光线，并形成九个不同镜头组成的完整因果弧。人工视觉复核通过，第 6 格手部受力偏差见下文；未保留公开执行回执。<a href="examples/continuous-nine-shot-ferry.json">查看规格</a></sub></td>
+    <td colspan="2" valign="top"><strong>连续九镜电影故事：人工视觉复核</strong><br><img src="assets/gallery/continuous-nine-shot-ferry.jpg" width="100%" alt="两名中国姐弟放弃末班渡轮营救老年药剂师的连续九镜电影分镜，人物、藏青与苔绿雨衣、红色行李箱、被淹药店地理、雨势、光线、动作阶段与最后一次动机化方向反转保持一致"><br><sub>仓库保留了规格、人物/服装/道具/场景母版和 3×3 案例图。人工复核显示姐弟身份、服装、背包、红箱状态、药店/渡轮地理、凌晨蓝色与琥珀色光线及完整因果弧保持稳定，第 6 格手部受力偏差见下文。由于未保留公开执行回执，该案例不能证明具体工具调用绑定或参考图实际交付。<a href="examples/continuous-nine-shot-ferry.json">查看规格</a></sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top"><strong>21:9 断桥救援剧情帧</strong><br><img src="assets/gallery/cinematic-bridge-rescue.jpg" width="100%" alt="女剑客在山桥崩塌时抓住坠落同伴的中国玄幻超宽电影帧"><br><sub>单一可读抓握、支撑反力、未完成动作、前景遮挡、断桥地理、云海尺度和有来源灯笼光共同服务剧情。<a href="tests/forward-specs/cinematic-bridge-rescue.json">查看规格</a></sub></td>
@@ -31,7 +33,7 @@
     <td width="50%" valign="top"><strong>因果型中国玄幻奇观</strong><br><img src="assets/gallery/causal-fantasy-scale.jpg" width="100%" alt="单个人物抵抗山岳级法阵的中国玄幻巨物动作画面"><br><sub>通过人景比例、近景压迫、受力路径、接触、阻力、材质破裂与环境反馈证明尺度。<a href="examples/causal-fantasy-effect.json">查看规格</a></sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><strong>一键九宫格分镜</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="人物空间道具连续的九格手绘电影分镜板"><br><sub>人工视觉复核：九格可读、空间与手绘质感稳定；原始参考图交付回执未保留，因此不作为 manifest 绑定证据。<a href="examples/styleboard-3x3.json">查看规格</a></sub></td>
+    <td width="50%" valign="top"><strong>3×3 手绘分镜：人工视觉复核</strong><br><img src="assets/gallery/storyboard-3x3-hand-drawn.jpg" width="100%" alt="人物空间道具连续的九格手绘电影分镜板"><br><sub>人工视觉复核：九格可读、空间与手绘质感稳定；原始参考图交付回执未保留，因此不作为 manifest 绑定的执行证据。<a href="examples/styleboard-3x3.json">查看规格</a></sub></td>
     <td width="50%" valign="top"><strong>动态 CG 时尚镜头</strong><br><img src="assets/gallery/cg-fashion-rain-platform.jpg" width="100%" alt="雨夜轨道站台上带半透明技术面料的动态时尚人物"><br><sub>动作阶段、衣料拖拽、湿材质、列车运动轴、接触、景深层次和动机光线均可读；不声称实际运行了 Unreal、Blender 或 Lumen。<a href="tests/forward-specs/cg-fashion-rain-platform.json">查看规格</a></sub></td>
   </tr>
   <tr>
@@ -72,7 +74,7 @@
 - **描述专业 CG 渲染：** Blender Cycles、Unreal Engine 5/Lumen、路径追踪、光线追踪、全局光照、PBR/NPR 材质、体积、采样、降噪，以及单次生成图里的可见 pass 分离。
 - **联动人物与摄影：** 人物调度、眼线、轴线、观众位置、景别、机位高度、距离、焦段、焦点和实景光源共同服从一个观看任务。
 - **保持跨镜因果连续：** 锁定人物身份、服装、道具、地理、光线方向、屏幕方向和物体状态，同时让每一格推进一个新的剧情因果节点。
-- **参考图分镜板：** 参考职责分离、单格镜头卡、3×3 装配，以及线稿、手绘稿和真实电影帧三种质感。
+- **电影与 UI Motion 分镜板：** 参考职责分离、单格镜头卡、3×3 装配、精确画内文字、局部界面状态、语义强调色，以及线稿、手绘稿和真实电影帧质感。
 - **不伪造平台参数：** 旧版 `weight / lock / variance` 仅为兼容保留；新模板和示例不再使用，编译器忽略它们，也绝不映射为平台控制。
 - **从真实使用中优化：** 发现可复用问题时先提出证据和策略，经用户同意并回归测试后才修改 Skill。
 
@@ -86,7 +88,7 @@
 | `restyle` | 锁定身份、姿势、几何、版式和文字，只改变视觉处理 |
 | `expand` | 按保留合同扩展画布；极端扩图中的位置、尺度与比例必须视觉复核，可能失败 |
 | `learn_style` | 读取参考图，提取可迁移视觉规律并验证可复用风格胶囊 |
-| `styleboard` | 把人物、服装、场景、机位和风格参考转译为一致的多镜头展示板 |
+| `styleboard` | 用人物、场景、机位、风格、精确文字、界面状态和语义强调色构建电影或 UI Motion 多镜头板 |
 
 ## 30 秒安装
 
@@ -252,7 +254,13 @@ CG 任务中，引擎名称属于受控参考。“Blender Cycles”可表达路
 
 九宫格提供三种执行策略：`sheet_direct` 一键生成整张，速度最快；`independent_frames` 逐格生成，适合严格身份与机位连续性；`hybrid` 先快速出整板，再只重做入选或失败格。`auto` 根据速度需求和连续性风险自动选择。
 
-[《错过末班渡轮》现场测试](examples/continuous-nine-shot-ferry.json)使用一张真实人物/服装/道具/场景母版和一次 3×3 整板生成。人工复核显示九个因果节点清楚，姐弟身份、服装、背包、行李箱状态、药店/渡轮地理、雨势与蓝/琥珀光线保持稳定；第 6 格原定双手抬闸但实际主要呈现单手受力，是保留记录的偏差。该案例是视觉证据，不代表可确定性复现。
+已提交的[《错过末班渡轮》案例](examples/continuous-nine-shot-ferry.json)包含一张人物/服装/道具/场景母版、一份整板规格和一张 3×3 案例图。人工复核显示九个因果节点清楚，姐弟身份、服装、背包、行李箱状态、药店/渡轮地理、雨势与蓝/琥珀光线保持稳定；第 6 格原定双手抬闸但实际主要呈现单手受力，是保留记录的偏差。该案例仅作为人工视觉证据，不作为回执绑定的执行证据，也不代表可确定性复现。
+
+### UI Motion 分镜
+
+UI Motion 继续使用同一 `styleboard` 模式，不创建互不兼容的新 schema。每格按“观众结论 → 可见证据 → 局部 UI 状态 → 运动阶段 → 精确画内文字”组织。必需的 UI 标签、SUPER、数据和品牌文案通过 `text_elements` 留在画内；制作批注留在画外。声明的强调色只归属于激活状态、进度、关键数据或决定性对象，`line_art` 仍以单色线稿为主，不漂移成油亮的全彩 UI 概念图。
+
+已验证的[四格 UI Motion 示例](examples/ui-motion-storyboard.json)使用一张线稿风格参考、四条精确中文文字、四个局部界面状态、桌面鼠标指针交互，并把 `#FF6A2A` 限定为语义激活层。当前 OpenAI 投影为 `sequence`，878 个 CJK-safe review units，动态目标 1,718，状态 `ready`。详见 [UI Motion Storyboard Workflow](references/ui-motion-storyboard.md)。
 
 ## 从参考图学习风格
 
@@ -375,7 +383,7 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 ├── templates/                   视觉规格与风格胶囊模板
 ├── references/                  场景、风格、镜头、调色、渲染、学习、规格与平台编译说明
 ├── scripts/                     规格/胶囊验证器、附件预检、胶囊导出器与提示词编译器
-├── examples/                    电影、动作/VFX、分镜、风格学习、产品和建筑验证示例
+├── examples/                    电影、动作/VFX、UI Motion/分镜、风格学习、产品和建筑验证示例
 ├── tests/                       回归测试与行为评测
 └── assets/                      README 视觉素材
 ```
@@ -387,6 +395,7 @@ python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py
 uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
+python3 scripts/validate_spec.py examples/ui-motion-storyboard.json
 python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
 python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
@@ -394,21 +403,21 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **160 项确定性回归测试**，覆盖七种模式的 schema/编译结构、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **162 项确定性回归测试**，覆盖七种模式的 schema/编译结构、UI Motion 精确文字/强调色/sequence 行为、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 
-新增导演能力输出通过视觉复核：渡口兄妹关系镜头呈现为有动机的电影剧照而非海报；中国玄幻巨物镜头通过建筑、水压、遮挡和单一因果法阵证明尺度；`sheet_direct` 一键手绘分镜得到九张可读单格；另一组真实电影质感连续九镜保住了重复出现的人物、服装、道具、地理、雨势、光线和完整因果弧。前两项已绑定 manifest；两组九宫格因未保留公开执行回执，均明确标为仅人工视觉复核。
+新增案例通过视觉复核：渡口兄妹关系镜头呈现为有动机的电影剧照而非海报；中国玄幻巨物镜头通过建筑、水压、遮挡和单一因果法阵证明尺度；手绘分镜包含九张可读单格；另一组真实电影质感连续九镜呈现出重复人物、服装、道具、地理、雨势、光线和完整因果弧。前两项已绑定 manifest；两组九宫格因未保留公开执行回执，均明确标为仅人工视觉复核。
 
-介绍图也使用[`edit` 模式规格](examples/jingzao-intro-infographic-edit.json)完成了一次自我实测。规格校验、平台编译和 `referenced_image_paths` 原图交付均通过，但生成候选没有通过保留验收：它把节点 2 从“意图”澄清成“视觉意图”时也重绘了内嵌九宫格，并把 `learn_style` 下划线渲染成视觉空格。该候选已排除，首屏继续使用通过人工复核的 v5；精确调用名以文字文档为准。
+介绍图另有一份[`edit` 模式规格](examples/jingzao-intro-infographic-edit.json)。规格校验、平台编译与本地参考图预检计划均通过；会话内候选因把节点 2 从“意图”澄清成“视觉意图”的同时重绘内嵌九宫格，并把 `learn_style` 下划线渲染成视觉空格而被排除。由于没有保留公开执行回执与失败稿，该记录不作为公开交付证据。首屏继续使用通过人工复核的 v5；精确调用名以文字文档为准。
 
 风格学习 forward test 也已通过：同一个石墨黑/铜金胶囊分别迁移到方形手工茶罐产品图和宽画幅建筑展亭。两张图都保留了色彩归属、材质层级、干净暗部、克制铜色和可读留白，同时更换了主体、比例、空间和制作媒介；均未复制原图标题、人物、门户、九宫格或版式坐标。通过输出已公开并与证据清单绑定，其他候选继续忽略。
 
-新增独立模式实测保持严格：`restyle`、科研 `reconstruct` 和动态 CG 创建通过并进入案例区。`expand` 虽然环境连续，但无法同时守住目标比例、横向锚点和原始画面高度比例，因此明确记录为当前限制，不进入案例。另一项五参考图压力测试只证明五张原图均已送达，却没有通过创意用途和手—物交互验收，同样排除。附件管线与成片质量是两道独立门禁。
+新增独立模式实测保持严格：`restyle`、科研 `reconstruct` 和动态 CG 创建通过并进入案例区。`expand` 虽然环境连续，但无法同时守住目标比例、横向锚点和原始画面高度比例，因此明确记录为当前限制，不进入案例。会话内五参考图压力测试因没有通过创意用途和手—物交互验收而被排除；由于没有公开回执，它不构成五张原图实际送达工具的公开证据。附件管线与成片质量是两道独立门禁。
 
-取消静默字段删除后，当前玄幻与 CG 时尚的 OpenAI 编译投影分别为 1726 与 2603 词，动态语义复核目标分别为 1756 与 2022 词：玄幻提示为 `ready`，密度更高的 CG 时尚提示仍为 `review_required`。这些是复核判断，不是模型最佳长度或自动截断规则。现有图片属于早期执行的视觉证据；两张均未使用当前投影重新生成。
+取消静默字段删除后，当前玄幻与 CG 时尚的 OpenAI 编译投影分别为 1726 与 2603 词，动态语义复核目标分别为 1756 与 2022 review units：玄幻提示为 `ready`，密度更高的 CG 时尚提示仍为 `review_required`。这些是复核判断，不是模型最佳长度或自动截断规则。现有图片属于早期编译版本的人工视觉证据；两张均未使用当前投影重新生成。
 
-随后用受控交接实验定位上游提示问题：保持同样五张参考和同一动作，只把 2253 词的跨区段提示改为简洁的当前画面说明，原先无底部承托的侧捏问题就消失；把动作改为有明确用途的静止柜台交付后，画面意义与重心继续改善；只保留三张必要参考时交互最干净。由于每组只有一次样本，这支持优化方向，不宣称普遍概率。实际修复是语义归属与污染审查，不是强制写实或一刀切缩短提示。详见[不削弱风格的提示清洗](references/prompt-hygiene.md)。
+会话内受控实验记录显示：把 2253 词的跨区段提示改为简洁的当前画面说明后，无底部承托的侧捏问题消失；把动作改为有明确用途的静止柜台交付后，画面意义与重心继续改善；只保留三张必要参考时交互最干净。公开回执与实验产物未保留，且每组只有一次样本，因此这里只支持提示设计方向，不作为附件实际交付的公开证据，也不宣称普遍概率。实际修复是语义归属与污染审查，不是强制写实或一刀切缩短提示。详见[不削弱风格的提示清洗](references/prompt-hygiene.md)。
 
 已采用的 **Crimson Nocturne Wuxia Print Montage / 绯夜武侠胶片拼贴** 胶囊来自三张用户参考图，但不保存原图。它又在两个无关题材上完成 forward test：现代爵士歌手与沙漠科幻信使；两次都保留绯红/青蓝色彩归属、主导肖像与微型叙事层级、克制双重曝光和不均匀旧印刷质感，同时没有复制原人物、服装、文字、签名、水印或精确版式。详见[内置风格胶囊](references/style-capsules.md)。原始私图不公开，通过的跨题材输出作为证据公开。
 
@@ -489,11 +498,11 @@ python3 -m unittest discover -s tests -v
 
 ### 支持九宫格分镜吗？
 
-支持。`styleboard` 提供 3×3 版式、参考职责分离、连续性锁定、一键整板、逐格独立生成与混合替换，以及线稿、手绘稿、真实电影帧或混合质感。
+支持。`styleboard` 同时支持 3×3 电影分镜和 UI Motion 序列，包含参考职责分离、精确画内文字、语义强调色、连续性锁定、一键整板、逐格独立生成与混合替换，以及线稿、手绘稿、真实电影帧或混合质感。
 
 ### 连续九镜剧情能保持一致吗？
 
-可以显式锁定人物身份、服装、道具、空间地理、光线、屏幕方向与物体状态，同时让每一格承担不同的剧情因果和镜头任务。仓库中的连续九镜现场测试已通过九格人工复核，但生成式连续性仍必须检查；姿势、手部受力或道具状态发生漂移时需要定向重试。
+可以显式锁定人物身份、服装、道具、空间地理、光线、屏幕方向与物体状态，同时让每一格承担不同的剧情因果和镜头任务。仓库中的人工复核案例在九格中保持了视觉连续，但它不是回执绑定的执行证据；生成式连续性仍必须检查，姿势、手部受力或道具状态发生漂移时需要定向重试。
 
 ### 可以从我的参考图学习风格吗？
 
@@ -501,7 +510,7 @@ python3 -m unittest discover -s tests -v
 
 ### ImageGen 会收到我给的产品、Logo 或人物原图吗？
 
-会，只要图片已提供并标记 `must_attach`。编译器会输出附件清单，执行流程把实际图片传给 ImageGen，而不是只转成文字。生成后检查人物身份、服装标记、包装、Logo 形状、位置、拼写与颜色；失败就在生成/编辑路径内定向重试，不用合成掩盖。
+只有图片已提供、标记 `must_attach`，且运行时调用按附件计划执行时才会。只有匹配的执行回执才能把结果称为参考图已交付；缺少回执时，实际交付仍是未验证。生成后还要检查人物身份、服装标记、包装、Logo 形状、位置、拼写与颜色；失败就在生成/编辑路径内定向重试，不用合成掩盖。
 
 ### 能处理哪些图片场景？
 

@@ -181,6 +181,10 @@ class ValidationTests(unittest.TestCase):
         spec = load_json(ROOT / "examples" / "styleboard-3x3.json")
         self.assertEqual([], validator.validate_spec(spec))
 
+    def test_ui_motion_storyboard_example_is_valid(self):
+        spec = load_json(ROOT / "examples" / "ui-motion-storyboard.json")
+        self.assertEqual([], validator.validate_spec(spec))
+
     def test_style_learning_example_is_valid(self):
         spec = load_json(ROOT / "examples" / "style-learning-graphite-copper.json")
         self.assertEqual([], validator.validate_spec(spec))
@@ -1187,6 +1191,21 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("frame frame-01", result["prompt"])
         self.assertIn("frame frame-09", result["prompt"])
         self.assertTrue(any("rapid exploration" in item for item in result["warnings"]))
+
+    def test_ui_motion_storyboard_compiles_exact_text_and_semantic_accent(self):
+        spec = load_json(ROOT / "examples" / "ui-motion-storyboard.json")
+        result = compiler.compile_spec(spec, "openai")
+        prompt = result["prompt"]
+        self.assertIn('"开始设置" exactly', prompt)
+        self.assertIn('"分析中 68%" exactly', prompt)
+        self.assertIn("#FF6A2A owns only the active state", prompt)
+        self.assertIn("no full dashboard", prompt)
+        self.assertIn("mouse pointer for desktop interaction", prompt)
+        self.assertIn("hand or finger cursor", prompt)
+        self.assertIn("all introductory or inactive elements remain charcoal or gray", prompt)
+        self.assertIn("visible shot numbers, frame IDs, duration labels, review arrows or production annotations", prompt)
+        self.assertEqual("sequence", result["prompt_review"]["detail_mode"])
+        self.assertEqual(4, result["prompt_review"]["complexity_signals"]["styleboard_frame_count"])
 
     def test_creative_routing_compiles_for_every_platform(self):
         spec = load_json(ROOT / "examples" / "tactile-stop-motion-product.json")

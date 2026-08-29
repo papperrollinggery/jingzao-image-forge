@@ -1,6 +1,6 @@
 ---
 name: jingzao-image-forge
-description: Create, reverse-engineer, edit, restyle, expand, learn reusable styles from reference images, or build styleboards using a structured visual specification and platform-aware compilation. Use when adaptive clean first-pass rendering, dynamic prompt budgeting, visual direction, cinematic/action shots, camera/lens/distortion, spatial tension, professional color and film finishing, Blender/Unreal/CG render behavior, product, fashion, architecture, illustration, animation, documentary, experimental art, giant-scale spectacle, Chinese fantasy, material quality, prompt-contamination cleanup, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
+description: Create, reverse-engineer, edit, restyle, expand, learn reusable styles from reference images, or build cinematic and UI Motion styleboards using a structured visual specification and platform-aware compilation. Use when adaptive clean first-pass rendering, dynamic prompt budgeting, exact in-frame typography, semantic accent color, interface-state sequencing, visual direction, cinematic/action shots, camera/lens/distortion, spatial tension, professional color and film finishing, Blender/Unreal/CG render behavior, product, fashion, architecture, illustration, animation, documentary, experimental art, giant-scale spectacle, Chinese fantasy, material quality, prompt-contamination cleanup, or cross-model prompt delivery must be controlled; this skill prepares prompts and specifications but does not itself generate images.
 ---
 
 # 镜造 Image Forge
@@ -179,6 +179,16 @@ Use `styleboard` when the user wants reference analysis translated into several 
 - Build frame cards before generation. Each frame needs one shot function, one story moment, one primary action and phase, camera logic, subject map, and reference assignments.
 - Choose the generation strategy from speed and continuity risk: `sheet_direct` for the fastest one-call board, `independent_frames` for strict native-ratio continuity, or `hybrid` for a fast direct sheet followed by targeted cell replacement. A direct sheet is a valid deliverable when panel count, cell geometry, continuity, and crop safety pass review.
 - Lock continuity and state allowed variation separately. Match-cut pairs share geometry, orientation, focal-length feel, scale, action phase, and prop state; only declared variables may change.
+
+## UI Motion Storyboard
+
+Use this route for interface-led brand-film frames, product walkthroughs, animated infographics, data cards, button/progress interactions, or monochrome storyboard frames with a restrained semantic accent. Read [references/ui-motion-storyboard.md](references/ui-motion-storyboard.md).
+
+- Translate every beat into `viewer conclusion → visible proof → local UI state → motion phase → exact visible text`. Do not replace requested content with a generic dashboard or decorative technology background.
+- Treat in-frame SUPER, UI labels, data, and brand copy as literal `text_elements`; production notes and shot annotations stay outside the generated frame. Reject wrong characters, punctuation, line breaks, hierarchy, or alignment when exact text matters.
+- Preserve the requested line-art medium. One approved accent color may identify the selected state, active path, key number, progress, or decisive object; it must not become indiscriminate full-color decoration. Orange is a project choice, not a universal default.
+- Split a UI action into readable local states. Prefer close-up component states over repeating a full dashboard; use a pointer for desktop interaction and a hand only when the device or scene requires touch.
+- Generate the full sequence before broad rework, review it as one film, preserve approved frames, and revise only failed or genuinely ambiguous frames. Keep source, generated, candidate, and adopted iterations separately traceable.
 
 ## Mode Rules
 

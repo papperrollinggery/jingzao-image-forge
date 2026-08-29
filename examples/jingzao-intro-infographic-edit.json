@@ -1,7 +1,7 @@
 {
   "visual_generation_spec": "1.0",
   "mode": "edit",
-  "intent": "Surgically correct and lightly polish the existing Mirror Forge product introduction infographic so it accurately communicates the native workflow, exact mode names, and live nine-shot evidence without implying any built-in external story-planning integration.",
+  "intent": "Surgically correct and lightly polish the existing Mirror Forge product introduction infographic so it accurately communicates the native workflow, exact mode names, and the nine-shot manual visual-review case without implying receipt-bound execution evidence or any built-in external story-planning integration.",
   "platform": "openai",
   "language": "zh-CN",
   "canvas": {
@@ -14,7 +14,7 @@
       "id": "intro-base",
       "type": "image",
       "role": "base_edit_source",
-      "description": "Existing graphite-black, copper and cyan product infographic with the actual nine-shot live-test board embedded at right.",
+      "description": "Existing graphite-black, copper and cyan product infographic with the committed nine-shot manual-review board embedded at right.",
       "source_kind": "local_path",
       "source_ref": "../assets/jingzao-image-forge-intro-zh-v5.png",
       "must_attach": true
@@ -38,7 +38,7 @@
     "forbidden_drift": ["external story-planning tool as a product step", "poster spectacle", "dashboard clutter", "new claims", "rewritten evidence imagery"]
   },
   "scene": {
-    "summary": "One premium landscape product introduction infographic with a six-step workflow at left and a real continuous nine-shot evidence board at right.",
+    "summary": "One premium landscape product introduction infographic with a six-step workflow at left and a committed continuous nine-shot visual case at right.",
     "setting": "flat graphic-design canvas",
     "time": "not applicable",
     "atmosphere": ["precise", "premium", "cinematic", "restrained"]
@@ -48,13 +48,13 @@
       "id": "infographic",
       "description": "The existing Mirror Forge v1.1 product introduction page as one coherent graphic.",
       "count": 1,
-      "appearance": ["graphite-black ground", "satin copper titles and borders", "cyan operational labels", "embedded live nine-shot board"],
+      "appearance": ["graphite-black ground", "satin copper titles and borders", "cyan operational labels", "embedded committed nine-shot board"],
       "action": "communicates the product workflow, modes, capabilities, validation evidence and use cases",
       "pose": "preserve the source landscape layout",
       "gaze": "not applicable",
       "position": {},
       "scale": "full canvas",
-      "relationships": ["workflow remains the primary explanatory read", "nine-shot board remains the primary visual proof", "evidence badges remain secondary validation"]
+      "relationships": ["workflow remains the primary explanatory read", "nine-shot board remains the primary manual-review visual case", "validation badges remain secondary"]
     }
   ],
   "composition": {
@@ -62,7 +62,7 @@
     "camera_angle": "orthographic front view",
     "perspective": "flat graphic layout",
     "focal_length_mm": null,
-    "framing": "Preserve the left information system and right evidence board with generous black margins and the existing visual hierarchy.",
+    "framing": "Preserve the left information system and right visual-case board with generous black margins and the existing visual hierarchy.",
     "negative_space": "Preserve all existing breathing room around the title, workflow, cards and command panel.",
     "depth_layers": ["black background", "copper and cyan interface lines", "text and icons", "embedded photographic storyboard"]
   },
@@ -91,7 +91,7 @@
   },
   "style": {
     "medium": "premium technical product infographic",
-    "realism": "crisp graphic design with an unchanged photographic evidence panel",
+    "realism": "crisp graphic design with an unchanged photographic gallery panel",
     "visual_traits": ["precise grid", "restrained copper foil character", "cyan system accents", "high information density with clear hierarchy"],
     "era": "contemporary",
     "references": [],
@@ -134,7 +134,7 @@
       "workflow nodes 1 and 3 through 6",
       "all capability cards, evidence badges, use-case line, platform line and command panel",
       "the embedded nine-shot board exactly as supplied",
-      "the meaning that the board is live ImageGen evidence",
+      "the visual meaning that the board demonstrates a continuous nine-shot story under manual review, without asserting receipt-bound execution provenance",
       "source colors, textures, sharpness and aspect ratio"
     ],
     "must_change": [

@@ -391,6 +391,8 @@ An effect must have a source, operation, visible consequence, and endpoint. Part
 
 Canonical presentation values are `line_art`, `hand_drawn`, `cinematic_frame`, or `mixed`. Generation strategies are `auto`, `sheet_direct`, `independent_frames`, or `hybrid`. For equal-cell direct sheets, `board ratio = frame ratio × columns ÷ rows`; this preserves native cell geometry for both square and non-square grids. Each reference has one primary `role` plus optional explicit, non-duplicated `secondary_roles` when the same image genuinely proves more than one layer.
 
+For a UI Motion board, keep the same schema and read [ui-motion-storyboard.md](ui-motion-storyboard.md). Put exact on-screen copy in `text_elements`; put the viewer conclusion, proof object, local interface state, motion phase, accent target, and background rule in the corresponding frame's `story_moment`, `primary_action`, `action_phase`, and `composition`. Use `line_art` with one declared semantic accent rather than inventing a separate full-color presentation mode.
+
 ## Spatial Coordinate DSL
 
 Use normalized percentages with the origin at the top-left:
@@ -468,6 +470,8 @@ Each visible string belongs in `text_elements`:
 ```
 
 Keep spelling and casing verbatim. Do not translate user-visible copy unless requested.
+
+In a UI Motion storyboard, `text_elements` may be genuine in-frame content: SUPER, UI labels, data values, units, brand copy, and source notes. Shot numbers, duration labels, review arrows, and production comments remain outside unless the user explicitly asks to see them in the generated image. Do not replace required exact text with an empty text-safe box by default.
 
 ## Render Quality Controls
 

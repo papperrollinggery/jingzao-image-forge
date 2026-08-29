@@ -2,6 +2,8 @@
 
 Use `mode: styleboard` for a triptych, contact sheet, nine-grid storyboard, vertical storyboard, camera study, visual-development board, or reference-led multi-frame presentation.
 
+For interface-led brand-film frames, product walkthroughs, animated infographics, exact in-frame typography, and restrained semantic accent color, also read [ui-motion-storyboard.md](ui-motion-storyboard.md).
+
 ## Core Principle
 
 Analyze first, choose the generation strategy from speed and continuity risk, then verify or assemble the board as that strategy requires.
@@ -34,7 +36,7 @@ A validated `style_capsule` may replace repeated style-reference prose across th
 
 ## Presentation Presets
 
-- `line_art`: clean black-and-white line art, variable line weight, readable silhouette, minimal gray, no color.
+- `line_art`: clean black-and-white line art, variable line weight, readable silhouette, and minimal gray. It may use one explicitly declared semantic accent color; otherwise it remains colorless.
 - `hand_drawn`: pencil, marker, charcoal, ink, or brush storyboard with paper texture and controlled gray values.
 - `cinematic_frame`: polished film-frame images with realistic or requested-medium camera, light, color, material, and depth.
 - `mixed`: rough planning frames plus selected polished key frames; declare which frame uses which finish.
@@ -86,7 +88,7 @@ Default to these practices unless the brief overrides them:
 - client-readable story sentence plus camera sentence for every frame;
 - references separated by role;
 - explicit generation strategy selected from speed and continuity risk;
-- story text, shot labels, arrows, and annotations added outside the generated image;
+- production story text, frame IDs, shot numbers, duration labels, edit arrows, and review annotations added outside the generated image and explicitly excluded from model-visible content; exact UI labels, data, SUPER, and brand copy remain inside when the brief requires them;
 - character, wardrobe, scene, prop, camera, and style continuity tracked separately;
 - approved frames are reused or minimally edited rather than regenerated broadly;
 - match-cut pairs share geometry, orientation, focal-length feel, scale, hand/prop state, and action phase;
@@ -97,7 +99,7 @@ Default to these practices unless the brief overrides them:
 - for `sheet_direct`, preserve the original board plus any extracted cells; for `independent_frames` and `hybrid`, assemble approved frames left-to-right, top-to-bottom;
 - use thin consistent gutters and a neutral board background;
 - do not stretch frames;
-- add labels outside frames after generation;
+- add production labels outside frames after generation; do not remove or replace exact in-frame UI/SUPER text required by the brief;
 - retain individual source frames and a manifest that maps frame id, row, column, aspect ratio, source, and output path;
 - if one frame fails, use a targeted board edit or regenerate only that frame rather than discarding the whole useful sheet.
 
@@ -110,4 +112,4 @@ Default to these practices unless the brief overrides them:
 - adjacent frames change information, relationship, action phase, or viewer position;
 - the nine frames do not repeat the same subject count, shot size, and attention flow without a reason;
 - each frame has one readable function and does not become a multi-scene collage;
-- line-art or hand-drawn style does not drift into colored rendering; cinematic frames do not drift into poster art unless requested.
+- line-art or hand-drawn style does not drift into full-color rendering; one approved semantic accent may remain when declared. Cinematic frames do not drift into poster art unless requested.
