@@ -486,7 +486,7 @@ Use a compact `artifact_budget` instead of repeating a long cleanup list:
 }
 ```
 
-- `auto`: default neutral behavior; emits no artifact preset or aesthetic prior.
+- `auto`: default adaptive prevention for a non-empty generation prompt; emits one medium-preserving clean base but no ratio, camera, grain, bloom, flare, gloss, particles, or new medium. Empty templates and `learn_style` analysis remain neutral.
 - `strict`: clean product, typography, diagrams, minimal editorials, and other artifact-intolerant work.
 - `balanced`: explicitly requested premium restraint; allows only restrained, scene-motivated grain, bloom, flare, gloss, and particles.
 - `clean_reset`: repeated oiliness, speckle, dirty AO, equal-frequency texture, or latent residue; rebuilds low-frequency masses, texture ownership, material boundaries, contact, and exposure from a clean specification rather than preserving failed pixels.

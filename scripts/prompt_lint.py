@@ -38,8 +38,11 @@ def lint_compiled_result(result: dict[str, Any], *, max_words: int | None = None
     words = metrics.get("words")
     if not isinstance(words, int):
         errors.append("compiled result requires integer prompt_metrics.words")
-    elif max_words is not None and words > max_words:
-        errors.append(f"prompt word count {words} exceeds fixture ceiling {max_words}")
+    review_units = metrics.get("review_units", words)
+    if not isinstance(review_units, int):
+        errors.append("compiled result requires integer prompt_metrics.review_units")
+    elif max_words is not None and review_units > max_words:
+        errors.append(f"prompt review units {review_units} exceed fixture ceiling {max_words}")
     if result.get("platform") == "midjourney":
         prompt_without_flags = prompt.split(" --", 1)[0]
         if "--" in prompt_without_flags:
@@ -65,7 +68,7 @@ def main() -> int:
     parser.add_argument(
         "--approve-review",
         action="store_true",
-        help="Approve length/reference-complexity review; context residue remains blocked",
+        help="Approve nonblocking dynamic-length/reference/surface-risk review; context residue remains blocked",
     )
     args = parser.parse_args()
     try:

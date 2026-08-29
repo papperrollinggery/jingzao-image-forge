@@ -1256,6 +1256,44 @@ class CompilerTests(unittest.TestCase):
                 self.assertNotIn("flare", result["prompt"])
                 self.assertNotIn("particles", result["prompt"])
 
+    def test_nonempty_auto_prompt_gets_adaptive_clean_base_across_platforms(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "Create a rain-soaked 35mm documentary street portrait."
+        spec["subjects"][0]["description"] = "one cyclist waiting under a shop awning"
+        spec["style"]["medium"] = "35mm documentary photography with intentional fine film grain"
+        for platform in ("openai", "flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = compiler.compile_spec(spec, platform)
+                prompt = result["prompt"]
+                self.assertIn("preventive clean base", prompt)
+                self.assertIn("every texture belongs to the requested medium or a named material", prompt)
+                self.assertIn("localized texture or surface variation has an explicit spatial owner", prompt)
+                self.assertIn("stays inside its named region", prompt)
+                self.assertIn("preserve intentional medium traits required by the brief or source", prompt)
+                self.assertIn("intentional fine film grain", prompt)
+                self.assertNotIn("clean-slate surface rebuild", prompt)
+                review = result["prompt_review"]
+                self.assertLessEqual(review["min_review_target_words"], review["target_words"])
+                self.assertLessEqual(review["target_words"], review["max_review_target_words"])
+
+        full_frame = load_json(ROOT / "templates" / "visual-spec.json")
+        full_frame["intent"] = "Create a watercolor landscape on cold-press paper."
+        full_frame["style"]["medium"] = (
+            "transparent watercolor with continuous cold-press paper tooth visible across the whole image"
+        )
+        full_frame_prompt = compiler.compile_spec(full_frame, "openai")["prompt"]
+        self.assertIn("continuous cold-press paper tooth visible across the whole image", full_frame_prompt)
+        self.assertIn("localized texture or surface variation has an explicit spatial owner", full_frame_prompt)
+        self.assertNotIn("every texture belongs to the requested medium or a named material, has", full_frame_prompt)
+
+    def test_explicit_artifact_budget_replaces_auto_clean_base(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "Create one restrained premium product image."
+        spec["render"]["artifact_budget"] = "strict"
+        result = compiler.compile_spec(spec, "openai")
+        self.assertIn("artifact budget (strict)", result["prompt"])
+        self.assertNotIn("preventive clean base", result["prompt"])
+
     def test_simple_create_uses_only_brief_grounded_core_content(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
         spec["intent"] = "Create a clean catalog image of one red ceramic mug."
@@ -1263,13 +1301,13 @@ class CompilerTests(unittest.TestCase):
         spec["subjects"][0]["description"] = "red ceramic mug"
         spec["style"]["medium"] = "natural product photography"
         result = compiler.compile_spec(spec, "openai")
-        self.assertLessEqual(result["prompt_metrics"]["words"], 80)
+        self.assertLessEqual(result["prompt_metrics"]["words"], 110)
+        self.assertIn("preventive clean base", result["prompt"])
         for absent in (
             "Cinematic shot contract",
             "Spatial dynamics and visual tension",
             "Color pipeline and finishing",
             "Render pipeline and material transport",
-            "Render intent",
             "grain",
             "bloom",
             "flare",
@@ -1330,7 +1368,10 @@ class CompilerTests(unittest.TestCase):
     def test_prompt_review_preserves_full_causal_fixture_without_silent_compaction(self):
         spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
         result = compiler.compile_spec(spec, "openai")
-        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertEqual("dynamic_semantic_review", result["prompt_review"]["budget_policy"])
+        self.assertEqual("complex", result["prompt_review"]["detail_mode"])
+        self.assertGreater(result["prompt_review"]["target_words"], 1300)
+        self.assertEqual("ready", result["prompt_review"]["status"])
         for required in (
             "one adult cultivator",
             "owner/source",
@@ -1342,6 +1383,74 @@ class CompilerTests(unittest.TestCase):
         ):
             self.assertIn(required, result["prompt"])
         self.assertFalse(any("Prompt normalization compacted" in item for item in result["warnings"]))
+
+    def test_dynamic_prompt_budget_scales_with_semantic_complexity(self):
+        simple = load_json(ROOT / "templates" / "visual-spec.json")
+        simple["intent"] = "Create one red ceramic mug on a plain tabletop."
+        simple["subjects"][0]["description"] = "one red ceramic mug"
+        complex_spec = load_json(ROOT / "examples" / "causal-fantasy-effect.json")
+        simple_result = compiler.compile_spec(simple, "openai")
+        complex_result = compiler.compile_spec(complex_spec, "openai")
+        simple_review = simple_result["prompt_review"]
+        complex_review = complex_result["prompt_review"]
+        self.assertEqual("concise", simple_review["detail_mode"])
+        self.assertEqual("complex", complex_review["detail_mode"])
+        self.assertLess(simple_review["complexity_units"], complex_review["complexity_units"])
+        self.assertLess(simple_review["target_words"], complex_review["target_words"])
+        self.assertLessEqual(complex_review["target_words"], complex_review["max_review_target_words"])
+
+    def test_dynamic_budget_caps_review_target_without_truncating_prompt(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = " ".join(["CURRENT_LONG_FACT"] * 4000) + " KEEP_FINAL_MARKER"
+        spec["text_elements"] = [
+            {
+                "content": f"LABEL {index}",
+                "case_sensitive": True,
+                "placement": f"grid cell {index}",
+                "typography": "plain sans serif",
+                "color": "black",
+            }
+            for index in range(50)
+        ]
+        result = compiler.compile_spec(spec, "openai")
+        review = result["prompt_review"]
+        self.assertEqual(review["max_review_target_words"], review["target_words"])
+        self.assertEqual("review_required", review["status"])
+        self.assertIn("length_over_target", review["reasons"])
+        self.assertIn("KEEP_FINAL_MARKER", result["prompt"])
+
+    def test_cjk_review_units_block_long_unspaced_prompt(self):
+        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        spec["intent"] = "当前事实" * 4000
+        result = compiler.compile_spec(spec, "openai")
+        self.assertGreater(result["prompt_metrics"]["cjk_characters"], 10000)
+        self.assertGreater(result["prompt_metrics"]["review_units"], result["prompt_review"]["target_review_units"])
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertIn("length_over_target", result["prompt_review"]["reasons"])
+
+    def test_duplicate_semantic_entries_do_not_inflate_budget(self):
+        base = load_json(ROOT / "templates" / "visual-spec.json")
+        base["intent"] = "Create a labeled educational card."
+        text_item = {
+            "content": "ONE LABEL",
+            "case_sensitive": True,
+            "placement": "center",
+            "typography": "plain sans serif",
+            "color": "black",
+        }
+        base["text_elements"] = [text_item]
+        baseline_review = compiler.compile_spec(base, "openai")["prompt_review"]
+        duplicated = copy.deepcopy(base)
+        duplicated["text_elements"] = [copy.deepcopy(text_item) for _ in range(50)]
+        duplicated_review = compiler.compile_spec(duplicated, "openai")["prompt_review"]
+        self.assertEqual(baseline_review["complexity_units"], duplicated_review["complexity_units"])
+        self.assertEqual(baseline_review["target_words"], duplicated_review["target_words"])
+
+    def test_styleboard_uses_sequence_budget_mode(self):
+        spec = load_json(ROOT / "examples" / "continuous-nine-shot-ferry.json")
+        review = compiler.compile_spec(spec, "openai")["prompt_review"]
+        self.assertEqual("sequence", review["detail_mode"])
+        self.assertEqual(9, review["complexity_signals"]["styleboard_frame_count"])
 
     def test_length_review_uses_final_prompt_without_deleting_explicit_fields(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
@@ -1449,6 +1558,12 @@ class CompilerTests(unittest.TestCase):
                 errors = prompt_lint.lint_compiled_result(result)
                 self.assertIn("compiled prompt has no semantic content", errors)
                 self.assertIn("prompt_review is blocked", errors)
+        constraints_only = load_json(ROOT / "templates" / "visual-spec.json")
+        constraints_only["constraints"]["exclude"] = ["watermark"]
+        result = compiler.compile_spec(constraints_only, "openai", review_approved=True)
+        self.assertEqual("blocked", result["prompt_review"]["status"])
+        self.assertIn("empty_prompt", result["prompt_review"]["reasons"])
+        self.assertNotIn("preventive clean base", result["prompt"])
 
     def test_flux_json_empty_template_is_blocked_without_empty_subject_payload(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
@@ -1461,17 +1576,63 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("compiled prompt has no semantic content", prompt_lint.lint_compiled_result(result))
 
     def test_prompt_review_requires_semantic_audit_above_target(self):
-        spec = load_json(ROOT / "templates" / "visual-spec.json")
+        baseline = load_json(ROOT / "templates" / "visual-spec.json")
+        baseline["intent"] = "distinct-current-fact"
+        baseline_target = compiler.compile_spec(baseline, "openai")["prompt_review"]["target_words"]
+        spec = copy.deepcopy(baseline)
         spec["intent"] = " ".join(["distinct-current-fact"] * 1400)
         result = compiler.compile_spec(spec, "openai")
+        self.assertEqual(baseline_target, result["prompt_review"]["target_words"])
         self.assertEqual("review_required", result["prompt_review"]["status"])
         self.assertTrue(result["prompt_review"]["reasons"])
         self.assertEqual("review_required", result["imagegen_call_plan"]["status"])
         self.assertTrue(prompt_lint.lint_compiled_result(result))
         approved = compiler.compile_spec(spec, "openai", review_approved=True)
         self.assertEqual("approved", approved["prompt_review"]["status"])
+        self.assertEqual("length_and_reference_complexity_only", approved["prompt_review"]["approval_scope"])
         self.assertEqual("ready", approved["imagegen_call_plan"]["status"])
         self.assertEqual([], prompt_lint.lint_compiled_result(approved))
+
+    def test_surface_risk_language_requires_review_but_exact_copy_is_exempt(self):
+        risky = load_json(ROOT / "templates" / "visual-spec.json")
+        risky["intent"] = "Create an ultra detailed product image with wet glossy surfaces，超级细节，湿润油亮。"
+        result = compiler.compile_spec(risky, "openai")
+        self.assertEqual("review_required", result["prompt_review"]["status"])
+        self.assertIn("surface_risk_language:ultra detailed", result["prompt_review"]["reasons"])
+        self.assertIn("surface_risk_language:wet glossy", result["prompt_review"]["reasons"])
+        self.assertIn("surface_risk_language:超级细节", result["prompt_review"]["reasons"])
+        self.assertIn("surface_risk_language:湿润油亮", result["prompt_review"]["reasons"])
+        self.assertEqual(
+            "selective camera-readable detail on focal surfaces",
+            result["prompt_review"]["surface_risk_rewrites"]["ultra detailed"],
+        )
+        approved = compiler.compile_spec(risky, "openai", review_approved=True)
+        self.assertEqual("approved", approved["prompt_review"]["status"])
+        self.assertEqual(
+            "surface_risk_length_and_reference_complexity",
+            approved["prompt_review"]["approval_scope"],
+        )
+
+        punctuated = load_json(ROOT / "templates" / "visual-spec.json")
+        punctuated["intent"] = (
+            "Create an ultra-detailed, hyper_detailed image with micro-detail everywhere and wet, glossy surfaces."
+        )
+        punctuated_review = compiler.compile_spec(punctuated, "openai")["prompt_review"]
+        for phrase in ("ultra detailed", "hyper detailed", "micro detail everywhere", "wet glossy"):
+            self.assertIn(f"surface_risk_language:{phrase}", punctuated_review["reasons"])
+
+        literal = load_json(ROOT / "templates" / "visual-spec.json")
+        literal["text_elements"] = [
+            {
+                "content": "ULTRA DETAILED",
+                "case_sensitive": True,
+                "placement": "center",
+                "typography": "bold sans serif",
+                "color": "white",
+            }
+        ]
+        literal_result = compiler.compile_spec(literal, "openai")
+        self.assertEqual([], literal_result["prompt_review"]["surface_risk_hits"])
 
     def test_high_reference_count_requires_review_without_dropping_inputs(self):
         spec = load_json(ROOT / "templates" / "visual-spec.json")
@@ -1554,6 +1715,8 @@ class CompilerTests(unittest.TestCase):
                 result = compiler.compile_spec(spec, platform)
                 self.assertTrue(any("Analysis record only" in item for item in result["warnings"]))
                 self.assertEqual({}, result["parameters"])
+                self.assertNotIn("preventive clean base", result["prompt"])
+                self.assertEqual("analysis", result["prompt_review"]["detail_mode"])
                 if platform == "midjourney":
                     self.assertNotIn("--ar", result["prompt"])
 

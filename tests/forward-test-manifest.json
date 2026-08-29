@@ -30,7 +30,7 @@
       "output": "assets/gallery/causal-fantasy-scale.jpg",
       "output_sha256": "50ba3d87adcdd0f76fd939386876f1aed5fe58528b774cf8409bf760fe9cf93c",
       "review_date": "2026-08-19",
-      "review": "Passed visually: one grounded owner, readable source/contact, human-to-world scale, material fracture, resistance, and environmental response remain visible. The current 1726-word compiler projection is length-only review_required and must be explicitly approved; explicit source fields are not auto-truncated."
+      "review": "Passed visually: one grounded owner, readable source/contact, human-to-world scale, material fracture, resistance, and environmental response remain visible. The current 1726-word compiler projection is ready under its 1756-unit dynamic semantic review target; explicit source fields are not auto-truncated."
     },
     {
       "case_id": "product-no-fake-text",
@@ -145,7 +145,7 @@
       "output_sha256": "5e6ec3958ab8513902124c9f6ff0a8ebf8d0eba7f327bf1d0f048fafad1a4e15",
       "execution_receipt": "tests/forward-evidence/cg-fashion-rain-platform-receipt.json",
       "review_date": "2026-08-19",
-      "review": "Passed first attempt: dynamic turning pose, cloth drag, wet roughness, train motion axis, contact, depth layers, and restrained practical lighting were visible; engine runtime was not claimed. The current 2603-word no-deletion projection is length-only review_required and must be explicitly approved; it was not regenerated for this release."
+      "review": "Passed first attempt: dynamic turning pose, cloth drag, wet roughness, train motion axis, contact, depth layers, and restrained practical lighting were visible; engine runtime was not claimed. The current 2603-word no-deletion projection remains review_required above its 2022-unit dynamic semantic review target; it was not regenerated for this release."
     },
     {
       "case_id": "cinematic-bridge-rescue",
@@ -155,11 +155,11 @@
       "tool": "image_gen.imagegen",
       "model": "Codex built-in ImageGen (provider model not exposed)",
       "prompt_source": {"type": "compiled_spec", "spec": "tests/forward-specs/cinematic-bridge-rescue.json", "platform": "openai"},
-      "prompt_sha256": "7c5411e79d7998a242c1c75f40b946476e3c0c559216bc908f6a1accbcd84c49",
+      "prompt_sha256": "ec266716876bf4e57acf08ff041365175f021a1b38d355e8c2f6ddb2b20d0d1e",
       "output": "assets/gallery/cinematic-bridge-rescue.jpg",
       "output_sha256": "fce745f7ed8db8770ecc19f6a63617d8a7f87f60de0fdf39f269b3c709a62edc",
       "review_date": "2026-08-20",
-      "review": "Passed first attempt: a single wrist rescue grip, planted support hand, loaded shoulders, opposed pull/gravity vectors, broken bridge geography, foreground occlusion, cloud-depth scale, motivated lantern light, and incomplete action read as one film moment rather than poster key art. The current 1286-word no-deletion projection is ready; the output was generated from an earlier 1242-word projection before silent compaction was removed."
+      "review": "Passed first attempt: a single wrist rescue grip, planted support hand, loaded shoulders, opposed pull/gravity vectors, broken bridge geography, foreground occlusion, cloud-depth scale, motivated lantern light, and incomplete action read as one film moment rather than poster key art. The current 1363-word no-deletion projection includes the medium-owned, localized-variation preventive clean base and is ready under its 1680-unit dynamic semantic review target; the output was generated from an earlier 1242-word projection before silent compaction was removed."
     },
     {
       "case_id": "path-traced-koi-automaton",

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections.abc import Iterable
 from pathlib import Path
@@ -37,7 +38,12 @@ except ModuleNotFoundError:  # Support `python -m scripts.compile_prompt` from t
 
 
 SUPPORTED_PLATFORMS = {"openai", "flux", "midjourney", "generic"}
-PROMPT_TARGET_WORDS = {"openai": 1300, "flux": 1000, "midjourney": 500, "generic": 1600}
+PROMPT_BUDGET_PROFILES = {
+    "openai": {"base_words": 350, "words_per_unit": 38, "min_words": 600, "max_words": 2200},
+    "flux": {"base_words": 300, "words_per_unit": 33, "min_words": 500, "max_words": 1800},
+    "midjourney": {"base_words": 200, "words_per_unit": 22, "min_words": 350, "max_words": 1200},
+    "generic": {"base_words": 450, "words_per_unit": 45, "min_words": 700, "max_words": 2600},
+}
 CONTEXT_RESIDUE_MARKERS = (
     "same as the previous version",
     "different from the previous version",
@@ -91,6 +97,33 @@ ARTIFACT_PRESETS = {
         "outside the requested change"
     ),
 }
+CLEAN_BASE_PRESET = (
+    "every texture belongs to the requested medium or a named material and appears only where camera scale and light "
+    "reveal it; localized texture or surface variation has an explicit spatial owner and stays inside its named region "
+    "instead of spreading as filler microtexture; highlights, reflections, and contact shadows follow surface geometry "
+    "and motivated sources; focal detail stays selective; unassigned surfaces remain continuous and low-frequency; "
+    "preserve intentional medium traits required by the brief or source"
+)
+SURFACE_RISK_REWRITES = {
+    "ultra detailed": "selective camera-readable detail on focal surfaces",
+    "hyper detailed": "selective camera-readable detail on focal surfaces",
+    "insanely detailed": "realistic detail only where scale and light reveal it",
+    "micro detail everywhere": "fine detail concentrated on meaningful focal surfaces",
+    "highly textured rendering": "material-specific texture with explicit spatial ownership",
+    "wet glossy": "strict wet/dry boundaries with roughness-correct reflections",
+    "cinematic bokeh everywhere": "restrained source-motivated depth separation",
+    "beautiful lighting": "named key direction, controlled bounce, and protected highlights",
+    "超级细节": "只在当前镜头可读的焦点表面保留选择性细节",
+    "极致细节": "只在尺度与光线能够揭示的位置保留真实细节",
+    "全画面微细节": "把精细纹理集中到有意义的焦点表面",
+    "湿润油亮": "建立严格干湿边界与符合粗糙度的反射",
+    "满屏光斑": "只在明确光源或物理事件附近保留稀疏光学效果",
+    "唯美光影": "明确主光方向、受控反弹与高光保护",
+}
+CJK_REVIEW_CHAR_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3040-\u30ff\uac00-\ud7af]")
+NON_CJK_REVIEW_TOKEN_RE = re.compile(r"[A-Za-z0-9]+(?:['_-][A-Za-z0-9]+)*")
+ENGLISH_RISK_SEPARATOR_RE = re.compile(r"[-_,/]+")
+REVIEW_SPACE_RE = re.compile(r"\s+")
 
 
 def _text(value: Any) -> str:
@@ -166,12 +199,60 @@ def context_residue_hits_from_sources(
     return [marker for marker in CONTEXT_RESIDUE_MARKERS if marker.lower() in scan]
 
 
+def surface_risk_hits_from_sources(
+    spec: dict[str, Any],
+    style_capsule: dict[str, Any] | None = None,
+) -> list[str]:
+    review_strings = _reviewable_source_strings(spec)
+    if isinstance(style_capsule, dict):
+        review_strings.extend(_reviewable_source_strings(style_capsule))
+    scan = "\n".join(review_strings).casefold()
+    normalized_english_scan = REVIEW_SPACE_RE.sub(" ", ENGLISH_RISK_SEPARATOR_RE.sub(" ", scan))
+    return [
+        phrase
+        for phrase in SURFACE_RISK_REWRITES
+        if phrase in (normalized_english_scan if phrase.isascii() else scan)
+    ]
+
+
 def _prompt_metrics(prompt: str) -> dict[str, int]:
+    words = len(prompt.split())
+    cjk_characters = len(CJK_REVIEW_CHAR_RE.findall(prompt))
+    if cjk_characters:
+        non_cjk_text = CJK_REVIEW_CHAR_RE.sub(" ", prompt)
+        review_units = len(NON_CJK_REVIEW_TOKEN_RE.findall(non_cjk_text)) + (cjk_characters + 1) // 2
+    else:
+        review_units = words
     return {
         "characters": len(prompt),
-        "words": len(prompt.split()),
+        "words": words,
+        "cjk_characters": cjk_characters,
+        "review_units": review_units,
         "lines": prompt.count("\n") + 1 if prompt else 0,
     }
+
+
+def _section_has_content(value: Any) -> bool:
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, list):
+        return any(_section_has_content(item) for item in value)
+    if isinstance(value, dict):
+        return any(_section_has_content(item) for item in value.values())
+    return value is not None
+
+
+def _unique_semantic_count(values: Iterable[Any]) -> int:
+    seen: set[str] = set()
+    for value in values:
+        if not _section_has_content(value):
+            continue
+        if isinstance(value, str):
+            key = value.strip()
+        else:
+            key = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        seen.add(key)
+    return len(seen)
 
 
 def _platform_options(spec: dict[str, Any], key: str) -> dict[str, Any]:
@@ -851,7 +932,7 @@ def _knowledge_anchor_lines(spec: dict[str, Any], *, model_knowledge_hint: bool 
     return result
 
 
-def _render_line(spec: dict[str, Any]) -> str:
+def _render_line(spec: dict[str, Any], *, auto_clean_base: bool = False) -> str:
     render = spec.get("render") if isinstance(spec.get("render"), dict) else {}
     priorities = _items(render.get("detail_priority"))
     quality_controls = _items(render.get("quality_controls"))
@@ -861,6 +942,9 @@ def _render_line(spec: dict[str, Any]) -> str:
             f"detail priorities: {', '.join(priorities)}" if priorities else "",
             f"artifact budget ({artifact_budget}): {ARTIFACT_PRESETS[artifact_budget]}"
             if artifact_budget in ARTIFACT_PRESETS
+            else "",
+            f"preventive clean base: {CLEAN_BASE_PRESET}"
+            if artifact_budget == "auto" and auto_clean_base
             else "",
             f"shot-specific quality controls: {', '.join(quality_controls)}" if quality_controls else "",
         ]
@@ -1032,12 +1116,106 @@ def _common_sections(
         "render_pipeline": _render_pipeline_line(spec),
         "optics": _optics_line(spec),
         "style": _style_line(spec),
-        "render": _render_line(spec),
         "text": _text_lines(spec),
         "edits": _edit_lines(spec),
         "styleboard": _styleboard_lines(spec) if mode == "styleboard" else [],
     }
+    has_generation_content = mode != "learn_style" and any(
+        _section_has_content(value) for value in sections.values()
+    )
+    sections["render"] = _render_line(spec, auto_clean_base=has_generation_content)
     return sections
+
+
+def _has_positive_generation_content(
+    spec: dict[str, Any],
+    platform: str,
+    style_capsule: dict[str, Any] | None = None,
+) -> bool:
+    sections = _common_sections(
+        spec,
+        platform=platform,
+        model_knowledge_hint=platform == "openai",
+        style_capsule=style_capsule,
+    )
+    return any(_section_has_content(value) for key, value in sections.items() if key != "render")
+
+
+def _prompt_budget(
+    spec: dict[str, Any],
+    platform: str,
+    *,
+    required_reference_count: int,
+    style_capsule: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    sections = _common_sections(
+        spec,
+        platform=platform,
+        model_knowledge_hint=platform == "openai",
+        style_capsule=style_capsule,
+    )
+    active_section_count = sum(_section_has_content(value) for value in sections.values())
+    subject_count = _unique_semantic_count(sections["subjects"])
+    material_items = spec.get("materials") if isinstance(spec.get("materials"), list) else []
+    material_count = _unique_semantic_count(item for item in material_items if isinstance(item, dict))
+    effect_count = _unique_semantic_count(sections["effects"])
+    exact_text_count = _unique_semantic_count(sections["text"])
+    board = spec.get("styleboard") if isinstance(spec.get("styleboard"), dict) else {}
+    frames = board.get("frames") if isinstance(board.get("frames"), list) else []
+    styleboard_frame_count = _unique_semantic_count(item for item in frames if isinstance(item, dict))
+    preserve, change, exclude = _constraints(spec)
+    constraint_count = _unique_semantic_count(
+        [("preserve", item) for item in preserve]
+        + [("change", item) for item in change]
+        + [("exclude", item) for item in exclude]
+    )
+    style_capsule_applied = style_capsule is not None and spec.get("mode") != "learn_style"
+
+    complexity_units = (
+        active_section_count * 2
+        + max(0, subject_count - 1)
+        + required_reference_count * 2
+        + max(0, material_count - 1)
+        + effect_count * 2
+        + exact_text_count
+        + styleboard_frame_count
+        + (constraint_count + 2) // 3
+        + (4 if style_capsule_applied else 0)
+    )
+    if spec.get("mode") == "learn_style":
+        detail_mode = "analysis"
+    elif styleboard_frame_count > 1:
+        detail_mode = "sequence"
+    elif complexity_units <= 12:
+        detail_mode = "concise"
+    elif complexity_units <= 30:
+        detail_mode = "standard"
+    else:
+        detail_mode = "complex"
+
+    profile = PROMPT_BUDGET_PROFILES[platform]
+    target_words = profile["base_words"] + profile["words_per_unit"] * complexity_units
+    target_words = min(profile["max_words"], max(profile["min_words"], target_words))
+    return {
+        "budget_policy": "dynamic_semantic_review",
+        "detail_mode": detail_mode,
+        "complexity_units": complexity_units,
+        "complexity_signals": {
+            "active_section_count": active_section_count,
+            "subject_count": subject_count,
+            "required_reference_count": required_reference_count,
+            "material_count": material_count,
+            "effect_count": effect_count,
+            "exact_text_count": exact_text_count,
+            "styleboard_frame_count": styleboard_frame_count,
+            "constraint_count": constraint_count,
+            "style_capsule_applied": style_capsule_applied,
+        },
+        "min_review_target_words": profile["min_words"],
+        "max_review_target_words": profile["max_words"],
+        "target_words": target_words,
+        "target_review_units": target_words,
+    }
 
 
 def _labeled_prompt(sections: dict[str, Any], preserve: list[str], change: list[str], exclude: list[str]) -> str:
@@ -1411,25 +1589,39 @@ def compile_spec(
         )
     metrics = _prompt_metrics(result["prompt"])
     result["prompt_metrics"] = metrics
-    target_words = PROMPT_TARGET_WORDS[target]
+    result["attachments"] = build_attachment_manifest(spec)
+    required_reference_count = sum(1 for item in result["attachments"] if item.get("must_attach"))
+    budget = _prompt_budget(
+        spec,
+        target,
+        required_reference_count=required_reference_count,
+        style_capsule=style_capsule,
+    )
+    target_words = budget["target_words"]
     review_reasons: list[str] = []
     semantic_prompt = result["prompt"]
     if target == "midjourney":
         semantic_prompt = semantic_prompt.split(" --", 1)[0]
-    is_empty_prompt = not semantic_prompt.strip().strip(".")
+    has_positive_generation_content = _has_positive_generation_content(spec, target, style_capsule)
+    is_empty_prompt = not semantic_prompt.strip().strip(".") or not has_positive_generation_content
     if is_empty_prompt:
         review_reasons.append("empty_prompt")
-        result["warnings"].append("Prompt review blocked an empty prompt with no semantic generation content.")
-    if metrics["words"] > target_words:
+        result["warnings"].append("Prompt review blocked a prompt with no positive semantic generation content.")
+    if metrics["review_units"] > target_words:
         review_reasons.append("length_over_target")
         result["warnings"].append(
-            f"Compiled prompt remains above the {target} review target: "
-            f"{metrics['words']} words > {target_words}"
+            f"Compiled prompt remains above its dynamic {target} semantic review target: "
+            f"{metrics['review_units']} CJK-aware review units > {target_words}. No source field was truncated."
         )
-    result["attachments"] = build_attachment_manifest(spec)
-    required_reference_count = sum(1 for item in result["attachments"] if item.get("must_attach"))
     if required_reference_count >= 4:
         review_reasons.append("high_reference_count")
+    surface_risk_hits = surface_risk_hits_from_sources(spec, style_capsule)
+    review_reasons.extend(f"surface_risk_language:{phrase}" for phrase in surface_risk_hits)
+    if surface_risk_hits:
+        result["warnings"].append(
+            "Surface-risk wording requires review and a source-spec rewrite when it is only a generic quality spell: "
+            + ", ".join(surface_risk_hits)
+        )
     residue_hits = context_residue_hits_from_sources(spec, style_capsule)
     review_reasons.extend(f"context_residue:{marker}" for marker in residue_hits)
     has_blocking_contamination = bool(residue_hits) or is_empty_prompt
@@ -1446,12 +1638,21 @@ def compile_spec(
         review_status = "review_required"
     else:
         review_status = "ready"
+    approval_scope = "none"
+    if review_status == "approved":
+        approval_scope = (
+            "surface_risk_length_and_reference_complexity"
+            if surface_risk_hits
+            else "length_and_reference_complexity_only"
+        )
     result["prompt_review"] = {
+        **budget,
         "status": review_status,
-        "target_words": target_words,
         "reasons": review_reasons,
         "required_reference_count": required_reference_count,
-        "approval_scope": "length_and_reference_complexity_only" if review_status == "approved" else "none",
+        "surface_risk_hits": surface_risk_hits,
+        "surface_risk_rewrites": {phrase: SURFACE_RISK_REWRITES[phrase] for phrase in surface_risk_hits},
+        "approval_scope": approval_scope,
     }
     if required_reference_count >= 4:
         result["warnings"].append(
@@ -1504,7 +1705,7 @@ def main() -> int:
     parser.add_argument(
         "--approve-review",
         action="store_true",
-        help="Approve length/reference-complexity review; context residue remains blocked",
+        help="Approve nonblocking dynamic-length/reference/surface-risk review; context residue remains blocked",
     )
     parser.add_argument("--format", choices=("json", "text"), default="json", dest="output_format")
     args = parser.parse_args()

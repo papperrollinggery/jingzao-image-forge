@@ -10,9 +10,9 @@ Visual suite: [English overview](assets/jingzao-image-forge-hero-en.png) · [pre
 
 Featured evidence: [continuous nine-shot film spec](examples/continuous-nine-shot-ferry.json) · [bridge-rescue spec](tests/forward-specs/cinematic-bridge-rescue.json) · [path-traced koi spec](tests/forward-specs/path-traced-koi-automaton.json) · [Chinese-fantasy spec](examples/causal-fantasy-effect.json) · [Crimson Nocturne capsule](references/style-capsules/crimson-nocturne-wuxia-montage.json)
 
-**Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured AI image prompts, clean GPT Image 2 rendering, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, art direction, product, fashion, architecture, illustration, animation, documentary, spectacle, Chinese-fantasy VFX, and CG material studies. It turns briefs, observed references, local edits, learned styles, and multi-shot plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator. Its clean-surface workflow targets oily or waxy sheen, random speckles, texture noise, dirty AO halos, noisy darks, plastic reflections, and equal-detail rendering without flattening intentional film grain, brush texture, wet materials, or practical-light flare.
+**Jingzao Image Forge (镜造 Image Forge)** is a Codex visual-director Skill for structured AI image prompts, clean GPT Image 2 rendering, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, art direction, product, fashion, architecture, illustration, animation, documentary, spectacle, Chinese-fantasy VFX, and CG material studies. It turns briefs, observed references, local edits, learned styles, and multi-shot plans into a maintainable `visual_generation_spec`, then compiles that specification for OpenAI GPT Image 2, FLUX, Midjourney, or a generic image generator. Its default preventive clean base lowers the chance of unowned speckle, texture noise, dirty AO, global oily/plastic response, and equal-detail rendering while preserving intentional film grain, brush texture, patina, wet materials, wear, and practical-light artifacts.
 
-Simple tasks stay concise and neutral; complex tasks can explicitly control composition, subject relationships, camera and lens logic, action physics, exact text, spatial edits, materials, lighting, color, style, references, and cross-shot continuity without silent compiler deletion.
+Simple tasks stay concise; complex tasks receive a larger dynamic semantic review target based on the actual sections, subjects, references, materials, effects, text, constraints, and frames they contain. The compiler never treats this target as a model limit and never truncates explicit content.
 
 ## Selected Generated Cases
 
@@ -57,10 +57,11 @@ These are 15 actual outputs generated with the built-in ImageGen and visually in
 Image prompts often fail for reasons that are hard to debug: a named character is diluted into generic traits, cinematic language silently changes the rendering medium, an edit drifts outside its target, or platform-specific controls are invented. Jingzao keeps the visual intent separate from provider syntax so the source specification remains inspectable and reusable.
 
 - **Maintain one source of truth:** scene, subjects, camera, lighting, materials, text, edits, invariants, and exclusions.
-- **Scale intervention to the task:** a neutral template emits no ratio, camera, coordinates, grain, bloom, flare, particles, color pipeline, or render pipeline; explicitly requested professional controls remain intact.
+- **Scale intervention to the task:** an empty template emits nothing; a real first-pass prompt receives only a medium-preserving clean base and no invented ratio, camera, grain, bloom, flare, particles, color pipeline, or render pipeline.
 - **Use model world knowledge deliberately:** optional `knowledge_anchors` preserve exact characters, places, events, artifacts, and fictional-world terms.
 - **Control local edits:** normalized points and regions, explicit “change only” instructions, and preserve lists.
-- **Control unwanted image artifacts:** compact budgets plus a fail-closed clean-surface gate for noise, random speckles, oily or waxy surfaces, dirty AO, plastic reflections, sharpening halos, and equal-frequency texture.
+- **Prevent and control unwanted image artifacts:** the default clean base lowers risk before generation; explicit budgets and a fail-closed surface gate handle noise, random speckles, oily or waxy surfaces, dirty AO, plastic reflections, sharpening halos, and equal-frequency texture.
+- **Budget prompts by semantic complexity:** `concise`, `standard`, `complex`, and `sequence` prompts receive different review targets; repeated prose cannot manufacture more budget, and no field is auto-truncated.
 - **Route visual intent automatically:** distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, giant-scale spectacle, and genre-specific world logic.
 - **Route 20+ scenario profiles:** story, portrait, performance, action, campaign, brand, product, fashion, food, architecture, environment, vehicle, creature, history, science, infographic, interface, game, event, social, and experimental work.
 - **Select coherent style systems:** cinematic naturalism, noir, expressionism, surreal dream, romantic sublime, modernist graphic, retro analog, luxury editorial, handcrafted, painterly, animation, documentary, speculative, minimal, archival, or mixed media.
@@ -343,7 +344,7 @@ Jingzao uses one optional `render.artifact_budget` instead of a long universal c
 
 | Budget | Best for |
 | --- | --- |
-| `auto` | Neutral first pass; emits no cleanup or aesthetic preset |
+| `auto` | Every non-empty first pass; emits one adaptive, medium-preserving preventive clean base |
 | `strict` | Product images, typography, diagrams, minimal editorials, clean gradients |
 | `balanced` | Explicitly restrained premium finishing with scene-motivated effects |
 | `clean_reset` | Repeated oiliness, speckle, dirty AO, texture soup, or latent residue; rebuild from a clean specification |
@@ -351,6 +352,10 @@ Jingzao uses one optional `render.artifact_budget` instead of a long universal c
 | `source_matched` | Edits and expansions that must preserve the source artifact profile |
 
 The quality layer separates material roughness, highlight behavior, texture scale, focal detail, noise/grain, bloom, flare, particles, and sharpness. Intentional film grain, brush texture, wet gloss, and practical-light flare are preserved when requested; unmotivated speckle, global oily sheen, and equal-detail rendering are not treated as “quality.” See [Artifact and Material Quality Controls](references/quality-controls.md).
+
+### Preventive Clean Base
+
+With `artifact_budget: auto`, every non-empty generation prompt automatically receives one compact positive clause: every texture must belong to the requested medium or a named material, while only localized texture or surface variation must have an explicit spatial owner and stay inside its named region instead of spreading as filler microtexture. Highlights, reflections, and contact shadows follow geometry and motivated light; non-focal surfaces remain continuous and low-frequency. Intentional medium traits already present in the brief or source remain protected; the clean base does not name grain, brushwork, patina, wear, wetness, or optics unless the current specification already does. Empty templates and `learn_style` analysis stay neutral, and any explicit artifact budget replaces rather than stacks with this base.
 
 ### Clean AI Image Rendering Workflow
 
@@ -366,6 +371,21 @@ For a repeated oily/noisy result, Jingzao does not keep editing the contaminated
 The output then passes a two-scale visual gate: thumbnail hierarchy and 100% surface inspection. Random dots, watermark-like marks, dirty AO halos, oil/plastic sheen, noisy dark fill, or equal microtexture outside the focal zone block delivery. Passing controls are frozen and only one main variable changes per retry.
 
 These refinements adapt the low-frequency mass, texture-ownership, localized-contact, clean-slate regeneration, and single-variable retry ideas from the MIT-licensed [IM2 Clean Image source reviewed at `cdd471f`](https://github.com/q2522879285-source/im2-image-skills/tree/cdd471f3cf82531f0d4b7b0740945fd0039dd224/skills/im2-clean-image). Jingzao keeps its own neutral template, structured specification, provider compiler, source-preservation contract, and visual acceptance gate.
+
+## Dynamic Semantic Prompt Budget
+
+Jingzao has no model-facing word limit and performs no automatic truncation. It calculates a review target from observable complexity and reports the evidence in `prompt_review`:
+
+- active semantic sections;
+- subject and required-reference counts;
+- materials and causal effects;
+- exact text elements and styleboard frames;
+- preserve/change/exclude constraints;
+- applied style capsules.
+
+The result includes `detail_mode`, `complexity_units`, `complexity_signals`, and platform minimum/maximum review targets. Length review uses CJK-aware `review_units` so unspaced Chinese/Japanese/Korean prompts cannot bypass the gate; exact duplicate structured entries do not inflate complexity. A long single clause remains low-complexity and is reviewed as bloat, while a genuinely complex scene or sequence receives more space. The profiles are Jingzao review heuristics calibrated against maintained fixtures, not official provider limits or proven image-quality optima. Fixture-specific `prompt_lint.py --max-words` values remain CI regression checks only.
+
+This design follows current evidence rather than a universal “best length”: the [OpenAI GPT Image prompting guide](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide) says long prompts can work but recommends a clean base plus small iterative changes; the [official OpenAI ImageGen Skill](https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md) says to add only materially useful detail and normalize prompts that are already specific. Community Skills use complexity modes, layout-first schemas, compact craft blocks, or shared text/detail budgets instead of hidden truncation.
 
 ## Repository Structure
 
@@ -389,11 +409,11 @@ uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
 python3 -m unittest discover -s tests -v
 ```
 
-Current local baseline: **152 deterministic regression tests** covering schema and compilation structure for all seven modes, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in both natural-language and FLUX JSON projections, cross-platform `clean_reset` surface ownership, validated forward visual specifications and examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, source-structured exact-copy-safe contamination lint across all four platforms, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
+Current local baseline: **160 deterministic regression tests** covering schema and compilation structure for all seven modes, empty/constraints-only fail-closed behavior, cross-platform adaptive `clean_base` and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk scanning, `clean_reset` recovery, validated forward visual specifications and examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform contamination lint, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
 
 Manual visual review: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The output remains in the gallery, but its original prompt record was not retained and it is not manifest-bound evidence.
 
@@ -405,7 +425,7 @@ Style-learning forward tests also passed: one learned graphite/copper capsule tr
 
 The new independent mode tests stayed strict: `restyle`, scientific `reconstruct`, and dynamic CG creation passed and entered the gallery. The `expand` test remained continuous but failed to preserve target ratio, lateral anchor, and frame-height ratio together, so it is documented as a current limitation and excluded. A five-reference stress test proved delivery of all five files but failed creative-purpose and hand-object interaction review; it was also excluded. Attachment plumbing and image quality are separate gates.
 
-With silent field deletion removed, the current causal-fantasy and CG-fashion compiler projections are 1,726 and 2,603 words. Both remain `review_required`: the budget is a review trigger, not a model-optimal length claim or auto-truncation rule. Their existing images remain visual evidence of earlier execution; neither was regenerated from the current projection.
+With silent field deletion removed, the current causal-fantasy and CG-fashion OpenAI projections are 1,726 and 2,603 words. Their dynamic semantic targets are 1,756 and 2,022 words: the causal prompt is `ready`, while the denser CG-fashion prompt remains `review_required`. These are review decisions, not model-optimal length claims or auto-truncation. Their existing images remain visual evidence of earlier execution; neither was regenerated from the current projection.
 
 A controlled handoff study then isolated the upstream prompt problem. Keeping the same five references and action but replacing a 2,253-word cross-section prompt with one short current-frame instruction removed the unsupported side-pinch; changing the action to a purposeful stationary checkout exchange improved meaning and balance; retaining only the three necessary references produced the cleanest interaction. Because each condition has one generated sample, the study supports direction rather than a universal probability claim. The implemented fix is semantic ownership and contamination review—not blanket realism or indiscriminate prompt shortening. See [Prompt Hygiene Without Style Flattening](references/prompt-hygiene.md).
 
@@ -418,9 +438,14 @@ The same-model quality benchmark compares a simple brief, a specialist cinematic
 Jingzao is independently implemented, but its publication and quality methodology were cross-checked against strong primary examples:
 
 - [OpenAI GPT Image Generation Models Prompting Guide](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide): structured prompts, real materials and skin texture, natural color, limited retouching, world knowledge, and iterative refinement.
+- [Official OpenAI ImageGen Skill](https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md): specificity-scaled augmentation, short labeled scaffolding, preservation of already-detailed prompts, and single-change iteration.
+- [Replicate Prompt Images Skill](https://github.com/replicate/skills/blob/main/skills/prompt-images/SKILL.md): long prompts can carry many explicit requirements, but omission risk rises with complexity; start simple and iterate.
 - [OpenAI Plugins](https://github.com/openai/plugins): current Codex plugin and Skill packaging structure.
 - [Anthropic Skills](https://github.com/anthropics/skills): concise capability definition, self-contained Skill structure, installation, examples, and limitations.
 - [GPT-Image2-Skill](https://github.com/wuyoscar/GPT-Image2-Skill): reference-gallery routing, category-specific prompt craft, exact text, and separation of materials, lighting, and palette.
+- [Visual Skills prompt framework](https://github.com/smixs/visual-skills/blob/main/image/references/prompt-framework.md): concise/standard/verbose routing and task-scoped material-detail layers.
+- [Codex Image Skill](https://github.com/philipbankier/codex-image-skill/blob/main/.agents/skills/codex-image/SKILL.md): shared text/craft budget, compact craft blocks, and P0/P1/P2 content priority.
+- [Image Prompt GPT Image 2 adapter](https://github.com/veryCoolTimo/imagegen-skills/blob/main/skills/image-prompt/references/models/gpt-image-2.md): short labeled segments for complex prompts, explicit texture coverage, and iterate-dont-overload behavior.
 - [Superpowers](https://github.com/obra/superpowers): evidence-first workflows, regression testing, behavioral evaluation, and explicit limitations.
 - [ARRI cinematography case studies](https://www.arri.com/news-en/alexa-lf-signature-primes-and-skypanels-on-the-film-rrr): focal lengths, movement, scale, and camera choices tied to shot requirements rather than generic style tokens.
 - [Pixar RenderMan cinematography research](https://renderman.pixar.com/stories/incredible-cinematography): camera/staging and lighting systems change with character, sequence intensity, and viewer focus while preserving a common visual language.
@@ -439,7 +464,7 @@ Jingzao is independently implemented, but its publication and quality methodolog
 - [Blender Cycles and Principled BSDF](https://docs.blender.org/manual/en/4.0/render/shader_nodes/shader/principled.html): physically based materials with metal, diffuse, subsurface, transmission, coat, sheen, emission, roughness, and IOR behavior.
 - [Unreal Engine 5 Lumen](https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine): dynamic diffuse interreflection, indirect specular, sky shadowing, emissive bounce, translucency, and roughness-aware reflections.
 
-The resulting method is intentionally compact: exact intent first, optional structured controls only when they add value, deterministic validation, one artifact budget, targeted iteration, and visual verification before quality claims.
+The resulting method is intentionally compact: exact intent first, optional structured controls only when they add value, one adaptive clean base or one explicit artifact budget, dynamic review rather than truncation, targeted iteration, and visual verification before quality claims.
 
 ## Boundaries
 
@@ -463,7 +488,7 @@ It is a Codex Skill that converts image-generation intent into a structured visu
 
 ### Why use a visual specification instead of one long prompt?
 
-The specification separates stable facts and invariants from creative variation. It makes scene relationships, exact text, edits, and provider differences easier to inspect, test, and revise.
+The specification separates stable facts and invariants from creative variation. It makes scene relationships, exact text, edits, and provider differences easier to inspect, test, and revise. Prompt length is then reviewed against semantic complexity rather than a fixed universal word count; no explicit field is truncated.
 
 ### Does it support GPT Image 2 world knowledge?
 

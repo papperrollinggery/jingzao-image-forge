@@ -135,6 +135,8 @@ Scenario: A premium portrait or cinematic image contains unrequested speckle, de
 Pass criteria:
 
 - Diagnoses noise, light-source motivation, material roughness, highlight rolloff, microcontrast, particle density, and focal hierarchy separately.
+- On an ordinary non-empty first pass, `artifact_budget: auto` emits one adaptive preventive clean base across all platforms; it preserves explicit grain, brushwork, patina, wear, wetness, and optics instead of imposing a matte cleanup look.
+- An empty template and `learn_style` analysis emit no clean base; an explicit artifact budget replaces rather than stacks with it.
 - Treats a repeated oily/noisy report as demonstrated risk, chooses `clean_reset`, and does not leave the artifact budget at neutral `auto`.
 - Establishes 3–7 low-frequency shape groups, one or two focal-detail clusters, at least one continuous calm surface, and explicit texture ownership before adding microdetail.
 - Keeps AO/contact shadows local to real seams, overlaps, creases, and support points; separates glossy/matte and wet/dry regions through material response instead of global sheen.
@@ -307,16 +309,19 @@ Pass criteria:
 - Visually checks character identity, wardrobe mark, product form, logo shape/placement/spelling/color, and scene use after generation.
 - If reference fidelity fails, retries or uses the model's own image-edit path; it does not add a post-generation compositing workflow.
 
-## 26. Prompt Normalization and Static Quality Gate
+## 26. Prompt Normalization and Dynamic Quality Gate
 
 Scenario: Compile the full causal-fantasy, narrative-film, product, and Midjourney fixtures after a schema or compiler change.
 
 Pass criteria:
 
 - Template `Describe...` placeholders and deprecated internal controls never reach prompt prose.
-- Compilation does not silently compact explicit source fields. Over-budget output becomes `review_required`; source-spec cleanup must preserve references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, material transport, and NPR constraints.
-- `prompt_metrics` are emitted and canonical fixture ceilings do not regress without a reviewed forward test.
-- `prompt_review` is `blocked` for context residue outside exact visible copy and cannot be approved through. Length/reference complexity becomes `review_required`; an explicit review may approve it without auto-truncation, and the active style core remains protected.
+- Compilation does not silently compact explicit source fields. Output above its dynamic semantic review target becomes `review_required`; source-spec cleanup must preserve references, exact text, visible events, relationships, actions, camera/viewer geometry, preserve/change invariants, causal owner/contact/cost/response/residue, style authority, tone locks, forbidden drift, motion evidence, readability guard, intentional film behavior, material transport, and NPR constraints.
+- `prompt_metrics`, `detail_mode`, `complexity_units`, `complexity_signals`, and platform min/max review targets are emitted. A simple prompt receives a smaller target than a genuinely complex or multi-frame prompt, while repeated prose does not earn more space.
+- The platform maximum is a review ceiling rather than a model limit; even an extreme prompt remains byte-complete and requires review instead of truncation.
+- Canonical fixture `--max-words` ceilings remain deterministic CI regression checks and do not control model-facing compilation.
+- `prompt_review` is `blocked` for context residue outside exact visible copy and cannot be approved through. Dynamic-length, reference-complexity, and generic surface-risk wording become `review_required`; an explicit review may approve them without auto-truncation, and the active style core remains protected.
+- `ultra detailed`, `micro detail everywhere`, `wet glossy`, and similar generic spells are reported with suggested positive rewrites outside exact visible copy.
 - A complete color pipeline owns grade/contrast/saturation while `color` remains palette-focused; physical lighting is not deleted.
 - Midjourney uses stronger compression and exposes an execution route instead of pretending edit/expand are ordinary imagine prompts.
 

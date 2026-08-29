@@ -71,7 +71,7 @@ jobs:
 
       - name: Lint canonical compiled prompts
         run: |
-          python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
+          python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
           python3 scripts/prompt_lint.py examples/narrative-film-frame.json --platform openai --max-words 1200
           python3 scripts/prompt_lint.py examples/tactile-stop-motion-product.json --platform openai --max-words 1100
           python3 scripts/prompt_lint.py examples/continuous-nine-shot-ferry.json --platform openai --max-words 1400

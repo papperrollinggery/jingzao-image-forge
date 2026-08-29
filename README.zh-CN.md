@@ -10,9 +10,9 @@
 
 首屏案例依据：[连续九镜电影规格](examples/continuous-nine-shot-ferry.json) · [宣传图编辑规格](examples/jingzao-intro-infographic-edit.json) · [断桥救援规格](tests/forward-specs/cinematic-bridge-rescue.json) · [路径追踪机械锦鲤规格](tests/forward-specs/path-traced-koi-automaton.json) · [中国玄幻规格](examples/causal-fantasy-effect.json) · [绯夜风格胶囊](references/style-capsules/crimson-nocturne-wuxia-montage.json)
 
-**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、GPT Image 2 清图、电影剧情镜头、连续分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。清洁表面工作流专门治理油点、蜡感/油腻感、随机噪点、纹理噪波、脏 AO 光晕、暗部脏噪、塑料反光和全画面同频细节，同时保留用户明确要求的胶片颗粒、笔触、湿润材质和真实光源 flare。
+**镜造 Image Forge** 是一个面向 Codex 的视觉导演 Skill，覆盖结构化 AI 生图提示词、GPT Image 2 清图、电影剧情镜头、连续分镜、人物与道具一致性、真实多图参考、参考图风格学习、美术指导、产品、时尚、建筑、插画、动画、纪实、实验媒介、巨物奇观和中国玄幻特效。它把图片需求、参考观察、局部修改、可复用风格和多镜规划转换为可维护的 `visual_generation_spec`，再编译为 OpenAI GPT Image 2、FLUX、Midjourney 或 generic 提示词。默认轻量清洁层会在生成前降低无归属油点、随机噪点、纹理噪波、脏 AO、全局油亮/塑料感和全画面同频细节的概率，同时保护明确要求的胶片颗粒、笔触、包浆、磨损、湿润材质与真实光学效果。
 
-简单任务保持精简中立；复杂任务才启用构图、命名实体、人物关系、镜头与焦段、动作物理、精确文字、空间修改、材质、灯光、调色、参考图和跨镜连续性控制。
+简单任务保持精简；复杂任务会根据实际有效章节、主体、参考图、材质、效果、精确文字、约束和分镜帧获得更大的动态语义复核目标。该目标不是模型上限，编译器不会截断显式内容。
 
 ## 实际生成案例
 
@@ -55,10 +55,11 @@
 ## 为什么使用镜造？
 
 - **统一视觉事实源：** 场景、人物、镜头、灯光、材质、文字、修改、保留项和排除项集中维护。
-- **按任务控制干预强度：** 中立模板不输出画幅、机位、坐标、颗粒、bloom、flare、粒子、调色或渲染预设；用户明确要求的专业控制完整保留。
+- **按任务控制干预强度：** 空模板不输出任何画面指令；真实首轮提示只自动获得保留媒介的轻量清洁层，不虚构画幅、机位、颗粒、bloom、flare、粒子、调色或渲染预设。
 - **有意识地利用模型世界知识：** 可选 `knowledge_anchors` 保留精确的人物、地点、事件、器物和世界观专名。
 - **控制局部修改：** 使用归一化坐标、区域、“只修改”指令和明确保留列表。
-- **控制常见画面伪影：** 用紧凑质量档与 fail-closed 清洁表面门禁治理油点、随机噪点、脏 AO、油蜡感、塑料反光、锐化光环和同频纹理。
+- **预防并控制常见画面伪影：** 默认清洁层先降低发生概率；显式质量档与 fail-closed 门禁再治理油点、随机噪点、脏 AO、油蜡感、塑料反光、锐化光环和同频纹理。
+- **按语义复杂度分配提示词预算：** `concise / standard / complex / sequence` 使用不同复核目标；重复堆字不会换来更大预算，显式字段不会被自动截断。
 - **自动判断视觉意图：** 区分剧情电影帧、key art、海报、真实电影、艺术化电影、图形化风格、巨物奇观和题材世界规则。
 - **20+ 使用场景自动路由：** 剧情、肖像、表演、动作、广告、品牌、产品、时尚、美食、建筑、环境、载具、怪物、历史、科研、图解、界面、游戏、活动、社交和实验艺术。
 - **一致的风格系统：** 支持电影自然主义、黑色电影、表现主义、超现实梦境、浪漫崇高、现代主义图形、复古胶片、奢华编辑、手工触感、绘画、动画、纪实、世界构建、极简、档案与混合媒介。
@@ -326,7 +327,7 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 
 | 质量档 | 适用场景 |
 | --- | --- |
-| `auto` | 中立首轮，不输出清理预设或审美预设 |
+| `auto` | 每个非空首轮；自动输出一条保留媒介的自适应轻量清洁层 |
 | `strict` | 产品图、精确文字、图表、极简编辑设计和干净渐变 |
 | `balanced` | 明确需要克制高级收尾时，只允许由场景驱动的效果 |
 | `clean_reset` | 连续出现油腻感、噪点、脏 AO、纹理汤或潜在残留时，从干净规格重建 |
@@ -334,6 +335,10 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 | `source_matched` | 需要继承原图颗粒、光斑、锐度和表面响应的编辑与扩图 |
 
 质量层会分别管理材质粗糙度、高光、纹理尺度、焦点细节、噪声/颗粒、bloom、flare、粒子与锐度。用户明确要求的胶片颗粒、笔触、湿润高光或实际光源 flare 会被保留；无来源噪点、全局油亮和全画面同等锐利不会被当作“高级感”。详见[伪影与材质质量控制](references/quality-controls.md)。
+
+### 默认轻量清洁预防层
+
+当 `artifact_budget: auto` 且规格包含真实生图内容时，编译器会自动加入一条正向约束：所有纹理必须归属于指定媒介或明确材质；只有局部纹理或局部表面变化必须拥有明确空间归属并留在命名区域内，不能扩散为填充微纹理。高光、反射和接触阴影服从几何与动机光源；焦点外表面保持连续、低频。当前 brief/source 已声明的媒介特征会被保护；如果规格没有写颗粒、笔触、包浆、磨损、湿润或光学效果，轻量清洁层也不会主动把这些词带进提示。空模板和 `learn_style` 分析不注入；选择任何显式质量档后，它会被替换而不是叠加。
 
 ### AI 清图与去油腻工作流
 
@@ -349,6 +354,17 @@ python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platf
 产图必须通过双尺度视觉门禁：缩略图检查信息层级，100% 检查表面。随机油点、类似水印的暗纹、脏 AO 光晕、全局油亮/塑料感、暗部噪点填充或焦点外同等密度的微纹理都会阻断交付。每轮冻结已经通过的控制，只改一个主变量。
 
 这组优化吸收了 MIT 许可的 [IM2 Clean Image（审阅版本 `cdd471f`）](https://github.com/q2522879285-source/im2-image-skills/tree/cdd471f3cf82531f0d4b7b0740945fd0039dd224/skills/im2-clean-image) 中关于低频大形、纹理归属、局部接触、干净重生和单变量重试的可取机制；镜造仍保留自己的中立模板、结构化规格、跨平台编译、原图保真合同和视觉验收门禁。
+
+## 动态语义提示词预算
+
+镜造不设置模型字数硬上限，也不会自动截断。编译器根据有效章节、主体、必传参考图、材质、因果效果、精确文字、分镜帧、保留/修改/排除约束和风格胶囊计算动态复核目标，并在 `prompt_review` 中公开 `detail_mode`、`complexity_units`、`complexity_signals` 及平台最小/最大复核范围。长度复核使用 CJK 安全的 `review_units`，无空格中文/日文/韩文不能绕过；完全重复的结构化条目不会虚增复杂度预算。
+
+- 单句重复堆字仍然是低语义复杂度，不会因此获得更大预算。
+- 真正复杂的单帧或多镜序列可获得更大的复核目标。
+- 平台最小/最大值是镜造根据维护中 fixture 校准的复核启发式，不是官方 API/模型输入上限，也不是已证明的画质最优长度。
+- `prompt_lint.py --max-words` 只是单个 fixture 的 CI 膨胀告警，不控制实际编译。
+
+该设计没有假设一个通用“最佳词数”。[OpenAI GPT Image 官方提示指南](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide)确认长提示可以工作，但建议从干净基础开始并做小步修改；[OpenAI 官方 ImageGen Skill](https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md)要求只补充真正有帮助的细节，对已经具体的提示只做结构化整理。社区成熟做法也主要采用复杂度模式、结构优先、紧凑 craft block 或文字/细节共享预算，而不是隐藏截断。
 
 ## 目录结构
 
@@ -374,11 +390,11 @@ python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
 python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
 python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **152 项确定性回归测试**，覆盖七种模式的 schema/编译结构、中立模板、低干预以及自然语言/FLUX JSON 空提示 fail-closed 行为、四平台 `clean_reset` 表面归属、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台结构化精确文案豁免污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **160 项确定性回归测试**，覆盖七种模式的 schema/编译结构、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 
@@ -390,7 +406,7 @@ python3 -m unittest discover -s tests -v
 
 新增独立模式实测保持严格：`restyle`、科研 `reconstruct` 和动态 CG 创建通过并进入案例区。`expand` 虽然环境连续，但无法同时守住目标比例、横向锚点和原始画面高度比例，因此明确记录为当前限制，不进入案例。另一项五参考图压力测试只证明五张原图均已送达，却没有通过创意用途和手—物交互验收，同样排除。附件管线与成片质量是两道独立门禁。
 
-取消静默字段删除后，当前玄幻与 CG 时尚的编译投影分别为 1726 与 2603 词，均保持 `review_required`：词数预算只是复核触发器，不是模型最佳长度或自动截断规则。现有图片属于早期执行的视觉证据；两张均未使用当前投影重新生成。
+取消静默字段删除后，当前玄幻与 CG 时尚的 OpenAI 编译投影分别为 1726 与 2603 词，动态语义复核目标分别为 1756 与 2022 词：玄幻提示为 `ready`，密度更高的 CG 时尚提示仍为 `review_required`。这些是复核判断，不是模型最佳长度或自动截断规则。现有图片属于早期执行的视觉证据；两张均未使用当前投影重新生成。
 
 随后用受控交接实验定位上游提示问题：保持同样五张参考和同一动作，只把 2253 词的跨区段提示改为简洁的当前画面说明，原先无底部承托的侧捏问题就消失；把动作改为有明确用途的静止柜台交付后，画面意义与重心继续改善；只保留三张必要参考时交互最干净。由于每组只有一次样本，这支持优化方向，不宣称普遍概率。实际修复是语义归属与污染审查，不是强制写实或一刀切缩短提示。详见[不削弱风格的提示清洗](references/prompt-hygiene.md)。
 
@@ -403,9 +419,14 @@ python3 -m unittest discover -s tests -v
 镜造为独立实现，但发布结构和质量方法对照了以下高质量一手资料：
 
 - [OpenAI GPT Image 生图提示指南](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide)：结构化提示、真实皮肤与材质、自然色彩、克制修饰、世界知识和逐次迭代。
+- [OpenAI 官方 ImageGen Skill](https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md)：按具体度扩写、短标签结构、保留已经详细的提示和单变量迭代。
+- [Replicate Prompt Images Skill](https://github.com/replicate/skills/blob/main/skills/prompt-images/SKILL.md)：长提示可以容纳多项明确要求，但复杂度越高越容易漏项，因此从简单版本开始迭代。
 - [OpenAI Plugins](https://github.com/openai/plugins)：当前 Codex 插件与 Skill 的组织方式。
 - [Anthropic Skills](https://github.com/anthropics/skills)：清楚的能力定义、自包含结构、安装、示例和限制。
 - [GPT-Image2-Skill](https://github.com/wuyoscar/GPT-Image2-Skill)：参考图库路由、分类提示方法、精确文字以及材质/灯光/色彩分离。
+- [Visual Skills 提示框架](https://github.com/smixs/visual-skills/blob/main/image/references/prompt-framework.md)：concise/standard/verbose 路由和按任务启用的材质细节层。
+- [Codex Image Skill](https://github.com/philipbankier/codex-image-skill/blob/main/.agents/skills/codex-image/SKILL.md)：文字/craft 共享预算、紧凑 craft block 与 P0/P1/P2 内容优先级。
+- [Image Prompt GPT Image 2 适配器](https://github.com/veryCoolTimo/imagegen-skills/blob/main/skills/image-prompt/references/models/gpt-image-2.md)：复杂提示使用短标签段、明确纹理覆盖范围以及 iterate-dont-overload 规则。
 - [Superpowers](https://github.com/obra/superpowers)：证据优先、回归测试、行为评测和明确能力边界。
 - [ARRI 摄影案例](https://www.arri.com/news-en/alexa-lf-signature-primes-and-skypanels-on-the-film-rrr)：焦段、运镜、尺度和机位根据镜头任务选择，而非通用电影感词汇。
 - [Pixar RenderMan 摄影研究](https://renderman.pixar.com/stories/incredible-cinematography)：摄影、调度和灯光随着人物和段落强度变化，同时保持统一视觉语言。
@@ -424,7 +445,7 @@ python3 -m unittest discover -s tests -v
 - [Blender Cycles 与 Principled BSDF](https://docs.blender.org/manual/en/4.0/render/shader_nodes/shader/principled.html)：金属、漫反射、次表面、透射、coat、sheen、emission、粗糙度与 IOR 等物理材质行为。
 - [Unreal Engine 5 Lumen](https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine)：动态漫反射互反射、间接镜面、天空遮蔽、发光反弹、半透明与粗糙度相关反射。
 
-最终方法保持克制：先锁定精确意图，只在有价值时启用结构化控制；确定性校验；每次只使用一个伪影质量档；定向迭代；未检查实际产图前不宣称质量通过。
+最终方法保持克制：先锁定精确意图，只在有价值时启用结构化控制；每次只使用一条自适应清洁层或一个显式伪影质量档；按语义复杂度复核而不截断；定向迭代；未检查实际产图前不宣称质量通过。
 
 ## 能力边界
 
@@ -448,7 +469,7 @@ python3 -m unittest discover -s tests -v
 
 ### 为什么不用一段很长的提示词？
 
-结构化规格能把稳定事实、保留约束和允许变化分离，使关系、文字、局部修改和平台差异更容易维护与测试。
+结构化规格能把稳定事实、保留约束和允许变化分离，使关系、文字、局部修改和平台差异更容易维护与测试。提示词长度随后按语义复杂度复核，不使用统一固定字数，也不截断显式字段。
 
 ### 能利用 GPT Image 2 的世界知识吗？
 

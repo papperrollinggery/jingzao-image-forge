@@ -21,12 +21,25 @@ Generic quality adjectives such as `8K`, `ultra detailed`, `hyper realistic`, or
 
 | Budget | Use when | Default behavior |
 | --- | --- | --- |
-| `auto` | first-pass generation without a demonstrated artifact risk | emit no preset; let the requested subject, medium, material, and light lead |
+| `auto` | ordinary non-empty first-pass generation | emit one adaptive preventive clean base; preserve requested/source grain, brushwork, patina, wear, wetness, and optics; choose no new medium or effect |
 | `strict` | products, typography, diagrams, clean editorials | clean gradients, contained highlights, clear air, no decorative texture systems |
 | `balanced` | premium imagery that explicitly needs restrained finishing | restrained source-driven effects, natural material roughness, selective focal detail |
 | `clean_reset` | repeated oiliness, random speckle, dirty AO, texture soup, or latent residue | rebuild low-frequency masses, texture ownership, material boundaries, contact, and exposure from a clean specification |
 | `expressive` | painterly, analog, fantasy, VFX-heavy work | intentional artifacts allowed only when coherent with medium, event, or visible source |
 | `source_matched` | edits, restyles, expansions | inherit source grain, flare, sharpness, and surface response; add no new artifact classes |
+
+## Preventive Clean Base
+
+`auto` is the default probability-reduction layer, not a post-generation detector. It adds one compact positive clause only after the specification contains real generation content:
+
+- texture belongs to the requested medium or a named material;
+- localized texture and surface variation have an explicit spatial owner and remain inside the named region;
+- texture appears only where camera scale and light can reveal it;
+- highlights, reflections, and contact shadows follow surface geometry and motivated sources;
+- focal detail remains selective while unassigned surfaces stay continuous and low-frequency;
+- intentional grain, brushwork, patina, wear, wetness, and optical artifacts from the brief or source remain protected.
+
+The clean base refers generically to current intentional medium traits; it does not list grain, brushwork, patina, wear, wetness, or optics unless the current specification already contains them. It does not choose matte surfaces, erase patina, ban gloss, or request a global cleanup aesthetic. An explicit `strict`, `balanced`, `clean_reset`, `expressive`, or `source_matched` budget replaces it instead of stacking another quality paragraph. Empty templates and `learn_style` analysis receive no clean base.
 
 ## Visible Symptom → Positive Correction
 

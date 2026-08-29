@@ -11,6 +11,7 @@ This bundled reference is Jingzao's complete prompt-contamination workflow. It r
 - Run the fast gate for every final prompt: current source, one clear job per clause, no conversation-dependent wording, no internal workflow notes, and no unresolved conflicts.
 - Run the full audit below only for multi-section prompts, repeated mechanisms, contaminated retries, four or more references, or `review_required`. A simple clean prompt does not need a backstage ledger in the user-facing answer.
 - `compile_prompt.py` and `prompt_lint.py` deterministically catch known residue markers, placeholders, empty prompts, and review-state failures. They do not prove that a loaded label, habitual template, or paraphrased mechanism is semantically clean; the audit below owns that judgment.
+- The compiler's dynamic word target is a review range derived from semantic complexity, not permission to fill the available space. `complexity_signals` explain why a target grew. A repeated long clause does not earn more budget, and no explicit source field is truncated.
 
 Use these contamination classes during a full audit:
 
@@ -145,6 +146,7 @@ PASS only when:
 - style core and intentional exaggeration remain intact;
 - reference roles support the brief instead of defining it;
 - prompt length or density has been reviewed when the compiler marks `review_required`.
+- generic surface-risk wording reported in `surface_risk_hits` has been replaced with concrete material, light, focal-detail, or spatial-ownership language unless an explicit review accepts it.
 
 Execution remains blocked until this gate is consumed. `blocked` contamination must be rewritten and recompiled. Length/reference-only `review_required` may be explicitly approved after the audit; approval never overrides residue.
 

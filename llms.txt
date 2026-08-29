@@ -1,6 +1,6 @@
 # Jingzao Image Forge
 
-> A Codex visual-director Skill for structured AI image prompts, clean GPT Image 2 rendering, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It converts briefs, observed references, local edits, multi-shot plans, and reusable style capsules into a validated visual_generation_spec, then compiles prompts for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators. Its clean-surface reset targets oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering.
+> A Codex visual-director Skill for structured AI image prompts, preventive clean GPT Image 2 rendering, dynamic semantic prompt budgets, cinematic film frames, continuous storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It compiles validated visual_generation_spec files for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators without truncating explicit fields. Its adaptive clean base lowers unowned speckle, texture noise, dirty AO, global oily/plastic response, and equal-detail risk while preserving intentional grain, brushwork, patina, wear, wetness, and optical artifacts.
 
 Canonical repository: https://github.com/papperrollinggery/jingzao-image-forge
 English documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.md
@@ -10,7 +10,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 ## Primary capabilities
 
 - create: create a new image prompt from a brief
-- progressive detail: keep the neutral template free of implicit ratio, camera, coordinates, grain, bloom, flare, particles, color pipeline, and render pipeline; compile explicit professional controls when the task requires them
+- progressive detail: keep the empty template neutral; apply only a medium-preserving clean base after real generation content exists; compile explicit professional controls when the task requires them
 - reconstruct: describe observable reference-image attributes without claiming to recover a hidden prompt
 - edit: describe the smallest local change and explicit preservation constraints
 - restyle: change visual treatment while locking identity, pose, geometry, layout, and text
@@ -24,7 +24,9 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - professional render pipeline: Blender/Unreal/production-renderer appearance references, path/ray tracing, global illumination, PBR/NPR materials, volume, sampling, and visible pass separation inside one generated image
 - verified multi-image delivery: emit actual supplied images, a target-aware Codex ImageGen call plan, fail-closed capability checks, and an expected-vs-sent execution receipt; never replace references with prose-only summaries or add post-generation compositing
 - knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
-- artifact and material quality: use `clean_reset`, low-frequency shape groups, explicit texture ownership, material-specific roughness/highlights, localized AO/contact, and a two-scale visual gate for oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering
+- artifact and material quality: use an automatic preventive clean base, optional `clean_reset`, low-frequency shape groups, explicit texture ownership, material-specific roughness/highlights, localized AO/contact, and a two-scale visual gate for oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering
+- dynamic prompt budget: classify concise/standard/complex/sequence/analysis prompts, derive CJK-aware review targets from duplicate-resistant semantic signals, expose platform review ranges, and never auto-truncate source fields
+- surface-risk review: flag generic detail/gloss/lighting spells outside exact visible copy and return concrete positive rewrites
 - bundled prompt-contamination guard: source trace, clean-slate reset, semantic ownership and deduplication, deletion test, stateless-generator read, and PASS/FAIL without requiring another installed Skill
 - automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
 - cinematic shot design: bind relationship, staging, viewer position, camera height, distance, focal length, focus, and motivated lighting
@@ -35,7 +37,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 
 - SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
 - references/visual-spec.md: visual_generation_spec schema and control semantics
-- references/prompt-compiler.md: platform-aware compilation behavior
+- references/prompt-compiler.md: platform-aware compilation, adaptive clean base, dynamic semantic review budget, and surface-risk behavior
 - references/prompt-hygiene.md: bundled standalone source tracing, contamination classes, semantic ownership ledger, deletion test, stateless-generator read, feasibility, and style-preserving PASS/FAIL review
 - references/quality-controls.md: artifact budgets, clean-surface reset, texture ownership, material-light controls, two-scale acceptance, and single-variable retry guidance
 - references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
@@ -110,19 +112,24 @@ python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --approve-review --max-words 1800
+python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 152 regression tests covering schema, compilation, neutral-template/minimal-intervention and empty-prompt fail-closed behavior in natural-language and FLUX JSON projections, cross-platform clean_reset surface ownership, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 160 regression tests covering schema, compilation, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations
 
 - https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
+- https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md
+- https://github.com/replicate/skills/blob/main/skills/prompt-images/SKILL.md
 - https://github.com/openai/plugins
 - https://github.com/anthropics/skills
 - https://github.com/wuyoscar/GPT-Image2-Skill
+- https://github.com/smixs/visual-skills/blob/main/image/references/prompt-framework.md
+- https://github.com/philipbankier/codex-image-skill/blob/main/.agents/skills/codex-image/SKILL.md
+- https://github.com/veryCoolTimo/imagegen-skills/blob/main/skills/image-prompt/references/models/gpt-image-2.md
 - https://github.com/obra/superpowers
 - https://openai.com/academy/image-generation/
 - https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference
