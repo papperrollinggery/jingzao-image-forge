@@ -91,9 +91,11 @@ Replace risky phrases:
 | `ultra detailed` | `balanced detail` |
 | `hyper detailed` | `selective fine detail on focal surfaces` |
 | `micro detail everywhere` | `detail concentrated on meaningful camera-readable surfaces` |
-| `wet glossy` | `strict wet/dry boundaries with roughness-correct reflections` |
-| `cinematic bokeh everywhere` | `clean depth separation with restrained, source-motivated bokeh` |
+| `wet glossy` | `retain reflection and highlight shape on declared wet/glossy regions; other materials keep their own response` |
+| `cinematic bokeh everywhere` | `keep source-related bokeh in declared out-of-focus regions while protecting the focal subject` |
 | `beautiful lighting` | `named key direction, controlled bounce, protected highlights` |
+
+The compiler's authoritative suggestion values are exposed in `prompt_review.surface_risk_rewrites`; this table explains their intent rather than adding another rewrite layer.
 
 ## Negative Hygiene
 
@@ -114,7 +116,7 @@ Treat cleanup as a quality-preserving image workflow, not a universal suffix or 
 2. Locate the likely layer: source asset, reference role, texture density, material/highlight response, optics, atmosphere/grade, or export/resampling. A sharpness/noise metric alone does not establish the cause. Do not rewrite a scene to repair a damaged export.
 3. Keep a compact control record outside the prompt: source/candidate version, observed failure, protected facts, one suspected cause, one change, and a visible pass signal. Existing project receipts are enough; do not create another mandatory registry.
 4. Choose the source deliberately. When a dirty image is still authoritative for geometry, label that narrow role and forbid surface transfer. If a trial keeps copying its unwanted texture, stop editing those pixels and use an original or earlier clean master that still satisfies current identity, camera and prop-state locks. Restore later valid decisions explicitly; the oldest image is not automatically the right source.
-   If composition must stay fixed and the dirty pixels still dominate, a texture-free layout proxy can be a bounded fallback: verify its silhouettes, object counts, contact and crop, then use it for structure alongside a clean identity/material reference. Inspect the new rendering for drift. A generated proxy is approximate layout evidence, not a measured depth map, pixel lock, mandatory step or guaranteed cure.
+   If composition must stay fixed and the dirty pixels still dominate, a texture-free layout proxy can be a bounded fallback: verify its silhouettes, object counts, contact and crop, then use it for structure alongside a clean identity/material reference. Inspect the new rendering for drift. A generated proxy is approximate layout evidence, not a measured depth map, pixel lock, mandatory step or guaranteed cure. It can faithfully inherit source errors, so check contact, direction and count against the brief and intended event, not merely against the source image.
 5. Translate the chosen correction into existing `materials`, `lighting`, `optics`, `render.quality_controls`, and preserve/change fields. Keep `auto` clean_base or one explicit artifact budget; do not stack DIR, IM2, LIRA and Jingzao cleanup paragraphs.
 6. Compare before/after at thumbnail and full resolution. A cleaner image fails if it changes identity, anatomical equipment side, object count, exact text, contact, camera geography, giant scale or the causal action. Surface quality and whole-image validity are separate gates.
 7. Preserve the parent and every rejected attempt. After two same-layer comparisons without improvement, pause prompt growth and re-diagnose the source or reference route. Respect an explicit user retry budget; do not automatically change models, spend more, or enter post-production outside the authorized workflow.

@@ -231,7 +231,9 @@ class ProductionManifestCompilationTests(unittest.TestCase):
                 "must_attach": True,
             }
         ]
-        stale_warning_prefix = "Codex ImageGen execution is blocked until the imagegen_call_plan errors are resolved"
+        stale_warning_prefix = production.CODEX_IMAGEGEN_EXECUTION_WARNING_PREFIX
+        openai_frame = production.compile_manifest(value, ROOT, "openai")["frames"][0]
+        self.assertTrue(any(warning.startswith(stale_warning_prefix) for warning in openai_frame["compiled"]["warnings"]))
         for platform in ("flux", "midjourney", "generic"):
             with self.subTest(platform=platform):
                 result = production.compile_manifest(value, ROOT, platform)

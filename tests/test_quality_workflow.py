@@ -46,6 +46,16 @@ def clean_reset_spec() -> dict:
 
 class QualityWorkflowTests(unittest.TestCase):
     def test_clean_reset_protects_declared_medium_surface_identity_and_exact_text_on_every_platform(self):
+        self.assertEqual(
+            "clean-slate surface rebuild; 3-7 dominant low-frequency shape groups; one or two camera-readable focal-detail "
+            "clusters; at least one continuous calm surface; texture only where camera scale and named light reveal it; "
+            "background edge frequency and microtexture below the focal zone; material classes separated by roughness, "
+            "highlight width, reflection, translucency, and edge response; strict wet/dry and matte/gloss boundaries; "
+            "localized contact shadows only at real seams, overlaps, and support points; clean low-noise gradients; "
+            "protected highlight texture with smooth rolloff; readable shadow floor; preserve declared medium and surface "
+            "traits, identity-critical edges, and exact visible text",
+            compiler.ARTIFACT_PRESETS["clean_reset"],
+        )
         spec = clean_reset_spec()
         self.assertEqual([], validator.validate_spec(spec))
         for platform in ("openai", "flux", "midjourney", "generic"):
