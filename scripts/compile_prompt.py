@@ -86,7 +86,8 @@ ARTIFACT_PRESETS = {
         "background edge frequency and microtexture below the focal zone; material classes separated by roughness, "
         "highlight width, reflection, translucency, and edge response; strict wet/dry and matte/gloss boundaries; "
         "localized contact shadows only at real seams, overlaps, and support points; clean low-noise gradients; "
-        "protected highlight texture with smooth rolloff; readable shadow floor"
+        "protected highlight texture with smooth rolloff; readable shadow floor; preserve declared medium and surface "
+        "traits, identity-critical edges, and exact visible text"
     ),
     "expressive": (
         "intentional grain, bloom, flare, particles, and gloss only where coherent with the requested medium or visible "
@@ -107,17 +108,17 @@ CLEAN_BASE_PRESET = (
 SURFACE_RISK_REWRITES = {
     "ultra detailed": "selective camera-readable detail on focal surfaces",
     "hyper detailed": "selective camera-readable detail on focal surfaces",
-    "insanely detailed": "realistic detail only where scale and light reveal it",
+    "insanely detailed": "detail appropriate to the current medium, concentrated on focal surfaces where scale and light reveal it",
     "micro detail everywhere": "fine detail concentrated on meaningful focal surfaces",
     "highly textured rendering": "material-specific texture with explicit spatial ownership",
-    "wet glossy": "strict wet/dry boundaries with roughness-correct reflections",
-    "cinematic bokeh everywhere": "restrained source-motivated depth separation",
+    "wet glossy": "keep reflections and highlight shape only on declared wet or glossy areas; other materials retain their own response",
+    "cinematic bokeh everywhere": "limit depth blur to declared out-of-focus regions and corresponding light sources; protect focal subjects",
     "beautiful lighting": "named key direction, controlled bounce, and protected highlights",
     "超级细节": "只在当前镜头可读的焦点表面保留选择性细节",
-    "极致细节": "只在尺度与光线能够揭示的位置保留真实细节",
+    "极致细节": "保留符合当前媒介的细节，并集中在尺度与光线可读的焦点区域",
     "全画面微细节": "把精细纹理集中到有意义的焦点表面",
-    "湿润油亮": "建立严格干湿边界与符合粗糙度的反射",
-    "满屏光斑": "只在明确光源或物理事件附近保留稀疏光学效果",
+    "湿润油亮": "只在已声明湿润或光泽区域保留反射与高光形状，其余材质保持各自响应",
+    "满屏光斑": "只在已声明失焦区域及对应光源保留景深光斑，并保护焦点主体",
     "唯美光影": "明确主光方向、受控反弹与高光保护",
 }
 CJK_REVIEW_CHAR_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3040-\u30ff\uac00-\ud7af]")

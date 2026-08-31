@@ -65,6 +65,14 @@ Files: `SKILL.md`, `references/production-coverage.md`, `references/styleboard-m
 
 ## Task 3: Review and release
 
+### Added user-approved quality scope
+
+- Complete read-only DIR cleanup trace: source intake, material response, optional surface macro, pre-generation rules, generated-output QA, one-layer retry, clean-master lineage, convergence and adoption. Preserve DIR itself.
+- Improve six advisory cleanup phrases plus explicit clean-reset preservation wording; keep clean_base, budgets, user text and existing adapters unchanged.
+- Verify against real private scene assets, not only unit tests. Retain failures and separate surface improvement from action/count/composition acceptance. Do not publish private images, prompts or paths.
+- Permit a texture-free layout proxy only after demonstrated dirty-reference carryover; validate its geometry/contacts before reuse. Do not promote a one-case benefit into a universal rule.
+- Add valid-spec quality tests and portable-diagnostic regression coverage, then run the final DeepSeek review for over-engineering and negative optimization.
+
 - [ ] Audit dirty legacy files against v1.5 and preserve every unique change. Do not overwrite the original directory while work is active.
 - [ ] Independently review specification compliance, then code correctness/security and negative regressions. Fix concrete findings; do not broaden the architecture.
 - [ ] Run all CI-equivalent commands, structural Skill validation, isolated installation tests, and realistic independent use tests. Label image/video quality unverified unless actual media was generated and inspected.

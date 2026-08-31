@@ -32,6 +32,7 @@ ROOT_KEYS = {"production_manifest", "coverage", "frames"}
 COVERAGE_KEYS = {"shot_id", "requirement", "frame_ids", "video_only_reason"}
 FRAME_KEYS = {"id", "shot_id", "purpose", "spec"}
 STATUS_SEVERITY = {"ready": 0, "review_required": 1, "blocked": 2}
+CODEX_IMAGEGEN_EXECUTION_WARNING_PREFIX = "Codex ImageGen execution is blocked until the imagegen_call_plan errors are resolved"
 
 
 def _nonempty_string(value: Any) -> bool:
@@ -249,6 +250,15 @@ def compile_manifest(
         preflight = preflight_reference_delivery(spec, target_base_dir, target=preflight_target)
         if compiled_platform == "openai":
             _merge_openai_call_plan(compiled, preflight)
+        else:
+            compiled.pop("imagegen_call_plan", None)
+            compiled_warnings = compiled.get("warnings")
+            if isinstance(compiled_warnings, list):
+                compiled["warnings"] = [
+                    warning
+                    for warning in compiled_warnings
+                    if not isinstance(warning, str) or not warning.startswith(CODEX_IMAGEGEN_EXECUTION_WARNING_PREFIX)
+                ]
         status = _frame_status(compiled, preflight, compiled_platform)
         statuses.append(status)
         output_frames.append(

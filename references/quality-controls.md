@@ -106,6 +106,40 @@ Start with the desired visible state. Add negatives only for broad, likely failu
 
 ## Retry Strategy
 
+### Evidence-first cleanup workflow
+
+Treat cleanup as a quality-preserving image workflow, not a universal suffix or an automatic pixel denoiser. Start from the actual full-resolution source and candidate, not a thumbnail, filename, or previous PASS label.
+
+1. Record the visible symptom and region, intended medium/material traits, and what already works. Distinguish repeated cross-material patterns from deliberate grain, brushwork, scales, patina, rain, or impact spray.
+2. Locate the likely layer: source asset, reference role, texture density, material/highlight response, optics, atmosphere/grade, or export/resampling. A sharpness/noise metric alone does not establish the cause. Do not rewrite a scene to repair a damaged export.
+3. Keep a compact control record outside the prompt: source/candidate version, observed failure, protected facts, one suspected cause, one change, and a visible pass signal. Existing project receipts are enough; do not create another mandatory registry.
+4. Choose the source deliberately. When a dirty image is still authoritative for geometry, label that narrow role and forbid surface transfer. If a trial keeps copying its unwanted texture, stop editing those pixels and use an original or earlier clean master that still satisfies current identity, camera and prop-state locks. Restore later valid decisions explicitly; the oldest image is not automatically the right source.
+   If composition must stay fixed and the dirty pixels still dominate, a texture-free layout proxy can be a bounded fallback: verify its silhouettes, object counts, contact and crop, then use it for structure alongside a clean identity/material reference. Inspect the new rendering for drift. A generated proxy is approximate layout evidence, not a measured depth map, pixel lock, mandatory step or guaranteed cure.
+5. Translate the chosen correction into existing `materials`, `lighting`, `optics`, `render.quality_controls`, and preserve/change fields. Keep `auto` clean_base or one explicit artifact budget; do not stack DIR, IM2, LIRA and Jingzao cleanup paragraphs.
+6. Compare before/after at thumbnail and full resolution. A cleaner image fails if it changes identity, anatomical equipment side, object count, exact text, contact, camera geography, giant scale or the causal action. Surface quality and whole-image validity are separate gates.
+7. Preserve the parent and every rejected attempt. After two same-layer comparisons without improvement, pause prompt growth and re-diagnose the source or reference route. Respect an explicit user retry budget; do not automatically change models, spend more, or enter post-production outside the authorized workflow.
+
+This incorporates the portable part of DIR's optional surface-integrity guard, material-response pass, incident/QA loop and clean-master discipline. The fixed legacy “clean and transparent / smooth and uniform” macro is not a default and is not copied here. Its wording does not prove alpha support, and uniform smoothing can destroy useful texture. An optional specialist (`im2-clean-image`, `ai-material-realism`, or `ai-video-iteration-doctor`) may answer a concrete missing question; none is a required dependency or second owner.
+
+### Targeted cleanup wording
+
+Select only the row that matches observed evidence. Keep its protected trait explicit. These are editable positive instructions, not automatic substitutions or a mandatory all-purpose block.
+
+| Observed failure | Positive correction | Protect |
+| --- | --- | --- |
+| The same embossed/swirl pattern crosses skin, cloth, metal and clouds | Give each material its own surface structure: skin planes, directional hair, fold-following weave, localized metal patina, broad cloud volumes. Keep texture inside its material and at a readable scale. | identity, genuine armor relief, cloth seams, intentional brushwork |
+| Waxy/oily response on an otherwise dry subject | Let highlights follow local surface curvature and roughness; retain soft skin transitions, absorbing cloth and narrow metal highlights as distinct responses. | deliberately wet skin, polished metal, glass and source-motivated reflections |
+| Dark sky/water becomes noisy filler | Preserve broad shadow planes and depth separation; place fine variation only where a surface, light or physical event explains it. | deep blacks, weather, directional water reflections, meaningful spray |
+| Over-sharpened edges and pore-like dots | Keep identity-critical contours and material edges readable; use natural local contrast and scale-appropriate texture on supporting surfaces. | face structure, readable text, microdetail genuinely required by a close-up |
+| Defocused highlights spread everywhere | Keep source-shaped bokeh in the intended out-of-focus regions and protect the focal subject. | deliberate optical character and requested defocus |
+| Cleanup erases a painterly or analog style | Preserve the declared mark-making, grain and pigment structure; remove only the unrelated repeating pattern or unintended surface coating. | pointillism, watercolor paper, brush strokes, print texture, film grain |
+
+Compact Chinese example for the matching cross-material failure:
+
+> 皮肤、发丝、布料、金属与背景分别保留自身的表面结构；纹理只出现在所属材质和当前尺度可读的位置。保持真实磨损、必要反射、结构边缘和画面张力，清除跨材质重复的压花微纹，背景回到有层次的连续明暗。
+
+In compiled review suggestions, extreme-detail wording stays medium-relative, wet/gloss wording preserves declared reflective surfaces, and bokeh wording stays focus/source-scoped. Suggestions do not silently rewrite source fields or exact visible copy. `clean_reset` also explicitly protects declared medium/surface traits, identity-critical edges and exact text. The ordinary `clean_base` remains unchanged.
+
 When a generated image already contains widespread noise, ghost texture, uncontrolled light spots, global gloss, or texture buildup, prefer a clean-slate regeneration that locks subject, composition, medium, palette, and essential relationships while rebuilding material and light behavior.
 
 Use image editing when preservation of the original geometry or content is more important than the risk of carrying artifacts forward. For `source_matched` edits, explicitly preserve intentional grain or flare while forbidding new artifact classes outside the edit target.

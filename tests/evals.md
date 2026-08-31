@@ -425,3 +425,17 @@ Pass criteria:
 - A removal names its replacement surface and allows necessary contact-shadow/reflection/occlusion changes while preserving unaffected identity, framing, medium, text, and lighting.
 - Neither “100% identical” nor a successful manifest compile substitutes for actual visual comparison.
 - No fixed provider order, universal palette/composition, name removal, hard prompt cap, or blanket video-state restriction is imported from another workflow.
+
+## 33. Quality Recovery Without Negative Optimization
+
+Scenarios: an embossed cross-material texture on a character board; a dense mythic scene with muddy water/sky; intentional pointillism or watercolor; a wet metal product; exact UI copy.
+
+Pass criteria:
+
+- Inspect real source/candidate pixels and distinguish intentional medium/material detail from unowned repetition. Never diagnose from a filename or an old PASS label.
+- Record one suspected layer, one change and a visible pass signal; keep diagnostic/history metadata out of the prompt.
+- Use the earliest suitable clean master when dirty reference pixels keep surviving, while preserving valid later identity, camera and state decisions.
+- Quality instructions protect intended wetness, gloss, patina, grain, brushwork, text and structural edges. One budget replaces rather than stacks with clean_base; no universal legacy surface suffix is injected.
+- Medium-relative, wet/gloss and bokeh rewrite suggestions remain advisory, and literal in-frame copy remains exempt.
+- Reject a cleaner candidate that mirrors equipment, changes view direction, alters object count, loses contact causality or reduces required giant scale. Do not promote a surface-only improvement into overall acceptance.
+- Stop repeated non-improvement and re-diagnose rather than growing a blacklist. Private examples, prompts and output pixels stay outside the published Skill.

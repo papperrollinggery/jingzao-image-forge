@@ -91,6 +91,8 @@ Use this route when a request names a recognizable character, person, work, hist
 
 For premium, clean, photorealistic, product, portrait, dark-scene, or dense fantasy work, run a compact quality preflight. Read [references/quality-controls.md](references/quality-controls.md) when an output looks noisy, speckled, waxy, oily, over-sharpened, excessively glossy, flare-heavy, or uniformly over-processed.
 
+For cleanup, use its evidence-first source/diagnosis/retry loop and targeted wording table. Evaluate the complete image as well as surface quality: cleaner pixels do not compensate for changed identity, equipment side, object count, exact text, causal action or giant scale. Preserve the parent attempt and return to a suitable clean master when contaminated reference pixels keep reappearing.
+
 - Keep `render.artifact_budget: auto` for the adaptive preventive clean base on ordinary first passes. Select `strict`, `balanced`, `clean_reset`, `expressive`, or `source_matched` only when the medium, source, delivery risk, or an observed artifact justifies that preset. An explicit preset replaces rather than stacks with the clean base.
 - A repeated dirty-output report is demonstrated risk, not a neutral first pass. Set `render.artifact_budget: clean_reset`, rebuild from a clean specification, and preserve only the subject, composition, medium, palette, and essential relationships. Do not use repeated image-to-image cleanup unless exact source geometry matters more than residue carryover.
 - Define material-specific roughness, highlight width, reflection, texture scale, and contact behavior before adding generic quality adjectives.

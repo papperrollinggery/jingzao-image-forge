@@ -275,6 +275,10 @@ python3 scripts/compile_production.py examples/production-coverage.json --platfo
 
 每帧持有完整的既有图像规格，提示词、文字、参考图和预检独立输出。原 `styleboard` 编译仍是整板规划包，不会自动拆成多次生图调用。新编译器不生成图片或视频、不补写缺失剧情，也不把结构检查当作视觉连续性验收；剧本、时长、视频提示词和总台账继续由 DIR 或上游流程负责。普通单图与探索九宫格不受影响。
 
+## 保住风格与剧情的清洁重建
+
+[质量工作流](references/quality-controls.md)先区分源图污染、材质响应、光学与导出问题，再选择重试。去噪建议保护当前媒介、有意湿润和光泽、身份边缘与精确文字；不自动叠加固定去噪后缀，普通 clean base 与动态预算保持不变。更干净的候选仍须通过动作、数量、机位、尺度与连续性检查。去纹理结构参考仅用于已证实的顽固输入污染，不变成默认流水线，也不宣称像素级去噪保证。
+
 ## 从参考图学习风格
 
 `learn_style` 会实际读取参考图，把直接可见机制与生产推断、未知细节分开，随后导出可复用的 `style_capsule`。胶囊可以保存媒介行为、色彩归属、线条/形状、纹理/材质、灯光、构图、字体、光学/渲染、迁移规则与禁止迁移项。
@@ -417,7 +421,7 @@ python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform ope
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **196 项确定性回归测试**，覆盖七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **205 项确定性回归测试**，覆盖七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 

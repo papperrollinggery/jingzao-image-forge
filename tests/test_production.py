@@ -212,6 +212,50 @@ class ProductionManifestCompilationTests(unittest.TestCase):
         self.assertEqual("ready", result["status"])
         self.assertEqual("portable", result["frames"][0]["preflight"]["target"])
 
+    def test_portable_frames_omit_codex_only_imagegen_call_plan(self):
+        for platform in ("flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = production.compile_manifest(manifest(), ROOT, platform)
+                self.assertNotIn("imagegen_call_plan", result["frames"][0]["compiled"])
+
+    def test_portable_remote_references_drop_only_the_stale_codex_execution_warning(self):
+        value = manifest()
+        value["frames"][0]["spec"]["inputs"] = [
+            {
+                "id": "remote",
+                "type": "image",
+                "role": "style",
+                "description": "remote style",
+                "source_kind": "remote_url",
+                "source_ref": "https://example.invalid/ref.png",
+                "must_attach": True,
+            }
+        ]
+        stale_warning_prefix = "Codex ImageGen execution is blocked until the imagegen_call_plan errors are resolved"
+        for platform in ("flux", "midjourney", "generic"):
+            with self.subTest(platform=platform):
+                result = production.compile_manifest(value, ROOT, platform)
+                frame = result["frames"][0]
+                self.assertFalse(any(warning.startswith(stale_warning_prefix) for warning in frame["compiled"]["warnings"]))
+                self.assertFalse(any(stale_warning_prefix in warning for warning in result["warnings"]))
+                self.assertTrue(any("Structural coverage does not approve" in warning for warning in result["warnings"]))
+                self.assertTrue(any("Actual image attachments are mandatory" in warning for warning in frame["compiled"]["warnings"]))
+                self.assertEqual(["remote"], frame["preflight"]["runtime_required"])
+                self.assertEqual(1, frame["compiled"]["reference_handoff"]["required_attachment_count"])
+
+    def test_portable_warning_filter_preserves_previous_frame_diagnostics(self):
+        value = manifest([frame_spec("FIRST_FRAME"), frame_spec("SECOND_FRAME")])
+        value["frames"][0]["spec"]["inputs"] = [{
+            "id": "missing", "type": "image", "role": "product",
+            "description": "required source", "source_kind": "local_path",
+            "source_ref": "missing.png", "must_attach": True,
+        }]
+        with tempfile.TemporaryDirectory() as directory:
+            result = production.compile_manifest(value, Path(directory), "generic")
+        self.assertEqual("blocked", result["status"])
+        self.assertTrue(any("Structural coverage does not approve" in warning for warning in result["warnings"]))
+        self.assertTrue(any("frame-1:" in warning and "required local image not found" in warning for warning in result["warnings"]))
+
     def test_conversation_image_requires_runtime_confirmation_and_blocks_execution(self):
         value = manifest()
         value["frames"][0]["spec"]["inputs"] = [{"id": "conversation", "type": "image", "role": "identity", "description": "conversation image", "source_kind": "conversation_image", "source_ref": "Image 1", "must_attach": True}]
@@ -237,6 +281,22 @@ class ProductionManifestCompilationTests(unittest.TestCase):
         result = production.compile_manifest(value, ROOT, "openai")
         self.assertEqual("review_required", result["status"])
         self.assertEqual("review_required", result["frames"][0]["compiled"]["prompt_review"]["status"])
+
+    def test_backstage_coverage_metadata_never_enters_the_frame_prompt(self):
+        value = manifest()
+        value["coverage"][0]["requirement"] = "BACKSTAGE_REQUIREMENT_ONLY"
+        value["frames"][0]["purpose"] = "BACKSTAGE_PURPOSE_ONLY"
+        value["coverage"].append(
+            {
+                "shot_id": "video-only",
+                "requirement": "separate movement",
+                "frame_ids": [],
+                "video_only_reason": "BACKSTAGE_VIDEO_ONLY_REASON",
+            }
+        )
+        prompt = production.compile_manifest(value, ROOT, "openai")["frames"][0]["compiled"]["prompt"]
+        for backstage_value in ("BACKSTAGE_REQUIREMENT_ONLY", "BACKSTAGE_PURPOSE_ONLY", "BACKSTAGE_VIDEO_ONLY_REASON"):
+            self.assertNotIn(backstage_value, prompt)
 
 
 class ProductionManifestCliTests(unittest.TestCase):
@@ -281,6 +341,28 @@ class ProductionManifestCliTests(unittest.TestCase):
             )
         self.assertEqual(2, completed.returncode)
         self.assertNotIn("Traceback", completed.stderr)
+
+    def test_cli_missing_required_reference_returns_blocked_json_exit_1(self):
+        value = manifest()
+        value["frames"][0]["spec"]["inputs"] = [{"id": "ref", "type": "image", "role": "product", "description": "required product", "source_kind": "local_path", "source_ref": "missing.png", "must_attach": True}]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            path.write_text(json.dumps(value), encoding="utf-8")
+            completed = subprocess.run([sys.executable, str(SCRIPTS / "compile_production.py"), str(path), "--platform", "openai"], capture_output=True, text=True, check=False)
+        self.assertEqual(1, completed.returncode, completed.stderr)
+        self.assertEqual("blocked", json.loads(completed.stdout)["status"])
+
+    def test_cli_approve_review_cannot_bypass_context_residue(self):
+        value = manifest()
+        value["frames"][0]["spec"]["intent"] = "same as the previous version"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            path.write_text(json.dumps(value), encoding="utf-8")
+            completed = subprocess.run([sys.executable, str(SCRIPTS / "compile_production.py"), str(path), "--approve-review"], capture_output=True, text=True, check=False)
+        self.assertEqual(1, completed.returncode, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertEqual("blocked", result["status"])
+        self.assertEqual("blocked", result["frames"][0]["compiled"]["prompt_review"]["status"])
 
 
 if __name__ == "__main__":
