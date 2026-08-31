@@ -264,6 +264,17 @@ UI Motion 继续使用同一 `styleboard` 模式，不创建互不兼容的新 s
 
 已验证的[四格 UI Motion 示例](examples/ui-motion-storyboard.json)使用一张线稿风格参考、四条精确中文文字、四张独立 16:9 正式帧、`layered_editorial` 层级、桌面鼠标指针交互，并把 `#FF6A2A` 限定为语义激活层。当前 OpenAI 投影为 `sequence`，1,488 个 CJK-safe review units，动态目标 2,200，包含 28 个去重后的层级单元，状态 `ready`。详见 [UI Motion Storyboard Workflow](references/ui-motion-storyboard.md)。
 
+## 生产分镜覆盖与逐帧交付
+
+需要给已确定的镜头表制作图片时，启用[生产分镜覆盖流程](references/production-coverage.md)：每个镜头明确必要画格，或说明为什么仅靠视频运动即可，不规定每镜必须几张图。正反打保留世界空间，只改变相机投影；有意义的道具状态变化按需单独制作。
+
+```bash
+python3 scripts/compile_production.py examples/production-coverage.json --platform openai
+python3 scripts/compile_production.py examples/production-coverage.json --platform openai --frame-id frame-02
+```
+
+每帧持有完整的既有图像规格，提示词、文字、参考图和预检独立输出。原 `styleboard` 编译仍是整板规划包，不会自动拆成多次生图调用。新编译器不生成图片或视频、不补写缺失剧情，也不把结构检查当作视觉连续性验收；剧本、时长、视频提示词和总台账继续由 DIR 或上游流程负责。普通单图与探索九宫格不受影响。
+
 ## 从参考图学习风格
 
 `learn_style` 会实际读取参考图，把直接可见机制与生产推断、未知细节分开，随后导出可复用的 `style_capsule`。胶囊可以保存媒介行为、色彩归属、线条/形状、纹理/材质、灯光、构图、字体、光学/渲染、迁移规则与禁止迁移项。
@@ -406,7 +417,7 @@ python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform ope
 python3 -m unittest discover -s tests -v
 ```
 
-当前本机基线为 **169 项确定性回归测试**，覆盖七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
+当前本机基线为 **196 项确定性回归测试**，覆盖七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、两份证据绑定风格胶囊、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[证据清单](tests/forward-test-manifest.json)中的人工 forward test 验收，不伪装成像素 CI。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 

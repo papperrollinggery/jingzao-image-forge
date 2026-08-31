@@ -20,7 +20,7 @@ jobs:
           python-version: "3.10"
 
       - name: Compile Python sources
-        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py
+        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py tests/test_production.py
 
       - name: Lint Python sources
         run: |
@@ -70,6 +70,15 @@ jobs:
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Validate independent production handoff
+        run: |
+          for platform in openai flux midjourney generic; do
+            python3 scripts/compile_production.py examples/production-coverage.json --platform "$platform" > "/tmp/production-$platform.json"
+            python3 -m json.tool "/tmp/production-$platform.json" > /dev/null
+          done
+          python3 scripts/compile_production.py examples/production-coverage.json --platform openai --frame-id frame-02 > /tmp/production-frame-02.json
+          python3 -m json.tool /tmp/production-frame-02.json > /dev/null
 
       - name: Lint canonical compiled prompts
         run: |

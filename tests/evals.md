@@ -397,3 +397,31 @@ Pass criteria:
 - Performs a stateless-generator read and preserves every unique current identity, reference role, style, camera, material, continuity, edit, and risk-control decision.
 - Treats deterministic compiler/lint checks as a partial static gate, not proof that semantic duplication or template carryover is absent.
 - Audit-only output contains findings, collisions, and `PASS` / `FAIL`; cleanup output keeps diagnosis outside one self-contained model-facing prompt.
+
+## 31. Production Coverage Without Overproduction
+
+Scenario: an approved shot list includes room geography, a reverse-view reveal, a latch-state insert, and one continuous low-risk camera movement.
+
+Pass criteria:
+
+- Every approved shot is represented by necessary frame IDs or a specific video-only reason; no universal start/end or reverse-shot quota is imposed.
+- A coverage row omitted from the input is not magically detected; compare the manifest with the actual approved shot list.
+- Duplicate, missing, orphan, or cross-shot frame references fail structural validation. All-video-only plans may have zero image frames.
+- Per-frame specs are complete, single-image, native-ratio specifications. Nested sheets and style-learning analyses are rejected.
+- Every frame envelope, including a `--frame-id` selection, retains the requested canvas even if a provider adapter cannot encode a ratio-only request in native parameters. The executor must consume it; no dimensions are guessed.
+- Frame-specific text, subjects, and reference attachments stay isolated. Backstage IDs, purposes, coverage comments, and video-only reasons do not enter model-facing prompts.
+- Required-reference failures and prompt-review blocks remain visible and prevent a ready handoff; approval cannot bypass contamination.
+- Existing single-image/whole-board compilation, dynamic budgets, clean-base behavior, named anchors, and UI Motion hierarchy remain unchanged.
+
+## 32. Reverse Geometry, Prop States, and Edit Side Effects
+
+Scenario A: a camera turns from a north-facing workshop view to a south-facing reverse. Scenario B: the same door changes from locked to unlocked. Scenario C: remove a tabletop object from an approved image.
+
+Pass criteria:
+
+- World positions, geometry, and light sources remain invariant; screen-left/right and occlusion follow the actual new camera, not a blanket horizontal flip.
+- Unseen surfaces are either unknown or explicitly designed, never falsely claimed as reference-observed.
+- Meaningful object states have explicit image requirements; the still describes one visible phase while transition timing remains in the video workflow.
+- A removal names its replacement surface and allows necessary contact-shadow/reflection/occlusion changes while preserving unaffected identity, framing, medium, text, and lighting.
+- Neither “100% identical” nor a successful manifest compile substitutes for actual visual comparison.
+- No fixed provider order, universal palette/composition, name removal, hard prompt cap, or blanket video-state restriction is imported from another workflow.

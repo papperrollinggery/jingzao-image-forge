@@ -10,6 +10,8 @@ Analyze first, choose the generation strategy from speed and continuity risk, th
 
 Choose the execution path from speed and continuity risk. One-call 3×3 generation is a legitimate fast path; independent frames are a precision path, not a universal requirement.
 
+For production coverage, asset states, reverse angles, or executable per-frame packages, read [production-coverage.md](production-coverage.md). `compile_prompt.py` serializes a styleboard as one planning package even when its strategy is `independent_frames`; it does not automatically slice global prose, subjects, exact text, or references into separate calls. Use the opt-in production manifest to compile already-authored single-image specs independently.
+
 ## Generation Strategies
 
 - `sheet_direct`: generate the complete grid in one call. Fastest for rough boards, broad camera exploration, internal review, and early story rhythm. Verify cell count, ratio, character drift, panel continuity, and crop geometry before final use.

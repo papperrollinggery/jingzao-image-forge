@@ -63,6 +63,9 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - scripts/validate_forward_tests.py: validates forward-test evidence paths and prompt hashes without pixel regression
 - scripts/create_style_capsule.py: deterministic source-image-free capsule exporter with advisory content-risk warnings
 - scripts/compile_prompt.py: standard-library prompt compiler
+- scripts/compile_production.py: opt-in shot-coverage validation and isolated single-frame compilation; no image or video execution
+- references/production-coverage.md: risk-based image anchors, world-space reverse views, prop states, edit side effects, and upstream workflow boundary
+- examples/production-coverage.json: original front/reverse/insert image specs plus a justified video-only beat
 - examples/atomic-cyber-live-action.json: synthetic validated edit example
 - examples/narrative-film-frame.json: validated relationship-driven cinematic ultrawide example
 - examples/styleboard-3x3.json: validated reference-led hybrid nine-grid storyboard example
@@ -112,6 +115,7 @@ python3 scripts/validate_spec.py examples/ui-motion-storyboard.json
 python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
 python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
 python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
+python3 scripts/compile_production.py examples/production-coverage.json --platform openai
 python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
 python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
 python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
@@ -119,7 +123,7 @@ python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform op
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
 
-Current deterministic baseline: 169 regression tests covering schema, compilation, four-platform UI Motion exact-text/accent/sequence/L0-L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy-aware complexity signals, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 196 regression tests covering schema, compilation, four-platform UI Motion exact-text/accent/sequence/L0-L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy-aware complexity signals, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations

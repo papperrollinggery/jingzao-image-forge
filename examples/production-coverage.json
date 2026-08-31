@@ -1,0 +1,62 @@
+{
+  "production_manifest": "1.0",
+  "coverage": [
+    {"shot_id": "shot-01", "requirement": "Establish the workshop geography before changing viewpoint.", "frame_ids": ["frame-01"]},
+    {"shot_id": "shot-02", "requirement": "Show the reverse view without mirroring the room's world geometry.", "frame_ids": ["frame-02"]},
+    {"shot_id": "shot-03", "requirement": "Prove the door's unlocked state with a readable latch insert.", "frame_ids": ["frame-03"]},
+    {"shot_id": "shot-04", "requirement": "Hold the resolved latch state with a gentle camera push.", "frame_ids": [], "video_only_reason": "A small straight push toward the already established latch changes no identity, contact, prop state, or newly revealed room geometry; confirm the chosen video input mode upstream."}
+  ],
+  "frames": [
+    {
+      "id": "frame-01",
+      "shot_id": "shot-01",
+      "purpose": "Front geography anchor; this metadata is not image text.",
+      "spec": {
+        "visual_generation_spec": "1.0",
+        "mode": "create",
+        "intent": "One graphite storyboard frame establishes a small empty mechanical workshop with a closed east-wall door.",
+        "platform": "openai",
+        "canvas": {"aspect_ratio": "16:9"},
+        "scene": {"summary": "A rectangular workshop has one window on the north wall, one dark-red wheel mounted on the west wall, a closed plain metal door on the east wall, and one central wooden table aligned north to south.", "setting": "Camera at the south side faces north. The north window is ahead, west-wall wheel is screen-left, and east-wall door is screen-right."},
+        "composition": {"shot_size": "wide room view", "camera_angle": "eye level facing north", "framing": "the central table separates the wheel and closed door; one continuous calm floor area remains foreground"},
+        "lighting": {"summary": "One soft daylight source enters from the north window and follows the room's fixed geography."},
+        "style": {"medium": "graphite storyboard on warm-white paper", "visual_traits": ["selective dark edges", "quiet low-frequency wall planes", "a restrained dark-red accent on the wheel only"]},
+        "constraints": {"must_preserve": ["one window on the north wall", "one wheel on the west wall", "closed door on the east wall", "one central table aligned north to south"], "exclude": ["production labels"]}
+      }
+    },
+    {
+      "id": "frame-02",
+      "shot_id": "shot-02",
+      "purpose": "Reverse-view anchor; the south wall is an explicit original design, not a claim about an unseen reference.",
+      "spec": {
+        "visual_generation_spec": "1.0",
+        "mode": "create",
+        "intent": "One graphite storyboard frame shows the same workshop from the north side facing south; its world layout stays fixed.",
+        "platform": "openai",
+        "canvas": {"aspect_ratio": "16:9"},
+        "scene": {"summary": "The rectangular workshop has a single north-wall window behind the camera, the dark-red wheel on the west wall, the closed plain metal door on the east wall, and the central wooden table aligned north to south. The newly visible south wall is a plain plaster wall.", "setting": "Camera near the north wall faces south. The east-wall door is screen-left, the west-wall wheel is screen-right, and the plain south wall is ahead. The north window remains behind the camera."},
+        "composition": {"shot_size": "wide reverse view", "camera_angle": "eye level facing south", "framing": "the opposite end of the table occupies the foreground; wheel and closed door remain readable on their correct walls"},
+        "lighting": {"summary": "The same soft north-window daylight now enters from behind the camera, with contact shadows consistent with the unchanged room."},
+        "style": {"medium": "graphite storyboard on warm-white paper", "visual_traits": ["selective dark edges", "quiet low-frequency wall planes", "a restrained dark-red accent on the wheel only"]},
+        "constraints": {"must_preserve": ["north-window world position behind this camera", "west-wall wheel and east-wall closed door", "one central table aligned north to south", "graphite medium and selective detail hierarchy"], "exclude": ["production labels"]}
+      }
+    },
+    {
+      "id": "frame-03",
+      "shot_id": "shot-03",
+      "purpose": "Separate prop-state insert: latch unlocked while the door itself remains closed.",
+      "spec": {
+        "visual_generation_spec": "1.0",
+        "mode": "create",
+        "intent": "One close graphite storyboard frame clearly shows a retracted sliding door bolt; the door remains closed.",
+        "platform": "openai",
+        "canvas": {"aspect_ratio": "16:9"},
+        "scene": {"summary": "A plain east-wall metal workshop door remains flush with its frame. Its horizontal brushed-steel bolt is fully retracted into its housing, leaving a visible gap before the keeper.", "setting": "Only the latch, a small door-surface region, and the keeper are in frame."},
+        "composition": {"shot_size": "latch insert", "camera_angle": "near frontal with a slight side offset", "framing": "the retracted bolt and empty keeper form the single primary read; calm door surface surrounds them"},
+        "lighting": {"summary": "Soft north-window light creates local contact shadows under the housing and a narrow material-specific highlight on the bolt."},
+        "style": {"medium": "graphite storyboard on warm-white paper", "visual_traits": ["precise focal edges on the gap", "low-frequency supporting door plane", "restrained neutral graphite values"]},
+        "constraints": {"must_preserve": ["door stays closed", "bolt is fully retracted and separated from keeper", "one physically coherent latch", "graphite medium"], "exclude": ["production labels"]}
+      }
+    }
+  ]
+}

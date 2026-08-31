@@ -180,6 +180,8 @@ Use `styleboard` when the user wants reference analysis translated into several 
 - Choose the generation strategy from speed and continuity risk: `sheet_direct` for the fastest one-call board, `independent_frames` for strict native-ratio continuity, or `hybrid` for a fast direct sheet followed by targeted cell replacement. A direct sheet is a valid deliverable when panel count, cell geometry, continuity, and crop safety pass review.
 - Lock continuity and state allowed variation separately. Match-cut pairs share geometry, orientation, focal-length feel, scale, action phase, and prop state; only declared variables may change.
 
+For a production sequence handed off to a video workflow, read [references/production-coverage.md](references/production-coverage.md). Account for each planned shot before generating assets: necessary image anchors or an explicit video-only reason, with no universal frame quota. Use `scripts/compile_production.py` for isolated single-frame prompt packages; a legacy styleboard compile remains a whole-board planning package. Keep story/video orchestration upstream, preserve world-space geometry across reverse views, and separate still-image states from video transitions.
+
 ## UI Motion Storyboard
 
 Use this route for interface-led brand-film frames, product walkthroughs, animated infographics, data cards, button/progress interactions, or monochrome storyboard frames with a restrained semantic accent. Read [references/ui-motion-storyboard.md](references/ui-motion-storyboard.md).
