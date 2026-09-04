@@ -1,6 +1,6 @@
 ---
 name: jingzao-image-forge
-description: "Use when image creation, editing, style learning, or storyboarding needs reference fidelity, artifact cleanup, material realism, or continuity."
+description: "Use when image work needs visual_generation_spec, reference-aware prompt compilation, artifact cleanup, style learning, or multi-frame continuity."
 ---
 
 # 镜造 Image Forge
