@@ -20,7 +20,7 @@ jobs:
           python-version: "3.10"
 
       - name: Compile Python sources
-        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py tests/test_production.py tests/test_quality_workflow.py
+        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/prompt_lint.py scripts/validate_forward_tests.py scripts/verify_install.py tests/test_skill.py tests/test_production.py tests/test_quality_workflow.py tests/test_install.py
 
       - name: Lint Python sources
         run: |
@@ -70,6 +70,13 @@ jobs:
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Verify releasable install payload
+        run: |
+          JINGZAO_INSTALL_FIXTURE="$(mktemp -d)"
+          trap 'rm -rf "$JINGZAO_INSTALL_FIXTURE"' EXIT
+          git archive --format=tar HEAD | tar -xf - -C "$JINGZAO_INSTALL_FIXTURE"
+          python3 scripts/verify_install.py . "$JINGZAO_INSTALL_FIXTURE" --ref HEAD
 
       - name: Validate independent production handoff
         run: |

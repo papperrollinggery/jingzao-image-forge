@@ -64,6 +64,7 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - scripts/create_style_capsule.py: deterministic source-image-free capsule exporter with advisory content-risk warnings
 - scripts/compile_prompt.py: standard-library prompt compiler
 - scripts/compile_production.py: opt-in shot-coverage validation and isolated single-frame compilation; no image or video execution
+- scripts/verify_install.py: compare installed tracked files, symlinks, content, and executable modes with a resolved Git release commit; runtime caches are reported separately and Git-empty directories are out of scope
 - references/production-coverage.md: risk-based image anchors, world-space reverse views, prop states, edit side effects, and upstream workflow boundary
 - examples/production-coverage.json: original front/reverse/insert image specs plus a justified video-only beat
 - examples/atomic-cyber-live-action.json: synthetic validated edit example
@@ -122,8 +123,9 @@ python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
 python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
 uvx ruff check scripts tests
 python3 -m unittest discover -s tests -v
+python3 scripts/verify_install.py . . --ref HEAD
 
-Current deterministic baseline: 205 regression tests covering production coverage, portable diagnostic preservation, quality-recovery wording, schema, compilation, four-platform UI Motion exact-text/accent/sequence/L0-L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy-aware complexity signals, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
+Current deterministic baseline: 219 regression tests covering release-to-install content and executable-mode parity, host-safe discovery metadata, production coverage, portable diagnostic preservation, quality-recovery wording, schema, compilation, four-platform UI Motion exact-text/accent/sequence/L0-L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy-aware complexity signals, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
 Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
 
 ## Research foundations

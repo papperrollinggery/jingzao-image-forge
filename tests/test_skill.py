@@ -1965,5 +1965,44 @@ class CompilerTests(unittest.TestCase):
         self.assertIn("Do not add or show: new text", result["prompt"])
 
 
+class SkillMetadataTests(unittest.TestCase):
+    def test_description_survives_host_catalog_normalization(self):
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        frontmatter = text.split("---", 2)[1]
+        description_line = next(
+            line for line in frontmatter.splitlines() if line.startswith("description:")
+        )
+        description = description_line.split(":", 1)[1].strip().strip('"')
+
+        self.assertTrue(description.startswith("Use when"))
+        self.assertLessEqual(len(description), 150)
+        self.assertFalse(description.endswith("..."))
+        for trigger in (
+            "image creation",
+            "editing",
+            "style learning",
+            "storyboarding",
+            "reference fidelity",
+            "artifact cleanup",
+            "material realism",
+            "continuity",
+        ):
+            with self.subTest(trigger=trigger):
+                self.assertIn(trigger, description)
+
+    def test_session_improvement_requires_post_install_parity_check(self):
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+
+        for phrase in (
+            "scripts/verify_install.py",
+            "release install or sync from a resolved commit or tag",
+            "installed payload matches",
+            "does not prove automatic adoption",
+            "Development working-tree copies are not release-parity evidence",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertTrue(phrase in text, f"SKILL.md is missing: {phrase}")
+
+
 if __name__ == "__main__":
     unittest.main()
