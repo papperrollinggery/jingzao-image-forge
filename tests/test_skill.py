@@ -1978,14 +1978,11 @@ class SkillMetadataTests(unittest.TestCase):
         self.assertLessEqual(len(description), 150)
         self.assertFalse(description.endswith("..."))
         for trigger in (
-            "image creation",
-            "editing",
-            "style learning",
-            "storyboarding",
-            "reference fidelity",
+            "visual_generation_spec",
+            "reference-aware prompt compilation",
             "artifact cleanup",
-            "material realism",
-            "continuity",
+            "style learning",
+            "multi-frame continuity",
         ):
             with self.subTest(trigger=trigger):
                 self.assertIn(trigger, description)
