@@ -1966,7 +1966,7 @@ class CompilerTests(unittest.TestCase):
 
 
 class SkillMetadataTests(unittest.TestCase):
-    def test_description_survives_host_catalog_normalization(self):
+    def test_description_stays_within_observed_host_catalog_limit(self):
         text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         frontmatter = text.split("---", 2)[1]
         description_line = next(
