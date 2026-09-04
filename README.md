@@ -100,6 +100,15 @@ Clone the repository into your user-level Codex Skills directory:
 git clone https://github.com/papperrollinggery/jingzao-image-forge.git ~/.codex/skills/jingzao-image-forge
 ```
 
+Verify that the installed tracked files and symlinks still match their resolved Git commit, including executable modes:
+
+```bash
+cd ~/.codex/skills/jingzao-image-forge
+python3 scripts/verify_install.py . . --ref HEAD
+```
+
+A `match` proves tracked-file and symlink parity only; Git-empty directories are outside this check. Start a new Codex task to test discovery or invocation; parity does not prove automatic adoption in a task that was already open.
+
 Start a new Codex task, then invoke the Skill explicitly:
 
 ```text
@@ -420,7 +429,7 @@ This design follows current evidence rather than a universal “best length”: 
 ├── agents/openai.yaml           UI metadata and invocation policy
 ├── templates/                   Visual-spec and style-capsule templates
 ├── references/                  Scenario, style, shot, color, render, learning, schema, and compiler guidance
-├── scripts/                     Spec/capsule validators, attachment preflight, capsule exporter, and prompt compiler
+├── scripts/                     Spec/capsule/install validators, attachment preflight, capsule exporter, and prompt compilers
 ├── examples/                    Validated cinematic, action/VFX, UI Motion/styleboard, style-learning, product, and architecture examples
 ├── tests/                       Regression tests and behavioral evals
 └── assets/                      README visual assets
@@ -429,7 +438,7 @@ This design follows current evidence rather than a universal “best length”: 
 ## Validation
 
 ```bash
-python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/reference_delivery.py scripts/prompt_lint.py scripts/validate_forward_tests.py tests/test_skill.py
+python3 -m py_compile scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/reference_delivery.py scripts/prompt_lint.py scripts/validate_forward_tests.py scripts/verify_install.py tests/test_skill.py tests/test_production.py tests/test_quality_workflow.py tests/test_install.py
 uvx ruff check scripts tests
 python3 scripts/validate_spec.py templates/visual-spec.json
 python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
@@ -438,9 +447,10 @@ python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
 python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
 python3 scripts/prompt_lint.py examples/ui-motion-storyboard.json --platform openai --max-words 1700
 python3 -m unittest discover -s tests -v
+python3 scripts/verify_install.py . . --ref HEAD
 ```
 
-Current local baseline: **205 deterministic regression tests** covering production coverage, portable diagnostic preservation, quality-recovery wording, and schema/compilation structure for all seven modes, four-platform UI Motion exact-text/accent/sequence/L0–L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy complexity signals, empty/constraints-only fail-closed behavior, cross-platform adaptive `clean_base` and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk scanning, `clean_reset` recovery, validated forward visual specifications and examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform contamination lint, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
+Current local baseline: **219 deterministic regression tests** covering release-to-install content and executable-mode parity, host-safe discovery metadata, production coverage, portable diagnostic preservation, quality-recovery wording, and schema/compilation structure for all seven modes, four-platform UI Motion exact-text/accent/sequence/L0–L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy complexity signals, empty/constraints-only fail-closed behavior, cross-platform adaptive `clean_base` and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk scanning, `clean_reset` recovery, validated forward visual specifications and examples, two evidence-bound style capsules, target-aware ImageGen handoff/receipt checks, recursive public-receipt sanitization and repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform contamination lint, no-deletion projection of explicit professional controls, placeholder leakage, canvas/provider consistency, creative routing, color/render structure, spatial tension, causal VFX, Midjourney execution routing, source-image-free capsule export, malformed inputs, CLI contracts, and explicit rejection of post-generation compositing. Generated-image quality remains a manual forward-test gate recorded in [the evidence manifest](tests/forward-test-manifest.json), not a pixel CI claim.
 
 Manual visual review: a dark environmental portrait combining natural skin, indigo fabric, brushed brass, worn wood, and one practical lamp was generated and inspected. Material separation, shadow readability, selective detail, and source-motivated highlights passed; no uncontrolled speckle, floating light orbs, global oily gloss, sharpening halos, or synthetic bokeh were observed. The output remains in the gallery, but its original prompt record was not retained and it is not manifest-bound evidence.
 
