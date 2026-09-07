@@ -27,6 +27,8 @@ Turn an image brief or observed reference into a maintainable visual specificati
 
 Treat the template as a neutral scaffold, not a request to fill every field.
 
+When the user supplies a tested complete prompt, preserve it and its actual reference-input bundle as the baseline. Do not automatically translate, expand, add a capsule or change the design before a faithful check. Mark requested adaptations separately; investigate execution differences with [references/image-generation-diagnostics.md](references/image-generation-diagnostics.md) only when needed.
+
 - Start with only the brief-grounded core: intended result, subject or visible event, environment when needed, requested medium, explicit canvas, and hard constraints.
 - Leave canvas, subject coordinates, camera, film finishing, render transport, and optical artifacts at `auto` or empty when the brief and observed references do not require them. A non-empty generation prompt with `render.artifact_budget: auto` emits only the adaptive preventive clean base; it must not silently choose 16:9, a camera, grain, bloom, flare, gloss, particles, or a new medium. An empty template and `learn_style` analysis emit no clean base.
 - Add a professional section only when it solves a current visual decision: narrative staging, extreme action geometry, hand/object mechanics, strict color continuity, named CG behavior, reference reconstruction, or another explicit requirement.
@@ -165,7 +167,7 @@ When the user requests 《继承者大会初试：何为长生？》, 继承者�
 
 For 晴海·角色写真, 清透夏日角色写真, or an approved match to the eight-reference summer photography family, read [references/azure-summer-style.md](references/azure-summer-style.md). Select its daylight/shade/sunset/interaction branch, restage for the target aspect ratio, and explicitly assign style ownership when combining it with grand fantasy architecture.
 
-When adult portrait or fashion work loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
+When adult portrait or fashion work specifies garment openings (such as a deep V neckline), changes coverage, or loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
 
 ## Narrative Film Frame
 

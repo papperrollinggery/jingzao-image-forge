@@ -1,0 +1,112 @@
+{
+  "review_date": "2026-09-08",
+  "purpose": "Faithful expression of explicitly requested adult garment openings and body/coverage relationships; preserve user-tested prompts as baselines.",
+  "source_evidence": {
+    "submitted_original_observed": true,
+    "user_confirmed_generation_success": true,
+    "result_image_available_for_local_inspection": false,
+    "initial_reference_images_inspected": 2,
+    "original_prompt_sha256": "929423fe0dbb29885ffd590ed2200e495a2a4c5de7991046c503a4b8775680d8",
+    "normalization": "Only an identified trailing UI invocation was excluded from the local original-prompt call; no translation, capsule addition or design rewrite.",
+    "privacy": "User conversation IDs, full private prompt and image paths are retained only in local task artifacts, not this distributed record.",
+    "result_image_scope": "Generated result in the referenced ChatGPT conversation, not the separate coordinated-task result"
+  },
+  "local_execution": {
+    "status": "not_reproduced_in_this_task_calls",
+    "tool": "built-in image_gen",
+    "attempt_count": 3,
+    "returned_images": 0,
+    "attempts": [
+      {
+        "case": "navel-depth",
+        "status": "moderation_blocked",
+        "moderation_stage": "output",
+        "category": "sexual",
+        "image_returned": false
+      },
+      {
+        "case": "lower-sternum-depth",
+        "status": "moderation_blocked",
+        "moderation_stage": "output",
+        "category": "sexual",
+        "image_returned": false
+      },
+      {
+        "case": "user-confirmed-original",
+        "status": "moderation_blocked",
+        "moderation_stage": "output",
+        "category": "sexual",
+        "image_returned": false
+      }
+    ]
+  },
+  "compilation_case": {
+    "spec_ref": "tests/forward-specs/adult-plunging-neckline-study.json",
+    "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+    "prompt_suffix": "\nCanvas: 2:3 portrait.",
+    "prompt_sha256": "8ef42111a4d153d9226e75bbd1947fd0f8a70517b05fab22a92370d3957c5e99",
+    "status": "compiled_and_sent_but_output_blocked"
+  },
+  "claims": [
+    "User-reported success and local failure coexist; local failure does not disprove the source report.",
+    "The two rewritten tests are not treated as reproductions of the original.",
+    "No universal neckline limit, acceptance-rate guarantee or safety-system evasion is inferred.",
+    "A coordinated-task image has now been viewed and matched to its saved hash; it does not retroactively turn this task three blocked calls into successes.",
+    "This task has no returned images; the separate peer native result has a scoped visual review and verified file hashes."
+  ],
+  "diagnostic_findings": {
+    "officially_supported": [
+      "Input and output checks are distinct.",
+      "Responses image tools document prompt revision and multi-turn references."
+    ],
+    "community_evidence": "A GPT Image 2 API/ChatGPT outcome discrepancy with output/sexual is reported; not an official root-cause finding.",
+    "hypotheses_not_proven": [
+      "stochastic output difference",
+      "conversation or hidden state effect",
+      "product/model/default parameter differences"
+    ],
+    "explicit_local_image_inputs": 0,
+    "backend_revised_prompt": "not_exposed",
+    "backend_model_snapshot": "not_exposed",
+    "root_cause": "unresolved",
+    "reliable_generation_fix": "not_established; one reference-backed original-input combination succeeded in coordinated task"
+  },
+  "peer_native_evidence": {
+    "source": "User-authorized DIR coordination task and its saved comparison artifacts",
+    "reported_tool": "native image_gen",
+    "reported_reference_image_count": 1,
+    "prompt_matches_original_ignoring_terminal_newline": true,
+    "source_prompt_sha256": "929423fe0dbb29885ffd590ed2200e495a2a4c5de7991046c503a4b8775680d8",
+    "image_returned": true,
+    "image_inspected_locally": true,
+    "image_sha256": "b1428d748ecd4f187334e0d8758ba292ff7886776806bdbe6ab54ff67aa2d132",
+    "local_artifact_locator": "output/female-garment-expression-20260908/peer-native-success.png",
+    "artifact_availability": "local_only_not_distributed",
+    "visual_review": "Five depictions of one adult woman, pale-blue irises, deep front V/upper abdomen and navel region, opaque lateral bodice, layered dress and shoulder hardware are visible. Red dominance is only partial.",
+    "control_boundary": "Peer reports one shared identity reference in its original-versus-expanded comparison; this task original-text test had zero explicit image inputs. One sample per condition, different task context, no exact backend state or revised_prompt; not a causal or reliability proof.",
+    "result": "reference_backed_original_bundle_has_one_verified_visual_success",
+    "reported_attachment_mechanism": "referenced_image_paths",
+    "reference_sha256": "b519f760535aebdb6f2fd90fd9b4f3dc123034193b86a4f6cd46ce7bf9a2123e",
+    "reference_file_hash_verified": true,
+    "reference_role": "The original high-collar identity/costume reference, not a previously edited deep-V result",
+    "within_peer_comparison": "Expanded and original prompts used the same single image reference, per saved comparison and explicit task report; text length, language/content and generation sample were not isolated individually.",
+    "reported_conditions": [
+      {
+        "prompt_characters": 9117,
+        "kind": "expanded_translation_with_capsule",
+        "result": "output_moderation_blocked"
+      },
+      {
+        "prompt_characters": 2009,
+        "kind": "user_original",
+        "result": "image_returned"
+      },
+      {
+        "prompt_characters": 3512,
+        "kind": "original_plus_formal_contracts",
+        "result": "output_moderation_blocked"
+      }
+    ],
+    "formal_pipeline_image_success": "not_demonstrated"
+  }
+}

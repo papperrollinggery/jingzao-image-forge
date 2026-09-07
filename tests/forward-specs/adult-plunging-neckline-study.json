@@ -1,0 +1,36 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "Create a high-quality adult costume fitting photograph that precisely expresses a plunging V neckline, natural body proportions and believable garment support. One original 32-year-old female court negotiator stands in a neutral fitting pose.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "adult-negotiator",
+      "count": 1,
+      "description": "Original 32-year-old adult woman with naturally proportionate curves, a medium-full bust, clear realistic waist and softly rounded hips. Calm confident expression; dark hair in a simple low coiled updo, natural brown eyes and rose-toned makeup.",
+      "appearance": [
+        "A floor-length jade silk-satin formal dress with a fitted bodice. Two opaque front panels form a clearly visible deep V-shaped neckline from the inner shoulders to the lower end of the sternum. The abdomen is covered by the solid lower bodice and waist band.",
+        "The side bodice panels securely cover and support the breasts from front and three-quarter views. Shaped darts, inner support and shoulder attachments maintain the natural contour. Neatly faced V edges lie flat and join the solid bodice below the neckline.",
+        "A fine low-contrast woven flowing-line pattern is integrated into the jade main cloth. The long skirt is fully opaque. Small aged-silver fasteners sit at the waist junctions; there is no transparent insert filling the V opening."
+      ],
+      "action": "Stands with relaxed shoulders and arms slightly separated from the torso, allowing the complete neckline and waist construction to remain visible."
+    }
+  ],
+  "scene": {
+    "summary": "Neutral warm-gray studio with soft side-front light and gentle fill; knee-up near-frontal three-quarter view, camera at chest height with a normal portrait perspective. Garment opening, material, face and body proportions are readable together. Real cloth weight, natural skin and clean sharp material detail; restrained adult fashion styling."
+  },
+  "constraints": {
+    "must_preserve": [
+      "Clearly visible deep V ending at the lower sternum, covered abdomen, opaque bust panels and natural body proportions."
+    ],
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage",
+      "weapons"
+    ]
+  }
+}
