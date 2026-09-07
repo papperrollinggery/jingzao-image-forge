@@ -23,9 +23,9 @@ Use these capsules only when the user explicitly asks for the named treatment or
 
 - File: `style-capsules/changsheng-inhabited-fantasy.json`
 - Read [scene and costume guidance](changsheng-style.md) when the user names 《继承者大会初试：何为长生？》 or its style.
-- Core: inhabited architectural depth, scene-dependent daylight/night palettes, differentiated skin/cloth/wood/metal, role-based costume and hair/makeup, readable faces and restrained focal ornament.
-- Source: 18 directly inspected sampled frames from one local film; raw frames are not distributed.
-- Validation and adoption status: see the capsule and `tests/forward-evidence/changsheng-style-review.json`.
+- Core: inhabited architectural depth and character-led wardrobe decisions; plain, pale, colorful, rich, tailored or fluid outfits retain differentiated material and construction quality. Read [the revised wardrobe system](changsheng-wardrobe-system.md).
+- Source: costume-focused resurvey of 149 original-resolution samples and 31 native-frame close inspections from one film; raw frames are not distributed.
+- Validation and adoption status: see the capsule and `tests/forward-evidence/changsheng-wardrobe-v2-review.json`. Prior v1.7.0 execution inputs are frozen in a test fixture.
 
 ## 晴海·角色写真 / Azure Summer Character Photography
 

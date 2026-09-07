@@ -1,0 +1,33 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A character-led costume material study of an original 34-year-old woman who hosts important negotiations: composed, socially assured and subtly theatrical. Express fine wardrobe construction with an intentionally fluid outer layer and a more structured opaque core.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "character",
+      "description": "Original adult woman with individual softly angular features, assured gaze and a naturally curvy proportionate figure; dark hair in a low asymmetric coil held by two tiny ivory floral pins, small silver drop earrings.",
+      "count": 1,
+      "appearance": [
+        "An opaque muted coral silk-satin fitted dress with a softly squared neckline and supportive princess-seamed bodice, a natural waist and an overlapping long skirt. A pale orchid organza open over-robe adds airy sleeve volume, secured with two small shaped silver clasps at the upper side panels.",
+        "The coral core has a fine tone-on-tone woven flowing-line pattern over its main panels, visible in raking light and coherent through folds. Pale orchid organza is sheer only on the sleeves and side drapes: single layers reveal the underlying arm or dress, overlaps deepen toward lilac, folded hems are visibly denser.",
+        "A sparse original fine embroidery meander travels over selected outer-sleeve fields, changing with the fabric plane, with a few raised stitches near a functional fastening. The silver clasps remain crisp small solid objects, the satin shows a broad soft directional highlight, and the organza has thin floating edges. Keep skin natural and the dress fully opaque."
+      ],
+      "action": "She turns gently toward an arriving guest with one hand resting on the back of a chair, the other lifting a small fold of the outer sleeve clear of the seat."
+    }
+  ],
+  "scene": {
+    "summary": "Knee-up three-quarter view at eye level, in a quiet guesthouse room with warm window light and a muted gray-beige background. Show the material overlap on the near arm and torso clearly; face, near garment and waist in readable focus, composed human presence rather than a glamour pose."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage",
+      "magic effects"
+    ]
+  }
+}

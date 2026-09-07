@@ -290,6 +290,9 @@ python3 scripts/compile_production.py examples/production-coverage.json --platfo
 
 ## 可复用风格包
 
+长生服装已重新蒸馏为人物与处境驱动的设计系统：基于全片149个原分辨率采样，六张实测覆盖朴素、浅色精织、鲜艳富饰、轻重叠层、同人物换场合及剧情近景。颜色、纹样范围、透明度和层数均按人设选择，不固定为暗色、透纱或领袖金边。见[服装系统](references/changsheng-wardrobe-system.md)；v1.7.0历史输入与哈希另行冻结保留。
+
+
 - [长生·华构人间](references/changsheng-style.md)：宏大可居住空间、人物妆发服装、多机位剧情画面，以及明确标为原创实测的法术对抗。
 - [晴海·角色写真](references/azure-summer-style.md)：海面逆光、棚下柔光、夕阳、近镜互动分支；横竖与超宽画幅重新布置，可与宏大建筑按职责融合。
 - [人物体型与服装贴合](references/body-and-garment-fit.md)：体型、衣服结构、覆盖与风格分别控制；保留明确要求的自然曲线和适度性感，不统一丰胸、缩腰或抹平。
@@ -439,7 +442,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/verify_install.py . . --ref HEAD
 ```
 
-当前本机基线为 **225 项确定性回归测试**，覆盖发布源到安装副本的内容与执行权限一致性、宿主安全的发现元数据、生产分镜、便携告警保真、保护媒介的清洁措辞，以及七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、四份证据绑定风格胶囊（其中两份的成图像素仅在本地审阅）、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[公开证据清单](tests/forward-test-manifest.json)或[风格目录](references/style-capsules.md)链接的明确本地审阅记录验收。回归检查本地记录的引用、case ID 和当前文本生图提示词哈希；本地成图不随发行包分发，不能从 ZIP 独立复核像素。
+当前本机基线为 **227 项确定性回归测试**，覆盖发布源到安装副本的内容与执行权限一致性、宿主安全的发现元数据、生产分镜、便携告警保真、保护媒介的清洁措辞，以及七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、四份证据绑定风格胶囊（其中两份的成图像素仅在本地审阅）、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[公开证据清单](tests/forward-test-manifest.json)或[风格目录](references/style-capsules.md)链接的明确本地审阅记录验收。回归检查本地记录的引用、case ID 和当前文本生图提示词哈希；本地成图不随发行包分发，不能从 ZIP 独立复核像素。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 

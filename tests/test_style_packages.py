@@ -39,7 +39,7 @@ class StylePackageTests(unittest.TestCase):
             self.assertGreaterEqual(len(scenarios), 2)
 
     def test_local_evidence_never_promises_packaged_pixels(self):
-        for name in ('changsheng-style-review', 'changsheng-extensions-review', 'azure-summer-style-review'):
+        for name in ('changsheng-style-review', 'changsheng-extensions-review', 'azure-summer-style-review', 'changsheng-wardrobe-v2-review'):
             review = read_json(f'tests/forward-evidence/{name}.json')
             self.assertTrue(review['distribution'])
             for case in review['cases']:
@@ -54,7 +54,7 @@ class StylePackageTests(unittest.TestCase):
                         self.assertEqual(validate_spec(read_json(case['spec_ref'])), [])
 
     def test_new_text_only_prompts_reproduce_recorded_inputs(self):
-        for name in ('changsheng-style-review', 'changsheng-extensions-review', 'azure-summer-style-review'):
+        for name in ('changsheng-style-review', 'changsheng-extensions-review', 'azure-summer-style-review', 'changsheng-wardrobe-v2-review'):
             review = read_json(f'tests/forward-evidence/{name}.json')
             for case in review['cases']:
                 if case['reference_images_sent']:
@@ -69,6 +69,26 @@ class StylePackageTests(unittest.TestCase):
                     self.assertEqual(lint_compiled_result(result), [])
                     prompt = result['prompt'] + case['prompt_suffix']
                     self.assertEqual(hashlib.sha256(prompt.encode()).hexdigest(), case['prompt_sha256'])
+
+    def test_wardrobe_revision_preserves_historical_capsule(self):
+        frozen = ROOT / 'tests/fixtures/changsheng-capsule-v1.7.0.json'
+        self.assertEqual(hashlib.sha256(frozen.read_bytes()).hexdigest(),
+                         '0242b97ae21f3c381c195d72845192794ad1469718843dab3a669773b79cc798')
+        for review_name in ('changsheng-style-review', 'changsheng-extensions-review'):
+            for case in read_json(f'tests/forward-evidence/{review_name}.json')['cases']:
+                self.assertEqual(case['capsule_ref'], 'tests/fixtures/changsheng-capsule-v1.7.0.json')
+
+    def test_wardrobe_revision_targets_survive_all_platforms(self):
+        capsule = read_json('references/style-capsules/changsheng-inhabited-fantasy.json')
+        for path in sorted((ROOT / 'tests/forward-specs').glob('changsheng-v2-*.json')):
+            spec = json.loads(path.read_text())
+            before = copy.deepcopy(spec)
+            for platform in ('openai', 'flux', 'midjourney', 'generic'):
+                with self.subTest(case=path.stem, platform=platform):
+                    result = compile_spec(spec, platform, capsule)
+                    self.assertNotEqual(result['prompt_review']['status'], 'blocked')
+                    self.assertIn(spec['intent'].rstrip('.'), json.dumps(result, ensure_ascii=False))
+                    self.assertEqual(spec, before)
 
     def test_azure_target_survives_all_platforms_without_mutation(self):
         capsule = read_json('references/style-capsules/azure-summer-character-photography.json')

@@ -1,0 +1,33 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A character-led costume material study of an original 36-year-old woman healer: warm, practical and quietly firm. Her clothes belong to an inhabited Chinese fantasy drama; convey careful workmanship through an ordinary fabric and wearable cut, without luxury ornaments.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "character",
+      "description": "An original adult woman with a broad gentle face, clear mature eyes and natural proportionate figure; dark hair folded into a practical low braided knot, held by a small plain wooden pin.",
+      "count": 1,
+      "appearance": [
+        "An opaque apricot cotton-linen wrap jacket, side-fastened with fabric ties, over a cream fine-weave inner layer and a muted moss-green straight skirt. Comfortable waist shaping, narrowed cuffs and a side slit allow work; no long trailing sleeves.",
+        "The apricot fabric is tightly and evenly woven with small natural yarn variation, soft edge thickness and fine hand-sewn seams. Elbow folds compress and deepen, shoulder cloth falls with moderate weight; the cream inner facing is smoother and finer than the outer jacket.",
+        "No embroidered borders, metal ornament, translucent fabric or armor on this practical outfit. Its quality rests on cut, restrained material texture, well-finished hems and the honest meeting of layers."
+      ],
+      "action": "Standing with one hand adjusting the folded cuff while looking calmly toward a waiting visitor just outside frame."
+    }
+  ],
+  "scene": {
+    "summary": "Knee-up three-quarter view, eye-level portrait perspective. A quiet plaster-and-timber clinic doorway with soft side daylight; background low contrast. Garment chest, cuff, waist and upper skirt are large and sharply readable, face naturally clear. Real photographic textile behavior, neutral color rendition, no atmospheric veil over clothes."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage",
+      "magic effects"
+    ]
+  }
+}

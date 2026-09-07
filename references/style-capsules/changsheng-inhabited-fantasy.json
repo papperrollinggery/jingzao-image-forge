@@ -6,72 +6,89 @@
   "status": "adopted",
   "adoption_approved": true,
   "source_summary": {
-    "source_count": 18,
+    "source_count": 149,
     "raw_images_stored": false,
-    "provenance": "Directly inspected 18 sampled frames (4 also enlarged) from one locally downloaded film, 继承者大会初试：何为长生？, video ID 7679721093191585074, on 2026-09-07. Source evidence and timestamps: references/changsheng-style.md. Raw reference pixels are not distributed."
+    "provenance": "Costume-focused re-distillation from the same locally downloaded film, video ID 7679721093191585074. Codex team surveyed 149 original-resolution candidate-interval samples across 386.58 seconds and inspected 31 selected native frames closely on 2026-09-07. See references/changsheng-wardrobe-system.md. Raw source pixels are not distributed. The later user comparison sheet is a quality target, not evidence of film wardrobe details."
   },
   "visual_rules": {
-    "medium_behavior": "Photographic Chinese period-fantasy film still: inhabited physical sets, expressive human faces, richly made but hierarchically restrained costume, and spatially integrated fantasy scale.",
+    "medium_behavior": "Photographic Chinese fantasy drama with individually designed, manufactured-looking wardrobes. Garment quality comes from coherent silhouette, cut, fabric behavior and construction; wardrobe choices change with the target character and situation.",
     "palette_logic": [
-      "Warm wood and muted bronze occupy built surfaces; blue-green belongs to recesses and distant shade, with readable warm skin.",
-      "Choose daylight ivory and amber, cool window-lit night, or warm timber hall according to the scene; do not apply one teal-orange wash.",
-      "A character may own a restrained plum, wine-red, ink-blue or pale neutral costume family; assign by role rather than coloring everyone identically."
+      "Derive garment hue, value, saturation and lining contrast from the target character, scene and intended social impression. The observed world includes light neutrals, warm yellow, vivid red/turquoise, purple and deep colors; none is a universal default.",
+      "Separate base-cloth color, pattern contrast and small accent highlights. Rich woven-looking patterns may occupy broad garment panels at controlled contrast; bright decoration and fine material density are different decisions.",
+      "Preserve natural skin and distinguish garment color from scene illumination; select daylight, shaded interior or warm hall light as motivated by the target scene."
     ],
-    "shape_line_language": "Layered rooflines, posts, railings and openings establish near/mid/far depth. Costume silhouettes use overlapping collars, shaped outer layers and gravity-led drape; detail concentrates near collar, cuffs and hair fastenings.",
+    "shape_line_language": "Choose enclosed or open, tailored or fluid, short or long, simple or layered, symmetric or asymmetric construction from character role and movement. Seams, closures, collars, waist shaping and hems form one wearable design; each is optional when irrelevant.",
     "texture_material_logic": [
-      "Wood, stone, bronze, dense woven cloth and translucent outer fabric have distinct roughness and weight; metal catches small highlights while textiles retain folds.",
-      "Skin retains age, facial planes and fine local texture. Hair forms coherent masses with a few loose strands; ornaments have visible attachment points.",
-      "Embroidery and metallic trim are locally concentrated rather than all-over ornamental noise."
+      "Assign each chosen fabric a weight, drape, opacity and local sheen appropriate to the outfit. Cloth fields, subtle woven texture, raised embroidery, binding, lining and structural accessories remain visually distinct when present.",
+      "Plain garments retain convincing weave scale, thickness, tension folds and seam edges without compulsory ornament. Rich garments may carry fine tone-on-tone or colored patterns across the body panels; motifs follow cut, folds and occlusion rather than sitting as flat stickers.",
+      "Select soft, structured, sheer or hard components only for the character’s design. Layer overlaps cast small contact shadows, folded thin cloth accumulates density, and harder pieces have attached edges and localized reflections."
     ],
-    "lighting_logic": "Motivated window or overhead daylight shapes faces and traverses the set; small warm practicals may articulate the depth. Air haze belongs to backlit spatial gaps. Eyes remain legible while distant crowds and ornament recede.",
+    "lighting_logic": "Motivated light reveals the chosen materials: directional sheen changes across a fold, matte cloth retains volume, translucent layers show underlying geometry when used. Preserve useful detail on the near garment without lighting every thread or accessory equally.",
     "composition_logic": [
-      "Choose either an inhabited establishing view, a relationship medium shot, or a face/hand evidence close-up according to the current brief.",
-      "For institutional spaces, levels, viewing directions and partial foreground obstructions make hierarchy readable; use a new plan for each target setting.",
-      "Portraits keep face and gesture primary, costume secondary and the environment legible but lower-contrast."
+      "For a story frame, face, gesture and selected costume cues communicate the event; for wardrobe study, give silhouette and material areas sufficient scale and focus.",
+      "Architecture remains inhabited and layered where the brief includes it; openings, railings and depth planes frame people at believable scale.",
+      "Choose the viewer position and shot size for the current information task rather than repeating one heroic portrait or pose."
     ],
     "typography_logic": [],
-    "optics_rendering_logic": "Photographic depth falloff, coherent perspective, soft highlight rolloff and selectively sharp eyes and garment edges; atmosphere reduces distant contrast without smearing the entire face.",
+    "optics_rendering_logic": "Coherent perspective, selective photographic depth and soft highlight rolloff. Keep the focal garment’s weave, pattern boundaries and construction legible; atmospheric softness belongs to distant space rather than erasing material distinctions.",
     "motifs": []
   },
   "inferred_traits": [
-    "Architecture and costume communicate social position before dialogue.",
-    "Fantasy scale is persuasive because faces, daily activity and tactile materials remain grounded."
+    "Silhouette, fabric investment, pattern contrast and dressing behavior can communicate how a fictional character presents themself within a social setting.",
+    "Material quality can remain consistent while hue, transparency, ornament density and structural weight vary widely. These are design inferences, not fixed personality-to-costume codes."
   ],
   "unknowns": [
-    "Original image/video models, prompts, makeup products, lens, film stock and hidden production pipeline.",
-    "Exact motion and audio performance are outside this still-style sampling."
+    "Original costume manufacturing methods, fibers, stitch counts, hidden patterns/cuts and production models cannot be recovered from compressed final video.",
+    "Precise personality or moral character cannot be inferred from clothing alone; use the target story brief.",
+    "Temporal garment simulation, sound and exact historical tailoring are not verified by these samples."
   ],
   "transfer_rules": [
-    "Transfer lighting, depth, material hierarchy and role-based costume design while inventing new people, garment patterns and architecture.",
-    "Apply scene rules only when the target includes a setting; apply period costume design only when the requested world permits it. Existing wardrobe, identity and cultural requirements remain authoritative.",
-    "Design hair, makeup and accessories from the target role, age and action. Use natural skin, deliberate brow/eye/lip emphasis and securely attached sparse ornaments; preserve facial individuality.",
-    "Keep unusual props, supernatural skin/eyes, elaborate crowns, circular arenas and dramatic haze optional and explicitly motivated by the new brief."
+    "Start with the target person’s temperament, role, resources, current action and circumstance; translate only relevant decisions into silhouette, fabric, construction, palette and dressing behavior.",
+    "Respect supplied identity, body proportions, wardrobe references, coverage and cultural constraints. A personality does not mandate a color, fabric or ornament count.",
+    "Preserve refined material and assembly behavior across plain, bright, ornate, tailored and fluid alternatives. Do not reduce every outfit to plain cloth with collar/cuff gold trim or require full-surface pattern everywhere.",
+    "A quality comparison image may guide finish and legibility but must not supply unobserved source-film facts or force its specific costume design onto unrelated characters."
   ],
   "forbidden_transfer": [
-    "Source faces, named characters, exact clothing patterns or jewelry designs.",
-    "Source plot, dialogue, subtitles, watermarks or exact camera/architecture layout.",
-    "Automatic wheelchairs, giant trees, mechanical hearts, vampire features or tournament staging."
+    "Source faces, named characters, literal clothing motifs, jewelry designs, text, logos or exact composition.",
+    "One source role’s dark palette, sheer sleeves, gold edging, armor or collar becoming the default for everyone.",
+    "Unrequested magic, glow, weapons or supernatural identity cues."
   ],
   "validation": {
     "prompts": [
-      "Create an original lived-in fantasy environment film frame: a tidal archive receiving its first visitor after a flood.",
-      "Create an original adult female textile guild master, age 48, pausing at her workshop doorway after an argument; medium close-up for character hair, makeup and costume design."
+      "A character-led costume material study of an original 36-year-old woman healer: warm, practical and quietly firm. Her clothes belong to an inhabited Chinese fantasy drama; convey careful workmanship through an ordinary fabric and wearable cut, without luxury ornaments.",
+      "A character-led costume material study of an original 31-year-old male archivist: precise, restrained and independently minded. High quality is carried by pale textile structure and accurate tailoring rather than bright metallic trim.",
+      "A character-led costume material study of an original 50-year-old male guild patron: expansive, sociable, proud of his success and generous in public. Show a richly crafted colorful outfit with coherent surface hierarchy, not a quiet robe decorated only at its collar.",
+      "A character-led costume material study of an original 34-year-old woman who hosts important negotiations: composed, socially assured and subtly theatrical. Express fine wardrobe construction with an intentionally fluid outer layer and a more structured opaque core."
     ],
-    "notes": "Two fresh text-only image tests visually reviewed on 2026-09-07. Transfer passed with hairstyle/material and opulence limitations recorded in evidence. User approved durable inclusion and global installation. This is not full source-film equivalence.",
+    "notes": "Wardrobe-focused revision visually reviewed on 2026-09-08: four different original characters plus two occasion/story transfers support adaptable material quality, not a fixed costume recipe. Independent review found no blocking visual issues; all differences and local-only pixel availability are recorded. Earlier v1.7.0 outputs remain bound to their frozen capsule and original hashes. User authorized re-distillation, optimization, testing, installation and release.",
     "evidence": [
       {
-        "case_id": "changsheng-tidal-archive",
+        "case_id": "changsheng-v2-apricot-healer",
         "prompt_index": 0,
-        "scenario": "environment",
-        "evidence_ref": "tests/forward-evidence/changsheng-style-review.json#changsheng-tidal-archive",
-        "review": "Retained layered timber/stone galleries, foreground occlusion, readable small human activity, light from open sky, differentiated surfaces and a new coastal setting. No source-specific arena, giant tree, face or copy visible. Limitation: More subdued and civic than the most opulent source scenes; opening-hand action is small at this scale."
+        "scenario": "plain practical workwear",
+        "evidence_ref": "tests/forward-evidence/changsheng-wardrobe-v2-review.json#changsheng-v2-apricot-healer",
+        "review": "No-ornament apricot cotton-linen, cream facing and moss skirt have distinct weave, thickness, seams, ties and working cuffs. Warm practical character intent reads through dressing and action. Limitation: No specific fiber blend or stitch count can be verified visually."
       },
       {
-        "case_id": "changsheng-weaver-portrait",
+        "case_id": "changsheng-v2-pearl-archivist",
         "prompt_index": 1,
-        "scenario": "mature character costume and makeup",
-        "evidence_ref": "tests/forward-evidence/changsheng-style-review.json#changsheng-weaver-portrait",
-        "review": "Retained mature facial texture, readable brow/eye/lip makeup, ink-blue/ivory/plum garment layers, localized collar/cuff embroidery, attached earrings, motivated window light and lower-contrast workshop depth. New identity and occupation. Limitation: Bun is higher than the requested low coil; silk reads relatively matte/coarse. Not exact hairstyle or fabric reproduction."
+        "scenario": "pale tonal tailored cloth",
+        "evidence_ref": "tests/forward-evidence/changsheng-wardrobe-v2-review.json#changsheng-v2-pearl-archivist",
+        "review": "Pale gray broad-panel low-contrast woven geometry follows torso and waist; matte ivory sleeve and pale celadon edging are distinct. Refinement does not depend on gold trim. Limitation: Exact weave manufacture is not proven; folio is held rather than fully tucked under the arm."
+      },
+      {
+        "case_id": "changsheng-v2-vermilion-patron",
+        "prompt_index": 2,
+        "scenario": "bright rich public dress",
+        "evidence_ref": "tests/forward-evidence/changsheng-wardrobe-v2-review.json#changsheng-v2-vermilion-patron",
+        "review": "Vermilion body and sleeve field pattern, teal facings, ivory interior, dimensional bronze closures and supported waist/sleeve assembly are readable. The full-build sociable patron differs materially and structurally from the other roles. Limitation: Motif scale is approximate and some interior cloth is more patterned than originally described."
+      },
+      {
+        "case_id": "changsheng-v2-orchid-host",
+        "prompt_index": 3,
+        "scenario": "fluid layered social dress",
+        "evidence_ref": "tests/forward-evidence/changsheng-wardrobe-v2-review.json#changsheng-v2-orchid-host",
+        "review": "Coral structured core, orchid translucent layer with overlap density, selective raised stitches and small silver fastenings are visible. Fine material and construction support a poised social presence. Limitation: Sheer layer covers a wider area than the specified sleeve/side zones; no exact tailoring or fiber claim."
       }
     ]
   }

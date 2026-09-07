@@ -1,0 +1,33 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A character-led costume material study of an original 31-year-old male archivist: precise, restrained and independently minded. High quality is carried by pale textile structure and accurate tailoring rather than bright metallic trim.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "character",
+      "description": "Original adult man with a long oval face, attentive dark eyes and a slim but ordinary build; black hair simply tied back with a small pale ceramic clasp.",
+      "count": 1,
+      "appearance": [
+        "A pearl-gray silk jacquard long waistcoat with a clean straight silhouette over an ivory plain-weave robe. Pale celadon narrow facings articulate the closure and a slim woven sash sets the waist. The sleeve opening and lower split are designed for sitting and reaching shelves.",
+        "Across the broad pearl-gray body panels, very fine low-contrast woven reed-like geometry appears through changing thread direction and soft directional sheen. The motif is part of the cloth field, bends with folds and disappears partly in shade; it is not a printed flat decal or gold border.",
+        "The ivory sleeves are matte and finely woven; the waistcoat has slightly firmer edges and tiny stitch definition at the side seam. No sheer cloth, armor or gold embroidery. Keep pale layers distinct through value, surface and thickness rather than exaggerated shadow."
+      ],
+      "action": "He pauses while slipping a closed unmarked folio beneath one arm, eyes turning toward an unheard question."
+    }
+  ],
+  "scene": {
+    "summary": "Knee-up near-frontal view with a slight three-quarter turn, camera at chest height. Soft cool daylight through a broad window in a timber archive; simple shelves softly blurred. The torso and near sleeve remain in clear focus so both tonal pattern and plain weave can be compared."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage",
+      "magic effects"
+    ]
+  }
+}

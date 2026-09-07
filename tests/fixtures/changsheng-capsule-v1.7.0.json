@@ -1,0 +1,78 @@
+{
+  "style_capsule": "1.0",
+  "id": "changsheng-inhabited-fantasy",
+  "name": "长生·华构人间 / Inhabited Chinese Fantasy",
+  "scope": "skill_candidate",
+  "status": "adopted",
+  "adoption_approved": true,
+  "source_summary": {
+    "source_count": 18,
+    "raw_images_stored": false,
+    "provenance": "Directly inspected 18 sampled frames (4 also enlarged) from one locally downloaded film, 继承者大会初试：何为长生？, video ID 7679721093191585074, on 2026-09-07. Source evidence and timestamps: references/changsheng-style.md. Raw reference pixels are not distributed."
+  },
+  "visual_rules": {
+    "medium_behavior": "Photographic Chinese period-fantasy film still: inhabited physical sets, expressive human faces, richly made but hierarchically restrained costume, and spatially integrated fantasy scale.",
+    "palette_logic": [
+      "Warm wood and muted bronze occupy built surfaces; blue-green belongs to recesses and distant shade, with readable warm skin.",
+      "Choose daylight ivory and amber, cool window-lit night, or warm timber hall according to the scene; do not apply one teal-orange wash.",
+      "A character may own a restrained plum, wine-red, ink-blue or pale neutral costume family; assign by role rather than coloring everyone identically."
+    ],
+    "shape_line_language": "Layered rooflines, posts, railings and openings establish near/mid/far depth. Costume silhouettes use overlapping collars, shaped outer layers and gravity-led drape; detail concentrates near collar, cuffs and hair fastenings.",
+    "texture_material_logic": [
+      "Wood, stone, bronze, dense woven cloth and translucent outer fabric have distinct roughness and weight; metal catches small highlights while textiles retain folds.",
+      "Skin retains age, facial planes and fine local texture. Hair forms coherent masses with a few loose strands; ornaments have visible attachment points.",
+      "Embroidery and metallic trim are locally concentrated rather than all-over ornamental noise."
+    ],
+    "lighting_logic": "Motivated window or overhead daylight shapes faces and traverses the set; small warm practicals may articulate the depth. Air haze belongs to backlit spatial gaps. Eyes remain legible while distant crowds and ornament recede.",
+    "composition_logic": [
+      "Choose either an inhabited establishing view, a relationship medium shot, or a face/hand evidence close-up according to the current brief.",
+      "For institutional spaces, levels, viewing directions and partial foreground obstructions make hierarchy readable; use a new plan for each target setting.",
+      "Portraits keep face and gesture primary, costume secondary and the environment legible but lower-contrast."
+    ],
+    "typography_logic": [],
+    "optics_rendering_logic": "Photographic depth falloff, coherent perspective, soft highlight rolloff and selectively sharp eyes and garment edges; atmosphere reduces distant contrast without smearing the entire face.",
+    "motifs": []
+  },
+  "inferred_traits": [
+    "Architecture and costume communicate social position before dialogue.",
+    "Fantasy scale is persuasive because faces, daily activity and tactile materials remain grounded."
+  ],
+  "unknowns": [
+    "Original image/video models, prompts, makeup products, lens, film stock and hidden production pipeline.",
+    "Exact motion and audio performance are outside this still-style sampling."
+  ],
+  "transfer_rules": [
+    "Transfer lighting, depth, material hierarchy and role-based costume design while inventing new people, garment patterns and architecture.",
+    "Apply scene rules only when the target includes a setting; apply period costume design only when the requested world permits it. Existing wardrobe, identity and cultural requirements remain authoritative.",
+    "Design hair, makeup and accessories from the target role, age and action. Use natural skin, deliberate brow/eye/lip emphasis and securely attached sparse ornaments; preserve facial individuality.",
+    "Keep unusual props, supernatural skin/eyes, elaborate crowns, circular arenas and dramatic haze optional and explicitly motivated by the new brief."
+  ],
+  "forbidden_transfer": [
+    "Source faces, named characters, exact clothing patterns or jewelry designs.",
+    "Source plot, dialogue, subtitles, watermarks or exact camera/architecture layout.",
+    "Automatic wheelchairs, giant trees, mechanical hearts, vampire features or tournament staging."
+  ],
+  "validation": {
+    "prompts": [
+      "Create an original lived-in fantasy environment film frame: a tidal archive receiving its first visitor after a flood.",
+      "Create an original adult female textile guild master, age 48, pausing at her workshop doorway after an argument; medium close-up for character hair, makeup and costume design."
+    ],
+    "notes": "Two fresh text-only image tests visually reviewed on 2026-09-07. Transfer passed with hairstyle/material and opulence limitations recorded in evidence. User approved durable inclusion and global installation. This is not full source-film equivalence.",
+    "evidence": [
+      {
+        "case_id": "changsheng-tidal-archive",
+        "prompt_index": 0,
+        "scenario": "environment",
+        "evidence_ref": "tests/forward-evidence/changsheng-style-review.json#changsheng-tidal-archive",
+        "review": "Retained layered timber/stone galleries, foreground occlusion, readable small human activity, light from open sky, differentiated surfaces and a new coastal setting. No source-specific arena, giant tree, face or copy visible. Limitation: More subdued and civic than the most opulent source scenes; opening-hand action is small at this scale."
+      },
+      {
+        "case_id": "changsheng-weaver-portrait",
+        "prompt_index": 1,
+        "scenario": "mature character costume and makeup",
+        "evidence_ref": "tests/forward-evidence/changsheng-style-review.json#changsheng-weaver-portrait",
+        "review": "Retained mature facial texture, readable brow/eye/lip makeup, ink-blue/ivory/plum garment layers, localized collar/cuff embroidery, attached earrings, motivated window light and lower-contrast workshop depth. New identity and occupation. Limitation: Bun is higher than the requested low coil; silk reads relatively matte/coarse. Not exact hairstyle or fabric reproduction."
+      }
+    ]
+  }
+}

@@ -7,7 +7,7 @@
       "case_id": "changsheng-tidal-archive",
       "scenario": "environment",
       "spec_ref": "tests/forward-specs/changsheng-tidal-archive.json",
-      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "capsule_ref": "tests/fixtures/changsheng-capsule-v1.7.0.json",
       "generator": "built-in image_gen",
       "reference_images_sent": 0,
       "prompt_sha256": "440e0361e6e7ce44d01c629e8eb4a229aeb679fa622a0c2097552a4fdca41bf1",
@@ -35,7 +35,7 @@
       "case_id": "changsheng-weaver-portrait",
       "scenario": "mature character costume and makeup",
       "spec_ref": "tests/forward-specs/changsheng-weaver-portrait.json",
-      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "capsule_ref": "tests/fixtures/changsheng-capsule-v1.7.0.json",
       "generator": "built-in image_gen",
       "reference_images_sent": 0,
       "prompt_sha256": "0efd1673c5b0adfd7aee07bd4cd27970d639e3dbfed899687bbea287374f1ce5",
@@ -66,5 +66,6 @@
     "observed": "Reviewed 18 source samples and both outputs; checked spec compilation, image hashes and dimensions; no opt-in scope violations found.",
     "limitations": "Environment less chromatically rich and socially active than source; portrait high bun and coarse-matte silk. No A/B causal claim or complete provider invocation-chain claim."
   },
-  "distribution": "Source pixels and generated output pixels are not included in the release. Local artifact locators are diagnostic labels, not resolvable repository links; hashes bind locally reviewed outputs only."
+  "distribution": "Source pixels and generated output pixels are not included in the release. Local artifact locators are diagnostic labels, not resolvable repository links; hashes bind locally reviewed outputs only.",
+  "capsule_revision": "Historical v1.7.0 snapshot; hashes bind original execution prompts, not the revised active capsule."
 }

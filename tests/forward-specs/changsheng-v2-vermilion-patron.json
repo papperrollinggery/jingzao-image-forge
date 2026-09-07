@@ -1,0 +1,33 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A character-led costume material study of an original 50-year-old male guild patron: expansive, sociable, proud of his success and generous in public. Show a richly crafted colorful outfit with coherent surface hierarchy, not a quiet robe decorated only at its collar.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "character",
+      "description": "Original adult man with a full rounded build, expressive lined eyes and a good-humored half-smile; swept salt-and-pepper hair with one small bronze fastening.",
+      "count": 1,
+      "appearance": [
+        "A luminous vermilion silk-brocade outer robe with generous sleeves and substantial soft folds, an ivory textured inner robe, and peacock-teal folded facings revealed at lapel and turned cuff. A broad patterned cloth belt supports the overlapping layers without compressing his body unnaturally.",
+        "The vermilion body and sleeve panels carry an all-over original network of small flowing botanical and geometric woven motifs in dark red and warm muted copper. Fine thread direction, slight raised weave and changing highlights make the pattern integral to the fabric. Pattern density continues across the torso; contrast varies so it does not become uniform glitter.",
+        "The teal facing has a quieter finer weave, and the ivory interior is softly matte. Narrow raised couched thread accents emphasize selected panel joins; a few aged bronze closure pieces have actual thickness and small dark contact shadows. Richness is distributed across garment fields and assembly, with real edge binding and layered sleeve construction."
+      ],
+      "action": "He opens one arm in a welcoming gesture, allowing the broad cuff to reveal its teal facing; the other hand rests casually at his belt."
+    }
+  ],
+  "scene": {
+    "summary": "Knee-up full costume portrait, three-quarter view at chest height. Warm neutral side light in a pale plaster antechamber, softly lit and understated background. Fine garment texture and construction stay visible across chest, sleeve and waist; natural face, realistic cloth weight, no global metallic sheen."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage",
+      "magic effects"
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "review_date": "2026-09-08",
+  "source_survey_date": "2026-09-07",
+  "source_video_sha256": "35e08d3b6f65bc211f6385fba6582be098e76468161f35df71c6ac67fcd467e7",
+  "source_sampling": {
+    "surveyed_samples": 149,
+    "native_frames_inspected_closely": 31,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "previous_cache_dimensions": [
+      720,
+      406
+    ],
+    "scope": "Candidate-interval samples, not verified exact editing boundaries; source clothing material/production methods remain observational or inferred."
+  },
+  "distribution": "Original video, extracted source frames, user comparison sheet and generated test pixels remain local-only. Artifact locators are diagnostic labels, not repository image links. Text-only specs and original prompt hashes are distributed and reproducible.",
+  "test_method": "Four text-only original characters with different roles/wardrobe decisions; two image-referenced tests for a changed occasion and a dialogue close-up. No raw film/benchmark images sent in these generation tests.",
+  "independent_review": {
+    "status": "passed_with_nonblocking_differences",
+    "scope": "Actual viewing of six native film examples, user quality comparison and all six returned images. No mandatory visual rework found; garment fiber/read and sheer coverage differences retained below."
+  },
+  "cases": [
+    {
+      "case_id": "changsheng-v2-apricot-healer",
+      "scenario": "plain practical workwear",
+      "spec_ref": "tests/forward-specs/changsheng-v2-apricot-healer.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_suffix": "\nCanvas: 2:3 portrait. High-resolution material-readable photograph.",
+      "prompt_sha256": "9094571d9a4641b3532dc6f9b391d7163309a7c5dee9cef5227a4c26228d2598",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/tests/changsheng-v2-apricot-healer.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "b7394a1e81e57997518ca5764412d52ee5ca063f590a81a5b79566254b19ad00",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed",
+      "visual_review": "No-ornament apricot cotton-linen, cream facing and moss skirt have distinct weave, thickness, seams, ties and working cuffs. Warm practical character intent reads through dressing and action.",
+      "limitations": "No specific fiber blend or stitch count can be verified visually."
+    },
+    {
+      "case_id": "changsheng-v2-pearl-archivist",
+      "scenario": "pale tonal tailored cloth",
+      "spec_ref": "tests/forward-specs/changsheng-v2-pearl-archivist.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_suffix": "\nCanvas: 2:3 portrait. High-resolution material-readable photograph.",
+      "prompt_sha256": "36da209a55197434053ae25ed3f4f1112acf3c04c5210b7a1a78e5ffe880eb18",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/tests/changsheng-v2-pearl-archivist.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "a787375743ea6db746ef0f77ca5a4e2d85633107757110f3e40fa8638e88a521",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed",
+      "visual_review": "Pale gray broad-panel low-contrast woven geometry follows torso and waist; matte ivory sleeve and pale celadon edging are distinct. Refinement does not depend on gold trim.",
+      "limitations": "Exact weave manufacture is not proven; folio is held rather than fully tucked under the arm."
+    },
+    {
+      "case_id": "changsheng-v2-vermilion-patron",
+      "scenario": "bright rich public dress",
+      "spec_ref": "tests/forward-specs/changsheng-v2-vermilion-patron.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_suffix": "\nCanvas: 2:3 portrait. High-resolution material-readable photograph.",
+      "prompt_sha256": "2cd6b1ee12cc38580c76b758cf6f1e9ce24fe9cdac95f3fdd3d38870e80dd2cb",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/tests/changsheng-v2-vermilion-patron.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "2dc716862d7689561b383c16f62e76f9349bd0d49c1fbb109281da5305a61ae0",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed",
+      "visual_review": "Vermilion body and sleeve field pattern, teal facings, ivory interior, dimensional bronze closures and supported waist/sleeve assembly are readable. The full-build sociable patron differs materially and structurally from the other roles.",
+      "limitations": "Motif scale is approximate and some interior cloth is more patterned than originally described."
+    },
+    {
+      "case_id": "changsheng-v2-orchid-host",
+      "scenario": "fluid layered social dress",
+      "spec_ref": "tests/forward-specs/changsheng-v2-orchid-host.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_suffix": "\nCanvas: 2:3 portrait. High-resolution material-readable photograph.",
+      "prompt_sha256": "34161ee71c87dc5173c9952d825ed17a59fc056c87b4b3438b873990c3033173",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/tests/changsheng-v2-orchid-host.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "ccf2a08d2981ec47c31044c90170240fa34169a817a48c744fd82007ef3247f7",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed",
+      "visual_review": "Coral structured core, orchid translucent layer with overlap density, selective raised stitches and small silver fastenings are visible. Fine material and construction support a poised social presence.",
+      "limitations": "Sheer layer covers a wider area than the specified sleeve/side zones; no exact tailoring or fiber claim."
+    },
+    {
+      "case_id": "changsheng-v2-healer-council",
+      "scenario": "same person different occasion and single visible garment",
+      "local_spec_locator": "output/changsheng-wardrobe-redistill-20260907/scene-tests/healer-council-spec.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 1,
+      "actual_attachment_mechanism": "referenced_image_paths",
+      "input_sha256": "b7394a1e81e57997518ca5764412d52ee5ca063f590a81a5b79566254b19ad00",
+      "prompt_suffix": "\nCanvas: 2:3.",
+      "prompt_sha256": "568394aed118a88332e718bec0a5b6324ba625dd88212cf7442ede9fd4025240",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/scene-tests/healer-council.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "2212325677327b96be5088d9b13a0917abdcb7c71db68333f653c65057e1960e",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed",
+      "visual_review": "Same healer identity remains recognizable in an unornamented single-layer-looking blue council robe; near cloth grain, fold and edge thickness remain readable. Outfit/occasion varies without changing temperament.",
+      "limitations": "The cloth reads more like fine-grained handwoven cloth than specifically fine wool crepe; hidden garment layers cannot be certified from a still."
+    },
+    {
+      "case_id": "changsheng-v2-patron-story",
+      "scenario": "tested rich costume retained in dialogue close-up",
+      "local_spec_locator": "output/changsheng-wardrobe-redistill-20260907/scene-tests/patron-story-spec.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 1,
+      "actual_attachment_mechanism": "referenced_image_paths",
+      "input_sha256": "2dc716862d7689561b383c16f62e76f9349bd0d49c1fbb109281da5305a61ae0",
+      "prompt_suffix": "\nCanvas: 3:2.",
+      "prompt_sha256": "1d25fa6bfe9967f6e2be73e095f11ef320899af0e4eddf5b2a5f9243c36e6a08",
+      "local_artifact_locator": "output/changsheng-wardrobe-redistill-20260907/scene-tests/patron-story.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "fbb8e66d103a6269fdeb546152be4aad5679009084bddaad8c8186e23f279f69",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "status": "passed",
+      "visual_review": "The same patron and broad-field red motifs, teal/ivory layers and bronze closures remain legible in a new dialogue composition and lighting. Clothing survives story framing and depth of field.",
+      "limitations": "Exact motif placement is not pixel-locked; this is one reference-assisted still, not temporal continuity proof."
+    }
+  ],
+  "generation_attempts_note": "Two initial text-only requests produced no returned output during a prolonged wait; their orchestrator wait was terminated with provider outcome unknown. One bounded retry of each returned the adopted images. An initial scene-reference call rejected relative paths before an image result; normal reference_delivery preflight resolved absolute paths for the successful calls. Unreturned/rejected attempts are not visual evidence.",
+  "limits": [
+    "No causal A/B baseline or general model-quality improvement claim.",
+    "No user acceptance, exact fiber/cut reconstruction, video or deterministic continuity claim.",
+    "The user comparison sheet guides quality only; it is not treated as source-film wardrobe fact."
+  ]
+}
