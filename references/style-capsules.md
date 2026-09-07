@@ -27,6 +27,14 @@ Use these capsules only when the user explicitly asks for the named treatment or
 - Source: 18 directly inspected sampled frames from one local film; raw frames are not distributed.
 - Validation and adoption status: see the capsule and `tests/forward-evidence/changsheng-style-review.json`.
 
+## 晴海·角色写真 / Azure Summer Character Photography
+
+- File: `style-capsules/azure-summer-character-photography.json`
+- Read [lighting branches, format adaptation and mixed-style ownership](azure-summer-style.md).
+- Core: airy blue/ivory daylight, warm readable skin, physical styled hair and layered fabrics, soft near-depth framing and event-grounded camera relationships. Shade and warm sunset are explicit branches.
+- Derived from eight inspected user references without storing source pixels or copying identities, emblems, costume designs or text.
+- Evidence status: see capsule and `tests/forward-evidence/azure-summer-style-review.json`; generated pixels remain local-only.
+
 ## Use
 
 Validate before applying:

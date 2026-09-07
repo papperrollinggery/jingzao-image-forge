@@ -11,7 +11,6 @@
       "generator": "built-in image_gen",
       "reference_images_sent": 0,
       "prompt_sha256": "440e0361e6e7ce44d01c629e8eb4a229aeb679fa622a0c2097552a4fdca41bf1",
-      "output_ref": "output/changsheng-style-20260907/archive.png",
       "output_sha256": "aa6e8ae9c89abecb6558964b83373469ec6b35d27f5c63a9b8b6d5e576ef9d53",
       "dimensions": [
         1672,
@@ -27,7 +26,10 @@
         "source_reference_count": 0,
         "output_hash_binding": "aa6e8ae9c89abecb6558964b83373469ec6b35d27f5c63a9b8b6d5e576ef9d53",
         "receipt_scope": "Primary agent directly observed the built-in tool return this output. No standalone provider tool-call ID was exposed; independent reviewer verified files, not provider execution."
-      }
+      },
+      "local_artifact_locator": "output/changsheng-style-20260907/archive.png",
+      "artifact_availability": "local_only_not_distributed",
+      "prompt_suffix": "\nCanvas: 16:9 landscape."
     },
     {
       "case_id": "changsheng-weaver-portrait",
@@ -37,7 +39,6 @@
       "generator": "built-in image_gen",
       "reference_images_sent": 0,
       "prompt_sha256": "0efd1673c5b0adfd7aee07bd4cd27970d639e3dbfed899687bbea287374f1ce5",
-      "output_ref": "output/changsheng-style-20260907/portrait.png",
       "output_sha256": "4ee9d935287485a8f65a3fa54e8b3b9056735e677d214e96a94043b34536692b",
       "dimensions": [
         1536,
@@ -53,7 +54,10 @@
         "source_reference_count": 0,
         "output_hash_binding": "4ee9d935287485a8f65a3fa54e8b3b9056735e677d214e96a94043b34536692b",
         "receipt_scope": "Primary agent directly observed the built-in tool return this output. No standalone provider tool-call ID was exposed; independent reviewer verified files, not provider execution."
-      }
+      },
+      "local_artifact_locator": "output/changsheng-style-20260907/portrait.png",
+      "artifact_availability": "local_only_not_distributed",
+      "prompt_suffix": "\nCanvas: 3:2 landscape."
     }
   ],
   "scope": "Still-image mechanisms only. Exact source reconstruction, video motion, lip sync and whole-film quality unverified. No capsule-free A/B baseline was generated; these tests demonstrate compatible outputs under the capsule, not causal improvement over the base model.",
@@ -61,5 +65,6 @@
     "status": "approved_with_concerns",
     "observed": "Reviewed 18 source samples and both outputs; checked spec compilation, image hashes and dimensions; no opt-in scope violations found.",
     "limitations": "Environment less chromatically rich and socially active than source; portrait high bun and coarse-matte silk. No A/B causal claim or complete provider invocation-chain claim."
-  }
+  },
+  "distribution": "Source pixels and generated output pixels are not included in the release. Local artifact locators are diagnostic labels, not resolvable repository links; hashes bind locally reviewed outputs only."
 }

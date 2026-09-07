@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A grand Chinese fantasy drama frame from a steep high oblique camera on the upper gallery, looking down across a vast terraced palace courtyard during an interrupted imperial ceremony. The viewer notices a lone arrival splitting the rigid social order.",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "scene": {
+    "summary": "Rich vermilion timber pavilions, gilded roof corners and broad pale stone terraces arranged in an original asymmetrical plan around a long rectangular reflecting pool. Dense but ordered rows of courtiers in deep plum, petrol blue, gold-bordered ivory and wine-red brocade face the far dais. A lone mud-stained messenger in plain gray stands in the empty central aisle with a collapsed wet banner at his feet; nearest courtiers turn toward him while distant rows still face the dais. Camera height about three stories, 35mm equivalent, downward diagonal rather than straight flat plan; a blurred roof corner intrudes near foreground. Late afternoon ivory light defines warm gold roofs and blue-green arcade shadows. Real human scale, detailed stone joints and selectively intricate costume borders, measured grandeur. Freeze the breath after the messenger enters; the ruler stays small and partly hidden by canopy."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

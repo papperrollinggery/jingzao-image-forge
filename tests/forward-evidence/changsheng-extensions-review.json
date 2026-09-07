@@ -1,0 +1,141 @@
+{
+  "review_date": "2026-09-07",
+  "distribution": "Generated and source pixels are not distributed; local locators are diagnostic labels, not repository image links.",
+  "source_boundary": "These six new scenes are original generation tests, not observations of the reference film.",
+  "review_status": "primary_and_independent_complete",
+  "cases": [
+    {
+      "case_id": "changsheng-extension-01-overhead-court",
+      "scenario": "high-oblique institutional courtyard",
+      "spec_ref": "tests/forward-specs/changsheng-extension-01-overhead-court.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "4fc3ddfb5b22209ebee4522a569c5ce5ef1f680a4b0449878d4e07981e528a75",
+      "prompt_suffix": "\nCanvas: 16:9 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/01-overhead-court.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "3f06d9ba746fdc04adbe2bec2aa80363081f4bf4cff20d04c1db978b8422b819",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "passed",
+      "visual_review": "High oblique viewer position, roof occlusion, empty central aisle and interrupted crowd order are readable.",
+      "limitations": "More ceremonial and ornate than many source scenes."
+    },
+    {
+      "case_id": "changsheng-extension-02-low-tide-gate",
+      "scenario": "ground-level closing gate",
+      "spec_ref": "tests/forward-specs/changsheng-extension-02-low-tide-gate.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "cc1e9dbbf203a2862c1014616eb9bc9ba59aabd5e887d2bd87f8b8426fb5f61e",
+      "prompt_suffix": "\nCanvas: 16:9 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/02-low-tide-gate.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "444a671e21400aae164b8b796204f481f941c8b9fe5047ea28d0640d01772f11",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "partial",
+      "visual_review": "Low viewer position, looming gate, refugees and wet-ground direction are readable.",
+      "limitations": "The opening is higher than the requested shoulder-height gap; guard assistance is ambiguous."
+    },
+    {
+      "case_id": "changsheng-extension-03-telephoto-bridge",
+      "scenario": "concealed long-lens standoff",
+      "spec_ref": "tests/forward-specs/changsheng-extension-03-telephoto-bridge.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "0bb7e25565cc0cbde31edf5f84df9a277c41418755b96234f09cacc57c9d344c",
+      "prompt_suffix": "\nCanvas: 16:9 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/03-telephoto-bridge.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "fcf8a27a966eae6c36cce4b7f11bc95b6e388f40b4bece6e889fa3af6229347d",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "partial",
+      "visual_review": "Window occlusion, two depth planes, costume distinction and empty separation are readable.",
+      "limitations": "Reads as two platforms rather than continuous bridges; precise telephoto compression and mutual eyelines not proven."
+    },
+    {
+      "case_id": "changsheng-extension-04-side-water-fire",
+      "scenario": "side-view water-fire combat",
+      "spec_ref": "tests/forward-specs/changsheng-extension-04-side-water-fire.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "8e62a9077e9458235a835e181b9596d2ec321474bbf07f290d0517b4d604c411",
+      "prompt_suffix": "\nCanvas: 16:9 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/04-side-water-fire.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "fe559e66e31a91cb86fd69b4d9c7ba7792ebb331016da0ae7009f62c42e7970c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "passed",
+      "visual_review": "Two supported bodies, held blade, water source/contact, steam and local splashes are readable; clothing remains visible.",
+      "limitations": "Water sheet has excess decorative splash and rises higher than the requested face-height limit."
+    },
+    {
+      "case_id": "changsheng-extension-05-shoulder-seal",
+      "scenario": "over-shoulder protective seal",
+      "spec_ref": "tests/forward-specs/changsheng-extension-05-shoulder-seal.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "0a4a9cdafc48ec4214d9e2828f5b04a0ae6d0fb10d857bc64262949645a8bb4d",
+      "prompt_suffix": "\nCanvas: 3:2 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/05-shoulder-seal.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "4e437ee11de147d10af62724eda2609916348ff74cc7e24fada8d654770b4903",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "status": "passed",
+      "visual_review": "Spear, barrier, defender and civilians create a clear protection relationship; strain, cuff and local warm light remain readable.",
+      "limitations": "Barrier is broader than specified; contact dent is weak and fractures spread widely."
+    },
+    {
+      "case_id": "changsheng-extension-06-high-stone-bind",
+      "scenario": "high-oblique stone binding",
+      "spec_ref": "tests/forward-specs/changsheng-extension-06-high-stone-bind.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "bb2f5ec0b592e45f95b66dff872098161989b8aba081bef66d97e6e9976fbd26",
+      "prompt_suffix": "\nCanvas: 16:9 landscape.",
+      "local_artifact_locator": "output/changsheng-style-20260907/angles-magic/06-high-stone-bind.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "ebe0cfd7c0e8d13e34e8d54a28a315238871d5247aaaac588ddb5eaad99f74d7",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "partial",
+      "visual_review": "Caster contact with paving, V-shaped stone path and opponent forward weight are readable.",
+      "limitations": "Ribs do not clearly curl around or lock the shins; completed restraint is not demonstrated."
+    }
+  ],
+  "adopted_methods": [
+    "viewer position and foreground occlusion",
+    "one informative action phase",
+    "explicit source/contact/receiver/environment response",
+    "face, hand and costume hierarchy"
+  ],
+  "not_adopted": [
+    "precise focal-length proof",
+    "exact gate gap",
+    "completed stone leg restraint",
+    "source-film magic-system claims"
+  ],
+  "scope": "Still images only; no temporal combat, video or model-causality validation."
+}

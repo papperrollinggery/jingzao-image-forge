@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A dramatic telephoto Chinese fantasy palace exterior: two rival delegations stop on parallel bridges across a deep gorge, each waiting for the other to bow first. Vast architecture and small socially tense human groups.",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "scene": {
+    "summary": "View from behind a partially open carved window, 135mm equivalent long-lens compression. Foreground dark lattice edges frame two staggered richly built covered stone-and-timber bridges; nearer left bridge hosts a female ambassador in elaborate deep peacock-blue silk with restrained gold collar and cuff embroidery, facing a distant male official in wine-red brocade on the farther right bridge. Each has two attendants and a folded ceremonial parasol. The groups leave conspicuous empty bridge length between their body lines; no handshake yet. Layer upon layer of warm bronze roof ridges and cool green mountain terraces rise behind, softened with atmospheric depth; one waterfall drops far below to prove scale. Warm sun catches the ambassador’s profile and her textured sleeve edge. The camera witnesses a stalemate from concealment, not a centered landscape postcard. Preserve the two different depth planes and opposing eyelines."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A tense over-the-attacker-shoulder close-up of a female cultivator holding a failing seal barrier at the doorway behind which civilians shelter. Read her strain and refined costume through a narrow transparent magical surface.",
+  "canvas": {
+    "aspect_ratio": "3:2"
+  },
+  "scene": {
+    "summary": "Blurred dark attacker shoulder and firmly gripped spear shaft occupy the near left edge. Focus beyond them on an original 38-year-old woman with a fine swept coiled hairstyle fixed by one gold comb, pearl drop earring, natural warm skin, controlled plum eye makeup, lips parted with effort. Her ivory silk inner collar, deep plum satin outer robe and narrow meticulously embroidered bronze-gold sleeve border remain readable. Her raised palm braces a small upright rectangular translucent amber seal-plane anchored at its bottom to a bronze threshold latch. The spear tip presses a visible local dent into the plane beside her shoulder, safely off her face. Hairline fractures radiate only from this contact point; warm amber light reflects locally on her fingertips and cheek. The barrier bows toward her, elbow bent, torso leaning into resistance. A frightened adult behind the dim doorway grips a child’s shoulder, both soft in focus and secondary. One small crack releases pale dust that settles against the door frame. 70mm equivalent, eye-level, filmic shallow depth; no giant decorative circle, no glowing eyes, no inscriptions or legible text."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

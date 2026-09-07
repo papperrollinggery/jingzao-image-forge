@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "An original 34-year-old adult male festival musician reaches for his companion’s hand as the last ferry bell calls. Warm sunset branch of airy summer character photography, intimate narrative image.",
+  "canvas": {
+    "aspect_ratio": "3:2"
+  },
+  "scene": {
+    "summary": "Eye-level medium close view from his companion’s position, 50mm equivalent. He has copper-red shoulder-length styled hair loosely tied back, a few windblown strands, fine brown liner, light stubble, warm natural skin and a playful but urgent half-smile. A lightweight ivory summer jacket with dark navy and coral-red narrow seam trims over a plain white linen shirt; a small unbranded brass clasp catches sun. He grips a closed violin case at his left side and extends his right hand toward the near camera, fingers relaxed and anatomically readable, reaching rather than making a sign. The near frame edge contains a softly blurred companion hand beginning to reach back. Sunset turns the water behind into restrained amber sparkles; cooler pale blue remains in the sky and the shadow side of his jacket. A distant ferry landing and a single departing boat support the story. Keep skin softly filled, hair rimlight source-motivated, modest and tangible wardrobe, no logos or text."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

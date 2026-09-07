@@ -163,6 +163,10 @@ Use `learn_style` when the user wants an actual supplied image converted into a 
 
 When the user requests 《继承者大会初试：何为长生？》, 继承者大会风格, 何为长生风格, or 长生·华构人间, read [references/changsheng-style.md](references/changsheng-style.md) and apply its optional capsule. It covers inhabited fantasy architecture, role-based costume/hair/makeup and photographic hierarchy; keep the target identity, setting and era authoritative. Do not apply it to unrelated requests.
 
+For 晴海·角色写真, 清透夏日角色写真, or an approved match to the eight-reference summer photography family, read [references/azure-summer-style.md](references/azure-summer-style.md). Select its daylight/shade/sunset/interaction branch, restage for the target aspect ratio, and explicitly assign style ownership when combining it with grand fantasy architecture.
+
+When adult portrait or fashion work loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
+
 ## Narrative Film Frame
 
 When the deliverable is `narrative_film_frame`, read [references/cinematic-shot-design.md](references/cinematic-shot-design.md).

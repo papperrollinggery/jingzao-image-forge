@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "An original adult woman curator, age 42, in a sunlit elevated fantasy library garden looks up after a gust carries a loose page toward the balcony. A vertical summer frame combining soft shaded character styling with large architectural depth.",
+  "canvas": {
+    "aspect_ratio": "9:16"
+  },
+  "scene": {
+    "summary": "View downward at about 25 degrees from the next stair landing, medium-full portrait in 9:16. In the lower middle foreground the curator sits by an open book under an ivory linen awning. Dark blue-black hair in a low looped bun with one small pale ceramic flower fastener, a few wind-loosened face strands; natural mature facial detail, restrained warm brown liner and berry-rose lip color. Her fully opaque ivory sleeveless high-neck dress has a navy silk belt and a loosely worn light gray-lilac linen jacket with botanical stitching only at its cuffs. One hand keeps the book open while the other reaches toward a single blank-backed page caught against the nearby railing; she looks up toward the approaching camera-side helper. Beyond her, a tall cascade of open white timber reading galleries and stone steps descends into a bright blue mountain lake, distant bridges populated by small readers. Soft canopy shade preserves face tone; bright sky and lake lift the background, small leaf shadows belong only to the tabletop and paving. Keep age and individual face, original non-branded costume, no halo or exact source pose."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

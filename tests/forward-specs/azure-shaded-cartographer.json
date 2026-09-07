@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "An original 29-year-old adult fantasy sea cartographer in an airy summer character photograph. She has just turned back at a harbor kiosk when a friend calls that their ferry is departing. Read a personal fleeting moment, detailed makeup and original costume.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "scene": {
+    "summary": "Three-quarter waist-up view from inside the kiosk, at her eye level. Her silver-lilac hair is styled in a loose side braid with a small coral-shaped ivory clip and a fine navy ribbon, natural hairline and flyaways. Gentle warm peach skin, precise soft brown eyeliner, subtle lilac eyelid tint and muted rose lips. An opaque navy sleeveless summer dress with an ivory inner neckline under a lightweight translucent pearl-white short cape; thin turquoise binding and miniature brass compass fastenings, all unbranded. She holds a folded blank-backed map in one hand; the other has just caught her shoulder strap. Lips open as she turns toward an offscreen friend, gaze slightly beside the lens. Under an ivory canvas canopy her face has soft sky fill, while blue sea sparkles behind and a small ferry pulls away in the distant background. A blurred woven basket at the near lower edge and a hanging shell ornament establish physical depth. White, blue and delicate lilac dominate; character makeup and cloth feel photographed, not drawn. No halos, animal ears or writing."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

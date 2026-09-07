@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A cinematic side-on medium-wide magic duel in a flooded palace courtyard: a female water cultivator intercepts a male attacker’s burning saber. One readable point of contact, one costly defense, exquisite clothing remains visible.",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "scene": {
+    "summary": "Camera at waist height on the open side of the fighting axis, 40mm equivalent. Screen left an adult woman in layered peacock-blue silk combat robes, fitted waist and split outer skirt with localized gold embroidered cuffs, plants her rear left foot in shallow water, front knee bent, left palm driving forward. A thin curved sheet of real translucent water rises continuously from the puddle beside that palm and bends across her front. Screen right an adult man in dark wine-red brocade lunges left with a short saber held firmly in two hands. Orange flame is attached only to the blade and meets the water sheet at one bright steaming notch between the fighters. Freeze at contact: her forearm compresses and rear heel drives a fan of water backward; his elbows buckle as the blade is arrested. The water sheet is transparent enough to retain her torso silhouette and has a finite edge below face height. Steam and separated droplets stream away from the contact, not around the whole image. Carved wooden galleries, bronze lamps and pale flagstones recede behind. Warm daylight and cool architectural shadows; flame gives a small local warm reflection on faces and damp cuffs. Heads, hands, blade grip and feet all legible."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

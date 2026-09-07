@@ -1,0 +1,86 @@
+{
+  "style_capsule": "1.0",
+  "id": "azure-summer-character-photography",
+  "name": "晴海·角色写真 / Azure Summer Character Photography",
+  "scope": "skill_candidate",
+  "status": "adopted",
+  "adoption_approved": true,
+  "source_summary": {
+    "source_count": 8,
+    "raw_images_stored": false,
+    "provenance": "Directly observed from eight user-supplied 2:3 character reference images on 2026-09-07. Source pixels, private paths, identities and in-image brand copy are excluded from distribution. Observations and lighting branches: references/azure-summer-style.md."
+  },
+  "visual_rules": {
+    "medium_behavior": "Photographic summer character editorial with tangible styled hair, tailored clothing, natural skin and an airy inhabited location; stylized character design is rendered through physical materials rather than illustration.",
+    "palette_logic": [
+      "Pale sky blue, sea cyan and ivory carry the broad light field; navy or charcoal provides small structural contrast.",
+      "Skin retains a gentle peach-pink warmth independent of blue surroundings; a target character may own a limited lilac, turquoise or red accent.",
+      "Select a scene-motivated daylight, canopy shade or amber sunset branch; sunset warms the backlight and reflections without making skin uniformly orange."
+    ],
+    "shape_line_language": "Readable hair masses with fine flyaways, controlled clothing folds, ribbons or fastenings with visible attachment, and layered foreground/midground/background silhouettes.",
+    "texture_material_logic": [
+      "Distinguish airy fabric, smoother coated outerwear, ribbons, hair, glass and water; assign each material its own local highlight behavior.",
+      "Skin remains softly modeled with fine texture; brow, lash line and lip edges carry character makeup without turning the face into a plastic doll.",
+      "Fine backlit hair strands and limited bright water reflections contrast with calmer cheeks and fabric fields."
+    ],
+    "lighting_logic": "Bright sky or sea backlight with soft open-shade fill keeps faces readable; a canopy may soften the face while the sunlit environment stays bright. Warm low sun is a separate option. Specular sparkle belongs to water, glass or specific fastenings.",
+    "composition_logic": [
+      "Select a camera relationship from the event: three-quarter turn, eye-level interaction, restrained low-angle view, or a wider environmental view.",
+      "A soft near edge such as canopy, railing or an offered object creates depth without masking the key action.",
+      "For wider or grand settings, keep people at believable scale and retain clear architectural planes rather than enlarging a portrait to fill the frame."
+    ],
+    "typography_logic": [],
+    "optics_rendering_logic": "Airy highlight rolloff, moderate local contrast, selective focus and optical depth; soft background reflections coexist with readable eyes and garment seams. Flare may occur only with a motivated bright source.",
+    "motifs": []
+  },
+  "inferred_traits": [
+    "Apparent character likeness is supported by styled hair and makeup within a photographic setting; the actual capture or generation method is unknown.",
+    "Foreground framing and toward-camera gestures suggest companionship or a casual shared summer outing."
+  ],
+  "unknowns": [
+    "Original artist, model, camera/lens, processing pipeline and actual identities or ages of depicted people.",
+    "Prompts and whether source photographs were retouched or synthesized."
+  ],
+  "transfer_rules": [
+    "Transfer light, palette ownership, tactile styling and camera relationship to original subjects and settings; preserve target identity, clothing coverage, age and culture.",
+    "Select one lighting branch per frame; change aspect ratio by restaging subject, horizon and near-depth layers rather than stretching or mechanically cropping.",
+    "When combining with another style, explicitly assign ownership: this capsule may own daylight/color/material and the other reference may own architecture or staging. Choose one authority for any conflicting field.",
+    "Make pose and gaze respond to the target event; use a direct look or playful gesture only when that relationship is wanted."
+  ],
+  "forbidden_transfer": [
+    "Source faces, exact hair silhouettes, costumes, character emblems, labels, names or background copy.",
+    "Automatic halos, animal ears, weapons, swimwear, cups, badges, or branded signs.",
+    "Universal silver hair, young-looking faces, blue recoloring of skin, or all-over glossy fabric."
+  ],
+  "validation": {
+    "prompts": [
+      "A grand summer fantasy film frame blending monumental inhabited architectural depth with airy blue-white character photography. Two original adult weather researchers discover the first floating island visible beyond their observatory. The new summer style owns lighting and color, architectural grandeur owns scale only.",
+      "An original 34-year-old adult male festival musician reaches for his companion’s hand as the last ferry bell calls. Warm sunset branch of airy summer character photography, intimate narrative image.",
+      "A fresh adult summer fashion portrait in the Azure Summer style, with explicitly defined natural body proportions and a gently sensual fitted outfit. An original 30-year-old woman turns back to smile at her companion as she waits on the harbor steps."
+    ],
+    "notes": "Primary and independent review completed on 2026-09-07. Three cross-subject/scenario examples support adoption with recorded limitations; four format/branch images and two body follow-ups were inspected. Generated pixels are local-only, not distributed. User authorized durable integration and release. No source identity, exact geometry, model fine-tuning, A/B causal or stable acceptance-rate claim.",
+    "evidence": [
+      {
+        "case_id": "azure-grand-observatory",
+        "prompt_index": 0,
+        "scenario": "ultrawide grand architecture",
+        "evidence_ref": "tests/forward-evidence/azure-summer-style-review.json#azure-grand-observatory",
+        "review": "Blue-white summer treatment transferred to inhabited fantasy architecture; observer gaze and pointing link to floating island. Limitation: People occupy more foreground area than requested; not literal small-figure architecture framing. Camera reads closer to eye-level balcony than requested high-oblique view."
+      },
+      {
+        "case_id": "azure-sunset-musician",
+        "prompt_index": 1,
+        "scenario": "sunset male portrait",
+        "evidence_ref": "tests/forward-evidence/azure-summer-style-review.json#azure-sunset-musician",
+        "review": "Warm hair/water light, cooler environment, held case and companion hand interaction transfer to a different adult subject. Limitation: Skin becomes quite amber; hand pose is foreshortened and case silhouette only partially visible."
+      },
+      {
+        "case_id": "azure-body-aware-portrait",
+        "prompt_index": 2,
+        "scenario": "adult body-aware summer fashion",
+        "evidence_ref": "tests/forward-evidence/azure-summer-style-review.json#azure-body-aware-portrait",
+        "review": "Natural bust-to-waist and hip contour, supported dress, mild neckline and summer styling are visible; original adult character and ordinary fashion coverage. Limitation: Body proportions are a visual approximation; this is not source identity/body reconstruction or a guarantee for future calls."
+      }
+    ]
+  }
+}

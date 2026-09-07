@@ -1,0 +1,32 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A fresh adult summer fashion portrait in the Azure Summer style, with explicitly defined natural body proportions and a gently sensual fitted outfit. An original 30-year-old woman turns back to smile at her companion as she waits on the harbor steps.",
+  "canvas": {
+    "aspect_ratio": "2:3"
+  },
+  "subjects": [
+    {
+      "id": "adult-traveler",
+      "count": 1,
+      "description": "Original 30-year-old adult woman with a naturally curvy, proportionate figure: medium-full bust, a clearly defined waist, softly rounded hips and realistic shoulders and ribcage.",
+      "appearance": [
+        "Long blue-black hair in a loose side ponytail, a small ivory flower clip; softly defined brown eyeliner and rose lips; warm natural skin texture.",
+        "An opaque navy summer dress with a softly curved square neckline showing the collarbones and a modest area of upper chest; a shaped supportive bodice with subtle bust darts and curved princess seams, fitted waist and hip-skimming skirt.",
+        "A light white cotton overshirt worn open and loose around the shoulders, leaving the dress silhouette visible; fine pale-blue piping and a single small brass fastening."
+      ],
+      "action": "Turns three-quarter toward her companion, weight resting naturally on one leg, one hand loosely holds the stair railing."
+    }
+  ],
+  "scene": {
+    "summary": "Camera at chest level, 65mm portrait perspective, framed from mid-thigh to just above the head so face, bust-to-waist relationship and hip silhouette remain visible. She looks just beside the lens with a relaxed confident smile. Bright blue sea and a pale stone harbor terrace behind, one softly blurred sailboat and a near white railing. Gentle canopy fill balances a bright summer backlight, highlights limited to water and individual hair strands. The atmosphere is intimate and lightly flirtatious, with realistic body volume and cloth support; no exaggeration of anatomy."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

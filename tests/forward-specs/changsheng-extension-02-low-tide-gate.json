@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "An immense Chinese fantasy sea fortress viewed from a frightened traveler’s ground-level position as the tide gate begins closing before the final refugees pass. Dramatic establishing film still, the architecture dwarfs people without losing the urgent crossing.",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "scene": {
+    "summary": "A monumental dark timber and bronze flood gate between two inhabited stone towers, far above the camera, connected by open galleries and gilded bracketwork. The camera is just above wet paving, 24mm equivalent, looking upward diagonally from beside a refugee’s basket at the near edge. Three adult travelers in weathered silk and layered robes hurry through the remaining clear opening; a guard braces and reaches back for the last traveler. The heavy gate has descended to shoulder height behind them, its wooden teeth and chains visibly attached to the mechanism. Through the opening lies a bright rough sea and storm cloud. Strong backlight outlines the clear exit; reflected warm lantern light keeps near hands and faces readable. Wetness stays on paving and soaked hems; upper bronze fittings and carved roof beams remain dry. Single suspended moment before the gap becomes too small; no crushed bodies."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

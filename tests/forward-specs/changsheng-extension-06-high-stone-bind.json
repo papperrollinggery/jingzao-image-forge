@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A high oblique cinematic magic-combat frame: a stone cultivator traps an onrushing armored opponent by raising two narrow stone ribs from courtyard paving. Spatially clear moment when momentum is interrupted, grounded high fantasy.",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "scene": {
+    "summary": "Camera on a diagonal upper terrace looking down at 45 degrees, 50mm equivalent, not straight overhead. At lower left a mature male caster in ink-blue dense silk with narrow bronze geometric embroidery kneels with one palm pressed to a specific cracked paving joint; the other hand holds his folded sleeve clear. Two continuous low stone ribs rise from that exact joint and travel along the paving in a V toward the upper-right opponent. Their ridged material matches the courtyard slabs. The ribs curl against the opponent’s armored shins and halt his forward charge; his chest pitches forward and his rear boot scrapes a short furrow, two hands still holding a staff crosswise for balance. Dust is confined to newly lifted stone edges; loose fragments correspond to actual broken joints. The caster’s sleeve is tugged toward his braced wrist, small facial strain readable; the opponent wears dark red quilted layers beneath articulated bronze armor, no gore. Palace stairs and partial railings show scale, warm low sun rakes the rib geometry while green-blue shade separates the two bodies. The V path and caught legs remain unoccluded. No floating boulders, generic energy beams or concentric circles."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

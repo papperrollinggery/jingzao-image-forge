@@ -1,0 +1,19 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "A grand summer fantasy film frame blending monumental inhabited architectural depth with airy blue-white character photography. Two original adult weather researchers discover the first floating island visible beyond their observatory. The new summer style owns lighting and color, architectural grandeur owns scale only.",
+  "canvas": {
+    "aspect_ratio": "21:9"
+  },
+  "scene": {
+    "summary": "21:9 wide composition from a high oblique side gallery. Pale limestone terraces, timber open pavilions washed in ivory paint and slim bronze railings descend toward a vast blue cloud sea; three offset bridges connect the working observatory buildings in a believable new plan. A large floating rock island appears far beyond the horizon cloud layer, its underside shaded pale blue, sunlight grazing its tiny trees. Two adults stand at the left-third balcony: a short dark-haired woman in a white technical coat with cyan seam piping over an opaque navy outfit has lowered her telescope and points toward the island; a gray-haired male colleague in a pale linen robe turns to follow her gaze. Their figures remain small in the environment. Keep a dark navy near window edge, the two middle-distance people, a clear empty sky route toward the distant island and separate far architectural planes. Bright sea-cloud reflected light, airy ivory highlights, gently warm readable skin where visible; limited glitter on distant water pockets. No teal-orange grade, blackened fantasy palace or central portrait."
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

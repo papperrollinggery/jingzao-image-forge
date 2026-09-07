@@ -1,0 +1,135 @@
+{
+  "review_date": "2026-09-07",
+  "source_review": "Eight supplied source images visually inspected; raw pixels and private paths excluded.",
+  "distribution": "Source and generated output pixels are local-only, not distributed. Local artifact labels and hashes document local visual review, not publicly resolvable output files.",
+  "test_method": "Four text-only branch/format tests, one new body-aware text-only portrait, one source-attached edit of a previously generated fictional adult. Primary and independent visual review completed.",
+  "cases": [
+    {
+      "case_id": "azure-shaded-cartographer",
+      "scenario": "shade portrait",
+      "spec_ref": "tests/forward-specs/azure-shaded-cartographer.json",
+      "capsule_ref": "references/style-capsules/azure-summer-character-photography.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "849aec34c9c7cb90b6cbb8666e474552cc8c6b5c705c3bb98b9440e884b4514d",
+      "prompt_suffix": "\nCanvas: 2:3.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/azure-shaded-cartographer.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "04e25b1974a339d4a41515cc486484d49da728bfd870bbea6293d12d68dff52b",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "partial",
+      "visual_review": "Airy blue-white field, warm readable face, styled braid, layered cloth and companion-facing turn transferred.",
+      "limitations": "Body volume was under-specified and did not meet user preference; see body follow-ups. Map is not blank-backed."
+    },
+    {
+      "case_id": "azure-grand-observatory",
+      "scenario": "ultrawide grand architecture",
+      "spec_ref": "tests/forward-specs/azure-grand-observatory.json",
+      "capsule_ref": "references/style-capsules/azure-summer-character-photography.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "a7b3aa840b619994c4eb75deae1ad73eab494a88fec20bddce7caf7bf3fafa5d",
+      "prompt_suffix": "\nCanvas: 21:9.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/azure-grand-observatory.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "82313b4e3bde67d5a9cacdddc5bcc7026e7fd09e5b4bf9c5f3b42ce7333bd20c",
+      "dimensions": [
+        1915,
+        821
+      ],
+      "status": "passed_with_concerns",
+      "visual_review": "Blue-white summer treatment transferred to inhabited fantasy architecture; observer gaze and pointing link to floating island.",
+      "limitations": "People occupy more foreground area than requested; not literal small-figure architecture framing. Camera reads closer to eye-level balcony than requested high-oblique view."
+    },
+    {
+      "case_id": "azure-sunset-musician",
+      "scenario": "sunset male portrait",
+      "spec_ref": "tests/forward-specs/azure-sunset-musician.json",
+      "capsule_ref": "references/style-capsules/azure-summer-character-photography.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "6ac31100073fac5a5ed529e8a28b8d15dc055683a6bf95f4d61f050377a12796",
+      "prompt_suffix": "\nCanvas: 3:2.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/azure-sunset-musician.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "f267ff3e3956322fa96c24709db4cdfb98ff3f7fb9f11ab20e46b775bd0bf9fd",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "status": "passed_with_concerns",
+      "visual_review": "Warm hair/water light, cooler environment, held case and companion hand interaction transfer to a different adult subject.",
+      "limitations": "Skin becomes quite amber; hand pose is foreshortened and case silhouette only partially visible."
+    },
+    {
+      "case_id": "azure-vertical-library",
+      "scenario": "vertical high-angle library",
+      "spec_ref": "tests/forward-specs/azure-vertical-library.json",
+      "capsule_ref": "references/style-capsules/azure-summer-character-photography.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "7926d8bb8d5c117f58625cb831b0ff2f296c18e4b47f7f3c1a432bc57074212a",
+      "prompt_suffix": "\nCanvas: 9:16.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/azure-vertical-library.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "844ce00f534bdb27f7abdaaa439f35df867aece134642e1b2ad2669b88de5b07",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": "partial",
+      "visual_review": "Vertical depth, canopy softness, lake blue, adult curator and reaching page create a new scene.",
+      "limitations": "Book contains generated pseudo-text despite no-text constraint; age reads approximate and body shape was not the preference target."
+    },
+    {
+      "case_id": "azure-body-aware-portrait",
+      "scenario": "adult body-aware summer fashion",
+      "spec_ref": "tests/forward-specs/azure-body-aware-portrait.json",
+      "capsule_ref": "references/style-capsules/azure-summer-character-photography.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "5e225a92ba1fa45994b0fa2d3e16907fb29df2d98837a6a0fb1c31f26c02afe7",
+      "prompt_suffix": "\nCanvas: 2:3 vertical.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/body-tests/azure-body-aware-portrait.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "85465014c1ba895369d79248cfa33aafe0ed10d475a4ebad108b11a631d077f2",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "passed_with_concerns",
+      "visual_review": "Natural bust-to-waist and hip contour, supported dress, mild neckline and summer styling are visible; original adult character and ordinary fashion coverage.",
+      "limitations": "Body proportions are a visual approximation; this is not source identity/body reconstruction or a guarantee for future calls."
+    },
+    {
+      "case_id": "azure-body-fit-edit",
+      "scenario": "targeted adult fit edit",
+      "capsule_ref": null,
+      "generator": "built-in image_gen",
+      "reference_images_sent": 1,
+      "prompt_sha256": "b3d1b22d624702fe75031313b19822c95660196795e8c08fdddb47ffc4396475",
+      "prompt_suffix": "\nCanvas: 2:3 vertical.",
+      "local_artifact_locator": "output/azure-summer-style-20260907/body-tests/body-fit-edit.png",
+      "artifact_availability": "local_only_not_distributed",
+      "output_sha256": "1d94b2854c85d4bd318dc5c9c7333c2a4fd6781244aacf351edc547a2970a952",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "status": "partial",
+      "visual_review": "Bust and torso volume became more readable while the same face, pose, map and summer setting broadly persisted.",
+      "limitations": "Neckline is visibly lowered and coverage changes despite explicit preservation; small jewelry also changes. Hips are partly hidden. Torso change succeeded but preserve contract did not fully pass.",
+      "local_spec_locator": "output/azure-summer-style-20260907/body-tests/body-fit-edit-spec.json",
+      "input_sha256": "04e25b1974a339d4a41515cc486484d49da728bfd870bbea6293d12d68dff52b",
+      "actual_attachment_mechanism": "referenced_image_paths"
+    }
+  ],
+  "scope": "No model fine-tuning, exact source identity recreation, video validation, A/B baseline or reliable acceptance-rate claim.",
+  "independent_review": {
+    "status": "approved_with_concerns",
+    "finding": "Cross-subject style and aspect-ratio adaptation are supported. New body-aware portrait meets ordinary adult fashion intent. Source-attached body edit changes neckline/coverage and is only a partial preserve result."
+  }
+}
