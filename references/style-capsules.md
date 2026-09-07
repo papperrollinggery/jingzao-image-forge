@@ -19,6 +19,14 @@ Use these capsules only when the user explicitly asks for the named treatment or
 - Do not transfer: source faces, costume, jewelry, weapons, landscape, wording, signature, watermark, or exact layer coordinates
 - Evidence: derived from three user-supplied references without storing the raw images; forward-tested on an unrelated contemporary jazz singer and an unrelated desert science-fiction courier. Both tests retained the hierarchy, palette ownership, print behavior, and double-exposure logic while changing subject and world. Results were visually inspected on 2026-08-19; they do not guarantee exact repeatability.
 
+## 长生·华构人间 / Inhabited Chinese Fantasy
+
+- File: `style-capsules/changsheng-inhabited-fantasy.json`
+- Read [scene and costume guidance](changsheng-style.md) when the user names 《继承者大会初试：何为长生？》 or its style.
+- Core: inhabited architectural depth, scene-dependent daylight/night palettes, differentiated skin/cloth/wood/metal, role-based costume and hair/makeup, readable faces and restrained focal ornament.
+- Source: 18 directly inspected sampled frames from one local film; raw frames are not distributed.
+- Validation and adoption status: see the capsule and `tests/forward-evidence/changsheng-style-review.json`.
+
 ## Use
 
 Validate before applying:

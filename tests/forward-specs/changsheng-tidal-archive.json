@@ -1,0 +1,20 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "Create an original lived-in fantasy environment film frame: a tidal archive receiving its first visitor after a flood.",
+  "scene": {
+    "summary": "A salt-stained stone archive rises from a drained tidal basin; elevated timber reading galleries and bridges connect irregular rectangular halls. One adult archivist opens a low side entrance for two waiting visitors. Wide inhabited environment, oblique view from beneath a foreground beam; eye travels from small visitor group to receding reading galleries. Architecture primary, people establish scale.",
+    "setting": "An original coastal Chinese fantasy civic archive, ivory morning daylight through open roofs, muted bronze locks, dark timber railings, thin sea mist only beyond the galleries."
+  },
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

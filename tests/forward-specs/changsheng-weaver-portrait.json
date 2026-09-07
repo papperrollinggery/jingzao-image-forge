@@ -1,0 +1,33 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "en",
+  "intent": "Create an original adult female textile guild master, age 48, pausing at her workshop doorway after an argument; medium close-up for character hair, makeup and costume design.",
+  "scene": {
+    "summary": "The guild master holds one folded dye sample at chest level, listening to someone just outside frame.",
+    "setting": "A modest timber dye workshop with a soft window at camera left and defocused textile racks behind."
+  },
+  "subjects": [
+    {
+      "id": "guild-master",
+      "count": 1,
+      "description": "Original 48-year-old woman with broad cheekbones, a slightly asymmetric mouth and visible smile lines; self-contained stern expression.",
+      "appearance": [
+        "Ink-blue dense silk outer jacket over an ivory overlapping collar; muted plum lining visible only at the sleeve fold; narrow bronze-thread seam embroidery at collar and cuffs.",
+        "Low coiled bun fixed with one plain wood pin; a few gray strands at the temples; tiny hammered-bronze drop earrings.",
+        "Satin-matte skin with natural under-eye texture, restrained warm brown eyeliner following her own eye shape, softly irregular dark brows and muted brick rose lips."
+      ],
+      "action": "Holds folded cloth and listens offscreen."
+    }
+  ],
+  "canvas": {
+    "aspect_ratio": "3:2"
+  },
+  "constraints": {
+    "exclude": [
+      "visible text",
+      "watermark",
+      "collage"
+    ]
+  }
+}

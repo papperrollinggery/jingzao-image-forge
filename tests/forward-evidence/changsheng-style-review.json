@@ -1,0 +1,65 @@
+{
+  "review_date": "2026-09-07",
+  "source_review": "18 sampled frames, 4 enlarged; raw source images excluded from distribution.",
+  "test_method": "Two independent text-only generations using the compiled capsule, no source frames attached. Primary and independent visual/code review completed; 221 regression tests passed.",
+  "cases": [
+    {
+      "case_id": "changsheng-tidal-archive",
+      "scenario": "environment",
+      "spec_ref": "tests/forward-specs/changsheng-tidal-archive.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "440e0361e6e7ce44d01c629e8eb4a229aeb679fa622a0c2097552a4fdca41bf1",
+      "output_ref": "output/changsheng-style-20260907/archive.png",
+      "output_sha256": "aa6e8ae9c89abecb6558964b83373469ec6b35d27f5c63a9b8b6d5e576ef9d53",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "passed_style_transfer_with_concerns",
+      "visual_review": "Retained layered timber/stone galleries, foreground occlusion, readable small human activity, light from open sky, differentiated surfaces and a new coastal setting. No source-specific arena, giant tree, face or copy visible.",
+      "limitations": "More subdued and civic than the most opulent source scenes; opening-hand action is small at this scale.",
+      "execution_observation": {
+        "tool": "image_gen.imagegen",
+        "mechanism": "text-only",
+        "reference_argument": "omitted",
+        "source_reference_count": 0,
+        "output_hash_binding": "aa6e8ae9c89abecb6558964b83373469ec6b35d27f5c63a9b8b6d5e576ef9d53",
+        "receipt_scope": "Primary agent directly observed the built-in tool return this output. No standalone provider tool-call ID was exposed; independent reviewer verified files, not provider execution."
+      }
+    },
+    {
+      "case_id": "changsheng-weaver-portrait",
+      "scenario": "mature character costume and makeup",
+      "spec_ref": "tests/forward-specs/changsheng-weaver-portrait.json",
+      "capsule_ref": "references/style-capsules/changsheng-inhabited-fantasy.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "0efd1673c5b0adfd7aee07bd4cd27970d639e3dbfed899687bbea287374f1ce5",
+      "output_ref": "output/changsheng-style-20260907/portrait.png",
+      "output_sha256": "4ee9d935287485a8f65a3fa54e8b3b9056735e677d214e96a94043b34536692b",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "status": "passed_style_transfer_with_concerns",
+      "visual_review": "Retained mature facial texture, readable brow/eye/lip makeup, ink-blue/ivory/plum garment layers, localized collar/cuff embroidery, attached earrings, motivated window light and lower-contrast workshop depth. New identity and occupation.",
+      "limitations": "Bun is higher than the requested low coil; silk reads relatively matte/coarse. Not exact hairstyle or fabric reproduction.",
+      "execution_observation": {
+        "tool": "image_gen.imagegen",
+        "mechanism": "text-only",
+        "reference_argument": "omitted",
+        "source_reference_count": 0,
+        "output_hash_binding": "4ee9d935287485a8f65a3fa54e8b3b9056735e677d214e96a94043b34536692b",
+        "receipt_scope": "Primary agent directly observed the built-in tool return this output. No standalone provider tool-call ID was exposed; independent reviewer verified files, not provider execution."
+      }
+    }
+  ],
+  "scope": "Still-image mechanisms only. Exact source reconstruction, video motion, lip sync and whole-film quality unverified. No capsule-free A/B baseline was generated; these tests demonstrate compatible outputs under the capsule, not causal improvement over the base model.",
+  "independent_review": {
+    "status": "approved_with_concerns",
+    "observed": "Reviewed 18 source samples and both outputs; checked spec compilation, image hashes and dimensions; no opt-in scope violations found.",
+    "limitations": "Environment less chromatically rich and socially active than source; portrait high bun and coarse-matte silk. No A/B causal claim or complete provider invocation-chain claim."
+  }
+}
