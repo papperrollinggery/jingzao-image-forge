@@ -1,0 +1,37 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "edit",
+  "language": "zh-CN",
+  "intent": "细化粉彩广告图的粉尘颗粒并按目标画幅交付，保留三支粉彩的相对比例、位置关系和既有质感。",
+  "canvas": {
+    "aspect_ratio": "16:9"
+  },
+  "inputs": [
+    {
+      "id": "pastel-base",
+      "type": "image",
+      "role": "edit_target",
+      "description": "图片1是已生成的粉彩广告图；保留三支粉彩、主次、颜色、光线及右上方释放方向。",
+      "source_kind": "platform_asset",
+      "source_ref": "runtime:pastel-base",
+      "must_attach": true
+    }
+  ],
+  "scene": {
+    "summary": "中间浅紫粉彩的前端仍为细粉起点，主体保持完整。所有清晰的飞散颜料改为极细干粉点，最大可见颗粒约小于粉彩条短边的百分之一；聚密根部由细粒构成，向右上逐渐稀疏和透光。保持干燥离散的粉尘，根部不形成新的粗块。横向16:9构图，在两侧补充干净浅紫背景，给粉流的稀疏前缘留空间。"
+  },
+  "render": {
+    "artifact_budget": "source_matched"
+  },
+  "constraints": {
+    "must_preserve": [
+      "三支方截面粉彩的形状、相对比例和前后关系",
+      "浅紫、浅粉、象牙白颜色和紫白柔光",
+      "浅紫粉彩前端释放且向右上散开的方向"
+    ],
+    "must_change": [
+      "把大碎粒细化为轻盈干粉，保留粉流疏密",
+      "输出16:9横图，补充两侧安静背景"
+    ]
+  }
+}

@@ -12,6 +12,16 @@ Jingzao Image Forge (镜造 Image Forge) turns an image brief and selected refer
 
 <sub>New introduction artwork; actual generated samples and facet-level reviews appear below.</sub>
 
+## New in v1.11: Lilac Material Reveal
+
+Transfer lilac-white studio depth, controlled dark-shell reflections, distinct dry-pigment/fiber materials and product-led element effects to new products. Artist pastels, an electronics array and a contact macro were tested. The refined pastel still has some coarse particles; the record retains initial failures and actual canvas sizes.
+
+| Electronics without powder effects | Dry-pigment contact macro |
+|---|---|
+| ![Black-shell woven speakers in a lilac-white product array](assets/gallery/lilac-speaker-wide-v1.11.png) | ![Fine black fibers contacting a lilac dry-pigment block](assets/gallery/lilac-fiber-contact-v1.11.png) |
+
+[Style guide and research method](references/lilac-material-reveal.md) · [Refined pastel sample](assets/gallery/lilac-pastel-refined-v1.11.png) · [Five generation/refinement records](tests/forward-evidence/lilac-material-reveal-review.json)
+
 ## Start here
 
 Install into the user-level Codex Skills directory:
@@ -115,7 +125,7 @@ The concise entry point deliberately links outward instead of hiding the technic
 | Clean rendering and visual review | [Quality controls](references/quality-controls.md) · [Image diagnostics](references/image-generation-diagnostics.md) |
 | Existing examples and retained evidence | [examples/](examples/) · [tests/](tests/) |
 
-**Release checks:** 251 automated tests, the complete local CI workflow, four-platform reference-trait projection, and independent code/visual review. Automated checks cover structure, compatibility and evidence binding; image quality is reviewed separately.
+**Release checks:** 255 automated tests, the complete local CI workflow, four-platform reference-trait projection, and independent code/visual review. Automated checks cover structure, compatibility and evidence binding; image quality is reviewed separately.
 
 ## Historical material
 

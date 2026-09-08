@@ -1,0 +1,143 @@
+{
+  "review_date": "2026-09-08",
+  "source_scope": "Seven locally inspected product storyboard/candidate images and their documented design reasoning. Source thread reader failed; local artifacts supplied evidence. Source project acceptance and later revisions are not asserted.",
+  "test_method": "Three independent text-only cross-product/state trials, one targeted edit of an originally generated pastel base, and one canvas-forwarding repeat of the speaker trial. All output pixels were inspected; an independent reviewer compared the visual mechanisms and refinements.",
+  "distribution": "Client images, logos, private paths and full source research/prompt records are not distributed. Four newly generated unbranded test images are published; the initial speaker image remains local-only.",
+  "validation_boundary": "Observed image appearance and mechanism transfer only. No client approval, physical particle measurement, animation continuity or universal provider acceptance claim.",
+  "cases": [
+    {
+      "case_id": "lilac-pastel-release",
+      "scenario": "artist pigment release initial",
+      "spec_ref": "tests/forward-specs/lilac-pastel-release.json",
+      "capsule_ref": "references/style-capsules/lilac-material-reveal.json",
+      "prompt_suffix": "",
+      "reference_images_sent": 0,
+      "status": "partial",
+      "visual_review": "Three square-section pastel sticks, lilac-white light, dry surface and a clear release origin transferred.",
+      "limitations": [
+        "Visible purple grains include coarse fragments and the main surface is rougher than the requested fine-powder treatment.",
+        "Canvas was not included in the actual prompt; output is 3:2 instead of the specification 16:9."
+      ],
+      "generator": "built-in image_gen",
+      "prompt_sha256": "206e3fb663ad6c5c6c49ad016f7fd7303e169466b5a4831dbb584d2760eb0278",
+      "canvas_in_sent_prompt": false,
+      "requested_aspect_ratio": "16:9",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "output_sha256": "bbba7edfcbbff32d27b4bee6b02698432a10e76c7b87398cc077de2ae519f983",
+      "artifact_availability": "distributed",
+      "output_ref": "assets/gallery/lilac-pastel-release-v1.11.png",
+      "reference_input_sha256": []
+    },
+    {
+      "case_id": "lilac-speaker-array",
+      "scenario": "electronic product array initial",
+      "spec_ref": "tests/forward-specs/lilac-speaker-array.json",
+      "capsule_ref": "references/style-capsules/lilac-material-reveal.json",
+      "prompt_suffix": "",
+      "reference_images_sent": 0,
+      "status": "passed_with_concerns",
+      "visual_review": "Rigid dark shell, woven acoustic face, clear foreground hero and receding array transferred without powder, source packaging or branding.",
+      "limitations": [
+        "Canvas was not included in the actual prompt; output is 3:2 instead of the specification 16:9.",
+        "The low gap above the ground does not make levitation as clear as the later wide trial."
+      ],
+      "generator": "built-in image_gen",
+      "prompt_sha256": "3d16cff872d735df4ccb47613f23d756fd3e5e2ad9681c66ead0f26e51ffbb6d",
+      "canvas_in_sent_prompt": false,
+      "requested_aspect_ratio": "16:9",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "output_sha256": "44f70fe096bc2779b57cec065ab0b3d5f7fd0bf9780ff2220d13821511ef4f2d",
+      "artifact_availability": "local_only_not_distributed",
+      "local_artifact_locator": "output/lilac-material-reveal-20260908/lilac-speaker-array.png",
+      "reference_input_sha256": []
+    },
+    {
+      "case_id": "lilac-fiber-contact",
+      "scenario": "material fiber contact macro",
+      "spec_ref": "tests/forward-specs/lilac-fiber-contact.json",
+      "capsule_ref": "references/style-capsules/lilac-material-reveal.json",
+      "prompt_suffix": "\nCanvas: 16:9.",
+      "reference_images_sent": 0,
+      "status": "passed_with_concerns",
+      "visual_review": "Fine black fibers bend locally at a readable diagonal contact line and collect dry pigment; the pastel remains a rigid block with a visible edge.",
+      "limitations": [
+        "Pigment still has localized coarse texture and accumulation.",
+        "A still proves the contact phase only, not brushing motion or continuous physical simulation."
+      ],
+      "generator": "built-in image_gen",
+      "prompt_sha256": "29a1cd7590848ea1b386c0a028f9bb35c0fae51d7c355908ae20e0dcb4810f56",
+      "canvas_in_sent_prompt": true,
+      "requested_aspect_ratio": "16:9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "output_sha256": "2c79c6b8928e7f1ccf33312d5b846dc6f8034f4486ae5633a39bbe425ae34841",
+      "artifact_availability": "distributed",
+      "output_ref": "assets/gallery/lilac-fiber-contact-v1.11.png",
+      "reference_input_sha256": []
+    },
+    {
+      "case_id": "lilac-pastel-refined",
+      "scenario": "artist pigment release refined",
+      "spec_ref": "tests/forward-specs/lilac-pastel-refined.json",
+      "capsule_ref": null,
+      "prompt_suffix": "\nCanvas: 16:9.",
+      "reference_images_sent": 1,
+      "parent_case_id": "lilac-pastel-release",
+      "status": "passed_with_concerns",
+      "visual_review": "Coarse airborne fragments were substantially reduced while three pastel sticks, source location, right-upward release, color and depth remained. A sparse translucent front is readable.",
+      "limitations": [
+        "Some flakes or clumps remain near the root and the stick surface remains comparatively rough.",
+        "The requested approximate particle-size ceiling is not a measured physical guarantee.",
+        "This is a targeted edit of the capsule-generated base, not an independent text-only capsule run."
+      ],
+      "generator": "built-in image_gen",
+      "prompt_sha256": "d430660edc16a7069126a3166b0b81022a7e411512e4d7c56f2d1b5fdc53c30f",
+      "canvas_in_sent_prompt": true,
+      "requested_aspect_ratio": "16:9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "output_sha256": "d8da3bbacbbbfae3b1b451ef5432eefd4d4f7c26b901bf93e49439dea91b264c",
+      "artifact_availability": "distributed",
+      "output_ref": "assets/gallery/lilac-pastel-refined-v1.11.png",
+      "reference_input_sha256": [
+        "bbba7edfcbbff32d27b4bee6b02698432a10e76c7b87398cc077de2ae519f983"
+      ]
+    },
+    {
+      "case_id": "lilac-speaker-wide",
+      "scenario": "electronic product array wide",
+      "spec_ref": "tests/forward-specs/lilac-speaker-array.json",
+      "capsule_ref": "references/style-capsules/lilac-material-reveal.json",
+      "prompt_suffix": "\nCanvas: 16:9.",
+      "reference_images_sent": 0,
+      "status": "passed",
+      "visual_review": "Three floating target speakers form a clear front-to-back hierarchy; black semi-matte shells and gray woven panels remain distinct in lilac-white light. No powder, source compact shape or branding was imported.",
+      "limitations": [
+        "The black shell and rounded rectangular body are specified by the target, not a generic compulsory capsule shape.",
+        "A successful aspect-ratio example is not a guarantee of repeatability."
+      ],
+      "generator": "built-in image_gen",
+      "prompt_sha256": "dd30b671c1a07c9107d6756465513b37e7b6d6c69f13981b66df544caa9a7d34",
+      "canvas_in_sent_prompt": true,
+      "requested_aspect_ratio": "16:9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "output_sha256": "76e5a5968fec0a101a3d608e408e26253e9354db37344a4758ca1bbaeb7759bd",
+      "artifact_availability": "distributed",
+      "output_ref": "assets/gallery/lilac-speaker-wide-v1.11.png",
+      "reference_input_sha256": []
+    }
+  ]
+}

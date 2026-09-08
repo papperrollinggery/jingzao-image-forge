@@ -52,6 +52,7 @@ jobs:
           python3 scripts/validate_style_capsule.py references/style-capsules/changsheng-inhabited-fantasy.json
           python3 scripts/validate_style_capsule.py references/style-capsules/azure-summer-character-photography.json
           python3 scripts/validate_style_capsule.py references/style-capsules/soft-editorial-character.json
+          python3 scripts/validate_style_capsule.py references/style-capsules/lilac-material-reveal.json
           python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
           python3 scripts/create_style_capsule.py examples/style-learning-graphite-copper.json --output /tmp/style-capsule.json
           cmp /tmp/style-capsule.json examples/style-capsule-graphite-copper.json

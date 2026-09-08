@@ -171,6 +171,8 @@ For 晴海·角色写真, 清透夏日角色写真, or an approved match to the 
 
 For 柔映·人物质感 or a requested match to the four-reference daylight/cream-rose/crimson-black portrait family, read [references/soft-editorial-style.md](references/soft-editorial-style.md). Select one branch, retain the body profile, and use the full reference profile when hair, pose or expression must transfer. Read the current evidence status; publication does not imply visual validation.
 
+For 紫序·产品微观, lilac material reveal, or a requested match to the product-CG treatment of controlled dark packaging, dry microtexture, fiber contact and product-led element effects, read [references/lilac-material-reveal.md](references/lilac-material-reveal.md). Choose one target-relevant state; do not apply powder effects or source branding to unrelated products.
+
 When adult portrait or fashion work specifies garment openings (such as a deep V neckline), changes coverage, or loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
 
 ## Narrative Film Frame
