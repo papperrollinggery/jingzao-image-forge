@@ -103,3 +103,8 @@ For public forward evidence, replace the raw `tool_call_id` with `tool_call_id_s
 - No reference silently controls unrelated content.
 - Logo, product, identity, wardrobe, marks, and scene assets are visually checked after output.
 - No post-generation compositing is introduced by this Skill.
+
+
+## Native-tool canvas handoff
+
+When the active image tool accepts only prompt text plus image references, separately returned compiler `parameters` are not automatically sent. Carry the explicit target canvas into the actual prompt (for example `Canvas: 16:9.`), retain the sent suffix in the execution record, and inspect returned dimensions. Do not invent API arguments the active tool does not expose, treat a requested size as an observed size, or silently alter an established successful input bundle.

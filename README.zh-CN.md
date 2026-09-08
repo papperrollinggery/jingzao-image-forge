@@ -12,6 +12,16 @@
 
 <sub>新版介绍图；实际生成样片与逐项验证记录见下文。</sub>
 
+## v1.11 新增：紫序·产品微观
+
+将紫白棚光、受控黑壳反射、干粉/纤维材质与有明确归属的元素效果，迁移到不同产品。已用艺术粉彩、电子产品阵列和刷毛接触微距测试；粉彩精修后仍有少量偏粗颗粒，完整记录保留首轮偏差与实际画幅。
+
+| 无粉体的电子产品 | 干颜料的接触微距 |
+|---|---|
+| ![紫白空间中的黑壳织物音箱阵列](assets/gallery/lilac-speaker-wide-v1.11.png) | ![黑色纤维轻触浅紫干颜料的微距](assets/gallery/lilac-fiber-contact-v1.11.png) |
+
+[使用风格包与研究方法](references/lilac-material-reveal.md) · [粉彩精修样片](assets/gallery/lilac-pastel-refined-v1.11.png) · [五次生成/返工记录](tests/forward-evidence/lilac-material-reveal-review.json)
+
 ## 从这里开始
 
 安装到用户级 Codex Skills 目录：
@@ -115,7 +125,7 @@ python3 scripts/compile_prompt.py SPEC.json \
 | 干净渲染与视觉审查 | [质量控制](references/quality-controls.md) · [图像诊断](references/image-generation-diagnostics.md) |
 | 已有示例与留存证据 | [examples/](examples/) · [tests/](tests/) |
 
-**发布检查：** 251 项自动化测试、本地完整 CI 流程、四平台参考条款投影、独立代码与视觉复核。自动化检查验证结构、兼容性和证据绑定，不代替逐图判断。
+**发布检查：** 255 项自动化测试、本地完整 CI 流程、四平台参考条款投影、独立代码与视觉复核。自动化检查验证结构、兼容性和证据绑定，不代替逐图判断。
 
 ## 历史材料
 

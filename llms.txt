@@ -79,3 +79,13 @@ For moving-image preparation, Jingzao owns only the still-image requirement, vis
 ## Limits
 
 Provider APIs, controls, model availability, and policy outcomes may change. Recheck a provider's current documentation before using a provider-specific route. Jingzao does not guarantee policy approval, identity reproduction, pixel preservation, deterministic outputs, or visual quality from a command that merely completes.
+
+## Lilac Material Reveal (v1.11)
+
+An opt-in product style for lilac-white studio depth, controlled shell reflections, selective microtexture and product-led element effects. Apply powder/fiber behavior only when the target material calls for it; target geometry, material and branding remain authoritative.
+
+- [Style and research workflow](references/lilac-material-reveal.md)
+- [Capsule](references/style-capsules/lilac-material-reveal.json)
+- [Cross-product visual evidence, including initial/repair states and actual sizes](tests/forward-evidence/lilac-material-reveal-review.json)
+
+The adopted status is supported by reviewed cross-product mechanisms, not a promise of perfect particles, animation, exact dimensions or customer acceptance.

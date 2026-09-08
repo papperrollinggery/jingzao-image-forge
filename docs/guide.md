@@ -168,3 +168,14 @@ These files are retained for people who need to inspect earlier project presenta
 - [Forward-test manifest](../tests/forward-test-manifest.json)
 
 Read each example's own label and retained receipt before making an execution or visual-quality claim. A gallery image, static asset, or structural test result is not by itself evidence that an input was sent or that a current model output was accepted.
+
+## Product material styles (v1.11)
+
+[Lilac Material Reveal](../references/lilac-material-reveal.md) separates studio treatment from target-owned geometry and materials. Choose a hero/array, contact macro or material-release state before compiling; do not add powder effects to unrelated products. Three initial trials plus two refinements are documented with actual prompt suffixes, dimensions and visual limits.
+
+```bash
+python3 scripts/compile_prompt.py tests/forward-specs/lilac-speaker-array.json \
+  --style-capsule references/style-capsules/lilac-material-reveal.json --platform openai
+```
+
+For a native tool accepting only a prompt and images, separately emitted compiler parameters must be explicitly handed off. Preserve the actual sent suffix and inspect the returned size; see [reference delivery](../references/reference-delivery.md).

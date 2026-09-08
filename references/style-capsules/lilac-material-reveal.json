@@ -1,0 +1,82 @@
+{
+  "style_capsule": "1.0",
+  "id": "lilac-material-reveal",
+  "name": "紫序·产品微观 / Lilac Material Reveal",
+  "scope": "skill_candidate",
+  "status": "adopted",
+  "adoption_approved": true,
+  "source_summary": {
+    "source_count": 7,
+    "raw_images_stored": false,
+    "provenance": "Seven local product storyboard images, including a coarse-particle candidate and its revision, plus their documented design rationale and sent-prompt records were inspected on 2026-09-08. Client assets, private paths, source branding and raw pixels are not distributed."
+  },
+  "visual_rules": {
+    "medium_behavior": "摄影级产品CG：清晰产品结构、可触摸的材料差异与受控微观细节，特效服务于产品信息。",
+    "palette_logic": [
+      "淡紫向冷白过渡的低频棚景形成明亮空间；目标产品的深色结构和材料本色独立可读。",
+      "低饱和浅粉、浅紫与白可用于目标材料的局部配色；不把同一纹样或颜色强加给所有产品。"
+    ],
+    "shape_line_language": "硬质包材保持刚性轮廓、细倒角与连接结构；采用阵列时，主产品与远处队列通过尺度、间距和清晰度分层。",
+    "texture_material_logic": [
+      "硬壳用宽而柔和的长条反射与窄边缘高光表现曲面，暗部保留层次。",
+      "干粉表面以细小、干燥的压实纹理表现；纤维有可见末端与接触变形，金属或镜面保持各自反光性质。",
+      "微观细节只出现在当前材料和焦点区域；非焦点背景保持平顺。"
+    ],
+    "lighting_logic": "大面积侧上方柔光与冷白填充建立清楚形体，亮背景上的浅色材料保留局部对比；镜面和半哑光的反射宽度各自可辨。",
+    "composition_logic": [
+      "每幅图只承担一个可读状态：完整产品、阵列主次、局部接触、材料释放或回归落定，由目标选择。",
+      "近大远小、交错姿态和选择性景深形成动势；识别主体仍保持完整或具有足够的结构线索。"
+    ],
+    "typography_logic": [],
+    "optics_rendering_logic": "干净渐变与克制阴影；微距焦点落在材料边界或接触线上，产品主图保留关键结构清晰度；虚化和运动模糊只作用于有明确职责的次要层。",
+    "motifs": []
+  },
+  "inferred_traits": [
+    "由产品整体到材料微观、再回归产品的顺序，使抽象质感具有清楚归属。",
+    "减少粗块而保留疏密层次可以提高粉体的轻盈观感；这是已观察候选对比的设计解读。"
+  ],
+  "unknowns": [
+    "源图的真实三维引擎、镜头参数、粒径、模拟求解器和制作工时。",
+    "静帧不能证明运动方向、动画连续性、产品功效或科学测量。"
+  ],
+  "transfer_rules": [
+    "先按目标选择一个状态与真实材料，再迁移棚光、主次和微观尺度；粉末、纤维、流体只在目标实际需要时启用。",
+    "粉体效果应绑定可见起点或落点，以密集细粉根部、稀疏透光前缘和少量失焦远近层表达；保持目标产品形状、材质与用户指定配色。"
+  ],
+  "forbidden_transfer": [
+    "来源品牌、商标、客户文案、专有产品外形和固定大理石纹样。",
+    "自动为电子产品或无关物品添加粉末、烟、液体、花材；把所有材料统一成湿亮或把产品结构变软。"
+  ],
+  "validation": {
+    "prompts": [
+      "艺术用品广告关键帧：三支方截面软粉彩条展现细腻干燥的颜料质感，正中的浅紫粉彩条释放一小束轻盈细粉。",
+      "便携音箱产品广告关键帧：一台主音箱从三台同款产品组成的斜向队列中突出，呈现硬壳、编织声学面料与清楚的空间层次。",
+      "艺术材料广告的接触微距：一把黑色合成纤维画笔轻触浅紫软粉彩，展示刷毛末端、压实细颜料与接触受力。",
+      "细化粉彩广告图的粉尘颗粒并按目标画幅交付，保留三支粉彩的相对比例、位置关系和既有质感。"
+    ],
+    "notes": "User explicitly authorized durable integration and publication. Independent review supports cross-product mechanism transfer through a wide electronic-product array, material-contact macro and a targeted refinement of the capsule-generated artist-pastel trial. The initial coarse-powder trial remains partial. Frontmatter approval does not imply every parameter or physical quantity was met; see all five cases and actual dimensions in the linked record.",
+    "evidence": [
+      {
+        "case_id": "lilac-speaker-wide",
+        "prompt_index": 1,
+        "scenario": "electronic product array wide",
+        "evidence_ref": "tests/forward-evidence/lilac-material-reveal-review.json#lilac-speaker-wide",
+        "review": "passed: Three floating target speakers form a clear front-to-back hierarchy; black semi-matte shells and gray woven panels remain distinct in lilac-white light. No powder, source compact shape or branding was imported."
+      },
+      {
+        "case_id": "lilac-fiber-contact",
+        "prompt_index": 2,
+        "scenario": "material fiber contact macro",
+        "evidence_ref": "tests/forward-evidence/lilac-material-reveal-review.json#lilac-fiber-contact",
+        "review": "passed_with_concerns: Fine black fibers bend locally at a readable diagonal contact line and collect dry pigment; the pastel remains a rigid block with a visible edge."
+      },
+      {
+        "case_id": "lilac-pastel-refined",
+        "prompt_index": 3,
+        "scenario": "artist pigment release refined",
+        "evidence_ref": "tests/forward-evidence/lilac-material-reveal-review.json#lilac-pastel-refined",
+        "review": "passed_with_concerns: Coarse airborne fragments were substantially reduced while three pastel sticks, source location, right-upward release, color and depth remained. A sparse translucent front is readable."
+      }
+    ]
+  }
+}

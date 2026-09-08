@@ -42,6 +42,14 @@ Use these capsules only when the user explicitly asks for the named treatment or
 - Shared core: soft modeled skin, selective eye/lip detail, coherent hair strands, tactile garment layers, close portrait relationships and target-owned body volume. Select daylight, cream-rose couture or crimson-black couture in the target specification.
 - Status of the generic capsule: user-authorized inclusion as **draft**, partially verified. Its original male portrait has deviations and two female tests were output-blocked. [Capsule evidence](../tests/forward-evidence/soft-editorial-style-review.json). For selected hair/expression/pose/body/wardrobe fidelity use the newer reference profiles in the style guide: four subsequent female-profile calls returned images, with attached and text-only outcomes reported separately in [profile evidence](../tests/forward-evidence/reference-profile-style-review.json). These calls do not validate the older capsule or prove a moderation fix. Raw sources remain private; one refined text-only sample is publicly available.
 
+## 紫序·产品微观 / Lilac Material Reveal
+
+- File: `style-capsules/lilac-material-reveal.json`
+- Read [material/state selection and research method](lilac-material-reveal.md).
+- Core: lilac-to-white studio depth, controlled dark-shell reflections, selective dry microtexture and fiber contact; element effects have a visible source or destination and serve product recognition.
+- Product shape, real material, color and brand remain target-owned. Powder is conditional, not a default effect. Raw client assets are excluded.
+- Cross-product trials and their actual canvas/quality limits: [visual review](../tests/forward-evidence/lilac-material-reveal-review.json).
+
 ## Use
 
 Validate before applying:
