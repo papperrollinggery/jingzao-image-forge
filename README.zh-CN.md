@@ -115,7 +115,7 @@ python3 scripts/compile_prompt.py SPEC.json \
 | 干净渲染与视觉审查 | [质量控制](references/quality-controls.md) · [图像诊断](references/image-generation-diagnostics.md) |
 | 已有示例与留存证据 | [examples/](examples/) · [tests/](tests/) |
 
-**发布检查：**251 项自动化测试、本地完整 CI 流程、四平台参考条款投影、独立代码与视觉复核。自动化检查验证结构、兼容性和证据绑定，不代替逐图判断。
+**发布检查：** 251 项自动化测试、本地完整 CI 流程、四平台参考条款投影、独立代码与视觉复核。自动化检查验证结构、兼容性和证据绑定，不代替逐图判断。
 
 ## 历史材料
 
