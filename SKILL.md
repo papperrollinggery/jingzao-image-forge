@@ -157,6 +157,7 @@ Use `learn_style` when the user wants an actual supplied image converted into a 
 
 - Inspect the image; do not infer style from the filename, prompt history, or user summary alone.
 - Separate directly observed mechanisms from production inferences and unknowns.
+- For every person-style distillation, complete the [body profile](references/body-profile.md): visible chest/waist/hip, shoulder/back and limb relations, volume, pose/perspective/occlusion, and garment fit/support/coverage. Mark hidden regions unknown and non-person references not applicable. Carry target-adopted traits into `subjects[].appearance` and visual acceptance; do not discard physique as style noise or silently impose a reference body on unrelated people.
 - Extract medium behavior, palette ownership, shape/line language, texture/material logic, lighting, composition, typography, optics/rendering, and limited recurring motifs.
 - Write transfer rules and forbidden transfer rules. Do not learn subject identity, faces, exact text, logos, signatures, protected character design, or exact layout coordinates as style.
 - Export a source-image-free `style_capsule` with `scripts/create_style_capsule.py`; review its advisory content-risk warnings and validate it with `scripts/validate_style_capsule.py`.
@@ -166,6 +167,8 @@ Use `learn_style` when the user wants an actual supplied image converted into a 
 When the user requests 《继承者大会初试：何为长生？》, 继承者大会风格, 何为长生风格, or 长生·华构人间, read [references/changsheng-style.md](references/changsheng-style.md) and apply its optional capsule. For costume, hair or makeup work, also read [references/changsheng-wardrobe-system.md](references/changsheng-wardrobe-system.md): derive design choices from the target character and situation while preserving material quality across variants. Keep the target identity, setting and era authoritative. Do not apply it to unrelated requests.
 
 For 晴海·角色写真, 清透夏日角色写真, or an approved match to the eight-reference summer photography family, read [references/azure-summer-style.md](references/azure-summer-style.md). Select its daylight/shade/sunset/interaction branch, restage for the target aspect ratio, and explicitly assign style ownership when combining it with grand fantasy architecture.
+
+For 柔映·人物质感 or a requested match to the four-reference daylight/cream-rose/crimson-black portrait family, read [references/soft-editorial-style.md](references/soft-editorial-style.md). Select one branch, retain the body profile, and report its draft/partially verified status; publication does not imply visual validation.
 
 When adult portrait or fashion work specifies garment openings (such as a deep V neckline), changes coverage, or loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
 

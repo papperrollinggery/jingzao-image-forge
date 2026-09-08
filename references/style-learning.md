@@ -16,7 +16,7 @@ Never present inference as observation.
 
 1. Inspect every source image with an actual vision-capable tool.
 2. Assign `source_input_ids`; state whether the sources agree or represent different layers.
-3. Fill `style_learning.observed` with reusable mechanisms, not subject inventory.
+3. Fill `style_learning.observed` with reusable mechanisms, not subject inventory. For person references also complete the [body profile](body-profile.md); keep visible physique, pose/projection, fit and coverage distinct, mark unknowns, and project target-adopted relations into the generation specification. For non-person references mark it not applicable.
 4. Write `transfer_rules` and `forbidden_transfer` before exporting.
 5. Validate the learn-style specification.
 6. Export a source-image-free capsule that records source count and provenance but embeds no raw image; review advisory warnings for quoted copy, brand/signature terms, or coordinates.

@@ -33,6 +33,9 @@ Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/
 - causal VFX: define source, trigger, material/shape, path, operation, response, intensity, decay, and residue for Chinese fantasy, giant-scale, transformation, and destruction effects
 - cross-platform compilation: OpenAI, FLUX, Midjourney, and generic targets
 
+- body-aware style distillation: record visible body proportions, garment fit/coverage and unknowns; project target-adopted traits into existing appearance fields
+- soft editorial family: opt-in daylight, cream-rose and crimson-black branches; draft with partial visual evidence
+
 ## Core files
 
 - SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
@@ -153,3 +156,6 @@ Manifest-bound outputs and three explicitly manual-review-only examples are comm
 - https://documents.blackmagicdesign.com/SupportNotes/DaVinci_Resolve_19_1_New_Features_Guide.pdf
 - https://docs.blender.org/manual/en/4.0/render/shader_nodes/shader/principled.html
 - https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine
+
+- references/body-profile.md: reusable body analysis form and projection into existing spec fields
+- references/soft-editorial-style.md: branch selection, source observation boundaries and current draft evidence

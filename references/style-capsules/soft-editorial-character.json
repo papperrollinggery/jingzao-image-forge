@@ -1,0 +1,86 @@
+{
+  "style_capsule": "1.0",
+  "id": "soft-editorial-character",
+  "name": "柔映·人物质感 / Soft Editorial Character",
+  "scope": "skill_candidate",
+  "status": "draft",
+  "adoption_approved": true,
+  "source_summary": {
+    "source_count": 4,
+    "raw_images_stored": false,
+    "provenance": "Four user-supplied references visually inspected on 2026-09-08. Shared material and portrait mechanisms are separated from daylight, cream-rose couture and crimson-black couture branches. Source pixels, paths, faces and in-image copy are not distributed."
+  },
+  "visual_rules": {
+    "medium_behavior": "近距离人物时装摄影感：精细妆发、柔和皮肤明暗与可触摸织物并存。保留目标人物自己的面部结构和年龄特征。",
+    "palette_logic": [
+      "背景和服装承担所选分支的主色，皮肤保持独立的自然肤色与细微粉暖过渡。",
+      "每张图沿用目标指定的一种配色；大色面安静，深色发束、衣缝或局部金属建立层次。"
+    ],
+    "shape_line_language": "头发有清晰体块、疏密发束和少量游丝；服装剪裁、层叠边缘与重力垂坠可辨，眼睛、嘴唇和衣领形成有次序的注意力。",
+    "texture_material_logic": [
+      "皮肤以连续柔和体积为主，焦点处保留细微真实纹理；眼周妆色、睫毛和湿润唇面有局部清晰度。",
+      "发丝具有方向性的细窄反光；针织、提花、薄纱、磨损织物和金属各自保留目标选择的材料响应，细节只附着于所属材料。",
+      "身体体量由姿态、布料贴合和连续明暗表现，保留目标指定的胸腰胯、肩背与四肢相对比例。"
+    ],
+    "lighting_logic": "面部用大面积柔光形成可读鼻颊体积。光源方向与场景一致，亮部平滑过渡；日光的发缘高光或棚拍的安静背景由目标所选分支决定。",
+    "composition_logic": [
+      "镜头距离和裁切服务人物表情及要展示的服装、身体区域；近距离有交流感，肩线和视线可形成轻微不对称。",
+      "需要验收胸腰胯时用三分之四身或更宽构图；面部特写只能验证可见头肩，不能充当全身体型验证。",
+      "姿态有真实承重和接触；坐姿压缩、扭转和近大远小是当帧投影，不是固定解剖比例。"
+    ],
+    "typography_logic": [],
+    "optics_rendering_logic": "眼睛和关键衣料边缘清晰，皮肤局部反差克制，前后景光学柔化而主体仍有体积；保持自然镜头透视和干净色阶。",
+    "motifs": []
+  },
+  "inferred_traits": [
+    "画面具有经过造型和修饰的时装写真观感；无法证明是实拍、合成或生成。",
+    "生活分支的环境杂物强化近距离日常感；棚拍分支用简化背景突出妆发与手工衣料。"
+  ],
+  "unknowns": [
+    "来源作者、摄影或生成工具、原始镜头和后期参数。",
+    "人物实际年龄、真实身份、身高、精确围度、未显示部位和衣物遮挡下的结构。"
+  ],
+  "transfer_rules": [
+    "先选目标需要的拍摄分支，再迁移柔光、皮肤/妆发/织物层次；不用一条提示词同时要求日光卧室和纯色棚拍。",
+    "身材表单单独记录并将目标采用的比例、服装贴合与覆盖写入 subjects[].appearance；保持目标身份、年龄、肤色和体型权威。",
+    "日常环境、粉白时装和深红黑时装的具体配色与衣服由目标指定，不从共同胶囊自动导入。",
+    "以目标用途调整画幅、动作和机位；只迁移被明确采用的身体比例，不复制来源人脸、道具或精确服装设计。"
+  ],
+  "forbidden_transfer": [
+    "来源人脸、身份、原图文字、品牌、签名和精确构图。",
+    "自动复制原图发型、帽子形状、杯子、饮料包装或房间摆设。",
+    "自动统一为纤瘦体型、加大胸部、收窄腰部、拉长腿、淡化肤色或改变年龄。",
+    "用头发或道具补造未知服装覆盖；把眼睛放大、全身塑料光泽或所有衣料变成同一材质。"
+  ],
+  "validation": {
+    "prompts": [
+      "日光日常成年人物三分之四身写真。原创30岁女性纺织设计师在家中窗边翻看布样，展示自然胸腰胯体量与柔软针织的贴合。",
+      "奶油粉手工时装分支：原创42岁男性服装设计师的半身工作室时装肖像，柔映质感迁移到不同年龄和性别。",
+      "深红黑手工时装分支：原创32岁女性舞台表演者的三分之四身时装肖像，保留丰满胸腰胯与真实衣服承托。"
+    ],
+    "notes": "User authorized durable inclusion, global install and release. Three prewritten text-only tests: one returned image partially met style with skin, garment closure and ratio deviations; two output-blocked without pixels. Insufficient successful transfer evidence: keep draft. See tests/forward-evidence/soft-editorial-style-review.json.",
+    "evidence": [
+      {
+        "case_id": "soft-daylight-designer",
+        "prompt_index": 0,
+        "scenario": "daylight body-aware portrait",
+        "evidence_ref": "tests/forward-evidence/soft-editorial-style-review.json#soft-daylight-designer",
+        "review": "TOOL_BLOCKED: No returned pixels; body, fit, coverage and style matching remain unverified."
+      },
+      {
+        "case_id": "soft-rose-tailor",
+        "prompt_index": 1,
+        "scenario": "cream-rose mature male couture",
+        "evidence_ref": "tests/forward-evidence/soft-editorial-style-review.json#soft-rose-tailor",
+        "review": "partial: Rose background, ivory jacquard, sheer cuff layers, directional hair detail and soft facial modeling transferred to an original mature male. Hands hold ribbon with readable contact."
+      },
+      {
+        "case_id": "soft-crimson-performer",
+        "prompt_index": 2,
+        "scenario": "crimson body-aware couture",
+        "evidence_ref": "tests/forward-evidence/soft-editorial-style-review.json#soft-crimson-performer",
+        "review": "TOOL_BLOCKED: No returned pixels; body, fit, coverage and style matching remain unverified."
+      }
+    ]
+  }
+}

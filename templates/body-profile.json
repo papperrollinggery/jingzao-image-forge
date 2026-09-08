@@ -1,0 +1,23 @@
+{
+  "body_profile": {
+    "applicability": "person_style_distillation",
+    "subject_scope": "Identify the depicted adult or character only when supplied evidence supports it; otherwise state what is unknown.",
+    "evidence_scope": "Record visible relative proportions and garment behavior only. Do not infer concealed anatomy, cup size, measurements, or age from a close crop.",
+    "observed": {
+      "chest_waist_hip_relation": [],
+      "shoulder_back_relation": [],
+      "limb_relation": [],
+      "soft_tissue_volume": [],
+      "pose_perspective_occlusion": [],
+      "garment_coverage_support_fit": []
+    },
+    "inferred": [],
+    "unknown": [],
+    "target_application": {
+      "adopt": [],
+      "preserve": [],
+      "change": []
+    },
+    "visual_acceptance": []
+  }
+}

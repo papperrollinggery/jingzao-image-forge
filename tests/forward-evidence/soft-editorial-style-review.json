@@ -1,0 +1,66 @@
+{
+  "review_date": "2026-09-08",
+  "source_review": "All four user references inspected directly. Source pixels and paths remain private.",
+  "distribution": "Generated pixels remain local-only. This record publishes text inputs, hashes and review outcomes, not source images or identities.",
+  "test_method": "Three prewritten text-only cross-subject branch tests, not reference-attached reproduction. Primary and independent visual review completed. Independent fresh-process Skill routing and target/body/unknown compilation were verified without further image calls.",
+  "cases": [
+    {
+      "case_id": "soft-daylight-designer",
+      "scenario": "daylight body-aware portrait",
+      "spec_ref": "tests/forward-specs/soft-daylight-designer.json",
+      "capsule_ref": "references/style-capsules/soft-editorial-character.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "e8bf162c605d99697c7a0f589f9f32e0411cdeddb54e5821f2484f7c749d5d8c",
+      "prompt_suffix": "",
+      "status": "TOOL_BLOCKED",
+      "error_code": "moderation_blocked",
+      "moderation_stage": "output",
+      "categories": [
+        "sexual"
+      ],
+      "image_returned": false,
+      "visual_review": "No returned pixels; body, fit, coverage and style matching remain unverified.",
+      "limitations": "Single attempt of this prewritten case. No synonym retries or backend substitutions."
+    },
+    {
+      "case_id": "soft-rose-tailor",
+      "scenario": "cream-rose mature male couture",
+      "spec_ref": "tests/forward-specs/soft-rose-tailor.json",
+      "capsule_ref": "references/style-capsules/soft-editorial-character.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "c6d508035e6abd57c886aa0674e5d22dba44ac0f65700bb74d5337d95e692a32",
+      "prompt_suffix": "",
+      "status": "partial",
+      "artifact_availability": "local_only_not_distributed",
+      "local_artifact_locator": "output/soft-editorial-20260908/soft-rose-tailor.png",
+      "output_sha256": "33c3a90bf30c814860f04e4ff087eeb80022ba79cd8c8e5cf6cc8a2a59e7f2a0",
+      "dimensions": [
+        1023,
+        1537
+      ],
+      "visual_review": "Rose background, ivory jacquard, sheer cuff layers, directional hair detail and soft facial modeling transferred to an original mature male. Hands hold ribbon with readable contact.",
+      "limitations": "Skin microcontrast is coarser than reference. Front opening remains visibly open despite requested fastened coverage. Output is 1023x1537 rather than requested 3:4. No full-body evidence; age and identity are synthetic design intentions, not externally verified facts."
+    },
+    {
+      "case_id": "soft-crimson-performer",
+      "scenario": "crimson body-aware couture",
+      "spec_ref": "tests/forward-specs/soft-crimson-performer.json",
+      "capsule_ref": "references/style-capsules/soft-editorial-character.json",
+      "generator": "built-in image_gen",
+      "reference_images_sent": 0,
+      "prompt_sha256": "4cc411d720a61058d4032a3fd5a75620b0b77376f511530ed1f965321914a5dc",
+      "prompt_suffix": "",
+      "status": "TOOL_BLOCKED",
+      "error_code": "moderation_blocked",
+      "moderation_stage": "output",
+      "categories": [
+        "sexual"
+      ],
+      "image_returned": false,
+      "visual_review": "No returned pixels; body, fit, coverage and style matching remain unverified.",
+      "limitations": "Single attempt of this prewritten case. No synonym retries or backend substitutions."
+    }
+  ]
+}

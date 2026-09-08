@@ -1,5 +1,7 @@
 # 镜造 Image Forge — 面向 Codex 的视觉导演、风格学习与结构化生图 Skill
 
+**v1.9.0：**新增可选的[柔映·人物质感](references/soft-editorial-style.md)，分为日光日常、奶油粉手工时装、深红黑手工时装；每次人物风格蒸馏加入[身材表单](references/body-profile.md)。新胶囊保留 **draft／部分验证**：一张成图有偏差，两项被工具输出拦截；安装与发布不代表视觉通过。
+
 [English](README.md) · [Skill 指令](SKILL.md) · [视觉规格](references/visual-spec.md) · [平台编译规则](references/prompt-compiler.md)
 
 [![Validate](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml/badge.svg)](https://github.com/papperrollinggery/jingzao-image-forge/actions/workflows/validate.yml)
@@ -442,7 +444,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/verify_install.py . . --ref HEAD
 ```
 
-当前本机基线为 **230 项确定性回归测试**，覆盖发布源到安装副本的内容与执行权限一致性、宿主安全的发现元数据、生产分镜、便携告警保真、保护媒介的清洁措辞，以及七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、四份证据绑定风格胶囊（其中两份的成图像素仅在本地审阅）、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[公开证据清单](tests/forward-test-manifest.json)或[风格目录](references/style-capsules.md)链接的明确本地审阅记录验收。回归检查本地记录的引用、case ID 和当前文本生图提示词哈希；本地成图不随发行包分发，不能从 ZIP 独立复核像素。
+当前本机基线为 **233 项确定性回归测试**，覆盖发布源到安装副本的内容与执行权限一致性、宿主安全的发现元数据、生产分镜、便携告警保真、保护媒介的清洁措辞，以及七种模式的 schema/编译结构、四平台 UI Motion 精确文字/强调色/sequence/L0–L3 层级行为、层级 profile 类型安全与必填字段校验、抗重复的层级复杂度信号、空模板/仅排除项 fail-closed、四平台自适应 `clean_base` 与显式质量档替换、CJK 安全的动态语义复核目标、抗重复条目刷量的复杂度信号/模式、平台复核上界且不截断、精确文案豁免的中英文表面风险扫描、`clean_reset` 恢复、经验证的 forward 规格与示例、五份证据绑定风格胶囊（含一份部分验证／工具拦截的 draft，新成图像素仅在本地审阅）、ImageGen 目标预检与 receipt、递归公共回执脱敏与仓库路径约束、manifest/case/prompt-source 白名单、已提交输出哈希、可执行提示复核、四平台污染 lint、显式专业字段不删除投影、模板占位词泄漏、画布与平台参数一致性、场景路由、调色/渲染结构、空间张力、因果 VFX、Midjourney 执行路由、胶囊导出、异常输入和 CLI 合同。实际生图质量仍由[公开证据清单](tests/forward-test-manifest.json)或[风格目录](references/style-capsules.md)链接的明确本地审阅记录验收。回归检查本地记录的引用、case ID 和当前文本生图提示词哈希；本地成图不随发行包分发，不能从 ZIP 独立复核像素。
 
 人工视觉复核：使用暗场环境人像同时测试自然皮肤、靛蓝布料、拉丝黄铜、旧木材和单一实用灯具。实际产图的材质分离、暗部可读性、焦点细节和受光源驱动的高光均通过；未发现失控噪点、漂浮光球、全局油蜡感、锐化光环或合成 bokeh。该图保留在案例区，但原始提示记录未保留，因此不作为 manifest 绑定证据。
 

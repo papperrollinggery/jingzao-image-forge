@@ -35,6 +35,13 @@ Use these capsules only when the user explicitly asks for the named treatment or
 - Derived from eight inspected user references without storing source pixels or copying identities, emblems, costume designs or text.
 - Evidence status: see capsule and `tests/forward-evidence/azure-summer-style-review.json`; generated pixels remain local-only.
 
+## 柔映·人物质感 / Soft Editorial Character
+
+- File: `style-capsules/soft-editorial-character.json`
+- Read [three branches and body-profile observations](soft-editorial-style.md).
+- Shared core: soft modeled skin, selective eye/lip detail, coherent hair strands, tactile garment layers, close portrait relationships and target-owned body volume. Select daylight, cream-rose couture or crimson-black couture in the target specification.
+- Status: user-authorized inclusion as **draft**, partially verified. One returned male portrait has documented deviations; two female tests were output-blocked without images. [Evidence](../tests/forward-evidence/soft-editorial-style-review.json). Source pixels and generated pixels are not distributed.
+
 ## Use
 
 Validate before applying:
