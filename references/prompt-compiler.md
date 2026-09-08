@@ -189,3 +189,8 @@ python3 scripts/compile_prompt.py examples/tactile-stop-motion-product.json \
 ```
 
 The JSON output contains `platform`, `prompt`, `prompt_metrics`, `prompt_review`, `negative_prompt`, `parameters`, `warnings`, `attachments`, `reference_handoff`, `imagegen_call_plan`, and `source_spec_version`. Context-residue review scans structured source fields before provider serialization and excludes only `text_elements.content`; this avoids provider escaping errors and does not create a second copy source. Midjourney output additionally carries `execution_route`.
+
+
+## Selected reference profiles
+
+For reference-fidelity work, `compile_prompt.py SPEC --reference-profile PROFILE` validates a complete observation/selection profile and projects only adopted visual descriptions into existing `scene.summary`. It returns `reference_profile_audit` separately; observation/decision/review text is not pasted into the generation prompt. Profile and capsule flags are mutually exclusive. The target must be semantically reconciled with the selected profile before compilation; the helper does not resolve natural-language contradictions. Existing specs and capsule inputs retain their previous behavior. See [reference distillation](reference-distillation.md) and the [profile template](../templates/reference-profile.json).

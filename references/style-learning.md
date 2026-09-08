@@ -2,6 +2,8 @@
 
 Use `mode: learn_style` when the user wants an actual supplied image analyzed and converted into a reusable visual style. This workflow extracts a maintainable rule system; it does not train model weights or prove the source's hidden production process.
 
+For complete portrait or shot treatment, first use [reference distillation](reference-distillation.md). A capsule is the portable shared style layer; a project profile preserves adopted hair, gaze, expression, pose/action, body, costume and camera without copying identity. Do not silently drop these traits while extracting only color/material.
+
 ## Evidence Layers
 
 Keep three layers separate:

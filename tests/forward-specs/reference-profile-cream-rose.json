@@ -1,0 +1,21 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "zh-CN",
+  "intent": "根据所附参考的妆发、表情、手势、服装与摄影，创作同类质感的原创成年女性时装近景。",
+  "canvas": {
+    "aspect_ratio": "9:16"
+  },
+  "inputs": [
+    {
+      "id": "cream-rose-reference",
+      "type": "image",
+      "role": "appearance_pose_lighting_reference",
+      "description": "图片1提供铂金齐刘海、妆面、脸旁手势、头部倾斜、衣帽材料和构图；人物身份采用原创设计。",
+      "source_kind": "platform_asset",
+      "source_ref": "runtime:cream-rose-reference",
+      "must_attach": true
+    }
+  ],
+  "constraints": {}
+}

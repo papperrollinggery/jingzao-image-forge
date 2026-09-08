@@ -20,7 +20,7 @@ jobs:
           python-version: "3.10"
 
       - name: Compile Python sources
-        run: python3 -m py_compile scripts/reference_delivery.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/prompt_lint.py scripts/validate_forward_tests.py scripts/verify_install.py tests/test_skill.py tests/test_production.py tests/test_quality_workflow.py tests/test_install.py tests/test_changsheng_style.py tests/test_style_packages.py
+        run: python3 -m py_compile scripts/reference_delivery.py scripts/reference_profile.py scripts/validate_spec.py scripts/validate_style_capsule.py scripts/create_style_capsule.py scripts/compile_prompt.py scripts/compile_production.py scripts/prompt_lint.py scripts/validate_forward_tests.py scripts/verify_install.py tests/test_skill.py tests/test_production.py tests/test_quality_workflow.py tests/test_install.py tests/test_changsheng_style.py tests/test_style_packages.py
 
       - name: Lint Python sources
         run: |
@@ -73,6 +73,16 @@ jobs:
 
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Validate selected reference profiles
+        run: |
+          for profile in examples/reference-profile-*.json; do
+            name="$(basename "$profile")"
+            python3 scripts/reference_profile.py "$profile" --spec "tests/forward-specs/$name" > /tmp/reference-profile-projection.json
+            for platform in openai flux midjourney generic; do
+              python3 scripts/compile_prompt.py "tests/forward-specs/$name" --reference-profile "$profile" --platform "$platform" > "/tmp/reference-profile-$platform.json"
+            done
+          done
 
       - name: Verify releasable install payload
         run: |

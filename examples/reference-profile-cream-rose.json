@@ -1,0 +1,178 @@
+{
+  "reference_profile": "1.0",
+  "id": "cream-rose-portrait-fidelity",
+  "reference_mode": "attached",
+  "source_ids": [
+    "cream-rose-reference"
+  ],
+  "facets": [
+    {
+      "id": "face_design",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "partial",
+      "observation": "用户明确要求亚洲面孔；参考实际年龄和身份未知。",
+      "decision": "adapt",
+      "prompt": "一位原创30岁东亚成年女性，保留成年人的自然面部比例。",
+      "reason": "用户要求东亚面部设计；新人物年龄为明确目标设定，不从来源推断或复制身份。",
+      "review_check": "保持目标东亚成年女性的面部设计，不能只换衣服颜色。"
+    },
+    {
+      "id": "hair",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "浅铂金色短发，齐刘海，脸颊两旁有较长细发束。",
+      "decision": "preserve",
+      "prompt": "浅铂金短波波头，整齐齐刘海，脸颊两侧有细长发束。",
+      "reason": "",
+      "review_check": "发色保持铂金而不是棕黑，长度、齐刘海和面颊发束均可见。"
+    },
+    {
+      "id": "makeup",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "眼周是淡玫瑰红妆，睫毛清楚，唇面柔和有局部反光。",
+      "decision": "preserve",
+      "prompt": "淡玫瑰眼妆、清晰纤细睫毛和柔和浅粉唇色。",
+      "reason": "",
+      "review_check": "眼妆与唇色轻柔，眼睛不放大成卡通。"
+    },
+    {
+      "id": "expression",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "嘴唇轻微分开，眉间舒展，安静表情。",
+      "decision": "preserve",
+      "prompt": "嘴唇自然微分、下颌放松，安静略疏离的表情。",
+      "reason": "",
+      "review_check": "不是微笑或职业照式严肃表情。"
+    },
+    {
+      "id": "gaze",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "两眼直接看向镜头。",
+      "decision": "preserve",
+      "prompt": "目光直视镜头。",
+      "reason": "",
+      "review_check": "目光方向保持直视。"
+    },
+    {
+      "id": "pose",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "头部轻微偏斜，肩部在体积衣袖中形成缓和不对称。",
+      "decision": "preserve",
+      "prompt": "头部轻轻侧倾，肩线略微不对称。",
+      "reason": "",
+      "review_check": "头部侧倾保留，不能变成完全端正证件照。"
+    },
+    {
+      "id": "action",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "partial",
+      "observation": "手在下颌旁，指尖接触画面左侧脸颊；部分指关节遮挡。",
+      "decision": "preserve",
+      "prompt": "一只手抬至下颌旁，指尖轻触画面左侧脸颊，手腕自然弯曲。",
+      "reason": "",
+      "review_check": "手位在脸旁且指尖接触脸颊，不下降为腹前持物。"
+    },
+    {
+      "id": "body",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "partial",
+      "observation": "头肩近景，只见颈部和手腕；真实肩宽、胸腰胯与全身比例被裁切或衣物遮挡。",
+      "decision": "preserve",
+      "prompt": "可见的颈部与手腕自然纤细。",
+      "reason": "",
+      "review_check": "仅核对可见颈部与手腕；胸腰胯、背面和全身比例不可验。"
+    },
+    {
+      "id": "wardrobe",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "象牙白提花织物头饰有两个软尖角与长系带，高领褶边与层叠薄纱大袖。",
+      "decision": "preserve",
+      "prompt": "象牙白提花织物帽带有两个柔软上翘尖角和垂下的长系带；高领褶边上衣与层叠薄纱大袖完整覆盖躯干。",
+      "reason": "",
+      "review_check": "尖角织物帽、长系带、高领褶边和纱袖保持，不换成普通衬衫。"
+    },
+    {
+      "id": "camera",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "竖向近景，头饰顶端至胸前，眼平视角感，脸与手为主。",
+      "decision": "preserve",
+      "prompt": "竖幅9:16，头饰顶端至胸前的近景，眼平视角，脸与手共同成为焦点。",
+      "reason": "",
+      "review_check": "保持近景范围，帽顶完整，手在可见区域。"
+    },
+    {
+      "id": "lighting",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "宽柔光，鼻颊有细腻形体，阴影很柔和。",
+      "decision": "preserve",
+      "prompt": "大面积柔光细腻塑造鼻颊体积，阴影边缘柔和。",
+      "reason": "",
+      "review_check": "脸不平涂、阴影不硬。"
+    },
+    {
+      "id": "palette",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "干玫瑰背景，奶油白衣帽，浅暖肤色。",
+      "decision": "preserve",
+      "prompt": "干玫瑰色背景与奶油白衣帽形成安静色面，肤色保留自然浅暖色调。",
+      "reason": "",
+      "review_check": "背景与衣帽主色保留，皮肤不被染成粉红。"
+    },
+    {
+      "id": "surface",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "织纹、纱层和头发可辨，皮肤低局部反差，焦点眼唇清楚。",
+      "decision": "preserve",
+      "prompt": "提花织纹、轻薄纱层与发丝各自可辨；皮肤连续柔和，眼唇细节清晰。",
+      "reason": "",
+      "review_check": "衣料保留层次，肤面不粗糙或塑料化。"
+    },
+    {
+      "id": "environment",
+      "source_ids": [
+        "cream-rose-reference"
+      ],
+      "evidence": "observed",
+      "observation": "背景为单纯粉色棚拍色面，没有叙事场景。",
+      "decision": "preserve",
+      "prompt": "单纯棚拍背景，无文字。",
+      "reason": "",
+      "review_check": "不自行添房间、花园或道具。"
+    }
+  ]
+}
