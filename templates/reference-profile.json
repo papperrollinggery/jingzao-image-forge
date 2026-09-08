@@ -1,0 +1,150 @@
+{
+  "reference_profile": "1.0",
+  "id": "reference-observation-draft",
+  "reference_mode": "attached",
+  "source_ids": [
+    "reference-1"
+  ],
+  "facets": [
+    {
+      "id": "action",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "body",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "camera",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "environment",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "expression",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "face_design",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "gaze",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "hair",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "lighting",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "makeup",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "palette",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "pose",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "surface",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    },
+    {
+      "id": "wardrobe",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "尚未观察该项；观察后填写所选控制与验收条件。",
+      "review_check": ""
+    }
+  ]
+}

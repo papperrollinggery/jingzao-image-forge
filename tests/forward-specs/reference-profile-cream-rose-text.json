@@ -1,0 +1,10 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "zh-CN",
+  "intent": "创作一张原创成年女性的奶油粉手工时装近景。",
+  "canvas": {
+    "aspect_ratio": "9:16"
+  },
+  "constraints": {}
+}

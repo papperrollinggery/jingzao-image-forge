@@ -1,161 +1,81 @@
-# Jingzao Image Forge
+# Jingzao Image Forge: reference-image distillation and AI image prompts for Codex
 
-> A Codex visual-director Skill for structured AI image prompts, preventive clean GPT Image 2 rendering, dynamic semantic prompt budgets, cinematic film frames, continuous and layered UI Motion storyboards, character and prop consistency, real multi-image references, reference-image style learning, and cross-domain art direction. It compiles validated visual_generation_spec files for OpenAI GPT Image 2, FLUX, Midjourney, or generic image generators without truncating explicit fields. Its adaptive clean base lowers unowned speckle, texture noise, dirty AO, global oily/plastic response, and equal-detail risk while preserving intentional grain, brushwork, patina, wear, wetness, and optical artifacts.
+Jingzao Image Forge (镜造 Image Forge) is a Codex Skill for reference-image distillation, character-consistency planning, and AI image prompts. It turns a brief plus selected reference evidence into an inspectable `visual_generation_spec`, a platform-ready prompt, and visible review criteria for hair, expression, gaze, action, visible body design, wardrobe, camera, lighting, palette, surface, and environment.
 
-Canonical repository: https://github.com/papperrollinggery/jingzao-image-forge
-English documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.md
-Chinese documentation: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/README.zh-CN.md
-Skill entrypoint: https://github.com/papperrollinggery/jingzao-image-forge/blob/main/SKILL.md
+## Scope
 
-## Primary capabilities
+Use it for new images, reference-aware image edits, restyles, expansions, style learning, cinematic stills, multi-frame boards, and image requirements for video pre-production. It supports OpenAI, FLUX, Midjourney, and a generic compiler output without inventing provider-specific controls.
 
-- create: create a new image prompt from a brief
-- progressive detail: keep the empty template neutral; apply only a medium-preserving clean base after real generation content exists; compile explicit professional controls when the task requires them
-- reconstruct: describe observable reference-image attributes without claiming to recover a hidden prompt
-- edit: describe the smallest local change and explicit preservation constraints
-- restyle: change visual treatment while locking identity, pose, geometry, layout, and text
-- expand: attempt canvas extension under a preservation contract; strict position/scale/ratio retention requires visual review and may fail
-- learn_style: inspect actual reference images, separate observed/inferred/unknown traits, and export a source-image-free capsule with required transfer boundaries and advisory content-risk warnings
-- styleboard: build cinematic or UI Motion boards with role-scoped references, exact in-frame text, local interface states, semantic accent ownership, optional L0-L3 hierarchy profiles, continuity locks, and direct-sheet, independent-frame, or hybrid generation
-- creative routing: choose one primary scenario, genre family, aesthetic family, capture/render method, and up to three scene archetypes across 20+ use cases
-- visual style atlas: cinematic naturalism, noir, expressionism, oneiric, sublime, graphic modernism, analog, editorial, handcrafted, painterly, animation, documentary, speculative, minimal, archival, and mixed media
-- style authority and spatial tension: preserve explicit tone locks across scenarios; design dominant read, action/counterforce, foreground-midground-background roles, exaggeration, distortion, parallax, and motion evidence
-- professional color pipeline: exposure, tone scale, black/white points, highlight rolloff, color separation, skin protection, film/print character, grain, halation, bloom, and shot matching
-- professional render pipeline: Blender/Unreal/production-renderer appearance references, path/ray tracing, global illumination, PBR/NPR materials, volume, sampling, and visible pass separation inside one generated image
-- verified multi-image delivery: emit actual supplied images, a target-aware Codex ImageGen call plan, fail-closed capability checks, and an expected-vs-sent execution receipt; never replace references with prose-only summaries or add post-generation compositing
-- knowledge-aware generation: preserve exact named entities as optional knowledge_anchors
-- artifact and material quality: use an automatic preventive clean base, optional `clean_reset`, low-frequency shape groups, explicit texture ownership, material-specific roughness/highlights, localized AO/contact, and a two-scale visual gate for oily or waxy sheen, random speckles, texture noise, dirty AO halos, plastic reflections, noisy darks, and equal-detail rendering
-- dynamic prompt budget: classify concise/standard/complex/sequence/analysis prompts, derive CJK-aware review targets from duplicate-resistant semantic signals, expose platform review ranges, and never auto-truncate source fields
-- surface-risk review: flag generic detail/gloss/lighting spells outside exact visible copy and return concrete positive rewrites
-- bundled prompt-contamination guard: source trace, clean-slate reset, semantic ownership and deduplication, deletion test, stateless-generator read, and PASS/FAIL without requiring another installed Skill
-- automatic visual direction: distinguish narrative film frames, key art, posters, grounded cinema, heightened cinema, graphic stylization, spectacle scale, camera freedom, and genre logic
-- cinematic shot design: bind relationship, staging, viewer position, camera height, distance, focal length, focus, and motivated lighting
-- causal VFX: define source, trigger, material/shape, path, operation, response, intensity, decay, and residue for Chinese fantasy, giant-scale, transformation, and destruction effects
-- cross-platform compilation: OpenAI, FLUX, Midjourney, and generic targets
+The Skill guides image tools available in the current Codex host to generate and review images. Its Python scripts compile specifications and prompts; they are not an independently hosted rendering service. A valid specification, command exit status, attachment declaration, or call plan is not proof of image delivery or visual acceptance.
 
-- body-aware style distillation: record visible body proportions, garment fit/coverage and unknowns; project target-adopted traits into existing appearance fields
-- soft editorial family: opt-in daylight, cream-rose and crimson-black branches; draft with partial visual evidence
+## Entry points
 
-## Core files
+- Human overview and installation: [README.md](README.md)
+- Chinese overview: [README.zh-CN.md](README.zh-CN.md)
+- Skill invocation rules: [SKILL.md](SKILL.md)
+- Reference-profile contract, technical map, and historical-material index: [docs/guide.md](docs/guide.md)
+- Complete observation and projection method: [references/reference-distillation.md](references/reference-distillation.md)
+- Reusable profile shape: [templates/reference-profile.json](templates/reference-profile.json)
+- Core specification fields: [references/visual-spec.md](references/visual-spec.md)
+- Compiler behavior and provider boundaries: [references/prompt-compiler.md](references/prompt-compiler.md)
 
-- SKILL.md: discovery metadata, workflow, boundaries, and improvement protocol
-- references/visual-spec.md: visual_generation_spec schema and control semantics
-- references/prompt-compiler.md: platform-aware compilation, adaptive clean base, dynamic semantic review budget, and surface-risk behavior
-- references/prompt-hygiene.md: bundled standalone source tracing, contamination classes, semantic ownership ledger, deletion test, stateless-generator read, feasibility, and style-preserving PASS/FAIL review
-- references/quality-controls.md: artifact budgets, medium-preserving cleanup wording, source/region diagnosis, clean-master selection, texture ownership, material-light controls, two-scale acceptance, bounded retries, and conditional structural proxies without pixel-fidelity guarantees
-- references/cinematic-shot-design.md: narrative film-frame contracts, blocking, camera/lens coupling, and posterization guard
-- references/direction-profiles.md: grounded, heightened, graphic, giant-scale, and Chinese-fantasy routing
-- references/scenario-profiles.md: story, commercial, product, fashion, food, architecture, environment, knowledge, interface, game, event, social, and experimental routes
-- references/visual-style-atlas.md: coherent aesthetic families, capture/render methods, style-mix rules, and failure guards
-- references/shot-tension-design.md: beautiful-shot mechanisms, action/counterforce, depth-layer roles, camera distortion, exaggeration, and readability
-- references/color-pipeline.md: professional grading, display intent, film finishing, grain, halation, tone scale, and sequence continuity
-- references/render-pipeline.md: Blender/Unreal/renderer vocabulary, light transport, GI, PBR materials, sampling, passes, and artifacts
-- references/reference-delivery.md: minimal actual-image source/role/must-attach records, ImageGen handoff, preflight, and no-compositing boundary
-- references/reference-modes.md: reconstruct observed/inferred/unknown contract, restyle invariants, expand boundary continuity, and provider routing
-- references/style-learning.md: reference-image observation, source-image-free capsule export, content-risk review, cross-subject tests, and adoption gates
-- references/style-capsules.md: reviewed built-in capsule registry, transfer boundaries, evidence, and usage
-- references/style-capsules/crimson-nocturne-wuxia-montage.json: adopted vertical crimson/cyan analog photomontage capsule learned from three user references without storing raw images
-- references/styleboard-mode.md: reference roles, line-art/hand-drawn/cinematic presentation, frame cards, and 3x3 assembly
-- references/ui-motion-storyboard.md: interface-state sequencing, exact typography, semantic accent ownership, local UI beats, and source/iteration archive
-- templates/visual-spec.json: reusable JSON visual specification template
-- templates/style-capsule.json: reusable source-image-free learned-style template
-- scripts/validate_spec.py: standard-library specification validator
-- scripts/validate_style_capsule.py: standard-library learned-style capsule validator
-- scripts/reference_delivery.py: standard-library attachment manifest, Codex ImageGen capability preflight, call plan, and execution receipt verification
-- scripts/prompt_lint.py: deterministic compiled-prompt leakage and fixture-ceiling checks
-- scripts/validate_forward_tests.py: validates forward-test evidence paths and prompt hashes without pixel regression
-- scripts/create_style_capsule.py: deterministic source-image-free capsule exporter with advisory content-risk warnings
-- scripts/compile_prompt.py: standard-library prompt compiler
-- scripts/compile_production.py: opt-in shot-coverage validation and isolated single-frame compilation; no image or video execution
-- scripts/verify_install.py: compare installed tracked files, symlinks, content, and executable modes with a resolved Git release commit; runtime caches are reported separately and Git-empty directories are out of scope
-- references/production-coverage.md: risk-based image anchors, world-space reverse views, prop states, edit side effects, and upstream workflow boundary
-- examples/production-coverage.json: original front/reverse/insert image specs plus a justified video-only beat
-- examples/atomic-cyber-live-action.json: synthetic validated edit example
-- examples/narrative-film-frame.json: validated relationship-driven cinematic ultrawide example
-- examples/styleboard-3x3.json: validated reference-led hybrid nine-grid storyboard example
-- examples/ui-motion-storyboard.json: validated four-frame independent 16:9 UI Motion line-art sequence with exact Chinese text, layered editorial L0-L3 hierarchy, calm zones, and one semantic accent
-- examples/continuous-nine-shot-ferry.json: validated live-action direct-sheet specification for nine causal shots with identity, wardrobe, prop, geography, light, screen-direction, and object-state continuity
-- examples/jingzao-intro-infographic-edit.json: validated source-matched product-introduction edit specification; its first ImageGen candidate failed the embedded-board preservation gate and was rejected
-- examples/style-learning-graphite-copper.json: validated reference-image style-learning record based on an inspected Jingzao-owned asset
-- examples/style-capsule-graphite-copper.json: validated reusable style capsule with no embedded source image
-- examples/tactile-stop-motion-product.json: validated handcrafted product scenario
-- examples/architecture-exhibition.json: validated architectural-spatial scenario
-- examples/causal-fantasy-effect.json: validated battle-tension, causal VFX, professional color, advanced materials, and Blender Cycles appearance-reference example
-- examples/reconstruct-architecture-reference.json: reconstruct contract with observed/inferred/unknown separation
-- examples/restyle-risograph-editorial.json: restyle contract with locked source geometry and one treatment change
-- examples/expand-roadside-outpaint.json: expand contract with source-bound continuity and crop-safe new edges
-- tests/test_skill.py: deterministic regression tests
-- tests/evals.md: behavioral evaluation cases
-- tests/benchmark-results.md: same-model qualitative prompt-strategy benchmark and evidence-backed conclusions
-- tests/forward-test-manifest.json: traceable prompt hashes, approved outputs, scenarios, and visual review records
-- assets/jingzao-image-forge-hero-en.png: English visual introduction page generated with Codex imagegen
-- assets/jingzao-image-forge-hero-zh.png: Chinese visual introduction page generated with Codex imagegen
-- assets/jingzao-image-forge-group-card-zh.png: concise Chinese community recommendation card
-- assets/jingzao-image-forge-group-card-zh-v2.png: information-rich Chinese workflow, capabilities, and use-case recommendation card
-- assets/jingzao-image-forge-intro-zh-v5.png: current accepted landscape product introduction page; the later edit-mode candidate was rejected because it redrew the embedded evidence board
-- assets/jingzao-image-forge-intro-zh-v4.png: previous landscape workflow page showing reference preflight, call planning, ImageGen, receipt, and visual review
-- assets/jingzao-image-forge-recommendation-zh-v3.png: current vertical feature recommendation poster
-- assets/jingzao-image-forge-wechat-card-zh-v3.png: current concise WeChat group recommendation card
-- assets/gallery/: fifteen web-optimized, visually inspected outputs spanning continuous cinematic storyboards, narrative film, causal fantasy, hand-drawn nine-grid, material realism, product, architecture, restyle, reconstruction, CG fashion, path-traced object design, and cross-subject style-capsule transfers; twelve are manifest-bound and three are explicitly manual-review-only
+## Minimal use
 
-## Invocation
+Natural-language invocation:
 
-$jingzao-image-forge <image brief, reference observation, or edit request>
+```text
+$jingzao-image-forge Create a 21:9 cinematic key visual from this brief.
+Return a visual_generation_spec, an OpenAI-ready prompt, and review points.
+```
 
-## Important boundaries
+Compile an existing specification:
 
-- The Skill prepares specifications and prompts; it does not generate images by itself.
-- Coordinates are semantic anchors, not pixel-accurate masks.
-- Model world knowledge is a creative aid, not verification evidence.
-- Provider capabilities and parameters must be rechecked against current official documentation before they are changed or promised.
-- Generated images must be visually inspected before claiming quality, identity accuracy, or edit success.
-- Runtime scripts require Python 3.10+ and have no third-party runtime dependency.
+```bash
+python3 scripts/compile_prompt.py examples/atomic-cyber-live-action.json --platform openai
+```
 
-## Validation
+v1.10 reference-profile route:
 
-python3 scripts/validate_spec.py templates/visual-spec.json
-python3 scripts/validate_spec.py examples/atomic-cyber-live-action.json
-python3 scripts/validate_spec.py examples/ui-motion-storyboard.json
-python3 scripts/validate_spec.py examples/continuous-nine-shot-ferry.json
-python3 scripts/validate_spec.py examples/jingzao-intro-infographic-edit.json
-python3 scripts/validate_spec.py examples/style-learning-graphite-copper.json
-python3 scripts/compile_production.py examples/production-coverage.json --platform openai
-python3 scripts/validate_style_capsule.py examples/style-capsule-graphite-copper.json
-python3 scripts/validate_style_capsule.py references/style-capsules/crimson-nocturne-wuxia-montage.json
-python3 scripts/validate_forward_tests.py tests/forward-test-manifest.json
-python3 scripts/prompt_lint.py examples/causal-fantasy-effect.json --platform openai --max-words 1800
-uvx ruff check scripts tests
-python3 -m unittest discover -s tests -v
-python3 scripts/verify_install.py . . --ref HEAD
+```bash
+python3 scripts/compile_prompt.py SPEC.json \
+  --reference-profile PROFILE.json \
+  --platform openai
+```
 
-Current deterministic baseline: 219 regression tests covering release-to-install content and executable-mode parity, host-safe discovery metadata, production coverage, portable diagnostic preservation, quality-recovery wording, schema, compilation, four-platform UI Motion exact-text/accent/sequence/L0-L3 hierarchy behavior, hierarchy-profile type safety and required-field validation, duplicate-resistant hierarchy-aware complexity signals, empty/constraints-only fail-closed behavior, four-platform adaptive clean_base and explicit-budget replacement, CJK-aware dynamic semantic review targets, duplicate-resistant complexity signals/modes, platform review caps without truncation, exact-copy-safe English/Chinese surface-risk review, clean_reset recovery, target-aware handoff/receipt, recursive public-receipt sanitization, repository path confinement, manifest/case/prompt-source allowlists, committed-output hashes, executable prompt review, four-platform source-structured contamination lint, no-deletion projection of explicit professional controls, evidence bindings, and CLI contracts. Generated-image quality is a manual forward-test gate, not a pixel CI claim.
-Manifest-bound outputs and three explicitly manual-review-only examples are committed under assets/gallery; failed and superseded candidates remain ignored.
+Verify the installed revision's `--help` before using the v1.10 route in another checkout. `--reference-profile` and `--style-capsule` are mutually exclusive.
 
-## Research foundations
+## Reference profiles
 
-- https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
-- https://github.com/openai/skills/blob/main/skills/.system/imagegen/SKILL.md
-- https://github.com/replicate/skills/blob/main/skills/prompt-images/SKILL.md
-- https://github.com/openai/plugins
-- https://github.com/anthropics/skills
-- https://github.com/wuyoscar/GPT-Image2-Skill
-- https://github.com/smixs/visual-skills/blob/main/image/references/prompt-framework.md
-- https://github.com/philipbankier/codex-image-skill/blob/main/.agents/skills/codex-image/SKILL.md
-- https://github.com/veryCoolTimo/imagegen-skills/blob/main/skills/image-prompt/references/models/gpt-image-2.md
-- https://github.com/obra/superpowers
-- https://openai.com/academy/image-generation/
-- https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference
-- https://docs.midjourney.com/hc/en-us/articles/36285124473997-Omni-Reference
-- https://docs.midjourney.com/hc/en-us/articles/32764383466893-Editor
-- https://www.unrealengine.com/explainers/virtual-production/what-is-virtual-production
-- https://renderman.pixar.com/stories/cinematography-with-soul
-- https://www.sidefx.com/products/houdini/world-building/
-- https://blog.nfb.ca/blog/2018/08/13/animation-stop-motion/
-- https://www.arri.com/en/learn-help/learn-help-camera-system/image-science/look-files
-- https://docs.acescentral.com/system-components/output-transforms/
-- https://documents.blackmagicdesign.com/SupportNotes/DaVinci_Resolve_19_1_New_Features_Guide.pdf
-- https://docs.blender.org/manual/en/4.0/render/shader_nodes/shader/principled.html
-- https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine
+A reference profile records evidence and a target decision for 14 observable facets:
 
-- references/body-profile.md: reusable body analysis form and projection into existing spec fields
-- references/soft-editorial-style.md: branch selection, source observation boundaries and current draft evidence
+```text
+face_design, hair, makeup, expression, gaze, pose, action,
+body, wardrobe, camera, lighting, palette, surface, environment
+```
+
+For each facet, distinguish `observed`, `partial`, `unknown`, and `not_applicable` evidence from `preserve`, `adapt`, `omit`, `unknown`, and `not_applicable` decisions. Project only selected evidence into positive prompt prose. Do not promote unknown source details to preservation claims.
+
+An `attached` profile requires matching `must_attach: true` source inputs in the specification. A profile records a required handoff; it does not prove that an executor sent the file. `text_transfer` must not claim an attachment.
+
+## Current evidence
+
+The [reference-profile visual-review record](tests/forward-evidence/reference-profile-style-review.json) records four returned-image calls: two attached-reference portraits were `passed_with_concerns`; a first text-only portrait and its targeted refinement were `partial`. The refinement's [public image](assets/gallery/cream-rose-text-profile-v1.10.png) improved fingertip contact and plain ribbons, while fringe, headwear material, and full headwear framing remained partial or missed. An additional daylight-window call was blocked at input moderation without a returned image; body/hand-interaction quality remains unverified. The daylight-seated profile is compilation-only.
+
+These records do not replay former blocked inputs unchanged, identify a provider-policy cause, prove source identity independence or full-body anatomy, establish a repeatable success rate, or validate the draft soft-editorial style capsule.
+
+## Related capabilities
+
+- Reference behavior: [references/reference-modes.md](references/reference-modes.md) and [references/reference-delivery.md](references/reference-delivery.md)
+- Style capsules: [references/style-learning.md](references/style-learning.md) and [references/style-capsules.md](references/style-capsules.md)
+- Film stills and coverage: [references/production-coverage.md](references/production-coverage.md) and [references/cinematic-shot-design.md](references/cinematic-shot-design.md)
+- Rendering and visual review: [references/quality-controls.md](references/quality-controls.md) and [references/image-generation-diagnostics.md](references/image-generation-diagnostics.md)
+- Structured examples: [examples/](examples/)
+- Tests and retained evidence: [tests/](tests/)
+
+## DIR handoff
+
+For moving-image preparation, Jingzao owns only the still-image requirement, visible state, camera proof, reference role, prompt, and review. `video-evidence-workbench` and `film-breakdown-distiller` are optional complementary Skills. This repository does not claim an upstream DIR executor was modified or tested with `--reference-profile`.
+
+## Limits
+
+Provider APIs, controls, model availability, and policy outcomes may change. Recheck a provider's current documentation before using a provider-specific route. Jingzao does not guarantee policy approval, identity reproduction, pixel preservation, deterministic outputs, or visual quality from a command that merely completes.

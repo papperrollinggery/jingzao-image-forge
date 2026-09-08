@@ -1,0 +1,424 @@
+{
+  "review_date": "2026-09-08",
+  "method": "Primary visual inspection plus independent comparison against the two actually inspected source images; text-only initial/refined trials reviewed separately.",
+  "distribution": "Source pixels remain private. Two attached-reference outputs and the initial text-only output remain local-only. The refined text-only illustration is distributed as a new README sample; promotional overview graphics are separate generated layouts, not pixel-identical evidence.",
+  "execution_boundary": "Four initial/profile-refinement female calls returned images. One additional attached-reference daylight body/hand-interaction call was input-blocked without an image. These observations do not replay the v1.9 blocked inputs unchanged, isolate moderation causes, prove identity independence, or establish a stable success rate.",
+  "cases": [
+    {
+      "case_id": "reference-profile-cream-rose",
+      "spec_ref": "tests/forward-specs/reference-profile-cream-rose.json",
+      "profile_ref": "examples/reference-profile-cream-rose.json",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "82efd5375dc5d6723ebf0c8e06c687ddc1fca53156bcf2fe487bd5d2809378e3",
+      "reference_images_sent": 1,
+      "reference_input_sha256": [
+        "16042e240c3fffc6165e7b7b71d4d9c17aaa2f7e9bcf686332d2fef1f159ca08"
+      ],
+      "output_sha256": "df5dfc7fadc72e367130981c0e560de2229774db9ff81924558f19b7c04f4e8f",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": "passed_with_concerns",
+      "visual_review": "Attached reference retained platinum bangs, direct gaze, softly parted lips, fingertip-near-cheek action, ivory headwear and layered fabrics, rose background and soft portrait lighting.",
+      "limitations": [
+        "Head tilt and shoulder asymmetry weakened toward a more frontal portrait.",
+        "Palm covers more cheek area than the source; exact hand shape differs.",
+        "Right-side headwear folds differ."
+      ],
+      "checks": {
+        "face_design": {
+          "status": "untestable",
+          "criterion": "保持目标东亚成年女性的面部设计，不能只换衣服颜色。"
+        },
+        "hair": {
+          "status": "matched",
+          "criterion": "发色保持铂金而不是棕黑，长度、齐刘海和面颊发束均可见。"
+        },
+        "makeup": {
+          "status": "matched",
+          "criterion": "眼妆与唇色轻柔，眼睛不放大成卡通。"
+        },
+        "expression": {
+          "status": "matched",
+          "criterion": "不是微笑或职业照式严肃表情。"
+        },
+        "gaze": {
+          "status": "matched",
+          "criterion": "目光方向保持直视。"
+        },
+        "pose": {
+          "status": "partial",
+          "criterion": "头部侧倾保留，不能变成完全端正证件照。"
+        },
+        "action": {
+          "status": "matched",
+          "criterion": "手位在脸旁且指尖接触脸颊，不下降为腹前持物。"
+        },
+        "body": {
+          "status": "untestable",
+          "criterion": "仅核对可见颈部与手腕；胸腰胯、背面和全身比例不可验。"
+        },
+        "wardrobe": {
+          "status": "matched",
+          "criterion": "尖角织物帽、长系带、高领褶边和纱袖保持，不换成普通衬衫。"
+        },
+        "camera": {
+          "status": "matched",
+          "criterion": "保持近景范围，帽顶完整，手在可见区域。"
+        },
+        "lighting": {
+          "status": "matched",
+          "criterion": "脸不平涂、阴影不硬。"
+        },
+        "palette": {
+          "status": "matched",
+          "criterion": "背景与衣帽主色保留，皮肤不被染成粉红。"
+        },
+        "surface": {
+          "status": "matched",
+          "criterion": "衣料保留层次，肤面不粗糙或塑料化。"
+        },
+        "environment": {
+          "status": "matched",
+          "criterion": "不自行添房间、花园或道具。"
+        }
+      },
+      "identity_and_body_boundary": "Target age and East Asian face design are explicit creative settings, not verified demographic facts. Full-body anatomy and source identity independence are untestable from these portraits.",
+      "artifact_availability": "local_only_not_distributed",
+      "local_artifact_locator": "output/reference-profile-20260908/cream-rose.png"
+    },
+    {
+      "case_id": "reference-profile-crimson",
+      "spec_ref": "tests/forward-specs/reference-profile-crimson.json",
+      "profile_ref": "examples/reference-profile-crimson.json",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "ca20f2f5311b865e30ebd8a09a4704a3b57312b3669c6ae274d3d06b00f6120e",
+      "reference_images_sent": 1,
+      "reference_input_sha256": [
+        "19ff5c7fd775a041fcb81f11c473677d3f7e1ce838d7ff465af13a8c02535ac1"
+      ],
+      "output_sha256": "2ec40187b31223f6a1965c68a36b9914040c7bc1b1b12e22eeb5c8f90da34f88",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": "passed_with_concerns",
+      "visual_review": "Attached reference retained black bob with one eye covered, visible-eye gaze, calm parted lips, turned near shoulder, red-black worn textile headwear and garment layers, crimson studio field and controlled soft light.",
+      "limitations": [
+        "Forearms are more prominent; single image does not verify movement or support mechanics.",
+        "Precise strap and clasp counts/paths are not asserted.",
+        "Lip gloss and expression nuance differ."
+      ],
+      "checks": {
+        "face_design": {
+          "status": "untestable",
+          "criterion": "保持目标明确的东亚成年面部设计。"
+        },
+        "hair": {
+          "status": "matched",
+          "criterion": "黑发、短发与单眼遮挡关系保持。"
+        },
+        "makeup": {
+          "status": "matched",
+          "criterion": "眼妆、睫毛、唇面各自清楚，不全脸油亮。"
+        },
+        "expression": {
+          "status": "partial",
+          "criterion": "不是笑容、张大嘴或紧抿唇。"
+        },
+        "gaze": {
+          "status": "matched",
+          "criterion": "保持直视而非低头看地面。"
+        },
+        "pose": {
+          "status": "matched",
+          "criterion": "保留近侧肩的前景关系及转头，不变成完全正面站姿。"
+        },
+        "action": {
+          "status": "partial",
+          "criterion": "不添加举手、持物或看不见的支撑动作。"
+        },
+        "body": {
+          "status": "untestable",
+          "criterion": "仅检查可见肩臂，不声称全身体型通过。"
+        },
+        "wardrobe": {
+          "status": "matched",
+          "criterion": "红黑衣帽、宽沿形状、磨损材质与挂扣保留。"
+        },
+        "camera": {
+          "status": "matched",
+          "criterion": "保持竖向近景和手在画外。"
+        },
+        "lighting": {
+          "status": "matched",
+          "criterion": "脸肩有体积、暗色衣服不糊成块。"
+        },
+        "palette": {
+          "status": "matched",
+          "criterion": "红黑色归属保持，不把红光铺满皮肤。"
+        },
+        "surface": {
+          "status": "matched",
+          "criterion": "纤维纹理不扩散到皮肤，材料反光分开。"
+        },
+        "environment": {
+          "status": "matched",
+          "criterion": "不添加房间、花园或舞台背景。"
+        }
+      },
+      "identity_and_body_boundary": "Target age and East Asian face design are explicit creative settings, not verified demographic facts. Full-body anatomy and source identity independence are untestable from these portraits.",
+      "artifact_availability": "local_only_not_distributed",
+      "local_artifact_locator": "output/reference-profile-20260908/crimson.png"
+    },
+    {
+      "case_id": "reference-profile-cream-rose-text",
+      "spec_ref": "tests/forward-specs/reference-profile-cream-rose-text.json",
+      "profile_ref": "examples/reference-profile-cream-rose-text.json",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "a84225036a612493091355bbdfa56e0760d5a83eb289ffa161767370cc3b3639",
+      "reference_images_sent": 0,
+      "reference_input_sha256": [],
+      "output_sha256": "ff681508281e95516113246bed787923c65cf8c8b79aa6a55057efbce1784220",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": "partial",
+      "visual_review": "Text-only profile retained broad pink/ivory studio treatment, light short hair, eye/lip treatment, near-face hand and layered high-neck clothing. It did not reproduce several source-specific design choices.",
+      "limitations": [
+        "Hair became looser and side-parted rather than continuous blunt bangs.",
+        "Hat gained lace, flowers and beads; ribbons and garment organization changed.",
+        "Hand cupped the cheek rather than making a fingertip contact."
+      ],
+      "checks": {
+        "face_design": {
+          "status": "untestable",
+          "criterion": "保持目标东亚成年女性的面部设计，不能只换衣服颜色。"
+        },
+        "hair": {
+          "status": "partial",
+          "criterion": "发色保持铂金而不是棕黑，长度、齐刘海和面颊发束均可见。"
+        },
+        "makeup": {
+          "status": "matched",
+          "criterion": "眼妆与唇色轻柔，眼睛不放大成卡通。"
+        },
+        "expression": {
+          "status": "matched",
+          "criterion": "不是微笑或职业照式严肃表情。"
+        },
+        "gaze": {
+          "status": "matched",
+          "criterion": "目光方向保持直视。"
+        },
+        "pose": {
+          "status": "partial",
+          "criterion": "头部侧倾保留，不能变成完全端正证件照。"
+        },
+        "action": {
+          "status": "missed",
+          "criterion": "手位在脸旁且指尖接触脸颊，不下降为腹前持物。"
+        },
+        "body": {
+          "status": "untestable",
+          "criterion": "仅核对可见颈部与手腕；胸腰胯、背面和全身比例不可验。"
+        },
+        "wardrobe": {
+          "status": "partial",
+          "criterion": "尖角织物帽、长系带、高领褶边和纱袖保持，不换成普通衬衫。"
+        },
+        "camera": {
+          "status": "partial",
+          "criterion": "保持近景范围，帽顶完整，手在可见区域。"
+        },
+        "lighting": {
+          "status": "matched",
+          "criterion": "脸不平涂、阴影不硬。"
+        },
+        "palette": {
+          "status": "matched",
+          "criterion": "背景与衣帽主色保留，皮肤不被染成粉红。"
+        },
+        "surface": {
+          "status": "matched",
+          "criterion": "衣料保留层次，肤面不粗糙或塑料化。"
+        },
+        "environment": {
+          "status": "matched",
+          "criterion": "不自行添房间、花园或道具。"
+        }
+      },
+      "identity_and_body_boundary": "Target age and East Asian face design are explicit creative settings, not verified demographic facts. Full-body anatomy and source identity independence are untestable from these portraits.",
+      "artifact_availability": "local_only_not_distributed",
+      "local_artifact_locator": "output/reference-profile-20260908/cream-rose-text.png"
+    },
+    {
+      "case_id": "reference-profile-cream-rose-text-refined",
+      "spec_ref": "tests/forward-specs/reference-profile-cream-rose-text-refined.json",
+      "profile_ref": "examples/reference-profile-cream-rose-text-refined.json",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "5865fb77d986ead79e2235d600e7bf6201f191b060ccce0d2ddc3dd5b3235603",
+      "reference_images_sent": 0,
+      "reference_input_sha256": [],
+      "output_sha256": "e71c63263ee9204d92d05cc3b293c44a8d1123ce1adf72291eabb3e62fc1e90a",
+      "dimensions": [
+        941,
+        1672
+      ],
+      "status": "partial",
+      "visual_review": "Targeted text-only refinement improved the continuous fringe, finger-to-cheek contact with visible hand back and palm gap, and plain hanging ribbons. This is an improvement example, not an exact reference reconstruction.",
+      "limitations": [
+        "Fringe remains looser and slightly parted; hair color is grayer/beiger than the source platinum.",
+        "Hat still reads as floral lace/embroidery rather than the source abstract jacquard folds.",
+        "Hat top crosses the upper frame edge: complete-headwear framing was missed."
+      ],
+      "checks": {
+        "face_design": {
+          "status": "untestable",
+          "criterion": "保持目标东亚成年女性的面部设计，不能只换衣服颜色。"
+        },
+        "hair": {
+          "status": "partial",
+          "criterion": "发色保持铂金而不是棕黑，长度、齐刘海和面颊发束均可见。"
+        },
+        "makeup": {
+          "status": "matched",
+          "criterion": "眼妆与唇色轻柔，眼睛不放大成卡通。"
+        },
+        "expression": {
+          "status": "matched",
+          "criterion": "不是微笑或职业照式严肃表情。"
+        },
+        "gaze": {
+          "status": "matched",
+          "criterion": "目光方向保持直视。"
+        },
+        "pose": {
+          "status": "partial",
+          "criterion": "头部侧倾保留，不能变成完全端正证件照。"
+        },
+        "action": {
+          "status": "matched",
+          "criterion": "手位在脸旁且指尖接触脸颊，不下降为腹前持物。"
+        },
+        "body": {
+          "status": "untestable",
+          "criterion": "仅核对可见颈部与手腕；胸腰胯、背面和全身比例不可验。"
+        },
+        "wardrobe": {
+          "status": "partial",
+          "criterion": "尖角织物帽、长系带、高领褶边和纱袖保持，不换成普通衬衫。"
+        },
+        "camera": {
+          "status": "missed",
+          "criterion": "保持近景范围，帽顶完整，手在可见区域。"
+        },
+        "lighting": {
+          "status": "matched",
+          "criterion": "脸不平涂、阴影不硬。"
+        },
+        "palette": {
+          "status": "matched",
+          "criterion": "背景与衣帽主色保留，皮肤不被染成粉红。"
+        },
+        "surface": {
+          "status": "matched",
+          "criterion": "衣料保留层次，肤面不粗糙或塑料化。"
+        },
+        "environment": {
+          "status": "matched",
+          "criterion": "不自行添房间、花园或道具。"
+        }
+      },
+      "identity_and_body_boundary": "Target age and East Asian face design are explicit creative settings, not verified demographic facts. Full-body anatomy and source identity independence are untestable from these portraits.",
+      "artifact_availability": "distributed",
+      "output_ref": "assets/gallery/cream-rose-text-profile-v1.10.png"
+    },
+    {
+      "case_id": "reference-profile-daylight-window",
+      "spec_ref": "tests/forward-specs/reference-profile-daylight-window.json",
+      "profile_ref": "examples/reference-profile-daylight-window.json",
+      "generator": "built-in image_gen",
+      "prompt_sha256": "8585ec277bd69bf08c63a7a0f135096bdbbcbe3ac3395e096cca0f28fee0d253",
+      "reference_images_sent": 1,
+      "reference_input_sha256": [
+        "e05fef9ee891905334ef3df985c60326fe08aff1f9c03d57aee031916b75ca6d"
+      ],
+      "status": "TOOL_BLOCKED",
+      "error_code": "moderation_blocked",
+      "moderation_stage": "input",
+      "categories": [
+        "sexual"
+      ],
+      "image_returned": false,
+      "artifact_availability": "not_generated",
+      "visual_review": "No image was returned. An attached-reference daylight body/hand-interaction trial was rejected during input moderation. This is a different stage from the previous output blocks.",
+      "limitations": [
+        "The input check does not identify whether wording, supplied image or their combination caused the refusal.",
+        "No substitute reference, wording evasion or retry was performed.",
+        "Body proportions, grip, pose and garment fit remain untested for this case."
+      ],
+      "checks": {
+        "face_design": {
+          "status": "untestable",
+          "criterion": ""
+        },
+        "hair": {
+          "status": "untestable",
+          "criterion": "深色长发、遮眼刘海和细长发束同时可读。"
+        },
+        "makeup": {
+          "status": "untestable",
+          "criterion": "妆面自然克制，不补造不可见的浓重眼妆。"
+        },
+        "expression": {
+          "status": "untestable",
+          "criterion": "表情保持安静松弛，不变成露齿笑。"
+        },
+        "gaze": {
+          "status": "untestable",
+          "criterion": ""
+        },
+        "pose": {
+          "status": "untestable",
+          "criterion": "保留站立倚窗和画面右侧的手臂支撑，不改成坐姿。"
+        },
+        "action": {
+          "status": "untestable",
+          "criterion": "杯子被画面左侧的手稳定握住，画面右侧的手与窗台接触可见。"
+        },
+        "body": {
+          "status": "untestable",
+          "criterion": "只核对可见腰、髋和大腿体量；不把被遮挡的上胸或背面当作来源事实。"
+        },
+        "wardrobe": {
+          "status": "untestable",
+          "criterion": "仅保留可见的浅灰罗纹抽绳短裤；上衣覆盖由目标设计决定。"
+        },
+        "camera": {
+          "status": "untestable",
+          "criterion": "保持竖向中近景和右侧窗框，不裁成头肩特写。"
+        },
+        "lighting": {
+          "status": "untestable",
+          "criterion": "窗光方向和明亮发缘可读，皮肤阴影不硬。"
+        },
+        "palette": {
+          "status": "untestable",
+          "criterion": "色彩安静自然，不加入高饱和霓虹色。"
+        },
+        "surface": {
+          "status": "untestable",
+          "criterion": "发、针织和皮肤各自有材质区别，皮肤不塑料化。"
+        },
+        "environment": {
+          "status": "untestable",
+          "criterion": "保留窗边卧室的生活层次，不复制来源中的具体照片或文字。"
+        }
+      },
+      "identity_and_body_boundary": "Target age and face design are creative settings. No returned pixels exist for visual acceptance."
+    }
+  ]
+}

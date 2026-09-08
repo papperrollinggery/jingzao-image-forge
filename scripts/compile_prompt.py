@@ -18,6 +18,7 @@ try:
         build_reference_handoff,
         reference_delivery_warnings,
     )
+    from reference_profile import apply_reference_profile
     from validate_spec import load_json, validate_spec
     from validate_style_capsule import (
         lint_style_capsule_content,
@@ -30,6 +31,7 @@ except ModuleNotFoundError:  # Support `python -m scripts.compile_prompt` from t
         build_reference_handoff,
         reference_delivery_warnings,
     )
+    from scripts.reference_profile import apply_reference_profile
     from scripts.validate_spec import load_json, validate_spec
     from scripts.validate_style_capsule import (
         lint_style_capsule_content,
@@ -1603,7 +1605,23 @@ def compile_spec(
     style_capsule: dict[str, Any] | None = None,
     *,
     review_approved: bool = False,
+    reference_profile: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    profile_audit = None
+    if reference_profile is not None:
+        if not isinstance(spec, dict):
+            raise TypeError("spec: expected an object")
+        if style_capsule is not None:
+            raise ValueError(
+                "Use one resolved reference profile or a style capsule, not both. "
+                "Resolve the chosen capsule traits into the profile before compiling."
+            )
+        if spec.get("mode") == "learn_style":
+            raise ValueError("A reference profile projects chosen traits into a generation spec, not learn_style analysis.")
+        spec, profile_audit = apply_reference_profile(spec, reference_profile)
+        profile_spec_errors = validate_spec(spec)
+        if profile_spec_errors:
+            raise ValueError("Projected specification is invalid:\n" + "\n".join(profile_spec_errors))
     if style_capsule is not None:
         capsule_errors = validate_style_capsule(style_capsule)
         if capsule_errors:
@@ -1712,6 +1730,8 @@ def compile_spec(
             "conversation-image window is confirmed immediately before the call."
         )
     result["warnings"].extend(reference_delivery_warnings(spec))
+    if profile_audit is not None:
+        result["reference_profile_audit"] = profile_audit
     return result
 
 
@@ -1722,6 +1742,8 @@ def _format_text(result: dict[str, Any]) -> str:
     parts.append("PARAMETERS\n" + json.dumps(result.get("parameters", {}), ensure_ascii=False, indent=2))
     parts.append("PROMPT METRICS\n" + json.dumps(result.get("prompt_metrics", {}), ensure_ascii=False, indent=2))
     parts.append("PROMPT REVIEW\n" + json.dumps(result.get("prompt_review", {}), ensure_ascii=False, indent=2))
+    if result.get("reference_profile_audit"):
+        parts.append("REFERENCE PROFILE AUDIT\n" + json.dumps(result["reference_profile_audit"], ensure_ascii=False, indent=2))
     if result.get("attachments"):
         parts.append("ATTACHMENTS\n" + json.dumps(result["attachments"], ensure_ascii=False, indent=2))
     if result.get("reference_handoff", {}).get("required_attachment_count"):
@@ -1740,7 +1762,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("spec", type=Path, help="Path to a visual specification JSON file")
     parser.add_argument("--platform", choices=sorted(SUPPORTED_PLATFORMS), help="Override the platform in the spec")
-    parser.add_argument("--style-capsule", type=Path, help="Optional validated reusable style capsule JSON")
+    style_source = parser.add_mutually_exclusive_group()
+    style_source.add_argument("--style-capsule", type=Path, help="Optional validated reusable style capsule JSON")
+    style_source.add_argument(
+        "--reference-profile", type=Path,
+        help="Project selected reference traits into the spec; keep evidence and review notes outside the prompt",
+    )
     parser.add_argument(
         "--approve-review",
         action="store_true",
@@ -1752,6 +1779,7 @@ def main() -> int:
     try:
         spec = load_json(args.spec)
         style_capsule = load_json(args.style_capsule) if args.style_capsule else None
+        reference_profile = load_json(args.reference_profile) if args.reference_profile else None
     except (OSError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
@@ -1763,9 +1791,12 @@ def main() -> int:
         return 2
 
     try:
-        result = compile_spec(spec, args.platform, style_capsule, review_approved=args.approve_review)
-    except ValueError as exc:
-        print(f"INVALID STYLE CAPSULE\n{exc}", file=sys.stderr)
+        result = compile_spec(
+            spec, args.platform, style_capsule,
+            review_approved=args.approve_review, reference_profile=reference_profile,
+        )
+    except (TypeError, ValueError) as exc:
+        print(f"INVALID STYLE INPUT\n{exc}", file=sys.stderr)
         return 2
     print(_format_text(result) if args.output_format == "text" else json.dumps(result, ensure_ascii=False, indent=2))
     return 0

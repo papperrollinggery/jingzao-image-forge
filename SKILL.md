@@ -153,13 +153,14 @@ For Blender, Unreal Engine, RenderMan, Arnold, V-Ray, Octane, Redshift, ray/path
 
 ## Reference Style Learning
 
-Use `learn_style` when the user wants an actual supplied image converted into a reusable style system. Read [references/style-learning.md](references/style-learning.md). For reviewed built-in capsules and their evidence, read [references/style-capsules.md](references/style-capsules.md).
+Use `learn_style` when the user wants supplied references distilled into a reusable visual treatment. First read [references/reference-distillation.md](references/reference-distillation.md) when likeness of hair, expression, gaze, pose/action, body, wardrobe or framing matters; keep one observation profile per distinct reference branch. Read [references/style-learning.md](references/style-learning.md) for the narrower cross-subject style capsule. For reviewed built-in capsules and their evidence, read [references/style-capsules.md](references/style-capsules.md).
 
 - Inspect the image; do not infer style from the filename, prompt history, or user summary alone.
 - Separate directly observed mechanisms from production inferences and unknowns.
 - For every person-style distillation, complete the [body profile](references/body-profile.md): visible chest/waist/hip, shoulder/back and limb relations, volume, pose/perspective/occlusion, and garment fit/support/coverage. Mark hidden regions unknown and non-person references not applicable. Carry target-adopted traits into `subjects[].appearance` and visual acceptance; do not discard physique as style noise or silently impose a reference body on unrelated people.
 - Extract medium behavior, palette ownership, shape/line language, texture/material logic, lighting, composition, typography, optics/rendering, and limited recurring motifs.
-- Write transfer rules and forbidden transfer rules. Do not learn subject identity, faces, exact text, logos, signatures, protected character design, or exact layout coordinates as style.
+- Separate specific identity from transferable visible design. Do not store source identities, private faces, exact text, logos or signatures in a public capsule. User-adopted hair color/style, expression, gaze, pose/action, physique, wardrobe and camera must survive in a project reference profile; do not discard them under a blanket identity exclusion. Unknown appearance regions remain unknown or explicitly new design.
+- For reference-fidelity work, use `--reference-profile` to project selected positive descriptions into the generation spec and return evidence/review notes separately. Resolve the target and one chosen reference branch before compilation; it is mutually exclusive with `--style-capsule`. Keep old valid input bundles intact rather than adding either mechanism automatically.
 - Export a source-image-free `style_capsule` with `scripts/create_style_capsule.py`; review its advisory content-risk warnings and validate it with `scripts/validate_style_capsule.py`.
 - Test a capsule on at least two materially different subjects or scenarios before marking it `validated` or `adopted`. Bind each test to a non-image evidence record (`case_id`, prompt index, scenario, evidence reference, review); raw private references remain uncommitted. Applying a capsule is not evidence that the style transferred successfully; inspect the generated images.
 - A draft capsule may be created automatically as the current deliverable. Durable inclusion in the installed or public Skill requires user approval, and raw private references are never embedded.
@@ -168,7 +169,7 @@ When the user requests 《继承者大会初试：何为长生？》, 继承者�
 
 For 晴海·角色写真, 清透夏日角色写真, or an approved match to the eight-reference summer photography family, read [references/azure-summer-style.md](references/azure-summer-style.md). Select its daylight/shade/sunset/interaction branch, restage for the target aspect ratio, and explicitly assign style ownership when combining it with grand fantasy architecture.
 
-For 柔映·人物质感 or a requested match to the four-reference daylight/cream-rose/crimson-black portrait family, read [references/soft-editorial-style.md](references/soft-editorial-style.md). Select one branch, retain the body profile, and report its draft/partially verified status; publication does not imply visual validation.
+For 柔映·人物质感 or a requested match to the four-reference daylight/cream-rose/crimson-black portrait family, read [references/soft-editorial-style.md](references/soft-editorial-style.md). Select one branch, retain the body profile, and use the full reference profile when hair, pose or expression must transfer. Read the current evidence status; publication does not imply visual validation.
 
 When adult portrait or fashion work specifies garment openings (such as a deep V neckline), changes coverage, or loses requested body proportions or garment volume, read [references/body-and-garment-fit.md](references/body-and-garment-fit.md). Keep physique, clothing fit/coverage, pose and style as separate controls; apply only the user-requested changes.
 

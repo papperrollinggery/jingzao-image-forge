@@ -1,0 +1,178 @@
+{
+  "reference_profile": "1.0",
+  "id": "daylight-seated-portrait",
+  "reference_mode": "attached",
+  "source_ids": [
+    "daylight-seated-reference"
+  ],
+  "facets": [
+    {
+      "id": "face_design",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "partial",
+      "observation": "脸部正面可见，但来源身份、真实年龄和族裔未知。",
+      "decision": "omit",
+      "prompt": "",
+      "reason": "本次采用原创人物身份，用户指定的东亚成年女性属于目标设定而非来源观察。",
+      "review_check": ""
+    },
+    {
+      "id": "hair",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "浅金色长发分成低双马尾，额前有轻薄齐刘海，两侧以粉色蝴蝶结固定。",
+      "decision": "preserve",
+      "prompt": "浅金色长发分成低双马尾，轻薄齐刘海，两侧各有柔粉色蝴蝶结固定。",
+      "reason": "",
+      "review_check": "双马尾、轻薄齐刘海和两侧粉色蝴蝶结都可见。"
+    },
+    {
+      "id": "makeup",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "睫毛细长清楚，眼周有低饱和粉色，唇色柔粉。",
+      "decision": "preserve",
+      "prompt": "细长清楚的睫毛、低饱和粉色眼周和柔粉唇色。",
+      "reason": "",
+      "review_check": "眼周和唇色轻柔，睫毛清晰但不夸张成卡通。"
+    },
+    {
+      "id": "expression",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "嘴唇轻微分开，眉眼放松，表情安静。",
+      "decision": "preserve",
+      "prompt": "眉眼放松、嘴唇自然微分的安静表情。",
+      "reason": "",
+      "review_check": "保留安静放松，不改成夸张微笑。"
+    },
+    {
+      "id": "gaze",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "双眼朝镜头附近看，视线略偏画面左侧。",
+      "decision": "preserve",
+      "prompt": "目光朝镜头附近、略偏画面左侧。",
+      "reason": "",
+      "review_check": "目光保持轻微侧偏，不改成强直视。"
+    },
+    {
+      "id": "pose",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "人物坐在床品间，躯干略向前，屈膝腿部在画面右下形成近景体量。",
+      "decision": "preserve",
+      "prompt": "坐在凌乱床品间，躯干略向前，屈膝腿部在画面右下形成近景层次。",
+      "reason": "",
+      "review_check": "保持坐姿、前倾和屈膝前景，不变成站立肖像。"
+    },
+    {
+      "id": "action",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "画面左侧的手抬至头顶，手指轻扶发根。",
+      "decision": "preserve",
+      "prompt": "画面左侧的手抬至头顶，手指轻扶发根。",
+      "reason": "",
+      "review_check": "手指与头发有轻触关系，不改成持杯或垂手。"
+    },
+    {
+      "id": "body",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见肩背、上臂和屈膝大腿有自然体量；腰臀、完整腿部比例受前倾、针织、床品和前景桌面遮挡。",
+      "decision": "preserve",
+      "prompt": "保留可见肩背、上臂和屈膝大腿的自然体量，与坐姿投影协调。",
+      "reason": "",
+      "review_check": "仅核对可见肩背、上臂和屈膝大腿；腰臀与完整腿部围度不可验。"
+    },
+    {
+      "id": "wardrobe",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见奶油色宽松针织开衫，局部有细小粉色蝴蝶结或花朵装饰；内层覆盖结构与被遮挡衣片无法确认。",
+      "decision": "preserve",
+      "prompt": "奶油色宽松针织开衫，局部点缀细小柔粉蝴蝶结或花朵装饰。",
+      "reason": "",
+      "review_check": "保留奶油针织和小型粉色点缀；内层覆盖由目标设计决定。"
+    },
+    {
+      "id": "camera",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "竖幅3:4，中景从头顶至屈膝腿部，前景桌面与玻璃杯产生近深远层次。",
+      "decision": "preserve",
+      "prompt": "竖幅3:4，从头顶至屈膝腿部的中景，前景低桌和玻璃杯形成近深远层次。",
+      "reason": "",
+      "review_check": "保留竖幅中景、可见屈膝与前景桌面层次。"
+    },
+    {
+      "id": "lighting",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "柔和日光从画面左上进入，头发与肩部有暖亮边缘，床品阴影柔和。",
+      "decision": "preserve",
+      "prompt": "柔和日光从画面左上进入，头发与肩部有暖亮边缘，床品阴影柔和。",
+      "reason": "",
+      "review_check": "日光方向、暖亮边缘和柔和阴影可读。"
+    },
+    {
+      "id": "palette",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "奶油白针织、柔粉点缀、浅金头发和暖白日光形成明亮低饱和配色。",
+      "decision": "preserve",
+      "prompt": "奶油白针织、柔粉点缀、浅金头发和暖白日光构成明亮低饱和配色。",
+      "reason": "",
+      "review_check": "保持奶油、柔粉和浅金的色彩归属。"
+    },
+    {
+      "id": "surface",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "浅金发丝有细碎逆光，针织有柔软织纹，皮肤明暗平滑但保留局部细节。",
+      "decision": "preserve",
+      "prompt": "浅金发丝有细碎逆光，柔软针织织纹可辨，皮肤明暗平滑并保留局部细节。",
+      "reason": "",
+      "review_check": "发丝、针织和皮肤分层清楚，皮肤不过度磨平。"
+    },
+    {
+      "id": "environment",
+      "source_ids": [
+        "daylight-seated-reference"
+      ],
+      "evidence": "observed",
+      "observation": "明亮生活卧室有凌乱床品、开放置物架和前景低桌；桌上包装带文字但文字不属于可迁移视觉控制。",
+      "decision": "preserve",
+      "prompt": "明亮生活卧室的凌乱床品、开放置物架和前景低桌形成可居住的日常层次。",
+      "reason": "",
+      "review_check": "保留日常卧室深度和前景层次，不复制包装文字。"
+    }
+  ]
+}

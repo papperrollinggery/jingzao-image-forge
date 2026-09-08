@@ -1,0 +1,178 @@
+{
+  "reference_profile": "1.0",
+  "id": "crimson-portrait-fidelity",
+  "reference_mode": "attached",
+  "source_ids": [
+    "crimson-reference"
+  ],
+  "facets": [
+    {
+      "id": "face_design",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "partial",
+      "observation": "用户要求亚洲面孔；来源实际身份和年龄未知。",
+      "decision": "adapt",
+      "prompt": "一位原创30岁东亚成年女性。",
+      "reason": "面部身份采用原创设计，年龄属于目标设定。",
+      "review_check": "保持目标明确的东亚成年面部设计。"
+    },
+    {
+      "id": "hair",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "黑色短发，一侧刘海遮挡画面右侧眼睛，另一眼可见。",
+      "decision": "preserve",
+      "prompt": "乌黑短波波头，浓密斜刘海遮住画面右侧眼睛，另一只眼睛清楚可见。",
+      "reason": "",
+      "review_check": "黑发、短发与单眼遮挡关系保持。"
+    },
+    {
+      "id": "makeup",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "眼周淡玫瑰红，睫毛细，唇有局部柔亮反光。",
+      "decision": "preserve",
+      "prompt": "淡玫瑰红眼妆、纤细睫毛，浅玫瑰色唇面带柔和反光。",
+      "reason": "",
+      "review_check": "眼妆、睫毛、唇面各自清楚，不全脸油亮。"
+    },
+    {
+      "id": "expression",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "嘴唇轻微分开，眉间无明显挤压，表情安静。",
+      "decision": "preserve",
+      "prompt": "嘴唇自然微分，表情安静略带疏离。",
+      "reason": "",
+      "review_check": "不是笑容、张大嘴或紧抿唇。"
+    },
+    {
+      "id": "gaze",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "露出的眼睛看向镜头。",
+      "decision": "preserve",
+      "prompt": "露出的眼睛直视镜头。",
+      "reason": "",
+      "review_check": "保持直视而非低头看地面。"
+    },
+    {
+      "id": "pose",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "近侧肩头占据画面左下，躯干侧转并微前倾，头回向镜头。",
+      "decision": "preserve",
+      "prompt": "身体侧转微前倾，近侧肩头在画面左下，头转回镜头方向。",
+      "reason": "",
+      "review_check": "保留近侧肩的前景关系及转头，不变成完全正面站姿。"
+    },
+    {
+      "id": "action",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "partial",
+      "observation": "手臂从肩向下伸出画面，手与支撑物没有出现。",
+      "decision": "preserve",
+      "prompt": "双臂自然向下延伸至画外。",
+      "reason": "",
+      "review_check": "不添加举手、持物或看不见的支撑动作。"
+    },
+    {
+      "id": "body",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见肩臂较纤细；完整胸腰胯、腿长、背面与手均无法由此帧确定。",
+      "decision": "preserve",
+      "prompt": "可见肩部和手臂自然纤细，肩颈曲线随转体延伸。",
+      "reason": "",
+      "review_check": "仅检查可见肩臂，不声称全身体型通过。"
+    },
+    {
+      "id": "wardrobe",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "深红不规则宽沿织物帽，破损边缘和黑色拼片，红黑服装有细带与局部金属挂扣。",
+      "decision": "preserve",
+      "prompt": "戴深红色不规则宽沿织物帽，帽沿有磨损纤维和黑色拼片；红黑分层时装带有细带与少量暗银挂扣，保留参考中的服装轮廓。",
+      "reason": "",
+      "review_check": "红黑衣帽、宽沿形状、磨损材质与挂扣保留。"
+    },
+    {
+      "id": "camera",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "竖向紧凑人物肖像，帽顶到可见上半身，大臂为前景，手在画外。",
+      "decision": "preserve",
+      "prompt": "竖幅9:16，帽顶至上半身的近距离肖像，近侧手臂构成柔和前景。",
+      "reason": "",
+      "review_check": "保持竖向近景和手在画外。"
+    },
+    {
+      "id": "lighting",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "脸和肩被柔光塑形，背景暗于肤面，布料细节保留。",
+      "decision": "preserve",
+      "prompt": "宽柔光塑造脸颊与肩部体积，暗处保留衣料细节。",
+      "reason": "",
+      "review_check": "脸肩有体积、暗色衣服不糊成块。"
+    },
+    {
+      "id": "palette",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "红背景、红布、黑发黑布、浅暖肤色分离。",
+      "decision": "preserve",
+      "prompt": "深红背景与红黑衣帽形成大色块，肤色独立、浅暖而干净。",
+      "reason": "",
+      "review_check": "红黑色归属保持，不把红光铺满皮肤。"
+    },
+    {
+      "id": "surface",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "破损织物有局部纤维，金属有暗反光，皮肤柔和细腻，短发成束。",
+      "decision": "preserve",
+      "prompt": "磨损纤维只属于布料边缘，金属为局部暗反光，皮肤细腻柔和，黑发有方向性发束。",
+      "reason": "",
+      "review_check": "纤维纹理不扩散到皮肤，材料反光分开。"
+    },
+    {
+      "id": "environment",
+      "source_ids": [
+        "crimson-reference"
+      ],
+      "evidence": "observed",
+      "observation": "纯深红棚拍背景，没有叙事空间或额外道具。",
+      "decision": "preserve",
+      "prompt": "单纯深红棚拍背景，无文字。",
+      "reason": "",
+      "review_check": "不添加房间、花园或舞台背景。"
+    }
+  ]
+}

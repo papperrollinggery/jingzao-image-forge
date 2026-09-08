@@ -1,0 +1,31 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "zh-CN",
+  "intent": "创作窗边日光时装写真，保留所附参考的可见动作与体量。",
+  "canvas": {
+    "aspect_ratio": "3:4"
+  },
+  "inputs": [
+    {
+      "id": "daylight-window-reference",
+      "type": "image",
+      "role": "appearance_pose_lighting_reference",
+      "description": "所附图片提供发型、表情、遮眼关系、持杯动作、站姿、可见体量、针织短裤、窗光与生活场景。",
+      "source_kind": "platform_asset",
+      "source_ref": "runtime:daylight-window-reference",
+      "must_attach": true
+    }
+  ],
+  "scene": {
+    "summary": "上身采用目标新设计的米白色不透明无袖短款背心，保留可见肩臂和腰腹范围；下身保持浅灰罗纹抽绳短裤。"
+  },
+  "subjects": [
+    {
+      "id": "original-east-asian-adult",
+      "description": "原创30岁东亚成年女性，人物身份为目标新设计。",
+      "count": 1
+    }
+  ],
+  "constraints": {}
+}

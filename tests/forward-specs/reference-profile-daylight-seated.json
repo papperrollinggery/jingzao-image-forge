@@ -1,0 +1,31 @@
+{
+  "visual_generation_spec": "1.0",
+  "mode": "create",
+  "language": "zh-CN",
+  "intent": "原创30岁东亚成年女性的明亮日常室内时装写真，具有独立的新人物面部设计。",
+  "canvas": {
+    "aspect_ratio": "3:4"
+  },
+  "inputs": [
+    {
+      "id": "daylight-seated-reference",
+      "type": "image",
+      "role": "appearance_pose_lighting_reference",
+      "description": "所附图片提供双马尾、妆面、安静表情、扶发动作、坐姿、可见体量、针织开衫、日光和卧室层次。",
+      "source_kind": "platform_asset",
+      "source_ref": "runtime:daylight-seated-reference",
+      "must_attach": true
+    }
+  ],
+  "scene": {
+    "summary": "米白浅粉图案的宽松针织家居服，沿用下滑露肩的领口、腰部松束和坐姿中的腿部可见范围，衣料不透明。"
+  },
+  "subjects": [
+    {
+      "id": "original-east-asian-adult",
+      "description": "原创30岁东亚成年女性，人物身份为目标新设计。",
+      "count": 1
+    }
+  ],
+  "constraints": {}
+}

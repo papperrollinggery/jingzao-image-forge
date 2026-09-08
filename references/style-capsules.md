@@ -40,7 +40,7 @@ Use these capsules only when the user explicitly asks for the named treatment or
 - File: `style-capsules/soft-editorial-character.json`
 - Read [three branches and body-profile observations](soft-editorial-style.md).
 - Shared core: soft modeled skin, selective eye/lip detail, coherent hair strands, tactile garment layers, close portrait relationships and target-owned body volume. Select daylight, cream-rose couture or crimson-black couture in the target specification.
-- Status: user-authorized inclusion as **draft**, partially verified. One returned male portrait has documented deviations; two female tests were output-blocked without images. [Evidence](../tests/forward-evidence/soft-editorial-style-review.json). Source pixels and generated pixels are not distributed.
+- Status of the generic capsule: user-authorized inclusion as **draft**, partially verified. Its original male portrait has deviations and two female tests were output-blocked. [Capsule evidence](../tests/forward-evidence/soft-editorial-style-review.json). For selected hair/expression/pose/body/wardrobe fidelity use the newer reference profiles in the style guide: four subsequent female-profile calls returned images, with attached and text-only outcomes reported separately in [profile evidence](../tests/forward-evidence/reference-profile-style-review.json). These calls do not validate the older capsule or prove a moderation fix. Raw sources remain private; one refined text-only sample is publicly available.
 
 ## Use
 

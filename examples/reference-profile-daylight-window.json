@@ -1,0 +1,176 @@
+{
+  "reference_profile": "1.0",
+  "id": "daylight-window-portrait",
+  "reference_mode": "attached",
+  "source_ids": [
+    "daylight-window-reference"
+  ],
+  "facets": [
+    {
+      "id": "face_design",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "partial",
+      "observation": "脸部被长刘海遮住一部分；来源身份、真实年龄和族裔未知。",
+      "decision": "omit",
+      "prompt": "",
+      "reason": "本次采用原创人物身份，用户指定的东亚成年女性属于目标设定而非来源观察。",
+      "review_check": ""
+    },
+    {
+      "id": "hair",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "深棕近黑的长直发从中部自然分束，长而稠密的湿润感刘海遮住大部分双眼。",
+      "decision": "preserve",
+      "prompt": "深棕近黑的长直发自然分束，浓密长刘海遮住大部分双眼，发尾有细长散束。",
+      "reason": "",
+      "review_check": "深色长发、遮眼刘海和细长发束同时可读。"
+    },
+    {
+      "id": "makeup",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见下半张脸是低反差自然妆面，唇色淡粉、局部有柔和反光；眼妆被刘海遮挡。",
+      "decision": "preserve",
+      "prompt": "低反差自然妆面、柔和淡粉唇色和细微唇面反光。",
+      "reason": "",
+      "review_check": "妆面自然克制，不补造不可见的浓重眼妆。"
+    },
+    {
+      "id": "expression",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "partial",
+      "observation": "嘴唇轻微分开，下颌放松；眼部表情被头发遮挡。",
+      "decision": "preserve",
+      "prompt": "下颌放松、嘴唇自然微分的安静表情。",
+      "reason": "",
+      "review_check": "表情保持安静松弛，不变成露齿笑。"
+    },
+    {
+      "id": "gaze",
+      "source_ids": [],
+      "evidence": "unknown",
+      "observation": "双眼被长刘海遮挡，无法可靠确定目光方向。",
+      "decision": "unknown",
+      "prompt": "",
+      "reason": "原图不能确认视线方向；遮眼事实已由hair项保留。",
+      "review_check": ""
+    },
+    {
+      "id": "pose",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "人物站在窗边，画面右侧的手臂向下支撑在窗台，躯干轻靠窗框，重心稳定。",
+      "decision": "preserve",
+      "prompt": "站在大窗边，画面右侧的手臂自然支撑窗台，躯干轻靠窗框，重心稳定。",
+      "reason": "",
+      "review_check": "保留站立倚窗和画面右侧的手臂支撑，不改成坐姿。"
+    },
+    {
+      "id": "action",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "画面左侧的手握住一只无标识白色陶瓷杯，杯沿在下脸旁；画面右侧的手掌落在窗台。",
+      "decision": "preserve",
+      "prompt": "画面左侧的手握一只无标识白色陶瓷杯，杯沿靠近下脸；画面右侧的手掌自然落在窗台。",
+      "reason": "",
+      "review_check": "杯子被画面左侧的手稳定握住，画面右侧的手与窗台接触可见。"
+    },
+    {
+      "id": "body",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见自然腰线、柔和髋部和大腿体量；上胸被长发遮挡，肩背、完整腿部比例及隐藏身体结构不可见。",
+      "decision": "preserve",
+      "prompt": "保留自然腰线、柔和髋部和大腿的连续体量，比例与站姿协调。",
+      "reason": "",
+      "review_check": "只核对可见腰、髋和大腿体量；不把被遮挡的上胸或背面当作来源事实。"
+    },
+    {
+      "id": "wardrobe",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "partial",
+      "observation": "可见浅灰细罗纹、抽绳腰头和荷叶边短裤；上身衣物结构被长发遮挡，无法确认。",
+      "decision": "preserve",
+      "prompt": "浅灰细罗纹抽绳腰头和荷叶边的轻质针织短裤。",
+      "reason": "",
+      "review_check": "仅保留可见的浅灰罗纹抽绳短裤；上衣覆盖由目标设计决定。"
+    },
+    {
+      "id": "camera",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "竖幅3:4，中近景从头顶至大腿上部，窗边在画面右侧形成垂直线。",
+      "decision": "preserve",
+      "prompt": "竖幅3:4，从头顶到大腿上部的中近景，窗框在画面右侧形成垂直层次。",
+      "reason": "",
+      "review_check": "保持竖向中近景和右侧窗框，不裁成头肩特写。"
+    },
+    {
+      "id": "lighting",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "大窗日光从画面右侧侧后方进入，头发边缘明亮，室内阴影保持柔和。",
+      "decision": "preserve",
+      "prompt": "大窗日光从画面右侧侧后方照入，发缘明亮，室内阴影柔和。",
+      "reason": "",
+      "review_check": "窗光方向和明亮发缘可读，皮肤阴影不硬。"
+    },
+    {
+      "id": "palette",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "暖灰卧室、白色窗光、深色头发与浅灰针织形成低饱和日常配色。",
+      "decision": "preserve",
+      "prompt": "暖灰室内、白色窗光、深色头发和浅灰针织构成低饱和日常配色。",
+      "reason": "",
+      "review_check": "色彩安静自然，不加入高饱和霓虹色。"
+    },
+    {
+      "id": "surface",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "发丝有细束和逆光边缘，针织罗纹可辨，皮肤是连续柔和的自然明暗。",
+      "decision": "preserve",
+      "prompt": "细束发丝与逆光边缘可辨，针织罗纹清楚，皮肤保持连续柔和的自然明暗。",
+      "reason": "",
+      "review_check": "发、针织和皮肤各自有材质区别，皮肤不塑料化。"
+    },
+    {
+      "id": "environment",
+      "source_ids": [
+        "daylight-window-reference"
+      ],
+      "evidence": "observed",
+      "observation": "靠窗卧室有床品、暖色小灯和远处城市窗景，生活物件提供深度层次。",
+      "decision": "preserve",
+      "prompt": "靠大窗的暖灰生活卧室，床品、柔和小灯和远处城市窗景形成日常深度层次。",
+      "reason": "",
+      "review_check": "保留窗边卧室的生活层次，不复制来源中的具体照片或文字。"
+    }
+  ]
+}

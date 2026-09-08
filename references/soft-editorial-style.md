@@ -2,7 +2,26 @@
 
 用户给定四张人物参考的蒸馏结果。适用于明确请求“柔映”、这组参考的相似风格，或已确认的参考匹配；不是镜造所有人物的默认外观。共同胶囊：[soft-editorial-character.json](style-capsules/soft-editorial-character.json)。
 
-**当前状态：已授权收录的 draft，真实图像部分验证。** 三个预先编写的 text-only 迁移测试中，奶油粉男性肖像返回图像但服装前襟、皮肤处理和画幅存在偏差；日常与深红女性测试均在输出阶段被工具拦截，未返回图像。没有两项视觉通过，不能标为 validated/adopted。详见[记录](../tests/forward-evidence/soft-editorial-style-review.json)。发布和安装不改变这一状态。
+**v1.10 优先使用逐项参考档案。** 旧通用胶囊仍为 draft：它的三个原始 text-only 测试只有男性肖像返回，且有偏差；两项女性输出被拦截，见[旧记录](../tests/forward-evidence/soft-editorial-style-review.json)。新 reference-profile 链路的四次女性测试均返回图像，附图保真明显更强，纯文本定向修正后手势与缎带改善，仍有刘海/材质与帽顶裁切偏差，见[新记录](../tests/forward-evidence/reference-profile-style-review.json)。另一次窗边附图测试在输入检查处被拦截，无图可验。这些是不同输入路径，不能把新结果冒充旧胶囊或旧失败输入的复测成功。
+
+## 四张参考的具体入口
+
+需要保留发色、表情、动作和服装时，先读[参考蒸馏](reference-distillation.md)，按所选参考使用一个 profile，不把多张人物平均成一个形象。
+
+| 参考/用途 | Profile | 当前验证 |
+|---|---|---|
+| 一：深色遮眼长发、持杯倚窗 | [daylight-window](../examples/reference-profile-daylight-window.json) | 编译通过；实际附图调用被输入检查拦截，无图片 |
+| 二：浅金双马尾、扶发坐姿 | [daylight-seated](../examples/reference-profile-daylight-seated.json) | 编译与引用合同通过，未生图 |
+| 三：铂金齐刘海、指尖触脸、粉白衣帽 | [cream-rose](../examples/reference-profile-cream-rose.json) | 实际附图已出图，头倾/手形有偏差 |
+| 四：黑发单眼遮挡、转肩、红黑衣帽 | [crimson](../examples/reference-profile-crimson.json) | 实际附图已出图，表情和装饰细节有偏差 |
+| 三的纯文本迁移及定向改进 | [cream-rose-text-refined](../examples/reference-profile-cream-rose-text-refined.json) | 已出图，手势/缎带改善；发色/帽料仍偏差、帽顶裁切未通过 |
+
+每份 profile 的目标 spec 与其文件同名，位于 `tests/forward-specs/`。附图案例保留运行时占位，不随 Skill 分发用户原图；生成前绑定对应真实文件。原图一不可知的上衣在示例目标中新增普通不透明无袖短背心，保留已知肩臂和腰腹范围；这是明确目标设计，并非声称从源图还原了隐藏衣片。
+
+```bash
+python3 scripts/compile_prompt.py tests/forward-specs/reference-profile-cream-rose.json \
+  --reference-profile examples/reference-profile-cream-rose.json --platform openai
+```
 
 ## 观察真值
 
